@@ -17,6 +17,6 @@ public class Robo {
     }
 
     public void exibirPosicao() {
-        System.out.printf("(%d, %d)\n", posicaoX, posicaoY);
+        System.out.printf("O robô %s está em (%d, %d)\n", nome, posicaoX, posicaoY);
     }
 }
