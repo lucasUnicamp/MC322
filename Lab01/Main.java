@@ -7,11 +7,11 @@ public class Main {
         Robo roboBeta = new Robo("Beta", 0, 0);
 
         roboAlfa.mover(10, -10);
-        salaTeste.dentroDosLimites(roboAlfa.getX(), roboAlfa.getY());
+        System.out.printf("%b\n", salaTeste.dentroDosLimites(roboAlfa.getX(), roboAlfa.getY()));
         roboAlfa.exibirPosicao();
 
         roboBeta.mover(110, 42);
-        salaTeste.dentroDosLimites(roboBeta.getX(), roboBeta.getY());
+        System.out.printf("%b\n", salaTeste.dentroDosLimites(roboBeta.getX(), roboBeta.getY()));
         roboBeta.exibirPosicao();
     }
 }
