@@ -1,5 +1,5 @@
 # MC322
-Repository for MC332 Lab projects
+Repositório para os projetos de MC322
 
-**Name:** Lucas Henrique & Leonardo Ferreira\
-**RA:** 276617 & 281289
+**Nomes:** Lucas Henrique & Leonardo Ferreira\
+**RAs:** 276617 & 281289
