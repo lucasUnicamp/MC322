@@ -12,11 +12,19 @@ public class Robo {
     }
 
     public void mover(int deltaX, int deltaY) {
-        posicaoX = deltaX;
-        posicaoY = deltaY;
+        posicaoX += deltaX;
+        posicaoY += deltaY;
     }
 
     public void exibirPosicao() {
         System.out.printf("O robô %s está em (%d, %d)\n", nome, posicaoX, posicaoY);
+    }
+
+    public int getX() {
+        return posicaoX;
+    }
+
+    public int getY() {
+        return posicaoY;
     }
 }
