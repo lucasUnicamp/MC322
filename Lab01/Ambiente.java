@@ -8,9 +8,6 @@ public class Ambiente {
     }
 
     public boolean dentroDosLimites(int x, int y) {
-        if(x < 0 || x > largura || y < 0 || y > altura) 
-            return false;
-        
-        return true;
+        return x > 0 && x < largura && y > 0 && y < altura;
     }
 }
