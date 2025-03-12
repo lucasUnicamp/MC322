@@ -1,5 +1,8 @@
 # MC322
-Repositório para os projetos de MC322
+Repositório para os laboratórios de *MC322*
 
-**Nomes:** Lucas Henrique & Leonardo Ferreira\
-**RAs:** 276617 & 281289
+Autoria de:
+```
+Lucas Henrique Bertanha                 276617
+Leonardo Ferreira                       281289
+```
