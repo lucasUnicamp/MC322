@@ -1,8 +1,8 @@
 # MC322
 Repositório para os laboratórios de *MC322*
 
-Autoria de:
-```
-Lucas Henrique Bertanha                 276617
-Leonardo Ferreira                       281289
-```
+<br/>
+
+**Autoria de:**
+- 276617 &emsp; Lucas Henrique Bertanha     
+- 281289 &emsp; Leonardo Ferreira 
