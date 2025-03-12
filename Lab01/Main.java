@@ -8,7 +8,7 @@ public class Main {
         System.out.printf("%b\n", salaTeste.dentroDosLimites(roboAlfa.getX(), roboAlfa.getY()));
         roboAlfa.exibirPosicao();
 
-        roboBeta.mover(110, 42);
+        roboBeta.mover(110, 0);
         System.out.printf("%b\n", salaTeste.dentroDosLimites(roboBeta.getX(), roboBeta.getY()));
         roboBeta.exibirPosicao();
     }
