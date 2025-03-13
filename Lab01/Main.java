@@ -5,11 +5,13 @@ public class Main {
         Robo roboBeta = new Robo("Beta", 0, 0);
 
         roboAlfa.mover(10, -10);
-        System.out.printf("%b\n", salaTeste.dentroDosLimites(roboAlfa.getX(), roboAlfa.getY()));
         roboAlfa.exibirPosicao();
+        System.out.printf("O robô está nos limites?%b\n", salaTeste.dentroDosLimites(roboAlfa.getX(), roboAlfa.getY()));
+        
 
         roboBeta.mover(110, 0);
-        System.out.printf("%b\n", salaTeste.dentroDosLimites(roboBeta.getX(), roboBeta.getY()));
         roboBeta.exibirPosicao();
+        System.out.printf("O robô está nos limites?%b\n", salaTeste.dentroDosLimites(roboBeta.getX(), roboBeta.getY()));
+        
     }
 }
