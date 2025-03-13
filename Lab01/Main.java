@@ -6,12 +6,12 @@ public class Main {
 
         roboAlfa.mover(10, -10);
         roboAlfa.exibirPosicao();
-        System.out.printf("O robô está nos limites?%b\n", salaTeste.dentroDosLimites(roboAlfa.getX(), roboAlfa.getY()));
+        System.out.printf("O robô está nos limites: %b\n", salaTeste.dentroDosLimites(roboAlfa.getX(), roboAlfa.getY()));
         
 
         roboBeta.mover(110, 0);
         roboBeta.exibirPosicao();
-        System.out.printf("O robô está nos limites?%b\n", salaTeste.dentroDosLimites(roboBeta.getX(), roboBeta.getY()));
+        System.out.printf("O robô está nos limites: %b\n\n", salaTeste.dentroDosLimites(roboBeta.getX(), roboBeta.getY()));
         
     }
 }
