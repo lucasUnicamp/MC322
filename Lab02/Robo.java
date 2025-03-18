@@ -6,7 +6,7 @@ public class Robo {
 
     public Robo(String nome, String direcao, int posicaoX, int posicaoY) {
         this.nome = nome;
-        // this.direcao = direcao;
+        this.direcao = direcao;
         this.posicaoX = posicaoX;
         this.posicaoY = posicaoY;
     }
@@ -21,7 +21,7 @@ public class Robo {
     // }
 
     public void exibirPosicao() {
-        System.out.printf("\nO robô %s está em (%d, %d).\n", nome, posicaoX, posicaoY);
+        System.out.printf("\nO robô %s está em (%d, %d) na direção %s.\n", nome, posicaoX, posicaoY, direcao);
     }
 
     public String getDirecao() {
