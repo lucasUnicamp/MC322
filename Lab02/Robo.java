@@ -1,10 +1,12 @@
 public class Robo {
     private String nome;
+    private String direcao;
     private int posicaoX;
     private int posicaoY;
 
-    public Robo(String nome, int posicaoX, int posicaoY) {
+    public Robo(String nome, String direcao, int posicaoX, int posicaoY) {
         this.nome = nome;
+        // this.direcao = direcao;
         this.posicaoX = posicaoX;
         this.posicaoY = posicaoY;
     }
@@ -14,8 +16,16 @@ public class Robo {
         posicaoY += deltaY;
     }
 
+    // public void identificarObstaculo() {
+        
+    // }
+
     public void exibirPosicao() {
         System.out.printf("\nO robô %s está em (%d, %d).\n", nome, posicaoX, posicaoY);
+    }
+
+    public String getDirecao() {
+        return direcao;
     }
 
     public int getX() {

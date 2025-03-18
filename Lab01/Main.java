@@ -12,6 +12,5 @@ public class Main {
         roboBeta.mover(110, 0);
         roboBeta.exibirPosicao();
         System.out.printf("O robô está nos limites: %b\n\n", salaTeste.dentroDosLimites(roboBeta.getX(), roboBeta.getY()));
-        
     }
 }
