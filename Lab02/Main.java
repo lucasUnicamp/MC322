@@ -1,8 +1,8 @@
 public class Main {
     public static void main(String[] args) {
         Ambiente salaTeste = new Ambiente(100, 100);
-        Robo roboAlfa = new Robo("Alfa", 50, 50);
-        Robo roboBeta = new Robo("Beta", 0, 0);
+        Robo roboAlfa = new Robo("Alfa", "Norte", 50, 50);
+        Robo roboBeta = new Robo("Beta", "Sul", 0, 0);
 
         roboAlfa.mover(10, -10);
         roboAlfa.exibirPosicao();
