@@ -18,23 +18,19 @@ public class Robo {
         posicaoY += deltaY;
     }
 
-    // public void identificarObstaculo() {
-        
-    // }
-
     public void exibirPosicao() {
-        System.out.printf("\nO robô %s está em (%d, %d) na direção %s.\n", nome, posicaoX, posicaoY, direcao);
+        System.out.printf("O robô %s está em (%d, %d) na direção %s.\n", nome, posicaoX, posicaoY, direcao);
     }
 
-    public String getDirecao() {
+    public String pegaDirecao() {
         return direcao;
     }
 
-    public int getX() {
+    public int pegaX() {
         return posicaoX;
     }
 
-    public int getY() {
+    public int pegaY() {
         return posicaoY;
     }
 }
