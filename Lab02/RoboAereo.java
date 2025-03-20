@@ -1,5 +1,3 @@
-package Package02;
-
 public class RoboAereo extends Robo {
     private int altitude;
     private int altitudeMaxima;

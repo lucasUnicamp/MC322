@@ -1,5 +1,3 @@
-package Package02;
-
 public class Robo {
     protected String nome;
     protected String direcao;
