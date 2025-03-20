@@ -1,5 +1,4 @@
-import Package01.Ambiente;
-import Package01.Robo;
+import Package01.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,8 +10,7 @@ public class Main {
         roboAlfa.exibirPosicao();
         System.out.printf("O robô está nos limites: %b\n", salaTeste.dentroDosLimites(roboAlfa.getX(), roboAlfa.getY()));
         
-
-        roboBeta.mover(110, 0);
+        roboBeta.mover(200, 0);
         roboBeta.exibirPosicao();
         System.out.printf("O robô está nos limites: %b\n\n", salaTeste.dentroDosLimites(roboBeta.getX(), roboBeta.getY()));
     }
