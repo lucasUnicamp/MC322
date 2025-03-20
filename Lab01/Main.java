@@ -1,3 +1,6 @@
+import Package01.Ambiente;
+import Package01.Robo;
+
 public class Main {
     public static void main(String[] args) {
         Ambiente salaTeste = new Ambiente(100, 100);
