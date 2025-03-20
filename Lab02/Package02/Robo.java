@@ -1,10 +1,10 @@
 package Package02;
 
 public class Robo {
-    private String nome;
-    private String direcao;
-    private int posicaoX;
-    private int posicaoY;
+    protected String nome;
+    protected String direcao;
+    protected int posicaoX;
+    protected int posicaoY;
 
     public Robo(String nome, String direcao, int posicaoX, int posicaoY) {
         this.nome = nome;
