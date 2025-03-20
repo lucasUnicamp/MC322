@@ -1,5 +1,3 @@
-package Package01;
-
 public class Ambiente {
     private int largura;
     private int altura;
