@@ -1,3 +1,5 @@
+package Package02;
+
 public class RoboTerrestre extends Robo {
     private int velocidadeMaxima;
 

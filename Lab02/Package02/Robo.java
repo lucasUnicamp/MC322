@@ -1,3 +1,5 @@
+package Package02;
+
 public class Robo {
     private String nome;
     private String direcao;
