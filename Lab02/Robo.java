@@ -12,8 +12,12 @@ public class Robo {
     }
 
     public void mover(int deltaX, int deltaY) {
-        posicaoX += deltaX;
-        posicaoY += deltaY;
+        if((posicaoX + deltaX >= 0) && (posicaoY + deltaY >= 0)){
+            posicaoX += deltaX;
+            posicaoY += deltaY;
+        } else {
+            System.out.println("Impossível ir para coordenadas negativas.");
+        }
     }
 
     public void exibirPosicao() {
