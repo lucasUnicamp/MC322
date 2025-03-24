@@ -9,6 +9,7 @@ public class Robo {
         this.direcao = direcao;
         this.posicaoX = posicaoX;
         this.posicaoY = posicaoY;
+        System.out.printf("Robô padrão '%s' criado na posição (%d, %d) apontado na direção %s.\n", nome, posicaoX, posicaoY, direcao);
     }
 
     public void mover(int deltaX, int deltaY) {
