@@ -9,13 +9,13 @@ public class Robo {
         this.direcao = direcao;
         this.posicaoX = posicaoX;
         this.posicaoY = posicaoY;
-        System.out.printf("Robô padrão '%s' criado na posição (%d, %d) apontado na direção %s.\n", nome, posicaoX, posicaoY, direcao);
     }
 
     public void mover(int deltaX, int deltaY) {
         if((posicaoX + deltaX >= 0) && (posicaoY + deltaY >= 0)){
             posicaoX += deltaX;
             posicaoY += deltaY;
+            System.out.printf("Movendo robô '%s' em %d no eixo x e em %d no y\n", nome, deltaX, deltaY);
         } else {
             System.out.println("Impossível ir para coordenadas negativas.");
         }
