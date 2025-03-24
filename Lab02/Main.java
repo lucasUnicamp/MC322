@@ -7,6 +7,7 @@ public class Main {
 
         System.out.print("\n");
         Robo roboAlfa = new Robo("Alfa", "Norte", 50, 50);
+        salaTeste.adicionarRobo(roboAlfa);
 
         roboAlfa.mover(10, -10);
         roboAlfa.exibirPosicao();
@@ -14,7 +15,8 @@ public class Main {
         
         System.out.printf("\n");
         RoboTerrestre roboBeta = new RoboTerrestre("Beta", "Sul", 0, 0, 15);
-        
+        salaTeste.adicionarRobo(roboBeta);
+
         System.out.printf("Qual a velocidade do Robô Terrestre? ");
         int userVelo = scan.nextInt();
         roboBeta.velocidade(userVelo);
@@ -24,7 +26,8 @@ public class Main {
 
         System.out.printf("\n");
         RoboAereo roboGama = new RoboAereo("Gama", "Leste", 30, 70, 20, 50);
-        
+        salaTeste.adicionarRobo(roboGama);
+
         roboGama.exibirPosicao();
         System.out.printf("Quanto o Robô Aereo vai subir? ");
         int userSubir = scan.nextInt();

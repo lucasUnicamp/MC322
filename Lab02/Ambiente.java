@@ -18,7 +18,7 @@ public class Ambiente {
     public boolean dentroDosLimites(Robo robo) {
         int x = robo.getX();
         int y = robo.getY();
-        return x >= 0 && x <= largura && y >= 0 && y <= comprimento;
+        return (x >= 0 && x <= largura) && (y >= 0 && y <= comprimento);
     }
 
     public boolean dentroDosLimites(RoboAereo robo){
