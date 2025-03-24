@@ -8,7 +8,8 @@ public class RoboAereo extends Robo {
         this.altitudeMaxima = altitudeMaxima;
     }
 
-    @Override public void exibirPosicao() {
+    @Override
+    public void exibirPosicao() {
         System.out.printf("O robô %s está em (%d, %d) na direção %s e %d acima do solo.\n", nome, posicaoX, posicaoY, direcao, altitude);
     }
 

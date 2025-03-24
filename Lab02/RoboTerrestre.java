@@ -11,10 +11,10 @@ public class RoboTerrestre extends Robo {
         velocidade = veloc;
     }
 
-    @Override public void mover(int deltaX, int deltaY) {
+    @Override
+    public void mover(int deltaX, int deltaY) {
         if(velocidade <= velocidadeMaxima) {
-            posicaoX += deltaX;
-            posicaoY += deltaY;
+            super.mover(deltaX, deltaY);
         }
         else
             System.out.printf("%s está acima da velocidade máxima de %d.\n", nome, velocidadeMaxima);
