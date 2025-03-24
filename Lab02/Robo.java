@@ -24,11 +24,11 @@ public class Robo {
         return direcao;
     }
 
-    public int pegaX() {
+    public int getX() {
         return posicaoX;
     }
 
-    public int pegaY() {
+    public int getY() {
         return posicaoY;
     }
 }

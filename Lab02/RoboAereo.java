@@ -12,6 +12,14 @@ public class RoboAereo extends Robo {
         System.out.printf("O robô %s está em (%d, %d) na direção %s e %d acima do solo.\n", nome, posicaoX, posicaoY, direcao, altitude);
     }
 
+    public int getAltitude(){
+        return altitude;
+    }
+
+    public int getAltMax(){
+        return altitudeMaxima;
+    }
+
     public void subir(int metros) {
         if(altitude + metros > altitudeMaxima)
             System.out.printf("%s ultrapassaria a altitude máxima permitida.\n", nome);

@@ -10,7 +10,7 @@ public class Main {
 
         roboAlfa.mover(10, -10);
         roboAlfa.exibirPosicao();
-        System.out.printf("O robô está nos limites: %b\n", salaTeste.dentroDosLimites(roboAlfa.pegaX(), roboAlfa.pegaY()));
+        System.out.printf("O robô está nos limites: %b\n", salaTeste.dentroDosLimites(roboAlfa));
         
         System.out.printf("\n");
         RoboTerrestre roboBeta = new RoboTerrestre("Beta", "Sul", 0, 0, 15);
@@ -18,9 +18,9 @@ public class Main {
         System.out.printf("Qual a velocidade do Robô Terrestre? ");
         int userVelo = scan.nextInt();
         roboBeta.velocidade(userVelo);
-        roboBeta.mover(150, 0);
+        roboBeta.mover(50, 0);
         roboBeta.exibirPosicao();
-        System.out.printf("O robô está nos limites: %b\n", salaTeste.dentroDosLimites(roboBeta.pegaX(), roboBeta.pegaY()));
+        System.out.printf("O robô está nos limites: %b\n", salaTeste.dentroDosLimites(roboBeta));
 
         System.out.printf("\n");
         RoboAereo roboGama = new RoboAereo("Gama", "Leste", 30, 70, 20, 50);
@@ -32,6 +32,7 @@ public class Main {
         System.out.printf("Quanto ele vai descer? ");
         int userDescer = scan.nextInt();
         roboGama.descer(userDescer);
+        System.out.printf("O robô está nos limites: %b\n", salaTeste.dentroDosLimites(roboBeta));
 
         scan.close();
     }
