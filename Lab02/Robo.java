@@ -36,13 +36,20 @@ public class Robo {
             System.out.println("Impossível ir para coordenadas negativas.");
     }
 
-    public Boolean identificarObstaculo() {
+    // public Boolean checarObstaculoCaminho(int deltaX, int deltaY) {
+    //     int tempX = posicaoX;
+    //     int tempY = posicaoY;
 
+    //     for (int i = 0; i < deltaX; i++) {
+    //         if (ambiente.obstaculos[tempX + 1][posicaoY] || ambiente.obstaculos[tempX - 1][posicaoY] || ambiente.obstaculos[tempX][posicaoY + 1] || ambiente.obstaculos[tempX][posicaoY - 1]) {
 
+    //         }
 
+    //         tempX++;
+    //     }
 
-        return true;
-    }
+    //     return true;
+    // }
 
     public void exibirPosicao() {
         System.out.printf("O robô %s está em (%d, %d) na direção %s.\n", nome, posicaoX, posicaoY, direcao);

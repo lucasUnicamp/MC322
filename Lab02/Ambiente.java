@@ -4,13 +4,13 @@ public class Ambiente {
     protected int largura;
     protected int altura;
     public ArrayList<Robo> robosAtivos;
-    public int [][] obstaculos;
+    public boolean [][] obstaculos;
 
     public Ambiente(int largura, int altura) {
         this.largura = largura;
         this.altura = altura;
         this.robosAtivos = new ArrayList<>();
-        obstaculos = new int[largura][altura];
+        obstaculos = new boolean[largura][altura];
     }
 
     public void adicionarRobo(Robo r){
@@ -19,7 +19,7 @@ public class Ambiente {
 
     public void adicionarObstaculos(int [][] obstaculosNovos){
         for (int i = 0; i < obstaculosNovos.length; i++){
-            obstaculos[obstaculosNovos[i][0]][obstaculosNovos[i][1]] = 1;
+            obstaculos[obstaculosNovos[i][0]][obstaculosNovos[i][1]] = true;
         }
     }
 
