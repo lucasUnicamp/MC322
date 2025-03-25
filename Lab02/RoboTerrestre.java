@@ -2,13 +2,18 @@ public class RoboTerrestre extends Robo {
     private int velocidade;
     private int velocidadeMaxima;
 
-    public RoboTerrestre(String nome, String direcao, int posicaoX, int posicaoY, int velocidadeMaxima) {
-        super(nome, direcao, posicaoX, posicaoY);
+    public RoboTerrestre(String nome, int posicaoX, int posicaoY, int velocidadeMaxima) {
+        super(nome, posicaoX, posicaoY);
         this.velocidadeMaxima = velocidadeMaxima;
-        System.out.printf("Robô terrestre '%s' criado na posição (%d, %d) apontado na direção %s com velocidade máxima de %d.\n", nome, posicaoX, posicaoY, direcao, velocidadeMaxima);
     }
 
-    public void velocidade(int veloc) {
+    @Override
+    protected void imprimeCriacao(){
+        System.out.printf("Robô terrestre '%s' criado na posição (%d, %d) apontado na direção %s com velocidade máxima de %d.\n"
+        , nome, posicaoX, posicaoY, direcao, velocidadeMaxima);
+    }
+
+    public void setVelocidade(int veloc) {
         velocidade = veloc;
     }
 

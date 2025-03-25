@@ -4,14 +4,23 @@ public class Robo {
     protected int posicaoX;
     protected int posicaoY;
 
-    public Robo(String nome, String direcao, int posicaoX, int posicaoY) {
+    public Robo(String nome, int posicaoX, int posicaoY, Ambiente ambiente) {
         this.nome = nome;
-        this.direcao = direcao;
+        this.direcao = "Norte";
         this.posicaoX = posicaoX;
         this.posicaoY = posicaoY;
+        ambiente.adicionarRobo(this);
+        imprimeCriacao();
+    }
+
+    // Usada para imprimir as informações úteis e checar se estão corretas após a criação do robô
+    protected void imprimeCriacao(){
+        System.out.printf("Robô padrão '%s' criado na posição (%d, %d) apontado na direção %s.\n"
+        , nome, posicaoX, posicaoY, direcao);
     }
 
     public void mover(int deltaX, int deltaY) {
+        // Checa se o robô não está entrando nos quadrantes negativos
         if((posicaoX + deltaX >= 0) && (posicaoY + deltaY >= 0)){
             posicaoX += deltaX;
             posicaoY += deltaY;
