@@ -1,14 +1,14 @@
 import java.util.ArrayList;
 
 public class Ambiente {
-    private int largura;
-    private int comprimento;
+    protected int largura;
+    protected int altura;
     public ArrayList<Robo> robosAtivos;
     public int [][] obstaculos;
 
     public Ambiente(int largura, int altura) {
         this.largura = largura;
-        this.comprimento = altura;
+        this.altura = altura;
         this.robosAtivos = new ArrayList<>();
         obstaculos = new int[largura][altura];
     }
@@ -17,10 +17,16 @@ public class Ambiente {
         robosAtivos.add(r);
     }
 
+    public void adicionarObstaculos(int [][] obstaculosNovos){
+        for (int i = 0; i < obstaculosNovos.length; i++){
+            obstaculos[obstaculosNovos[i][0]][obstaculosNovos[i][1]] = 1;
+        }
+    }
+
     public boolean dentroDosLimites(Robo robo) {
         int x = robo.getX();
         int y = robo.getY();
-        return (x >= 0 && x <= largura) && (y >= 0 && y <= comprimento);
+        return (x >= 0 && x <= altura) && (y >= 0 && y <= largura);
     }
 
     public boolean dentroDosLimites(RoboAereo robo){
@@ -28,6 +34,6 @@ public class Ambiente {
         int y = robo.getY();
         int z = robo.getAltitude();
         int altMax = robo.getAltitudeMax();
-        return (x >= 0 && x <= largura) && (y >= 0 && y <= comprimento) && (z >= 0 && z <= altMax);
+        return (x >= 0 && x <= altura) && (y >= 0 && y <= largura) && (z >= 0 && z <= altMax);
     }
 }

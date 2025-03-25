@@ -2,8 +2,8 @@ public class RoboAereo extends Robo {
     private int altitude;
     private int altitudeMaxima;
     
-    public RoboAereo(String nome, int posicaoX, int posicaoY, int altitude, int altitudeMaxima) {
-        super(nome, posicaoX, posicaoY);
+    public RoboAereo(String nome, int posicaoX, int posicaoY, int altitude, int altitudeMaxima, Ambiente ambiente) {
+        super(nome, posicaoX, posicaoY, ambiente);
         this.altitude = altitude;
         this.altitudeMaxima = altitudeMaxima;
     }
@@ -14,9 +14,34 @@ public class RoboAereo extends Robo {
         , nome, posicaoX, posicaoY, altitude, direcao, altitudeMaxima);
     }
 
+    // Usada para imprimir as informações úteis e checar se estão corretas após a criação do robô
     @Override
     public void exibirPosicao() {
         System.out.printf("O robô %s está em (%d, %d) na direção %s e %d acima do solo.\n", nome, posicaoX, posicaoY, direcao, altitude);
+    }
+
+    public void subir(int metros) {
+        // Compara altitude do robô com a máxima dada
+        if(altitude + metros <= altitudeMaxima)
+            altitude += metros;
+        // Não atualiza a altitude caso tenha ultrapassado a máxima dada
+        else
+            System.out.printf("%s ultrapassaria a altitude máxima permitida.\n", nome);
+
+        System.out.printf("Altitude atual: %d\n", altitude);
+    }
+
+    public void descer(int metros) {
+        // Compara a altitude do robô com a disância ao chão (0)
+        if(altitude - metros >= 0)
+            altitude -= metros;
+        // Atuaçiza a altitude para 0 caso tenha descido demais
+        else {
+            System.out.printf("%s espatifou-se no chão.\n", nome);
+            altitude = 0;
+        }
+
+        System.out.printf("Altitude atual: %d\n", altitude);
     }
 
     public int getAltitude(){
@@ -25,25 +50,5 @@ public class RoboAereo extends Robo {
 
     public int getAltitudeMax(){
         return altitudeMaxima;
-    }
-
-    public void subir(int metros) {
-        if(altitude + metros > altitudeMaxima)
-            System.out.printf("%s ultrapassaria a altitude máxima permitida.\n", nome);
-        else
-            altitude += metros;
-
-        System.out.printf("Altitude atual: %d\n", altitude);
-    }
-
-    public void descer(int metros) {
-        if(altitude - metros < 0) {
-            System.out.printf("%s espatifou-se no chão.\n", nome);
-            altitude = 0;
-        }
-        else
-            altitude -= metros;
-
-        System.out.printf("Altitude atual: %d\n", altitude);
     }
 }

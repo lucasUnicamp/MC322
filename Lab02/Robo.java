@@ -3,38 +3,56 @@ public class Robo {
     protected String direcao;
     protected int posicaoX;
     protected int posicaoY;
+    protected Ambiente ambiente;
 
     public Robo(String nome, int posicaoX, int posicaoY, Ambiente ambiente) {
         this.nome = nome;
         this.direcao = "Norte";
         this.posicaoX = posicaoX;
         this.posicaoY = posicaoY;
-        ambiente.adicionarRobo(this);
+        this.ambiente = ambiente;
+        ambiente.adicionarRobo(this);   // Adiciona o robô no ambiente logo que é criado
         imprimeCriacao();
     }
 
     // Usada para imprimir as informações úteis e checar se estão corretas após a criação do robô
-    protected void imprimeCriacao(){
+    protected void imprimeCriacao() {
         System.out.printf("Robô padrão '%s' criado na posição (%d, %d) apontado na direção %s.\n"
         , nome, posicaoX, posicaoY, direcao);
     }
 
     public void mover(int deltaX, int deltaY) {
-        // Checa se o robô não está entrando nos quadrantes negativos
-        if((posicaoX + deltaX >= 0) && (posicaoY + deltaY >= 0)){
-            posicaoX += deltaX;
-            posicaoY += deltaY;
+        int novoX = posicaoX + deltaX;
+        int novoY = posicaoY + deltaY;
+
+        // Checa se o robô não está saindo dos limites do ambiente
+        if((novoX >= 0) && (novoY >= 0) && (novoX <= ambiente.largura) && (novoY <= ambiente.altura)) {
+            posicaoX = novoX;
+            posicaoY = novoY;
             System.out.printf("Movendo robô '%s' em %d no eixo x e em %d no y\n", nome, deltaX, deltaY);
-        } else {
+        } 
+        // Não atualiza posição caso tenha saído dos limites
+        else 
             System.out.println("Impossível ir para coordenadas negativas.");
-        }
+    }
+
+    public Boolean identificarObstaculo() {
+
+
+
+
+        return true;
     }
 
     public void exibirPosicao() {
         System.out.printf("O robô %s está em (%d, %d) na direção %s.\n", nome, posicaoX, posicaoY, direcao);
     }
 
-    public String pegaDirecao() {
+    public void setDirecao(String drc) {
+        direcao = drc;
+    }
+
+    public String getDirecao() {
         return direcao;
     }
 
