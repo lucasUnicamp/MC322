@@ -30,7 +30,7 @@ public class RoboAereo extends Robo {
         // Compara a altitude do robô com a disância ao chão (0)
         if (altitude - metros >= 0)
             altitude -= metros;
-        // Atuaçiza a altitude para 0 caso tenha descido demais
+        // Atualiza a altitude para 0 caso tenha descido demais
         else {
             System.out.printf("'%s' espatifou-se no chão.\n", nome);
             altitude = 0;
