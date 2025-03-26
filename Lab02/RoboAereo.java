@@ -6,10 +6,6 @@ public class RoboAereo extends Robo {
         super(nome, posicaoX, posicaoY, ambiente);
         this.altitude = altitude;
         this.altitudeMaxima = altitudeMaxima;
-    }
-
-    @Override
-    public void imprimeCriacao(){
         System.out.printf("Robô aéreo '%s' criado na posição (%d, %d, %d) apontado na direção %s com altitude máxima permitida de %d.\n"
         , nome, posicaoX, posicaoY, altitude, direcao, altitudeMaxima);
     }
