@@ -7,7 +7,7 @@ public class Main {
         int[][] obstaculos = {
             {9, 30},
             {10, 28},
-            {0, 2},
+            {0, 75},
             {50, 56},
             {98, 99},
             {42, 42},
@@ -22,8 +22,11 @@ public class Main {
         //
         
         salaTeste.adicionarObstaculos(obstaculos);
-        roboNormal.mover(10, 30);
-        roboTerra.mover(65, 97);
+
+        roboNormal.mover(10, 30);       // Teste que deve falhar devido aos obstáculos
+        roboNormal.mover(40, 40);       // Teste que deve sucesseder
+        roboNormal.mover(-31, -12);                   // Teste de 'deltas' negativos que deve falhar devido aos obstáculos
+        roboNormal.mover(-5, 10);              // Teste de 'deltas' negativos que deve sucesseder 
 
         scan.close();
     }
