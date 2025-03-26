@@ -21,7 +21,7 @@ public class RoboAereo extends Robo {
 
     public void subir(int metros) {
         // Compara altitude do robô com a máxima dada
-        if(altitude + metros <= altitudeMaxima)
+        if (altitude + metros <= altitudeMaxima)
             altitude += metros;
         // Não atualiza a altitude caso tenha ultrapassado a máxima dada
         else
@@ -32,7 +32,7 @@ public class RoboAereo extends Robo {
 
     public void descer(int metros) {
         // Compara a altitude do robô com a disância ao chão (0)
-        if(altitude - metros >= 0)
+        if (altitude - metros >= 0)
             altitude -= metros;
         // Atuaçiza a altitude para 0 caso tenha descido demais
         else {

@@ -16,7 +16,7 @@ public class RoboTerrestre extends Robo {
     @Override
     public void mover(int deltaX, int deltaY) {
         // Compara velocidade do robô com a máxima dada
-        if(velocidade <= velocidadeMaxima) {
+        if (velocidade <= velocidadeMaxima) {
             super.mover(deltaX, deltaY);
         }
         // Não atualiza posição caso tenha ultrapassado a velocidade
