@@ -98,6 +98,16 @@ public class Robo {
         return caminhoBaixo || caminhoCima;
     }
 
+    public boolean identificarObstaculo() {
+        boolean temObstaculo = false;
+
+        if (ambiente.obstaculos[posicaoX + 1][posicaoY] || ambiente.obstaculos[posicaoX - 1][posicaoY]
+        || ambiente.obstaculos[posicaoX][posicaoY + 1] || ambiente.obstaculos[posicaoX][posicaoY - 1])
+            temObstaculo = true;
+        
+        return temObstaculo;
+    }
+
     public void exibirPosicao() {
         System.out.printf("O robô '%s' está em (%d, %d) na direção %s.\n\n", nome, posicaoX, posicaoY, direcao);
     }
