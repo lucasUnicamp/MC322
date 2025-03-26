@@ -36,20 +36,32 @@ public class Robo {
             System.out.println("Impossível ir para coordenadas negativas.");
     }
 
-    // public Boolean checarObstaculoCaminho(int deltaX, int deltaY) {
-    //     int tempX = posicaoX;
-    //     int tempY = posicaoY;
+    public Boolean checarObstaculoCaminho(int deltaX, int deltaY) {
+        boolean caminhoCima = true, caminhoBaixo = true;
+        
+        // Checa se a linha reta da componente horizontal do movimento, partindo da posição atual do robô 
+        // ou partindo da posição do robô após andar toda sua componente vertical, contém algum obstáculo;
+        // O loop para se ambos forem falsos, ou seja, se ambos tiverem um obstáculo;
+        for (int a = 0; (caminhoBaixo || caminhoCima) && a < deltaX; a++) {
+            if (ambiente.obstaculos[posicaoX + a][posicaoY]) 
+                caminhoCima = false;
 
-    //     for (int i = 0; i < deltaX; i++) {
-    //         if (ambiente.obstaculos[tempX + 1][posicaoY] || ambiente.obstaculos[tempX - 1][posicaoY] || ambiente.obstaculos[tempX][posicaoY + 1] || ambiente.obstaculos[tempX][posicaoY - 1]) {
+            if (ambiente.obstaculos[posicaoX + a][posicaoY + deltaY]) 
+                caminhoBaixo = false;
+        }
 
-    //         }
+        // Checa se a linha reta da componente vertical do movimento, partindo da posição atual do robô 
+        // ou partindo da posição do robô após andar toda sua componente horizontal, contém algum obstáculo;
+        for (int b = 0;(caminhoBaixo || caminhoCima) && b < deltaY; b++) {
+            if (ambiente.obstaculos[posicaoX][posicaoY + b])
+                caminhoBaixo = false;
+            
+            if (ambiente.obstaculos[posicaoX + deltaX][posicaoY + b])
+                caminhoCima = false;
+        }
 
-    //         tempX++;
-    //     }
-
-    //     return true;
-    // }
+        return caminhoBaixo || caminhoCima;
+    }
 
     public void exibirPosicao() {
         System.out.printf("O robô %s está em (%d, %d) na direção %s.\n", nome, posicaoX, posicaoY, direcao);
