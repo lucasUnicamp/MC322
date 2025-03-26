@@ -29,5 +29,9 @@ public class Main {
         roboNormal.mover(-5, 10);              // Teste de 'deltas' negativos que deve sucesseder 
 
         scan.close();
+
+        RoboPlanador roboPlanador = new RoboPlanador("Leonardo", 0, 0, salaTeste, 0, 500, 100);
+        roboPlanador.subir(50);
+        roboPlanador.mover(90, 4);
     }
 }

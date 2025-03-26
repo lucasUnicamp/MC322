@@ -20,7 +20,7 @@ public class RoboPlanador extends RoboAereo{
     public void mover(int deltaX, int deltaY){
         int deslocamento = Math.abs(deltaY) + Math.abs(deltaX);
         super.mover(deltaX, deltaY);
-        super.descer((150 - tamanhoAsa)*deslocamento); //cai lentamente quando desloca
+        super.descer(((120 - tamanhoAsa)*deslocamento)/100); //cai lentamente quando desloca
     }
 
     public void setTamanhoAsa(int tamanhoAsa){
