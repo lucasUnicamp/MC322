@@ -33,7 +33,7 @@ public class Robo {
         int novoY = posicaoY + deltaY;
 
         // Checa se o robô não está saindo dos limites do ambiente
-        if((novoX >= 0) && (novoY >= 0) && (novoX <= ambiente.largura) && (novoY <= ambiente.altura)) {
+        if ((novoX >= 0) && (novoY >= 0) && (novoX <= ambiente.largura) && (novoY <= ambiente.altura)) {
             // Checa se não há obstáculos nos 2 caminhos até o ponto final
             if (checarObstaculoCaminho(deltaX, deltaY)) {
                 posicaoX = novoX;
@@ -42,11 +42,11 @@ public class Robo {
                 this.exibirPosicao();
             } 
             else 
-                System.out.printf("Há obstáculos impedindo o movimento de '%s'.\n", nome);
+                System.out.printf("Há obstáculos impedindo o movimento de '%s'.\n\n", nome);
         } 
         // Não atualiza posição caso tenha saído dos limites
         else 
-            System.out.printf("'%s' não tem permissão para sair do ambiente.\n", nome);
+            System.out.printf("'%s' não tem permissão para sair do ambiente.\n\n", nome);
     }
 
     public Boolean checarObstaculoCaminho(int deltaX, int deltaY) {
@@ -55,29 +55,51 @@ public class Robo {
         // Checa se a linha reta da componente horizontal do movimento, partindo da posição atual do robô 
         // ou partindo da posição do robô após andar toda sua componente vertical, contém algum obstáculo;
         // O loop para se ambos os caminhos tiverem um obstáculo;
-        for (int a = 0; (caminhoBaixo || caminhoCima) && a < deltaX; a++) {
-            if (ambiente.obstaculos[posicaoX + a][posicaoY]) 
-                caminhoCima = false;
+        if (deltaX > 0) {
+            for (int a = 0; (caminhoBaixo || caminhoCima) && a < deltaX; a++) {
+                if (ambiente.obstaculos[posicaoX + a][posicaoY]) 
+                    caminhoCima = false;
 
-            if (ambiente.obstaculos[posicaoX + a][posicaoY + deltaY]) 
-                caminhoBaixo = false;
+                if (ambiente.obstaculos[posicaoX + a][posicaoY + deltaY]) 
+                    caminhoBaixo = false;
+            }
+        }
+        else {
+            for (int b = 0; (caminhoBaixo || caminhoCima) && b > deltaX; b--) {
+                if (ambiente.obstaculos[posicaoX + b][posicaoY]) 
+                    caminhoCima = false;
+
+                if (ambiente.obstaculos[posicaoX + b][posicaoY + deltaY]) 
+                    caminhoBaixo = false;
+            }
         }
 
         // Checa se a linha reta da componente vertical do movimento, partindo da posição atual do robô 
         // ou partindo da posição do robô após andar toda sua componente horizontal, contém algum obstáculo;
-        for (int b = 0; (caminhoBaixo || caminhoCima) && b < deltaY; b++) {
-            if (ambiente.obstaculos[posicaoX][posicaoY + b])
-                caminhoBaixo = false;
-            
-            if (ambiente.obstaculos[posicaoX + deltaX][posicaoY + b])
-                caminhoCima = false;
+        if (deltaY > 0) {
+            for (int c = 0; (caminhoBaixo || caminhoCima) && c < deltaY; c++) {
+                if (ambiente.obstaculos[posicaoX][posicaoY + c])
+                    caminhoBaixo = false;
+                
+                if (ambiente.obstaculos[posicaoX + deltaX][posicaoY + c])
+                    caminhoCima = false;
+            }
+        }
+        else {
+            for (int d = 0; (caminhoBaixo || caminhoCima) && d > deltaY; d--) {
+                if (ambiente.obstaculos[posicaoX][posicaoY + d])
+                    caminhoBaixo = false;
+                
+                if (ambiente.obstaculos[posicaoX + deltaX][posicaoY + d])
+                    caminhoCima = false;
+            }
         }
 
         return caminhoBaixo || caminhoCima;
     }
 
     public void exibirPosicao() {
-        System.out.printf("O robô '%s' está em (%d, %d) na direção %s.\n", nome, posicaoX, posicaoY, direcao);
+        System.out.printf("O robô '%s' está em (%d, %d) na direção %s.\n\n", nome, posicaoX, posicaoY, direcao);
     }
 
     public void setDirecao(String drc) {
