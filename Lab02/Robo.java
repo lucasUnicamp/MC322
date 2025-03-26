@@ -15,8 +15,7 @@ public class Robo {
         imprimeCriacao();
     }
 
-    // Usada para imprimir as informações úteis e checar se estão corretas após a criação do robô
-    protected void imprimeCriacao() {
+    public void imprimeCriacao() {
         System.out.printf("Robô padrão '%s' criado na posição (%d, %d) apontado na direção %s.\n"
         , nome, posicaoX, posicaoY, direcao);
     }
@@ -39,14 +38,15 @@ public class Robo {
             if (checarObstaculoCaminho(deltaX, deltaY)) {
                 posicaoX = novoX;
                 posicaoY = novoY;
-                System.out.printf("Movendo robô '%s' em %d no eixo x e em %d no y\n", nome, deltaX, deltaY);
+                System.out.printf("Movendo robô '%s' em %d no eixo x e em %d no y.\n", nome, deltaX, deltaY);
+                this.exibirPosicao();
             } 
             else 
-                System.out.printf("Há obstáculos impedindo o movimento.\n");
+                System.out.printf("Há obstáculos impedindo o movimento de '%s'.\n", nome);
         } 
         // Não atualiza posição caso tenha saído dos limites
         else 
-            System.out.println("Impossível ir para coordenadas negativas.\n");
+            System.out.printf("'%s' não tem permissão para sair do ambiente.\n", nome);
     }
 
     public Boolean checarObstaculoCaminho(int deltaX, int deltaY) {

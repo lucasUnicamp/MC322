@@ -2,15 +2,14 @@ public class RoboTerrestre extends Robo {
     private int velocidade;
     private int velocidadeMaxima;
 
-    public RoboTerrestre(String nome, int posicaoX, int posicaoY, int velocidadeMaxima, Ambiente ambiente) {
+    public RoboTerrestre(String nome, int posicaoX, int posicaoY, Ambiente ambiente, int velocidadeMaxima) {
         super(nome, posicaoX, posicaoY, ambiente);
         this.velocidadeMaxima = velocidadeMaxima;
     }
 
-    // Usada para imprimir as informações úteis e checar se estão corretas após a criação do robô
     @Override
-    protected void imprimeCriacao(){
-        System.out.printf("Robô terrestre '%s' criado na posição (%d, %d) apontado na direção %s com velocidade máxima de %d.\n"
+    public void imprimeCriacao(){
+        System.out.printf("Robô terrestre '%s' criado na posição (%d, %d) apontado na direção %s com velocidade máxima permitida de %d.\n"
         , nome, posicaoX, posicaoY, direcao, velocidadeMaxima);
     }
 
@@ -22,7 +21,7 @@ public class RoboTerrestre extends Robo {
         }
         // Não atualiza posição caso tenha ultrapassado a velocidade
         else {
-            System.out.printf("%s está acima da velocidade máxima de %d.\n", nome, velocidadeMaxima);
+            System.out.printf("'%s' está acima da velocidade máxima de %d.\n", nome, velocidadeMaxima);
         }
     }
 

@@ -2,22 +2,21 @@ public class RoboAereo extends Robo {
     private int altitude;
     private int altitudeMaxima;
     
-    public RoboAereo(String nome, int posicaoX, int posicaoY, int altitude, int altitudeMaxima, Ambiente ambiente) {
+    public RoboAereo(String nome, int posicaoX, int posicaoY, Ambiente ambiente, int altitude, int altitudeMaxima) {
         super(nome, posicaoX, posicaoY, ambiente);
         this.altitude = altitude;
         this.altitudeMaxima = altitudeMaxima;
     }
 
     @Override
-    protected void imprimeCriacao(){
+    public void imprimeCriacao(){
         System.out.printf("Robô aéreo '%s' criado na posição (%d, %d, %d) apontado na direção %s com altitude máxima permitida de %d.\n"
         , nome, posicaoX, posicaoY, altitude, direcao, altitudeMaxima);
     }
 
-    // Usada para imprimir as informações úteis e checar se estão corretas após a criação do robô
     @Override
     public void exibirPosicao() {
-        System.out.printf("O robô %s está em (%d, %d) na direção %s e %d acima do solo.\n", nome, posicaoX, posicaoY, direcao, altitude);
+        System.out.printf("O robô '%s' está em (%d, %d) na direção %s e %d acima do solo.\n", nome, posicaoX, posicaoY, direcao, altitude);
     }
 
     public void subir(int metros) {
@@ -26,7 +25,7 @@ public class RoboAereo extends Robo {
             altitude += metros;
         // Não atualiza a altitude caso tenha ultrapassado a máxima dada
         else
-            System.out.printf("%s ultrapassaria a altitude máxima permitida.\n", nome);
+            System.out.printf("'%s' ultrapassaria a altitude máxima permitida.\n", nome);
 
         System.out.printf("Altitude atual: %d\n", altitude);
     }
@@ -37,7 +36,7 @@ public class RoboAereo extends Robo {
             altitude -= metros;
         // Atuaçiza a altitude para 0 caso tenha descido demais
         else {
-            System.out.printf("%s espatifou-se no chão.\n", nome);
+            System.out.printf("'%s' espatifou-se no chão.\n", nome);
             altitude = 0;
         }
 
