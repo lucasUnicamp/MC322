@@ -11,11 +11,8 @@ public class Robo {
         this.posicaoX = posicaoX;
         this.posicaoY = posicaoY;
         this.ambiente = ambiente;
-        ambiente.adicionarRobo(this);   // Adiciona o robô no ambiente logo que é criado
-        imprimeCriacao();
-    }
+        ambiente.adicionarRobo(this);       // Adiciona o robô no ambiente logo que é criado
 
-    public void imprimeCriacao() {
         System.out.printf("Robô padrão '%s' criado na posição (%d, %d) apontado na direção %s.\n"
         , nome, posicaoX, posicaoY, direcao);
     }
@@ -33,7 +30,7 @@ public class Robo {
         int novoY = posicaoY + deltaY;
 
         // Checa se o robô não está saindo dos limites do ambiente
-        if ((novoX >= 0) && (novoY >= 0) && (novoX <= ambiente.largura) && (novoY <= ambiente.altura)) {
+        if ((novoX >= 0) && (novoY >= 0) && (novoX < ambiente.largura) && (novoY < ambiente.altura)) {
             // Checa se não há obstáculos nos 2 caminhos até o ponto final
             if (checarObstaculoCaminho(deltaX, deltaY)) {
                 posicaoX = novoX;
@@ -101,6 +98,7 @@ public class Robo {
     public boolean identificarObstaculo() {
         boolean temObstaculo = false;
 
+        // Checa se há algum obstáculo nas 4 adjacentes ao robô
         if (ambiente.obstaculos[posicaoX + 1][posicaoY] || ambiente.obstaculos[posicaoX - 1][posicaoY]
         || ambiente.obstaculos[posicaoX][posicaoY + 1] || ambiente.obstaculos[posicaoX][posicaoY - 1])
             temObstaculo = true;
