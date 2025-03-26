@@ -5,6 +5,7 @@ public class RoboTerrestre extends Robo {
     public RoboTerrestre(String nome, int posicaoX, int posicaoY, Ambiente ambiente, int velocidadeMaxima) {
         super(nome, posicaoX, posicaoY, ambiente);
         this.velocidadeMaxima = velocidadeMaxima;
+        
         System.out.printf("Robô terrestre '%s' criado na posição (%d, %d) apontado na direção %s com velocidade máxima permitida de %d.\n"
         , nome, posicaoX, posicaoY, direcao, velocidadeMaxima);
     }
