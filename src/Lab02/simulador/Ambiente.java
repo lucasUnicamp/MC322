@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 
 public class Ambiente {
-    protected int largura;
-    protected int altura;
     public ArrayList<Robo> robosAtivos;
     public boolean [][] obstaculos;
-
+    private int largura;
+    private int altura;
+    
     public Ambiente(int largura, int altura) {
         this.largura = largura;
         this.altura = altura;
@@ -35,5 +35,13 @@ public class Ambiente {
         int z = robo.getAltitude();
         int altMax = robo.getAltitudeMax();
         return (x >= 0 && x <= altura) && (y >= 0 && y <= largura) && (z >= 0 && z <= altMax);
+    }
+
+    public int getLargura() {
+        return largura;
+    }
+
+    public int getAltura() {
+        return altura;
     }
 }

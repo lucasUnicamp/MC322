@@ -7,7 +7,7 @@ public class RoboTerrestre extends Robo {
         this.velocidadeMaxima = velocidadeMaxima;
         
         System.out.printf("Robô terrestre '%s' criado na posição (%d, %d) apontado na direção %s com velocidade máxima permitida de %d.\n"
-        , nome, posicaoX, posicaoY, direcao, velocidadeMaxima);
+        , nome, posicaoX, posicaoY, getDirecao(), velocidadeMaxima);
     }
 
     @Override
@@ -18,11 +18,19 @@ public class RoboTerrestre extends Robo {
         }
         // Não atualiza posição caso tenha ultrapassado a velocidade
         else {
-            System.out.printf("'%s' está acima da velocidade máxima de %d.\n", nome, velocidadeMaxima);
+            System.out.printf("'%s' está acima da velocidade máxima de %d.\n", getNome(), velocidadeMaxima);
         }
     }
 
     public void setVelocidade(int vlc) {
         velocidade = vlc;
+    }
+
+    public int getVelocidade() {
+        return velocidade;
+    }
+
+    public int getVelocidadeMax() {
+        return velocidade;
     }
 }

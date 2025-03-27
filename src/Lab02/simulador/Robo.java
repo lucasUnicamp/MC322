@@ -1,9 +1,9 @@
 public class Robo {
-    protected String nome;
-    protected String direcao;
-    protected int posicaoX;
-    protected int posicaoY;
-    protected Ambiente ambiente;
+    private String nome;
+    private String direcao;
+    private int posicaoX;
+    private int posicaoY;
+    private Ambiente ambiente;
 
     public Robo(String nome, int posicaoX, int posicaoY, Ambiente ambiente) {
         this.nome = nome;
@@ -30,7 +30,7 @@ public class Robo {
         int novoY = posicaoY + deltaY;
 
         // Checa se o robô não está saindo dos limites do ambiente
-        if ((novoX >= 0) && (novoY >= 0) && (novoX < ambiente.largura) && (novoY < ambiente.altura)) {
+        if ((novoX >= 0) && (novoY >= 0) && (novoX < ambiente.getLargura()) && (novoY < ambiente.getAltura())) {
             // Checa se não há obstáculos nos 2 caminhos até o ponto final
             if (checarObstaculoCaminho(deltaX, deltaY)) {
                 posicaoX = novoX;
@@ -114,6 +114,10 @@ public class Robo {
         direcao = drc;
     }
 
+    public String getNome() {
+        return nome;
+    }
+    
     public String getDirecao() {
         return direcao;
     }
