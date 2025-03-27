@@ -17,6 +17,20 @@ public class RoboAereo extends Robo {
         System.out.printf("O robô '%s' está em (%d, %d) na direção %s e %d acima do solo.\n", getNome(), getX(), getY(), getDirecao(), altitude);
     }
 
+    @Override
+    public void mover(int deltaX, int deltaY){
+        if(getAltitude() == 0) {
+            super.mover(deltaX, deltaY);
+        } else {
+            if(getAmbiente().dentroDosLimites(getX() + deltaX, getY() + deltaY)){
+                setX(getX() + deltaX);
+                setY(getY() + deltaY);
+            } else {
+                System.out.printf("'%s' não tem permissão para sair do ambiente.\n\n", getNome());
+            }
+        }
+    }
+    
     public void subir(int metros) {
         // Compara altitude do robô com a máxima dada
         if (altitude + metros <= altitudeMaxima)

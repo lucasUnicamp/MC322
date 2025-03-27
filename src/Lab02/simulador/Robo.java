@@ -116,6 +116,14 @@ public class Robo {
             direcao = drc;
     }
 
+    protected void setX(int x) {
+        posicaoX = x;
+    }
+
+    protected void setY(int y) {
+        posicaoY = y;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -130,5 +138,9 @@ public class Robo {
 
     public int getY() {
         return posicaoY;
+    }
+
+    public Ambiente getAmbiente(){
+        return ambiente;
     }
 }

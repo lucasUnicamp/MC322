@@ -24,6 +24,10 @@ public class Ambiente {
         }
     }
 
+    public boolean dentroDosLimites(int x, int y) {
+        return (x >= 0 && x <= altura) && (y >= 0 && y <= largura);
+    }
+
     public boolean dentroDosLimites(Robo robo) {
         int x = robo.getX();
         int y = robo.getY();

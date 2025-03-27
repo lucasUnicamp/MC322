@@ -2,7 +2,7 @@ package simulador;
 import java.lang.Math;
 
 public class RoboPlanador extends RoboAereo {
-    private int tamanhoAsa;     // Quanto maior a asa mais consegue planar
+    private int tamanhoAsa;     // Quanto maior a asa, por mais tempo consegue planar e também consegue subir mais
 
     public RoboPlanador(String nome, int posicaoX, int posicaoY, Ambiente ambiente, int altitude, int altitudeMaxima, int tamanhoAsa){
         super(nome, posicaoX, posicaoY, ambiente, altitude, altitudeMaxima);
@@ -14,14 +14,18 @@ public class RoboPlanador extends RoboAereo {
         if (metros <= tamanhoAsa)
             super.subir(metros);
         else
-            System.out.print("Asa muito curta");
+            System.out.print("Asa muito curta\n");
     }
 
     @Override
     public void mover(int deltaX, int deltaY) {
-        int deslocamento = Math.abs(deltaY) + Math.abs(deltaX);
-        super.mover(deltaX, deltaY);
-        super.descer(((120 - tamanhoAsa)*deslocamento)/100);        // Cai lentamente quando deslocado
+        if(getAmbiente().dentroDosLimites(getX() + deltaX, getY() + deltaY)){
+            int deslocamento = Math.abs(deltaY) + Math.abs(deltaX);
+            super.descer(((120 - tamanhoAsa)*deslocamento)/100);        // Cai lentamente quando deslocado
+            super.mover(deltaX, deltaY);
+        } else {
+            System.out.printf("'%s' não tem permissão para sair do ambiente.\n\n", getNome());
+        }
     }
 
     public void setTamanhoAsa(int tamanhoAsa) {
