@@ -22,10 +22,33 @@ public class RoboXadrez extends RoboTerrestre {
                 return;
             }
         } else {
-            if ((Math.abs(deltaX) <= 2 && Math.abs(deltaY) == 0)
-                || (Math.abs(deltaX) == 0 && Math.abs(deltaY) <= 2)) {
-                super.mover(deltaX, deltaY);
-                return;
+            switch (getDirecao()) {
+                case "Norte":
+                    if(deltaX == 0 && (deltaY == 2 || deltaY == 1)){
+                        super.mover(deltaX, deltaY);
+                        return;
+                    }
+                    break;
+                case "Sul":
+                    if(deltaX == 0 && (deltaY == -2 || deltaY == -1)) {
+                        super.mover(deltaX, deltaY);
+                        return;
+                    }
+                    break;
+                case "Leste":
+                    if((deltaX == 2 || deltaX == 1) && deltaY == 0) {
+                        super.mover(deltaX, deltaY);
+                        return;
+                    }
+                    break;
+                case "Oeste":
+                    if((deltaX == -2 || deltaX == -1) && deltaY == 0) {
+                        super.mover(deltaX, deltaY);
+                        return;
+                    }
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -33,7 +56,7 @@ public class RoboXadrez extends RoboTerrestre {
     }
 
     public void setTipoMovimento(int tipoMovimento) {
-        if (tipoMovimento == 0 || tipoMovimento == 1)
+        if (tipoMovimento == 1 || tipoMovimento == 2)
             this.tipoMovimento = tipoMovimento;
     }
 

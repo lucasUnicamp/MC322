@@ -33,6 +33,15 @@ public class Main {
         roboPlanador.subir(50);
         roboPlanador.mover(-30, -10);
         roboPlanador.mover(10, 40);
+
+        roboXadrez.mover(5, 0);
+        roboXadrez.mover(2, 1);
+        roboXadrez.setTipoMovimento(2);
+        roboXadrez.mover(10, 0);
+        roboXadrez.mover(0, -2);
+        roboXadrez.mover(0, 2);
+        roboXadrez.setDirecao("Sul");
+        roboXadrez.mover(0, -2);
         scan.close();
     }
 }
