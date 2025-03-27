@@ -1,3 +1,4 @@
+package simulador;
 public class RoboTerrestre extends Robo {
     private int velocidade;
     private int velocidadeMaxima;

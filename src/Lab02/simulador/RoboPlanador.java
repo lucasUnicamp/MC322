@@ -1,3 +1,4 @@
+package simulador;
 import java.lang.Math;
 
 public class RoboPlanador extends RoboAereo {
