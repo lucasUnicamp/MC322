@@ -1,3 +1,4 @@
+package simulador;
 public class Robo {
     private String nome;
     private String direcao;
@@ -111,7 +112,8 @@ public class Robo {
     }
 
     public void setDirecao(String drc) {
-        direcao = drc;
+        if (drc == "Norte" || drc == "Sul" || drc == "Leste" || drc == "Oeste")
+            direcao = drc;
     }
 
     public String getNome() {
