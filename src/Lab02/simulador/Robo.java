@@ -31,7 +31,7 @@ public class Robo {
         int novoY = posicaoY + deltaY;
 
         // Checa se o robô não está saindo dos limites do ambiente
-        if ((novoX >= 0) && (novoY >= 0) && (novoX < ambiente.getLargura()) && (novoY < ambiente.getAltura())) {
+        if (getAmbiente().dentroDosLimites(novoX, novoY)) {
             // Checa se não há obstáculos nos 2 caminhos até o ponto final
             if (checarObstaculoCaminho(deltaX, deltaY)) {
                 posicaoX = novoX;
