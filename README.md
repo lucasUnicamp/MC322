@@ -33,6 +33,6 @@ Os 4 robôs adicionais que criamos são:
     - move-se normalmente mas descarrega sua energia a cada movimento, tendo que descançar para reabastecê-la
 - *Robô Aéreo Planador*
     - move-se normalmente na horizontal e vertical, mas sua altitude vai diminuindo conforme é deslocado
-- *Robô Aéreo *
-    - faz aquilo
+- *Robô Aéreo Satélite*
+    - move-se normalmente e consegue escanear uma área circular por obstáculos dado um ângulo de visão para escaner  
 
