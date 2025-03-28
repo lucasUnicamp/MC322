@@ -19,11 +19,12 @@ public class RoboAereo extends Robo {
     @Override
     public void mover(int deltaX, int deltaY){
 
-        System.out.printf("Tentando mover o robô '%s' em %d no eixo x e em %d no y.\n", getNome(), deltaX, deltaY);
 
         if (getAltitude() == 0) 
             super.mover(deltaX, deltaY);
         else {
+            System.out.printf("Tentando mover o robô '%s' em %d no eixo x e em %d no y.\n", getNome(), deltaX, deltaY);
+            
             if(getAmbiente().dentroDosLimites(getX() + deltaX, getY() + deltaY)){
                 setX(getX() + deltaX);
                 setY(getY() + deltaY);
