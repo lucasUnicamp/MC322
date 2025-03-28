@@ -26,7 +26,7 @@ Optamos por considerar que o robô pode tomar somente dois caminhos dado um `del
 **TIPOS DE ROBÔ**<br/>
 Os 4 robôs adicionais que criamos são:
 - *Robô Terrestre Xadrex*
-    - move-se ou como a peça Cavalo, que anda duas posições em uma direção e uma na outra, formando um L; ou um Peão, que deve andar uma ou duas posições imediatamente para frente
+    - move-se ou como a peça Cavalo, que anda duas posições em uma direção e uma na outra, formando um L; ou um Peão, que deve andar uma ou duas posições para alguma direção
 - *Robô Terrestre*
     - faz isso
 - *Robô Aéreo Planador*
