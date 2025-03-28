@@ -14,14 +14,14 @@ public class RoboXadrez extends RoboTerrestre {
     @Override
     public void mover(int deltaX, int deltaY) {
         if (getTipoMovimento() == 1) {
-            // Cheque de validade do movimento de tipo Peão
+            // Cheque de validade do movimento de tipo Cavalo
             if ((Math.abs(deltaX) == 2 && Math.abs(deltaY) == 1) || (Math.abs(deltaX) == 1 && Math.abs(deltaY) == 2)) {
                 super.mover(deltaX, deltaY);
                 return;
             }
         } 
         else {
-            // Cheques de validade do movimento de tipo Cavalo, para cada direção
+            // Cheques de validade do movimento de tipo Peão
             switch (getDirecao()) {
                 case "Norte":
                     if (deltaX == 0 && (deltaY == 2 || deltaY == 1)){
@@ -52,7 +52,7 @@ public class RoboXadrez extends RoboTerrestre {
             }
         }
 
-        System.out.printf("Movimento invalidado pelas regras do xadrez.\n");
+        System.out.printf("Movimento invalidado pelas regras do xadrez.\n\n");
     }
 
     public void setTipoMovimento(int tipoMovimento) {

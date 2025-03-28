@@ -17,23 +17,17 @@ public class RoboAereo extends Robo {
     }
 
     @Override
-    public void exibirPosicao() {
-        System.out.printf("O robô '%s' está em (%d, %d) na direção %s e %d acima do solo.\n", getNome(), getX(), getY(), getDirecao(), altitude);
-    }
-
-    public void exibirAltitude() {
-        System.out.printf("'%s' Altitude atual: %d\n", getNome(), altitude);
-    }
-
-    @Override
     public void mover(int deltaX, int deltaY){
+
+        System.out.printf("Tentando mover o robô '%s' em %d no eixo x e em %d no y.\n", getNome(), deltaX, deltaY);
+
         if (getAltitude() == 0) 
             super.mover(deltaX, deltaY);
         else {
             if(getAmbiente().dentroDosLimites(getX() + deltaX, getY() + deltaY)){
                 setX(getX() + deltaX);
                 setY(getY() + deltaY);
-                System.out.printf("Movendo robô '%s' em %d no eixo x e em %d no y.\n", getNome(), deltaX, deltaY);
+                System.out.printf("Movimentado com sucesso.\n");
                 this.exibirPosicao();
             }
             else
@@ -63,6 +57,15 @@ public class RoboAereo extends Robo {
         }
 
         exibirAltitude();
+    }
+
+    @Override
+    public void exibirPosicao() {
+        System.out.printf("O robô '%s' está em (%d, %d) na direção %s e %d acima do solo.\n\n", getNome(), getX(), getY(), getDirecao(), altitude);
+    }
+
+    public void exibirAltitude() {
+        System.out.printf("'%s' Altitude atual: %d\n\n", getNome(), altitude);
     }
 
     public int getAltitude(){
