@@ -116,6 +116,10 @@ public class Robo {
         return temObstaculo;
     }
 
+    public boolean podeMover(int deltaX, int deltaY) {
+        return getAmbiente().dentroDosLimites(getX() + deltaX, getY() + deltaY) && checarObstaculoCaminho(deltaX, deltaY);
+    }
+
     public void exibirPosicao() {
         System.out.printf("O robô '%s' está em (%d, %d).\n\n", nome, posicaoX, posicaoY);
     }
