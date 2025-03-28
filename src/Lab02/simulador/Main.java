@@ -18,7 +18,7 @@ public class Main {
         Robo roboNormal = new Robo("Alfa", 0, 0, salaTeste);        // Cria o robô genérico
         RoboTerrestre roboTerra = new RoboTerrestre("Beta", 50, 50, salaTeste, 60);     // Cria o robô terrestre genérico
         RoboXadrez roboXadrez = new RoboXadrez("Theta", 30, 20, salaTeste, 6, 1);       // Cria o robô terrestre do tipo xadrez
-        //
+        RoboPreguica roboPreguica = new RoboPreguica("Delta", 30, 80, salaTeste, 25, 1);        // Cria o robô terrestre do tipo preguiça
         RoboAereo roboAr = new RoboAereo("Gama", 100, 100, salaTeste, 40, 80);      // Cria o robô aéreo genérico
         RoboPlanador roboPlanador = new RoboPlanador("Phi", 60, 90, salaTeste, 0, 80, 50);      // Cria o robo aéreo do tipo planador
         //
@@ -52,6 +52,15 @@ public class Main {
         roboXadrez.mover(0, 2);     // Deve falhar por não estar apontado na direção correta
         roboXadrez.setDirecao("Sul");       // Muda a direção do robô
         roboXadrez.mover(0, -2);        // Teste de 'deltas' negativo que deve sucesseder
+
+        System.out.printf("********************************************************************\n");
+        roboPreguica.info();      // Inicia testes como robô terrestre preguiça
+        roboPreguica.setEnergia(1);     // Coloca uma unidade de energia no robô
+        roboPreguica.descansar();       // Deve falhar pois começa com a energia cheia
+        roboPreguica.mover(1, 2);       // Deve sucesseder
+        roboPreguica.mover(1, 2);     // Deve falhar devido à falta de energia
+        roboPreguica.descansar();       // Recarrega uma unidade de energia
+        roboPreguica.mover(-1, -2);     // Deve sucesseder
 
         System.out.printf("********************************************************************\n");
         roboAr.info();      //Inicia testes com robô aéreo
