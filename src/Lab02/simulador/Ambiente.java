@@ -3,25 +3,29 @@ package simulador;
 import java.util.ArrayList;
 
 public class Ambiente {
-    public ArrayList<Robo> robosAtivos;
-    public boolean [][] obstaculos;
     private int largura;
     private int altura;
+    public ArrayList<Robo> robosAtivos;
+    public boolean [][] obstaculosMatriz;
+    public int [][] obstaculosLista;
     
-    public Ambiente(int largura, int altura) {
+    public Ambiente(int largura, int altura, int qntdObstaculo) {
         this.largura = largura;
         this.altura = altura;
         this.robosAtivos = new ArrayList<>();
-        obstaculos = new boolean[largura][altura];
+        obstaculosMatriz = new boolean[largura][altura];
+        obstaculosLista = new int[qntdObstaculo][2];
     }
 
-    public void adicionarRobo(Robo r){
+    public void adicionarRobo(Robo r) {
         robosAtivos.add(r);
     }
 
-    public void adicionarObstaculos(int [][] obstaculosNovos){
+    public void adicionarObstaculos(int [][] obstaculosNovos) {
         for (int i = 0; i < obstaculosNovos.length; i++){
-            obstaculos[obstaculosNovos[i][0]][obstaculosNovos[i][1]] = true;
+            obstaculosMatriz[obstaculosNovos[i][0]][obstaculosNovos[i][1]] = true;
+            obstaculosLista[i][0] = obstaculosNovos[i][0];
+            obstaculosLista[i][1] = obstaculosNovos[i][1];
         }
     }
 
@@ -34,7 +38,7 @@ public class Ambiente {
      * @param robo objeto da classe robô que está dentro do ambiente executando movimentos
      * @return true ou false dependendo se está ou não dentro do ambiente
      */
-    public boolean dentroDosLimites(RoboAereo robo){
+    public boolean dentroDosLimites(RoboAereo robo) {
         int x = robo.getX();
         int y = robo.getY();
         int z = robo.getAltitude();
