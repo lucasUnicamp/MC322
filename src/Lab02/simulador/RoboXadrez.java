@@ -9,7 +9,7 @@ public class RoboXadrez extends RoboTerrestre {
 
     public RoboXadrez(String nome, int posicaoX, int posicaoY, Ambiente ambiente, int velocidadeMaxima, int tipoMovimento) {
         super(nome, posicaoX, posicaoY, ambiente, velocidadeMaxima);
-        tipoMovimento = 1; // padrão
+        tipoMovimento = 1; // padrão (cavalo)
         setTipoMovimento(tipoMovimento);
     }
 

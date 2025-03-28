@@ -1,4 +1,5 @@
 package simulador;
+
 public class Robo {
     private String nome;
     private String direcao;
@@ -100,7 +101,10 @@ public class Robo {
         boolean temObstaculo = false;
 
         // Checa se há algum obstáculo nas 4 adjacentes ao robô
-        if (ambiente.obstaculos[posicaoX + 1][posicaoY] || ambiente.obstaculos[posicaoX - 1][posicaoY]
+        if(!(getAmbiente().dentroDosLimites(posicaoX + 1, posicaoY) && getAmbiente().dentroDosLimites(posicaoX - 1, posicaoY)
+            || getAmbiente().dentroDosLimites(posicaoX, posicaoY + 1) || getAmbiente().dentroDosLimites(posicaoX, posicaoY - 1)))
+            temObstaculo = true;
+        else if (ambiente.obstaculos[posicaoX + 1][posicaoY] || ambiente.obstaculos[posicaoX - 1][posicaoY]
         || ambiente.obstaculos[posicaoX][posicaoY + 1] || ambiente.obstaculos[posicaoX][posicaoY - 1])
             temObstaculo = true;
         
