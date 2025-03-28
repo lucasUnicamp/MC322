@@ -15,7 +15,7 @@ public class RoboPlanador extends RoboAereo {
         if (metros <= tamanhoAsa)
             super.subir(metros);
         else
-            System.out.printf("(%s) tem as asas muito curtas\n", getNome());
+            System.out.printf("'%s' tem as asas muito curtas.\n", getNome());
     }
 
     @Override

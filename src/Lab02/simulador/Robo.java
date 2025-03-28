@@ -15,8 +15,11 @@ public class Robo {
         this.ambiente = ambiente;
         ambiente.adicionarRobo(this);       // Adiciona o robô no ambiente logo que é criado
 
-        System.out.printf("Robô padrão '%s' criado na posição (%d, %d) apontado na direção %s.\n"
-        , nome, posicaoX, posicaoY, direcao);
+        System.out.printf("Robô '%s' criado\n", nome);
+    }
+
+    public void info() {
+        System.out.printf("Robô '%s' está na posição (%d, %d) apontado na direção %s.\n", getNome(), getX(), getY(), direcao);
     }
 
     /**
@@ -49,7 +52,7 @@ public class Robo {
      * Checa se há algum obstáculo impedindo a movimentação definida, sendo essa movimentação explicada no README 
      * @param deltaX inteiro do quanto deve se mover na horizontal
      * @param deltaY inteiro do quanto deve se mover na vertical
-     * @return true ou false depende se há ou não obstáculos
+     * @return true ou false dependendo se há ou não obstáculos
      */
     public Boolean checarObstaculoCaminho(int deltaX, int deltaY) {
         boolean caminhoCima = true, caminhoBaixo = true;

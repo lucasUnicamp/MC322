@@ -8,9 +8,12 @@ public class RoboAereo extends Robo {
         super(nome, posicaoX, posicaoY, ambiente);
         this.altitude = altitude;
         this.altitudeMaxima = altitudeMaxima;
-        
-        System.out.printf("Robô aéreo '%s' criado na posição (%d, %d, %d) apontado na direção %s com altitude máxima permitida de %d.\n"
-        , nome, posicaoX, posicaoY, altitude, getDirecao(), altitudeMaxima);
+    }
+
+    @Override
+    public void info() {     
+        System.out.printf("Robô Aéreo '%s' está na posição (%d, %d, %d) apontado na direção %s com altitude máxima permitida de %d.\n"
+        , getNome(), getX(),getY(), altitude, getDirecao(), altitudeMaxima);
     }
 
     @Override
@@ -42,7 +45,7 @@ public class RoboAereo extends Robo {
         else
             System.out.printf("'%s' ultrapassaria a altitude máxima permitida.\n", getNome());
 
-        System.out.printf("(%s) Altitude atual: %d\n", getNome(), altitude);
+        System.out.printf("'%s' Altitude atual: %d\n", getNome(), altitude);
     }
 
     public void descer(int metros) {
