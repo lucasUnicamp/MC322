@@ -12,13 +12,17 @@ public class RoboAereo extends Robo {
 
     @Override
     public void info() {     
-        System.out.printf("Robô Aéreo '%s' está na posição (%d, %d, %d) apontado na direção %s com altitude máxima permitida de %d.\n"
+        System.out.printf("Robô Aéreo '%s' está na posição (%d, %d, %d) apontado na direção %s com altitude máxima permitida de %d.\n\n"
         , getNome(), getX(),getY(), altitude, getDirecao(), altitudeMaxima);
     }
 
     @Override
     public void exibirPosicao() {
         System.out.printf("O robô '%s' está em (%d, %d) na direção %s e %d acima do solo.\n", getNome(), getX(), getY(), getDirecao(), altitude);
+    }
+
+    public void exibirAltitude() {
+        System.out.printf("'%s' Altitude atual: %d\n", getNome(), altitude);
     }
 
     @Override
@@ -45,7 +49,7 @@ public class RoboAereo extends Robo {
         else
             System.out.printf("'%s' ultrapassaria a altitude máxima permitida.\n", getNome());
 
-        System.out.printf("'%s' Altitude atual: %d\n", getNome(), altitude);
+        exibirAltitude();
     }
 
     public void descer(int metros) {
@@ -58,7 +62,7 @@ public class RoboAereo extends Robo {
             altitude = 0;
         }
 
-        System.out.printf("(%s) Altitude atual: %d\n", getNome(), altitude);
+        exibirAltitude();
     }
 
     public int getAltitude(){
