@@ -15,8 +15,7 @@ public class Robo {
         this.ambiente = ambiente;
         ambiente.adicionarRobo(this);       // Adiciona o robô no ambiente logo que é criado
 
-        System.out.printf("Robô padrão '%s' criado na posição (%d, %d) apontado na direção %s.\n"
-        , nome, posicaoX, posicaoY, direcao);
+        System.out.printf("Robô '%s' criado", nome);
     }
 
     /* MOVIMENTO DO ROBÔ ***************************************************************************************
@@ -115,6 +114,10 @@ public class Robo {
         System.out.printf("O robô '%s' está em (%d, %d) na direção %s.\n\n", nome, posicaoX, posicaoY, direcao);
     }
 
+    public void setNome(String nome) {
+
+    }
+
     public void setDirecao(String drc) {
         if (drc == "Norte" || drc == "Sul" || drc == "Leste" || drc == "Oeste")
             direcao = drc;
@@ -126,6 +129,10 @@ public class Robo {
 
     protected void setY(int y) {
         posicaoY = y;
+    }
+
+    protected void setAmbiente(Ambiente ambiente) {
+        this.ambiente = ambiente;
     }
 
     public String getNome() {
