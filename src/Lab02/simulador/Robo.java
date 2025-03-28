@@ -1,4 +1,5 @@
 package simulador;
+
 public class Robo {
     private String nome;
     private String direcao;
@@ -18,14 +19,11 @@ public class Robo {
         , nome, posicaoX, posicaoY, direcao);
     }
 
-    /* MOVIMENTO DO ROBÔ ***************************************************************************************
-     * Optamos por considerar que o robô pode tomar somente dois caminhos dado um deltaX e um deltaY, esses são:
-     * - mover-se 'deltaX' totalmente no eixo X primeiro e depois 'deltaY' totalmente no eixo Y; ou
-     * - mover-se 'deltaY' totalmente no eixo Y primeiro e depois 'deltaX' totalmente no eixo X; 
-     *                            # # # # []                      [][][][][]
-     *                            # # # # []          ou          [] # # # #
-     *                            [][][][][]                      [] # # # #
-     ******************************************************************************************************** */
+    /**
+     * Move o robô no nas direções horizontal e vertical conforme definido
+     * @param deltaX inteiro do quanto deve se mover na horizontal
+     * @param deltaY inteiro do quanto deve se mover na vertical
+     */
     public void mover(int deltaX, int deltaY) {
         int novoX = posicaoX + deltaX;
         int novoY = posicaoY + deltaY;
@@ -47,6 +45,12 @@ public class Robo {
             System.out.printf("'%s' não tem permissão para sair do ambiente.\n\n", nome);
     }
 
+    /**
+     * Checa se há algum obstáculo impedindo a movimentação definida, sendo essa movimentação explicada no README 
+     * @param deltaX inteiro do quanto deve se mover na horizontal
+     * @param deltaY inteiro do quanto deve se mover na vertical
+     * @return true ou false depende se há ou não obstáculos
+     */
     public Boolean checarObstaculoCaminho(int deltaX, int deltaY) {
         boolean caminhoCima = true, caminhoBaixo = true;
 
@@ -99,7 +103,7 @@ public class Robo {
     public boolean identificarObstaculo() {
         boolean temObstaculo = false;
 
-        // Checa se há algum obstáculo nas 4 adjacentes ao robô
+        // Checa se há algum obstáculo nas 4 posições diretamente adjacentes ao robô
         if (ambiente.obstaculos[posicaoX + 1][posicaoY] || ambiente.obstaculos[posicaoX - 1][posicaoY]
         || ambiente.obstaculos[posicaoX][posicaoY + 1] || ambiente.obstaculos[posicaoX][posicaoY - 1])
             temObstaculo = true;
@@ -111,11 +115,6 @@ public class Robo {
         System.out.printf("O robô '%s' está em (%d, %d) na direção %s.\n\n", nome, posicaoX, posicaoY, direcao);
     }
 
-    public void setDirecao(String drc) {
-        if (drc == "Norte" || drc == "Sul" || drc == "Leste" || drc == "Oeste")
-            direcao = drc;
-    }
-
     protected void setX(int x) {
         posicaoX = x;
     }
@@ -124,20 +123,25 @@ public class Robo {
         posicaoY = y;
     }
 
+    public void setDirecao(String drc) {
+        if (drc == "Norte" || drc == "Sul" || drc == "Leste" || drc == "Oeste")
+            direcao = drc;
+    }
+
     public String getNome() {
         return nome;
     }
     
-    public String getDirecao() {
-        return direcao;
-    }
-
     public int getX() {
         return posicaoX;
     }
 
     public int getY() {
         return posicaoY;
+    }
+
+    public String getDirecao() {
+        return direcao;
     }
 
     public Ambiente getAmbiente(){

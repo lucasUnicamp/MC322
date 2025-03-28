@@ -1,4 +1,5 @@
 package simulador;
+
 public class RoboAereo extends Robo {
     private int altitude;
     private int altitudeMaxima;
@@ -19,17 +20,17 @@ public class RoboAereo extends Robo {
 
     @Override
     public void mover(int deltaX, int deltaY){
-        if(getAltitude() == 0) {
+        if (getAltitude() == 0) 
             super.mover(deltaX, deltaY);
-        } else {
+        else {
             if(getAmbiente().dentroDosLimites(getX() + deltaX, getY() + deltaY)){
                 setX(getX() + deltaX);
                 setY(getY() + deltaY);
                 System.out.printf("Movendo robô '%s' em %d no eixo x e em %d no y.\n", getNome(), deltaX, deltaY);
                 this.exibirPosicao();
-            } else {
-                System.out.printf("'%s' não tem permissão para sair do ambiente.\n\n", getNome());
             }
+            else
+                System.out.printf("'%s' não tem permissão para sair do ambiente.\n\n", getNome());
         }
     }
 

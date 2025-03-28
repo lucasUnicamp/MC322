@@ -1,48 +1,48 @@
 package simulador;
 
 import java.lang.Math;
-/**
- * Robo que se movimenta como um cavalo e como um peão de xadrez
- */
+
 public class RoboXadrez extends RoboTerrestre {
-    private int tipoMovimento; // 1 - cavalo, 2 - peão 
+    private int tipoMovimento;      // Tipo 1 move-se como a peça de xadreza Cavalo e tipo 2 como o Peão 
 
     public RoboXadrez(String nome, int posicaoX, int posicaoY, Ambiente ambiente, int velocidadeMaxima, int tipoMovimento) {
         super(nome, posicaoX, posicaoY, ambiente, velocidadeMaxima);
-        tipoMovimento = 1; // padrão
+        tipoMovimento = 1;      // Tipo padrão
         setTipoMovimento(tipoMovimento);
     }
 
     @Override
     public void mover(int deltaX, int deltaY) {
-        if(getTipoMovimento() == 1) {
-            if ((Math.abs(deltaX) == 2 && Math.abs(deltaY) == 1)
-                || (Math.abs(deltaX) == 1 && Math.abs(deltaY) == 2)) {
+        if (getTipoMovimento() == 1) {
+            // Cheque de validade do movimento de tipo Peão
+            if ((Math.abs(deltaX) == 2 && Math.abs(deltaY) == 1) || (Math.abs(deltaX) == 1 && Math.abs(deltaY) == 2)) {
                 super.mover(deltaX, deltaY);
                 return;
             }
-        } else {
+        } 
+        else {
+            // Cheques de validade do movimento de tipo Cavalo, para cada direção
             switch (getDirecao()) {
                 case "Norte":
-                    if(deltaX == 0 && (deltaY == 2 || deltaY == 1)){
+                    if (deltaX == 0 && (deltaY == 2 || deltaY == 1)){
                         super.mover(deltaX, deltaY);
                         return;
                     }
                     break;
                 case "Sul":
-                    if(deltaX == 0 && (deltaY == -2 || deltaY == -1)) {
+                    if (deltaX == 0 && (deltaY == -2 || deltaY == -1)) {
                         super.mover(deltaX, deltaY);
                         return;
                     }
                     break;
                 case "Leste":
-                    if((deltaX == 2 || deltaX == 1) && deltaY == 0) {
+                    if ((deltaX == 2 || deltaX == 1) && deltaY == 0) {
                         super.mover(deltaX, deltaY);
                         return;
                     }
                     break;
                 case "Oeste":
-                    if((deltaX == -2 || deltaX == -1) && deltaY == 0) {
+                    if ((deltaX == -2 || deltaX == -1) && deltaY == 0) {
                         super.mover(deltaX, deltaY);
                         return;
                     }
@@ -52,7 +52,7 @@ public class RoboXadrez extends RoboTerrestre {
             }
         }
 
-        System.out.println("Movimento invalidado pelas regras do xadrez.");
+        System.out.printf("Movimento invalidado pelas regras do xadrez.\n");
     }
 
     public void setTipoMovimento(int tipoMovimento) {

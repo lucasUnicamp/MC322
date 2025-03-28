@@ -1,4 +1,5 @@
 package simulador;
+
 import java.lang.Math;
 
 public class RoboPlanador extends RoboAereo {
@@ -14,18 +15,18 @@ public class RoboPlanador extends RoboAereo {
         if (metros <= tamanhoAsa)
             super.subir(metros);
         else
-            System.out.printf("(%s) Asa muito curta\n", getNome());
+            System.out.printf("(%s) tem as asas muito curtas\n", getNome());
     }
 
     @Override
     public void mover(int deltaX, int deltaY) {
-        if(getAmbiente().dentroDosLimites(getX() + deltaX, getY() + deltaY)){
+        if (getAmbiente().dentroDosLimites(getX() + deltaX, getY() + deltaY)){
             int deslocamento = Math.abs(deltaY) + Math.abs(deltaX);
             super.descer(((120 - tamanhoAsa)*deslocamento)/100);        // Cai lentamente quando deslocado
             super.mover(deltaX, deltaY);
-        } else {
+        } 
+        else 
             System.out.printf("'%s' não tem permissão para sair do ambiente.\n\n", getNome());
-        }
     }
 
     public void setTamanhoAsa(int tamanhoAsa) {

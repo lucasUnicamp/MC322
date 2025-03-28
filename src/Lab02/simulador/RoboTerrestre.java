@@ -1,4 +1,5 @@
 package simulador;
+
 public class RoboTerrestre extends Robo {
     private int velocidade;
     private int velocidadeMaxima;
@@ -14,13 +15,11 @@ public class RoboTerrestre extends Robo {
     @Override
     public void mover(int deltaX, int deltaY) {
         // Compara velocidade do robô com a máxima dada
-        if (velocidade <= velocidadeMaxima) {
+        if (velocidade <= velocidadeMaxima) 
             super.mover(deltaX, deltaY);
-        }
         // Não atualiza posição caso tenha ultrapassado a velocidade
-        else {
+        else 
             System.out.printf("'%s' está acima da velocidade máxima de %d.\n", getNome(), velocidadeMaxima);
-        }
     }
 
     public void setVelocidade(int vlc) {
@@ -32,6 +31,6 @@ public class RoboTerrestre extends Robo {
     }
 
     public int getVelocidadeMax() {
-        return velocidade;
+        return velocidadeMaxima;
     }
 }
