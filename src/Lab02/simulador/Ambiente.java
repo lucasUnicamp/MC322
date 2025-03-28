@@ -29,12 +29,11 @@ public class Ambiente {
         return (x >= 0 && x <= altura) && (y >= 0 && y <= largura);
     }
 
-    public boolean dentroDosLimites(Robo robo) {
-        int x = robo.getX();
-        int y = robo.getY();
-        return (x >= 0 && x <= altura) && (y >= 0 && y <= largura);
-    }
-
+    /**
+     * Checa se as coordenadas de um robô aéreo estão contidas na região definida do ambiente, considerando também a altitude
+     * @param robo objeto da classe robô que está dentro do ambiente executando movimentos
+     * @return true ou false dependendo se está ou não dentro do ambiente
+     */
     public boolean dentroDosLimites(RoboAereo robo){
         int x = robo.getX();
         int y = robo.getY();
