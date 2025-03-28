@@ -19,7 +19,7 @@ public class Robo {
     }
 
     public void info() {
-        System.out.printf("Robô '%s' está na posição (%d, %d) apontado na direção %s.\n", getNome(), getX(), getY(), direcao);
+        System.out.printf("Robô '%s' está na posição (%d, %d) apontado na direção %s.\n\n", getNome(), getX(), getY(), direcao);
     }
 
     /**
@@ -31,13 +31,15 @@ public class Robo {
         int novoX = posicaoX + deltaX;
         int novoY = posicaoY + deltaY;
 
+        System.out.printf("Tentando mover o robô '%s' em %d no eixo x e em %d no y.\n", nome, deltaX, deltaY);
+
         // Checa se o robô não está saindo dos limites do ambiente
         if (getAmbiente().dentroDosLimites(novoX, novoY)) {
             // Checa se não há obstáculos nos 2 caminhos até o ponto final
             if (checarObstaculoCaminho(deltaX, deltaY)) {
                 posicaoX = novoX;
                 posicaoY = novoY;
-                System.out.printf("Movendo robô '%s' em %d no eixo x e em %d no y.\n", nome, deltaX, deltaY);
+                System.out.printf("Movimentado com sucesso.\n");
                 this.exibirPosicao();
             } 
             else 
@@ -115,7 +117,7 @@ public class Robo {
     }
 
     public void exibirPosicao() {
-        System.out.printf("O robô '%s' está em (%d, %d) na direção %s.\n\n", nome, posicaoX, posicaoY, direcao);
+        System.out.printf("O robô '%s' está em (%d, %d).\n\n", nome, posicaoX, posicaoY);
     }
 
     protected void setX(int x) {
