@@ -11,6 +11,12 @@ public class RoboPlanador extends RoboAereo {
     }
 
     @Override
+    public void info() {
+        System.out.printf("Robô Planador'%s' está na posição (%d, %d, %d) apontado na direção %s com altitude máxima permitida de %d e asa de tamanho %d.\n\n"
+        , getNome(), getX(),getY(), getAltitude(), getDirecao(), getAltitudeMax(), tamanhoAsa);
+    }
+
+    @Override
     public void mover(int deltaX, int deltaY) {
         if (getAmbiente().dentroDosLimites(getX() + deltaX, getY() + deltaY)){
             int deslocamento = Math.abs(deltaY) + Math.abs(deltaX);

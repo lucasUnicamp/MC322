@@ -1,12 +1,18 @@
 package simulador;
 
 public class RoboPreguica extends RoboTerrestre {
-    private int energiaMaxima;
     private int energia;
+    private int energiaMaxima;
 
     public RoboPreguica(String nome, int posicaoX, int posicaoY, Ambiente ambiente, int velocidadeMaxima, int energiaMaxima) {
         super(nome, posicaoX, posicaoY, ambiente, velocidadeMaxima);
         this.energiaMaxima = energiaMaxima;
+    }
+
+    @Override
+    public void info() {
+        System.out.printf("Robô Preguiça '%s' está na posição (%d, %d) apontado na direção %s com velocidade %d, velocidade máxima permitida de %d e tem %d de energia de um máximo de %d.\n\n"
+        , getNome(), getX(), getY(), getDirecao(), getVelocidade(), getVelocidadeMax(), energia, energiaMaxima);
     }
 
     @Override
@@ -34,6 +40,10 @@ public class RoboPreguica extends RoboTerrestre {
         }
     }
 
+    public void exibirEnergia() {
+        System.out.printf("'%s' Energia atual: %d\n\n", getNome(), energia);
+    }
+
     public void setEnergia(int energiaTotal) {
         if (energiaTotal <= energiaMaxima)
             this.energia = energiaTotal;
@@ -41,7 +51,12 @@ public class RoboPreguica extends RoboTerrestre {
             this.energia = energiaMaxima;
     }
 
-    public void exibirEnergia() {
-        System.out.printf("'%s' Energia atual: %d\n\n", getNome(), energia);
+    public int getEnergia() {
+        return energia;
     }
+
+    public int getEnergiaMax() {
+        return energiaMaxima;
+    }
+
 }

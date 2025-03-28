@@ -12,6 +12,12 @@ public class RoboXadrez extends RoboTerrestre {
     }
 
     @Override
+    public void info() {
+        System.out.printf("Robô Xadrez '%s' está na posição (%d, %d) apontado na direção %s com velocidade %d, velocidade máxima permitida de %d e com o tipo %d selecionado.\n\n"
+        , getNome(), getX(), getY(), getDirecao(), getVelocidade(), getVelocidadeMax(), tipoMovimento);
+    }
+
+    @Override
     public void mover(int deltaX, int deltaY) {
         if (getTipoMovimento() == 1) {
             // Cheque de validade do movimento de tipo Cavalo

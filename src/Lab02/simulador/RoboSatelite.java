@@ -9,7 +9,13 @@ public class RoboSatelite extends RoboAereo {
         super(nome, posicaoX, posicaoY, ambiente, altitude, altitudeMaxima);
         setAngulo(angulo);
     }
-    
+
+    @Override
+    public void info() {
+        System.out.printf("Robô Satélite '%s' está na posição (%d, %d, %d) apontado na direção %s com altitude máxima permitida de %d e o ângulo do escaner é de %.1f°.\n\n"
+        , getNome(), getX(),getY(), getAltitude(), getDirecao(), getAltitudeMax(), angulo);
+    }
+
     public void escanear() {
         double raioArea = super.getAltitude() * Math.tan(angulo / 2);
         double distancia;
@@ -27,5 +33,9 @@ public class RoboSatelite extends RoboAereo {
             this.angulo = angulo;
         else
             this.angulo = 90;
+    }
+
+    public double getAngulo() {
+        return angulo;
     }
 }
