@@ -64,19 +64,19 @@ public class Robo {
         // O loop para se ambos os caminhos tiverem um obstáculo;
         if (deltaX > 0) {
             for (int a = 0; (caminhoBaixo || caminhoCima) && a < deltaX; a++) {
-                if (ambiente.obstaculos[posicaoX + a][posicaoY]) 
+                if (ambiente.obstaculosMatriz[posicaoX + a][posicaoY]) 
                     caminhoCima = false;
 
-                if (ambiente.obstaculos[posicaoX + a][posicaoY + deltaY]) 
+                if (ambiente.obstaculosMatriz[posicaoX + a][posicaoY + deltaY]) 
                     caminhoBaixo = false;
             }
         }
         else {
             for (int b = 0; (caminhoBaixo || caminhoCima) && b > deltaX; b--) {
-                if (ambiente.obstaculos[posicaoX + b][posicaoY]) 
+                if (ambiente.obstaculosMatriz[posicaoX + b][posicaoY]) 
                     caminhoCima = false;
 
-                if (ambiente.obstaculos[posicaoX + b][posicaoY + deltaY]) 
+                if (ambiente.obstaculosMatriz[posicaoX + b][posicaoY + deltaY]) 
                     caminhoBaixo = false;
             }
         }
@@ -85,19 +85,19 @@ public class Robo {
         // ou partindo da posição do robô após andar toda sua componente horizontal, contém algum obstáculo;
         if (deltaY > 0) {
             for (int c = 0; (caminhoBaixo || caminhoCima) && c < deltaY; c++) {
-                if (ambiente.obstaculos[posicaoX][posicaoY + c])
+                if (ambiente.obstaculosMatriz[posicaoX][posicaoY + c])
                     caminhoBaixo = false;
                 
-                if (ambiente.obstaculos[posicaoX + deltaX][posicaoY + c])
+                if (ambiente.obstaculosMatriz[posicaoX + deltaX][posicaoY + c])
                     caminhoCima = false;
             }
         }
         else {
             for (int d = 0; (caminhoBaixo || caminhoCima) && d > deltaY; d--) {
-                if (ambiente.obstaculos[posicaoX][posicaoY + d])
+                if (ambiente.obstaculosMatriz[posicaoX][posicaoY + d])
                     caminhoBaixo = false;
                 
-                if (ambiente.obstaculos[posicaoX + deltaX][posicaoY + d])
+                if (ambiente.obstaculosMatriz[posicaoX + deltaX][posicaoY + d])
                     caminhoCima = false;
             }
         }
@@ -109,8 +109,8 @@ public class Robo {
         boolean temObstaculo = false;
 
         // Checa se há algum obstáculo nas 4 posições diretamente adjacentes ao robô
-        if (ambiente.obstaculos[posicaoX + 1][posicaoY] || ambiente.obstaculos[posicaoX - 1][posicaoY]
-        || ambiente.obstaculos[posicaoX][posicaoY + 1] || ambiente.obstaculos[posicaoX][posicaoY - 1])
+        if (ambiente.obstaculosMatriz[posicaoX + 1][posicaoY] || ambiente.obstaculosMatriz[posicaoX - 1][posicaoY]
+        || ambiente.obstaculosMatriz[posicaoX][posicaoY + 1] || ambiente.obstaculosMatriz[posicaoX][posicaoY - 1])
             temObstaculo = true;
         
         return temObstaculo;
