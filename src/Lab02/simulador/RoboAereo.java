@@ -24,7 +24,7 @@ public class RoboAereo extends Robo {
             super.mover(deltaX, deltaY);
         else {
             System.out.printf("Tentando mover o robô '%s' em %d no eixo x e em %d no y.\n", getNome(), deltaX, deltaY);
-            
+
             if(getAmbiente().dentroDosLimites(getX() + deltaX, getY() + deltaY)){
                 setX(getX() + deltaX);
                 setY(getY() + deltaY);
@@ -42,7 +42,7 @@ public class RoboAereo extends Robo {
             altitude += metros;
         // Não atualiza a altitude caso tenha ultrapassado a máxima dada
         else
-            System.out.printf("'%s' ultrapassaria a altitude máxima permitida.\n", getNome());
+            System.out.printf("'%s' ultrapassaria a altitude máxima permitida.\n\n", getNome());
 
         exibirAltitude();
     }
@@ -53,7 +53,7 @@ public class RoboAereo extends Robo {
             altitude -= metros;
         // Atualiza a altitude para 0 caso tenha descido demais
         else {
-            System.out.printf("'%s' espatifou-se no chão.\n", getNome());
+            System.out.printf("'%s' espatifou-se no chão.\n\n", getNome());
             altitude = 0;
         }
 
