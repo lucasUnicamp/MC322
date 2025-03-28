@@ -11,7 +11,7 @@ public class RoboTerrestre extends Robo {
 
     @Override
     public void info() {
-        System.out.printf("Robô Terrestre '%s' está na posição (%d, %d) apontado na direção %s com velocidade %d e velocidade máxima permitida de %d.\n"
+        System.out.printf("Robô Terrestre '%s' está na posição (%d, %d) apontado na direção %s com velocidade %d e velocidade máxima permitida de %d.\n\n"
         , getNome(), getX(), getY(), getDirecao(), velocidade, velocidadeMaxima);
     }
 
@@ -25,8 +25,9 @@ public class RoboTerrestre extends Robo {
             System.out.printf("'%s' está acima da velocidade máxima de %d.\n", getNome(), velocidadeMaxima);
     }
 
-    public void setVelocidade(int vlc) {
-        velocidade = vlc;
+    public void aumentarVelocidade(int vlc) {
+        velocidade += vlc;
+        System.out.printf("'%s' Velocidade atual: %d\n\n", getNome(), velocidade);
     }
 
     public int getVelocidade() {
