@@ -3,7 +3,7 @@ package simulador;
 import java.lang.Math;
 
 public class RoboXadrez extends RoboTerrestre {
-    private int tipoMovimento;      // Tipo 1 move-se como a peça de xadreza Cavalo e tipo 2 como o Peão 
+    private int tipoMovimento;      // Tipo 1 move-se como a peça de xadrez Cavalo e tipo 2 como o Peão 
 
     public RoboXadrez(String nome, int posicaoX, int posicaoY, Ambiente ambiente, int velocidadeMaxima, int tipoMovimento) {
         super(nome, posicaoX, posicaoY, ambiente, velocidadeMaxima);
