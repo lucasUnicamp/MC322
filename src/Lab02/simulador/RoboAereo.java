@@ -18,8 +18,6 @@ public class RoboAereo extends Robo {
 
     @Override
     public void mover(int deltaX, int deltaY){
-
-
         if (getAltitude() == 0) 
             super.mover(deltaX, deltaY);
         else {
