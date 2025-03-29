@@ -6,8 +6,8 @@ public class RoboAereo extends Robo {
     
     public RoboAereo(String nome, int posicaoX, int posicaoY, Ambiente ambiente, int altitude, int altitudeMaxima) {
         super(nome, posicaoX, posicaoY, ambiente);
-        this.altitude = altitude;
-        this.altitudeMaxima = altitudeMaxima;
+        setAltitude(altitude);
+        setAltitudeMaxima(altitudeMaxima);
     }
 
     @Override
@@ -65,6 +65,20 @@ public class RoboAereo extends Robo {
 
     public void exibirAltitude() {
         System.out.printf("'%s' Altitude atual: %d\n\n", getNome(), altitude);
+    }
+
+    protected void setAltitude(int metros) {
+        if(metros >= 0)
+            altitudeMaxima = metros;
+        else
+            altitudeMaxima = 0;
+    }
+
+    protected void setAltitudeMaxima(int metros) {
+        if(metros >= 0)
+            altitudeMaxima = metros;
+        else
+            altitudeMaxima = 0;
     }
 
     public int getAltitude(){

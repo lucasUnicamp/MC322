@@ -108,8 +108,11 @@ public class Robo {
     public boolean identificarObstaculo() {
         boolean temObstaculo = false;
 
-        // Checa se há algum obstáculo nas 4 posições diretamente adjacentes ao robô
-        if (ambiente.obstaculosMatriz[posicaoX + 1][posicaoY] || ambiente.obstaculosMatriz[posicaoX - 1][posicaoY]
+        // Checa se há algum obstáculo nas 4 adjacentes ao robô
+        if(!(getAmbiente().dentroDosLimites(posicaoX + 1, posicaoY) && getAmbiente().dentroDosLimites(posicaoX - 1, posicaoY)
+            || getAmbiente().dentroDosLimites(posicaoX, posicaoY + 1) || getAmbiente().dentroDosLimites(posicaoX, posicaoY - 1)))
+            temObstaculo = true;
+        else if (ambiente.obstaculosMatriz[posicaoX + 1][posicaoY] || ambiente.obstaculosMatriz[posicaoX - 1][posicaoY]
         || ambiente.obstaculosMatriz[posicaoX][posicaoY + 1] || ambiente.obstaculosMatriz[posicaoX][posicaoY - 1])
             temObstaculo = true;
         
@@ -121,7 +124,16 @@ public class Robo {
     }
 
     public void exibirPosicao() {
-        System.out.printf("O robô '%s' está em (%d, %d).\n\n", nome, posicaoX, posicaoY);
+        System.out.printf("O robô '%s' está em (%d, %d) na direção %s.\n\n", nome, posicaoX, posicaoY, direcao);
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setDirecao(String drc) {
+        if (drc == "Norte" || drc == "Sul" || drc == "Leste" || drc == "Oeste")
+            direcao = drc;
     }
 
     protected void setX(int x) {
@@ -132,9 +144,8 @@ public class Robo {
         posicaoY = y;
     }
 
-    public void setDirecao(String drc) {
-        if (drc == "Norte" || drc == "Sul" || drc == "Leste" || drc == "Oeste")
-            direcao = drc;
+    protected void setAmbiente(Ambiente ambiente) {
+        this.ambiente = ambiente;
     }
 
     public String getNome() {
