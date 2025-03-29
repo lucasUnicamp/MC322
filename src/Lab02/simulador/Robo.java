@@ -9,7 +9,7 @@ public class Robo {
 
     public Robo(String nome, int posicaoX, int posicaoY, Ambiente ambiente) {
         setNome(nome);
-        setDirecao(direcao);
+        setDirecao("Norte");
         setX(posicaoX);
         setY(posicaoY);
         setAmbiente(ambiente);
@@ -134,6 +134,8 @@ public class Robo {
     public void setDirecao(String drc) {
         if (drc == "Norte" || drc == "Sul" || drc == "Leste" || drc == "Oeste")
             direcao = drc;
+        else
+            direcao = "Norte";
     }
 
     protected void setX(int x) {
