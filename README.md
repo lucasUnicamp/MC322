@@ -8,7 +8,7 @@ Esse é o *Repositório Oficial*™ do grupo 8 para os laboratórios de MC322, o
 
 ## **Execução**
 Dentro da pasta MC322, usar os comandos:<br/>
-`javac -d bin src/Lab02/simulador/*.java` e `java -cp bin simulador.Main`
+`javac -d bin src/Lab02/cliente/*.java src/Lab02/simulador/*.java` e `java -cp bin cliente.Main`
 
 ## **Explicações**
 ### **= Lab 02 ====**
