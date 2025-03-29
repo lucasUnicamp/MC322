@@ -19,21 +19,35 @@ public class RoboSatelite extends RoboAereo {
         exibirRaio();
     }
 
+    @Override 
+    public void descer(int metros) {
+        super.descer(metros);
+        setRaio();
+        exibirRaio();
+    }
+
     @Override
     public void info() {
         System.out.printf("Robô Satélite '%s' está na posição (%d, %d, %d) apontado na direção %s com altitude máxima permitida de %d e o ângulo do escaner é de %.1f°.\n\n"
         , getNome(), getX(),getY(), getAltitude(), getDirecao(), getAltitudeMax(), angulo);
     }
 
+    // O ângulo definido para o escaner corresponde ao 'campo de visão' do robô, que procura obstáculos abaixo dele e no interior
+    // do círculo de raio dependente da altura e do ângulo
     public void escanear() {
         double distancia;
+        boolean temObstaculo = false;
 
+        // Percorre a lista de coordenadas dos obstáculos e calcula se essas estão no interior do círculo de visão
         for (int i = 0; i < getAmbiente().obstaculosLista.length; i++) {
             distancia = Math.sqrt(Math.pow(getAmbiente().obstaculosLista[i][0] - getX(), 2) + Math.pow(getAmbiente().obstaculosLista[i][1] - getY(), 2));
             if (distancia <= raioArea) {
                 System.out.printf("Obstáculo escaneado em (%d, %d).\n", getAmbiente().obstaculosLista[i][0], getAmbiente().obstaculosLista[i][1]);
+                temObstaculo = true;
             }
         }
+        if (!temObstaculo)
+            System.out.printf("Não há obstáculos na área procurada.");
         System.out.printf("\n");
     }
 
@@ -46,6 +60,7 @@ public class RoboSatelite extends RoboAereo {
             this.angulo = angulo;
         else
             this.angulo = 90;
+        setRaio();
     }
 
     public void setRaio() {
