@@ -82,8 +82,12 @@ public class Main {
         roboSatelite.info();        // Inicia testes com robô aéreo planador
         roboSatelite.escanear();        // Deve sucesseder
         roboSatelite.subir(50);     // Subir para aumentar o raio do escaner
-        roboSatelite.escanear();
+        roboSatelite.escanear();        // Deve mostrar mais obstáculos 
+        roboSatelite.mover(-40, -40);       // Deve sucesseder
+        roboSatelite.setAngulo(80);     // Aumentar o ângulo para ver mais obstáculos
+        roboSatelite.escanear();        // Deve mostrar ainda mais obstáculos
 
+        System.out.printf("********************************************************************\n\n");
         scan.close();
     }
 }
