@@ -31,14 +31,14 @@ public class RoboPlanador extends RoboAereo {
 
     @Override
     public void subir(int metros) {
-        if (metros <= tamanhoAsa)
+        if (metros <= tamanhoAsa)     // Quanto maior a asa mais pode subir
             super.subir(metros);
         else
             System.out.printf("'%s' tem as asas muito curtas.\n\n", getNome());
     }
 
     public void setTamanhoAsa(int tamanhoAsa) {
-        if (tamanhoAsa <= 100)
+        if (tamanhoAsa <= 100)        // Tamanho máximo da asa de 100
             this.tamanhoAsa = tamanhoAsa;
         else
             this.tamanhoAsa = 100;
