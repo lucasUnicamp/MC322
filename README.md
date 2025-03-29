@@ -34,5 +34,5 @@ Os 4 robôs adicionais que criamos são:
 - *Robô Aéreo Planador*
     - move-se normalmente na horizontal e vertical, mas sua altitude vai diminuindo conforme é deslocado
 - *Robô Aéreo Satélite*
-    - move-se normalmente e consegue escanear uma área circular por obstáculos dado um ângulo de visão para escaner  
+    - move-se normalmente e consegue escanear uma área circular à procura de obstáculos dado um ângulo de visão; quanto mais alto, mais consegue ver
 
