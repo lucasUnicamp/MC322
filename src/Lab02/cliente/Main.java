@@ -1,6 +1,15 @@
-package simulador;
+package cliente;
 
 import java.util.Scanner;
+
+import simulador.Ambiente;
+import simulador.Robo;
+import simulador.RoboAereo;
+import simulador.RoboPlanador;
+import simulador.RoboPreguica;
+import simulador.RoboSatelite;
+import simulador.RoboTerrestre;
+import simulador.RoboXadrez;
 
 public class Main {
     public static void main(String[] args) {

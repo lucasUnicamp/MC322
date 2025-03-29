@@ -8,11 +8,11 @@ public class Robo {
     private Ambiente ambiente;
 
     public Robo(String nome, int posicaoX, int posicaoY, Ambiente ambiente) {
-        this.nome = nome;
-        this.direcao = "Norte";
-        this.posicaoX = posicaoX;
-        this.posicaoY = posicaoY;
-        this.ambiente = ambiente;
+        setNome(nome);
+        setDirecao(direcao);
+        setX(posicaoX);
+        setY(posicaoY);
+        setAmbiente(ambiente);
         ambiente.adicionarRobo(this);       // Adiciona o robô no ambiente logo que é criado
 
         System.out.printf("Robô '%s' criado\n", nome);

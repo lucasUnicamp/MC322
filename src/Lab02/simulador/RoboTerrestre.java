@@ -6,7 +6,8 @@ public class RoboTerrestre extends Robo {
 
     public RoboTerrestre(String nome, int posicaoX, int posicaoY, Ambiente ambiente, int velocidadeMaxima) {
         super(nome, posicaoX, posicaoY, ambiente);
-        this.velocidadeMaxima = velocidadeMaxima;
+        velocidade = 1;
+        setVelocidadeMax(velocidadeMaxima);
     }
 
     @Override
@@ -28,6 +29,17 @@ public class RoboTerrestre extends Robo {
     public void aumentarVelocidade(int vlc) {
         velocidade += vlc;
         System.out.printf("'%s' Velocidade atual: %d\n\n", getNome(), velocidade);
+    }
+
+    protected int setVelocidade() {
+        return velocidade;
+    }
+
+    public void setVelocidadeMax(int velocidadeMaxima) {
+        if(velocidadeMaxima >= 0)
+            this.velocidadeMaxima = velocidadeMaxima;
+        else
+            this.velocidadeMaxima = 0;
     }
 
     public int getVelocidade() {

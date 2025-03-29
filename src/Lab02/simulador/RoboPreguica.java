@@ -6,7 +6,7 @@ public class RoboPreguica extends RoboTerrestre {
 
     public RoboPreguica(String nome, int posicaoX, int posicaoY, Ambiente ambiente, int velocidadeMaxima, int energiaMaxima) {
         super(nome, posicaoX, posicaoY, ambiente, velocidadeMaxima);
-        this.energiaMaxima = energiaMaxima;
+        setEnergiaMax(energiaMaxima);
     }
 
     @Override
@@ -49,6 +49,13 @@ public class RoboPreguica extends RoboTerrestre {
             this.energia = energiaTotal;
         else 
             this.energia = energiaMaxima;
+    }
+
+    public void setEnergiaMax(int energiaMax) {
+        if (energiaMax >= 1)
+            this.energiaMaxima = energiaMax;
+        else 
+            this.energiaMaxima = 1;
     }
 
     public int getEnergia() {
