@@ -4,10 +4,19 @@ import java.lang.Math;
 
 public class RoboSatelite extends RoboAereo {
     private double angulo;
+    private double raioArea;
 
     public RoboSatelite(String nome, int posicaoX, int posicaoY, Ambiente ambiente, int altitude, int altitudeMaxima, double angulo) {
         super(nome, posicaoX, posicaoY, ambiente, altitude, altitudeMaxima);
         setAngulo(angulo);
+        setRaio();
+    }
+
+    @Override 
+    public void subir(int metros) {
+        super.subir(metros);
+        setRaio();
+        exibirRaio();
     }
 
     @Override
@@ -17,7 +26,6 @@ public class RoboSatelite extends RoboAereo {
     }
 
     public void escanear() {
-        double raioArea = super.getAltitude() * Math.tan(angulo / 2);
         double distancia;
 
         for (int i = 0; i < getAmbiente().obstaculosLista.length; i++) {
@@ -26,6 +34,11 @@ public class RoboSatelite extends RoboAereo {
                 System.out.printf("Obstáculo escaneado em (%d, %d).\n", getAmbiente().obstaculosLista[i][0], getAmbiente().obstaculosLista[i][1]);
             }
         }
+        System.out.printf("\n");
+    }
+
+    public void exibirRaio() {
+        System.out.printf("O raio de alcance do escaner nessa altitude %d é de %.1f.\n\n", getAltitude(), raioArea);
     }
 
     public void setAngulo(double angulo) {
@@ -35,7 +48,15 @@ public class RoboSatelite extends RoboAereo {
             this.angulo = 90;
     }
 
+    public void setRaio() {
+        raioArea = super.getAltitude() * Math.tan((Math.toRadians(angulo / 2)));
+    }
+
     public double getAngulo() {
         return angulo;
+    }
+
+    public double getRaio() {
+        return raioArea;
     }
 }
