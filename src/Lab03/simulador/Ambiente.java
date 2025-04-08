@@ -6,15 +6,15 @@ public class Ambiente {
     private int largura;
     private int altura;
     public ArrayList<Robo> robosAtivos;
-    public boolean [][] obstaculosMatriz;
-    public int [][] obstaculosLista;
+    public ArrayList<Obstaculo> obstaculos;
+
+    // Gradiente de temperatura logo na criacao. Gerar aleatoriamente uma temperatura e uma posicao e ir diminuindo-a em todas as direcoes
     
     public Ambiente(int largura, int altura, int qntdObstaculo) {
         this.largura = largura;
         this.altura = altura;
         this.robosAtivos = new ArrayList<>();
-        obstaculosMatriz = new boolean[largura][altura];
-        obstaculosLista = new int[qntdObstaculo][2];
+        obstaculos = new ArrayList<>();
     }
 
     public void adicionarRobo(Robo r) {
@@ -28,12 +28,8 @@ public class Ambiente {
         }
     }
 
-    public void adicionarObstaculos(int [][] obstaculosNovos) {
-        for (int i = 0; i < obstaculosNovos.length; i++){
-            obstaculosMatriz[obstaculosNovos[i][0]][obstaculosNovos[i][1]] = true;
-            obstaculosLista[i][0] = obstaculosNovos[i][0];
-            obstaculosLista[i][1] = obstaculosNovos[i][1];
-        }
+    public void adicionarObstaculos(Obstaculo obstaculo) {
+        obstaculos.add(obstaculo);
     }
 
     public boolean dentroDosLimites(int x, int y) {

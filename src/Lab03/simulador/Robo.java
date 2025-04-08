@@ -1,11 +1,14 @@
 package simulador;
 
+import java.util.ArrayList;
+
 public class Robo {
     private String nome;
     private String direcao;
     private int posicaoX;
     private int posicaoY;
     private Ambiente ambiente;
+    public ArrayList<Sensor> sensores;
 
     public Robo(String nome, int posicaoX, int posicaoY, Ambiente ambiente) {
         setNome(nome);
@@ -50,81 +53,90 @@ public class Robo {
             System.out.printf("'%s' nao tem permissai para sair do ambiente.\n\n", nome);
     }
 
-    /**
-     * Checa se ha algum obstaculo impedindo a movimentacao definida, sendo essa movimentacao explicada no README 
-     * @param deltaX inteiro do quanto deve se mover na horizontal
-     * @param deltaY inteiro do quanto deve se mover na vertical
-     * @return true ou false dependendo se ha ou nao obstaculos
-     */
-    public Boolean checarObstaculoCaminho(int deltaX, int deltaY) {
-        boolean caminhoCima = true, caminhoBaixo = true;
+    // /**
+    //  * Checa se ha algum obstaculo impedindo a movimentacao definida, sendo essa movimentacao explicada no README 
+    //  * @param deltaX inteiro do quanto deve se mover na horizontal
+    //  * @param deltaY inteiro do quanto deve se mover na vertical
+    //  * @return true ou false dependendo se ha ou nao obstaculos
+    //  */
+    // public Boolean checarObstaculoCaminho(int deltaX, int deltaY) {
+    //     boolean caminhoCima = true, caminhoBaixo = true;
 
-        // Checa se a linha reta da componente horizontal do movimento, partindo da posicao atual do robo 
-        // ou partindo da posicao do robo após andar toda sua componente vertical, contem algum obstaculo;
-        // O loop para se ambos os caminhos tiverem um obstaculo;
-        if (deltaX > 0) {
-            for (int a = 0; (caminhoBaixo || caminhoCima) && a < deltaX; a++) {
-                if (ambiente.obstaculosMatriz[posicaoX + a][posicaoY]) 
-                    caminhoCima = false;
+    //     // Checa se a linha reta da componente horizontal do movimento, partindo da posicao atual do robo 
+    //     // ou partindo da posicao do robo após andar toda sua componente vertical, contem algum obstaculo;
+    //     // O loop para se ambos os caminhos tiverem um obstaculo;
+    //     if (deltaX > 0) {
+    //         for (int a = 0; (caminhoBaixo || caminhoCima) && a < deltaX; a++) {
+    //             if (ambiente.obstaculosMatriz[posicaoX + a][posicaoY]) 
+    //                 caminhoCima = false;
 
-                if (ambiente.obstaculosMatriz[posicaoX + a][posicaoY + deltaY]) 
-                    caminhoBaixo = false;
-            }
-        }
-        else {
-            for (int b = 0; (caminhoBaixo || caminhoCima) && b > deltaX; b--) {
-                if (ambiente.obstaculosMatriz[posicaoX + b][posicaoY]) 
-                    caminhoCima = false;
+    //             if (ambiente.obstaculosMatriz[posicaoX + a][posicaoY + deltaY]) 
+    //                 caminhoBaixo = false;
+    //         }
+    //     }
+    //     else {
+    //         for (int b = 0; (caminhoBaixo || caminhoCima) && b > deltaX; b--) {
+    //             if (ambiente.obstaculosMatriz[posicaoX + b][posicaoY]) 
+    //                 caminhoCima = false;
 
-                if (ambiente.obstaculosMatriz[posicaoX + b][posicaoY + deltaY]) 
-                    caminhoBaixo = false;
-            }
-        }
+    //             if (ambiente.obstaculosMatriz[posicaoX + b][posicaoY + deltaY]) 
+    //                 caminhoBaixo = false;
+    //         }
+    //     }
 
-        // Checa se a linha reta da componente vertical do movimento, partindo da posicao atual do robo 
-        // ou partindo da posicao do robo após andar toda sua componente horizontal, contem algum obstaculo;
-        if (deltaY > 0) {
-            for (int c = 0; (caminhoBaixo || caminhoCima) && c < deltaY; c++) {
-                if (ambiente.obstaculosMatriz[posicaoX][posicaoY + c])
-                    caminhoBaixo = false;
+    //     // Checa se a linha reta da componente vertical do movimento, partindo da posicao atual do robo 
+    //     // ou partindo da posicao do robo após andar toda sua componente horizontal, contem algum obstaculo;
+    //     if (deltaY > 0) {
+    //         for (int c = 0; (caminhoBaixo || caminhoCima) && c < deltaY; c++) {
+    //             if (ambiente.obstaculosMatriz[posicaoX][posicaoY + c])
+    //                 caminhoBaixo = false;
                 
-                if (ambiente.obstaculosMatriz[posicaoX + deltaX][posicaoY + c])
-                    caminhoCima = false;
-            }
-        }
-        else {
-            for (int d = 0; (caminhoBaixo || caminhoCima) && d > deltaY; d--) {
-                if (ambiente.obstaculosMatriz[posicaoX][posicaoY + d])
-                    caminhoBaixo = false;
+    //             if (ambiente.obstaculosMatriz[posicaoX + deltaX][posicaoY + c])
+    //                 caminhoCima = false;
+    //         }
+    //     }
+    //     else {
+    //         for (int d = 0; (caminhoBaixo || caminhoCima) && d > deltaY; d--) {
+    //             if (ambiente.obstaculosMatriz[posicaoX][posicaoY + d])
+    //                 caminhoBaixo = false;
                 
-                if (ambiente.obstaculosMatriz[posicaoX + deltaX][posicaoY + d])
-                    caminhoCima = false;
-            }
-        }
+    //             if (ambiente.obstaculosMatriz[posicaoX + deltaX][posicaoY + d])
+    //                 caminhoCima = false;
+    //         }
+    //     }
 
-        return caminhoBaixo || caminhoCima;
-    }
+    //     return caminhoBaixo || caminhoCima;
+    // }
 
-    public boolean identificarObstaculo() {
-        boolean temObstaculo = false;
+    // public boolean identificarObstaculo() {
+    //     boolean temObstaculo = false;
 
-        // Checa se ha algum obstaculo nas 4 adjacentes ao robo
-        if(!(getAmbiente().dentroDosLimites(posicaoX + 1, posicaoY) && getAmbiente().dentroDosLimites(posicaoX - 1, posicaoY)
-            || getAmbiente().dentroDosLimites(posicaoX, posicaoY + 1) || getAmbiente().dentroDosLimites(posicaoX, posicaoY - 1)))
-            temObstaculo = true;
-        else if (ambiente.obstaculosMatriz[posicaoX + 1][posicaoY] || ambiente.obstaculosMatriz[posicaoX - 1][posicaoY]
-        || ambiente.obstaculosMatriz[posicaoX][posicaoY + 1] || ambiente.obstaculosMatriz[posicaoX][posicaoY - 1])
-            temObstaculo = true;
+    //     // Checa se ha algum obstaculo nas 4 adjacentes ao robo
+    //     if(!(getAmbiente().dentroDosLimites(posicaoX + 1, posicaoY) && getAmbiente().dentroDosLimites(posicaoX - 1, posicaoY)
+    //         || getAmbiente().dentroDosLimites(posicaoX, posicaoY + 1) || getAmbiente().dentroDosLimites(posicaoX, posicaoY - 1)))
+    //         temObstaculo = true;
+    //     else if (ambiente.obstaculosMatriz[posicaoX + 1][posicaoY] || ambiente.obstaculosMatriz[posicaoX - 1][posicaoY]
+    //     || ambiente.obstaculosMatriz[posicaoX][posicaoY + 1] || ambiente.obstaculosMatriz[posicaoX][posicaoY - 1])
+    //         temObstaculo = true;
         
-        return temObstaculo;
-    }
+    //     return temObstaculo;
+    // }
 
-    public boolean podeMover(int deltaX, int deltaY) {
-        return getAmbiente().dentroDosLimites(getX() + deltaX, getY() + deltaY) && checarObstaculoCaminho(deltaX, deltaY);
-    }
+    // public boolean podeMover(int deltaX, int deltaY) {
+    //     return getAmbiente().dentroDosLimites(getX() + deltaX, getY() + deltaY) && checarObstaculoCaminho(deltaX, deltaY);
+    // }
 
     public void exibirPosicao() {
         System.out.printf("O robo '%s' esta em (%d, %d) na direcao %s.\n\n", nome, posicaoX, posicaoY, direcao);
+    }
+
+    public void adicionarSensor(int tipoSensor, int raio) {
+        if (tipoSensor == 1) {
+            sensores.add(new Sensor(raio));
+        }
+        else if (tipoSensor == 2) {
+            sensores.add(new Sensor(raio));
+        }
     }
 
     public void setNome(String nome) {
