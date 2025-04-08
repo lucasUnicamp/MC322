@@ -12,18 +12,18 @@ public class RoboTerrestre extends Robo {
 
     @Override
     public void info() {
-        System.out.printf("Robô Terrestre '%s' está na posição (%d, %d) apontado na direção %s com velocidade %d e velocidade máxima permitida de %d.\n\n"
+        System.out.printf("Robo Terrestre '%s' esta na posicao (%d, %d) apontado na direcao %s com velocidade %d e velocidade maxima permitida de %d.\n\n"
         , getNome(), getX(), getY(), getDirecao(), velocidade, velocidadeMaxima);
     }
 
     @Override
     public void mover(int deltaX, int deltaY) {
-        // Compara velocidade do robô com a máxima dada
+        // Compara velocidade do robo com a maxima dada
         if (velocidade <= velocidadeMaxima) 
             super.mover(deltaX, deltaY);
-        // Não atualiza posição caso tenha ultrapassado a velocidade
+        // Não atualiza posicao caso tenha ultrapassado a velocidade
         else 
-            System.out.printf("'%s' está acima da velocidade máxima de %d.\n\n", getNome(), velocidadeMaxima);
+            System.out.printf("'%s' esta acima da velocidade maxima de %d.\n\n", getNome(), velocidadeMaxima);
     }
 
     public void aumentarVelocidade(int vlc) {

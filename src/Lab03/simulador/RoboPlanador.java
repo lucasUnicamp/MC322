@@ -2,7 +2,7 @@ package simulador;
 
 import java.lang.Math;
 /**
- * Robô que perde altitude a medida que se move
+ * Robo que perde altitude a medida que se move
  */
 public class RoboPlanador extends RoboAereo {
     private int tamanhoAsa;     // Quanto maior a asa, por mais tempo consegue planar e também consegue subir mais
@@ -14,7 +14,7 @@ public class RoboPlanador extends RoboAereo {
 
     @Override
     public void info() {
-        System.out.printf("Robô Planador'%s' está na posição (%d, %d, %d) apontado na direção %s com altitude máxima permitida de %d e asa de tamanho %d.\n\n"
+        System.out.printf("Robo Planador'%s' está na posicao (%d, %d, %d) apontado na direcao %s com altitude maxima permitida de %d e asa de tamanho %d.\n\n"
         , getNome(), getX(),getY(), getAltitude(), getDirecao(), getAltitudeMax(), tamanhoAsa);
     }
 
@@ -26,7 +26,7 @@ public class RoboPlanador extends RoboAereo {
             super.mover(deltaX, deltaY);
         } 
         else 
-            System.out.printf("'%s' não tem permissão para sair do ambiente.\n\n", getNome());
+            System.out.printf("'%s' não tem permissao para sair do ambiente.\n\n", getNome());
     }
 
     @Override
@@ -38,7 +38,7 @@ public class RoboPlanador extends RoboAereo {
     }
 
     public void setTamanhoAsa(int tamanhoAsa) {
-        if (tamanhoAsa <= 100)        // Tamanho máximo da asa de 100
+        if (tamanhoAsa <= 100)        // Tamanho maximo da asa de 100
             this.tamanhoAsa = tamanhoAsa;
         else
             this.tamanhoAsa = 100;

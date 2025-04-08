@@ -13,17 +13,17 @@ public class Robo {
         setX(posicaoX);
         setY(posicaoY);
         setAmbiente(ambiente);
-        ambiente.adicionarRobo(this);       // Adiciona o robô no ambiente logo que é criado
+        ambiente.adicionarRobo(this);       // Adiciona o robo no ambiente logo que é criado
 
-        System.out.printf("Robô '%s' criado\n", nome);
+        System.out.printf("Robo '%s' criado\n", nome);
     }
 
     public void info() {
-        System.out.printf("Robô '%s' está na posição (%d, %d) apontado na direção %s.\n\n", getNome(), getX(), getY(), direcao);
+        System.out.printf("Robo '%s' esta na posicao (%d, %d) apontado na direcao %s.\n\n", getNome(), getX(), getY(), direcao);
     }
 
     /**
-     * Move o robô no nas direções horizontal e vertical conforme definido
+     * Move o robo no nas direcoes horizontal e vertical conforme definido
      * @param deltaX inteiro do quanto deve se mover na horizontal
      * @param deltaY inteiro do quanto deve se mover na vertical
      */
@@ -31,11 +31,11 @@ public class Robo {
         int novoX = posicaoX + deltaX;
         int novoY = posicaoY + deltaY;
 
-        System.out.printf("Tentando mover o robô '%s' em %d no eixo x e em %d no y.\n", nome, deltaX, deltaY);
+        System.out.printf("Tentando mover o robo '%s' em %d no eixo x e em %d no y.\n", nome, deltaX, deltaY);
 
-        // Checa se o robô não está saindo dos limites do ambiente
+        // Checa se o robo nao esta saindo dos limites do ambiente
         if (getAmbiente().dentroDosLimites(novoX, novoY)) {
-            // Checa se não há obstáculos nos 2 caminhos até o ponto final
+            // Checa se nao ha obstaculos nos 2 caminhos até o ponto final
             if (checarObstaculoCaminho(deltaX, deltaY)) {
                 posicaoX = novoX;
                 posicaoY = novoY;
@@ -43,25 +43,25 @@ public class Robo {
                 this.exibirPosicao();
             } 
             else 
-                System.out.printf("Há obstáculos impedindo o movimento de '%s'.\n\n", nome);
+                System.out.printf("Ha obstaculos impedindo o movimento de '%s'.\n\n", nome);
         } 
-        // Não atualiza posição caso tenha saído dos limites
+        // Nao atualiza posicao caso tenha saindo dos limites
         else 
-            System.out.printf("'%s' não tem permissão para sair do ambiente.\n\n", nome);
+            System.out.printf("'%s' nao tem permissai para sair do ambiente.\n\n", nome);
     }
 
     /**
-     * Checa se há algum obstáculo impedindo a movimentação definida, sendo essa movimentação explicada no README 
+     * Checa se ha algum obstaculo impedindo a movimentacao definida, sendo essa movimentacao explicada no README 
      * @param deltaX inteiro do quanto deve se mover na horizontal
      * @param deltaY inteiro do quanto deve se mover na vertical
-     * @return true ou false dependendo se há ou não obstáculos
+     * @return true ou false dependendo se ha ou nao obstaculos
      */
     public Boolean checarObstaculoCaminho(int deltaX, int deltaY) {
         boolean caminhoCima = true, caminhoBaixo = true;
 
-        // Checa se a linha reta da componente horizontal do movimento, partindo da posição atual do robô 
-        // ou partindo da posição do robô após andar toda sua componente vertical, contém algum obstáculo;
-        // O loop para se ambos os caminhos tiverem um obstáculo;
+        // Checa se a linha reta da componente horizontal do movimento, partindo da posicao atual do robo 
+        // ou partindo da posicao do robo após andar toda sua componente vertical, contem algum obstaculo;
+        // O loop para se ambos os caminhos tiverem um obstaculo;
         if (deltaX > 0) {
             for (int a = 0; (caminhoBaixo || caminhoCima) && a < deltaX; a++) {
                 if (ambiente.obstaculosMatriz[posicaoX + a][posicaoY]) 
@@ -81,8 +81,8 @@ public class Robo {
             }
         }
 
-        // Checa se a linha reta da componente vertical do movimento, partindo da posição atual do robô 
-        // ou partindo da posição do robô após andar toda sua componente horizontal, contém algum obstáculo;
+        // Checa se a linha reta da componente vertical do movimento, partindo da posicao atual do robo 
+        // ou partindo da posicao do robo após andar toda sua componente horizontal, contem algum obstaculo;
         if (deltaY > 0) {
             for (int c = 0; (caminhoBaixo || caminhoCima) && c < deltaY; c++) {
                 if (ambiente.obstaculosMatriz[posicaoX][posicaoY + c])
@@ -108,7 +108,7 @@ public class Robo {
     public boolean identificarObstaculo() {
         boolean temObstaculo = false;
 
-        // Checa se há algum obstáculo nas 4 adjacentes ao robô
+        // Checa se ha algum obstaculo nas 4 adjacentes ao robo
         if(!(getAmbiente().dentroDosLimites(posicaoX + 1, posicaoY) && getAmbiente().dentroDosLimites(posicaoX - 1, posicaoY)
             || getAmbiente().dentroDosLimites(posicaoX, posicaoY + 1) || getAmbiente().dentroDosLimites(posicaoX, posicaoY - 1)))
             temObstaculo = true;
@@ -124,7 +124,7 @@ public class Robo {
     }
 
     public void exibirPosicao() {
-        System.out.printf("O robô '%s' está em (%d, %d) na direção %s.\n\n", nome, posicaoX, posicaoY, direcao);
+        System.out.printf("O robo '%s' esta em (%d, %d) na direcao %s.\n\n", nome, posicaoX, posicaoY, direcao);
     }
 
     public void setNome(String nome) {

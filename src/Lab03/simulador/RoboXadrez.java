@@ -3,17 +3,17 @@ package simulador;
 import java.lang.Math;
 
 public class RoboXadrez extends RoboTerrestre {
-    private int tipoMovimento;      // Tipo 1 move-se como a peça de xadrez Cavalo e tipo 2 como o Peão 
+    private int tipoMovimento;      // Tipo 1 move-se como a peça de xadrez Cavalo e tipo 2 como o Peao 
 
     public RoboXadrez(String nome, int posicaoX, int posicaoY, Ambiente ambiente, int velocidadeMaxima, int tipoMovimento) {
         super(nome, posicaoX, posicaoY, ambiente, velocidadeMaxima);
-        tipoMovimento = 1; // padrão (cavalo)
+        tipoMovimento = 1;      // Padrao (Cavalo)
         setTipoMovimento(tipoMovimento);
     }
 
     @Override
     public void info() {
-        System.out.printf("Robô Xadrez '%s' está na posição (%d, %d) apontado na direção %s com velocidade %d, velocidade máxima permitida de %d e com o tipo %d selecionado.\n\n"
+        System.out.printf("Robo Xadrez '%s' esta na posicao (%d, %d) apontado na direcao %s com velocidade %d, velocidade maxima permitida de %d e com o tipo %d selecionado.\n\n"
         , getNome(), getX(), getY(), getDirecao(), getVelocidade(), getVelocidadeMax(), tipoMovimento);
     }
 
@@ -27,7 +27,7 @@ public class RoboXadrez extends RoboTerrestre {
             }
         } 
         else {
-            // Cheques de validade do movimento de tipo Peão
+            // Cheques de validade do movimento de tipo Peao
             switch (getDirecao()) {
                 case "Norte":
                     if (deltaX == 0 && (deltaY == 2 || deltaY == 1)){

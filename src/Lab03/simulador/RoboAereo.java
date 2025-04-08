@@ -12,7 +12,7 @@ public class RoboAereo extends Robo {
 
     @Override
     public void info() {     
-        System.out.printf("Robô Aéreo '%s' está na posição (%d, %d, %d) apontado na direção %s com altitude máxima permitida de %d.\n\n"
+        System.out.printf("Robo Aereo '%s' está na posicao (%d, %d, %d) apontado na direcao %s com altitude maxima permitida de %d.\n\n"
         , getNome(), getX(),getY(), altitude, getDirecao(), altitudeMaxima);
     }
 
@@ -21,7 +21,7 @@ public class RoboAereo extends Robo {
         if (getAltitude() == 0) 
             super.mover(deltaX, deltaY);
         else {
-            System.out.printf("Tentando mover o robô '%s' em %d no eixo x e em %d no y.\n", getNome(), deltaX, deltaY);
+            System.out.printf("Tentando mover o Robo '%s' em %d no eixo x e em %d no y.\n", getNome(), deltaX, deltaY);
 
             if(getAmbiente().dentroDosLimites(getX() + deltaX, getY() + deltaY)){
                 setX(getX() + deltaX);
@@ -30,28 +30,28 @@ public class RoboAereo extends Robo {
                 this.exibirPosicao();
             }
             else
-                System.out.printf("'%s' não tem permissão para sair do ambiente.\n\n", getNome());
+                System.out.printf("'%s' nao tem permissao para sair do ambiente.\n\n", getNome());
         }
     }
 
     public void subir(int metros) {
-        // Compara altitude do robô com a máxima dada
+        // Compara altitude do Robo com a maxima dada
         if (altitude + metros <= altitudeMaxima)
             altitude += metros;
-        // Não atualiza a altitude caso tenha ultrapassado a máxima dada
+        // Nao atualiza a altitude caso tenha ultrapassado a maxima dada
         else
-            System.out.printf("'%s' ultrapassaria a altitude máxima permitida.\n\n", getNome());
+            System.out.printf("'%s' ultrapassaria a altitude maxima permitida.\n\n", getNome());
 
         exibirAltitude();
     }
 
     public void descer(int metros) {
-        // Compara a altitude do robô com a disância ao chão (0)
+        // Compara a altitude do Robo com a disância ao chao (0)
         if (altitude - metros >= 0)
             altitude -= metros;
         // Atualiza a altitude para 0 caso tenha descido demais
         else {
-            System.out.printf("'%s' espatifou-se no chão.\n\n", getNome());
+            System.out.printf("'%s' espatifou-se no chao.\n\n", getNome());
             altitude = 0;
         }
 
@@ -60,7 +60,7 @@ public class RoboAereo extends Robo {
 
     @Override
     public void exibirPosicao() {
-        System.out.printf("O robô '%s' está em (%d, %d) na direção %s e %d acima do solo.\n\n", getNome(), getX(), getY(), getDirecao(), altitude);
+        System.out.printf("O Robo '%s' está em (%d, %d) na direcao %s e %d acima do solo.\n\n", getNome(), getX(), getY(), getDirecao(), altitude);
     }
 
     public void exibirAltitude() {

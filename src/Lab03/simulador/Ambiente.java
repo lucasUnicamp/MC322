@@ -21,6 +21,13 @@ public class Ambiente {
         robosAtivos.add(r);
     }
 
+    public void removerRobo(Robo r) {
+        for (int i = 0; i < robosAtivos.size(); i++) {
+            if (robosAtivos.get(i) == r)
+                robosAtivos.remove(i);
+        }
+    }
+
     public void adicionarObstaculos(int [][] obstaculosNovos) {
         for (int i = 0; i < obstaculosNovos.length; i++){
             obstaculosMatriz[obstaculosNovos[i][0]][obstaculosNovos[i][1]] = true;
@@ -34,9 +41,9 @@ public class Ambiente {
     }
 
     /**
-     * Checa se as coordenadas de um robô aéreo estão contidas na região definida do ambiente, considerando também a altitude
-     * @param robo objeto da classe robô que está dentro do ambiente executando movimentos
-     * @return true ou false dependendo se está ou não dentro do ambiente
+     * Checa se as coordenadas de um robo aereo estão contidas na região definida do ambiente, considerando tambem a altitude
+     * @param robo objeto da classe robo que esta dentro do ambiente executando movimentos
+     * @return true ou false dependendo se esta ou não dentro do ambiente
      */
     public boolean dentroDosLimites(RoboAereo robo) {
         int x = robo.getX();

@@ -28,36 +28,36 @@ public class RoboSatelite extends RoboAereo {
 
     @Override
     public void info() {
-        System.out.printf("Robô Satélite '%s' está na posição (%d, %d, %d) apontado na direção %s com altitude máxima permitida de %d e o ângulo do escaner é de %.1f°.\n\n"
+        System.out.printf("Robo Satelite '%s' esta na posicao (%d, %d, %d) apontado na direcao %s com altitude maxima permitida de %d e o angulo do escaner eh de %.1f°.\n\n"
         , getNome(), getX(),getY(), getAltitude(), getDirecao(), getAltitudeMax(), angulo);
     }
 
-    // O ângulo definido para o escaner corresponde ao 'campo de visão' do robô, que procura obstáculos abaixo dele e no interior
-    // do círculo de raio dependente da altura e do ângulo
+    // O angulo definido para o escaner corresponde ao 'campo de visao' do Robo, que procura obstaculos abaixo dele e no interior
+    // do circulo de raio dependente da altura e do angulo
     public void escanear() {
         double distancia;
         boolean temObstaculo = false;
 
-        // Percorre a lista de coordenadas dos obstáculos e calcula se essas estão no interior do círculo de visão
+        // Percorre a lista de coordenadas dos obstaculos e calcula se essas estao no interior do circulo de visao
         for (int i = 0; i < getAmbiente().obstaculosLista.length; i++) {
-            // Usa fórmula da distância entre dois pontos no plano
+            // Usa formula da distancia entre dois pontos no plano
             distancia = Math.sqrt(Math.pow(getAmbiente().obstaculosLista[i][0] - getX(), 2) + Math.pow(getAmbiente().obstaculosLista[i][1] - getY(), 2));
             if (distancia <= raioArea) {
-                System.out.printf("Obstáculo escaneado em (%d, %d).\n", getAmbiente().obstaculosLista[i][0], getAmbiente().obstaculosLista[i][1]);
+                System.out.printf("Obstaculo escaneado em (%d, %d).\n", getAmbiente().obstaculosLista[i][0], getAmbiente().obstaculosLista[i][1]);
                 temObstaculo = true;
             }
         }
         if (!temObstaculo)
-            System.out.printf("Não há obstáculos na área procurada.");
+            System.out.printf("Nao ha obstaculos na area procurada.");
         System.out.printf("\n");
     }
 
     public void exibirRaio() {
-        System.out.printf("O raio de alcance do escaner nessa altitude %d é de %.1f.\n\n", getAltitude(), raioArea);
+        System.out.printf("O raio de alcance do escaner nessa altitude %d eh de %.1f.\n\n", getAltitude(), raioArea);
     }
 
     public void setAngulo(double angulo) {
-        // Limite arbitrário do ângulo do robô
+        // Limite arbitrario do angulo do Robo
         if (angulo < 90)
             this.angulo = angulo;
         else
