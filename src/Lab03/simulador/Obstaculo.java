@@ -11,13 +11,48 @@ public class Obstaculo {
     public Obstaculo(int posicaoX1, int posicaoY1, int altura, int posicaoX2, int posicaoY2, TipoObstaculo tipo) {
         this.altura = altura;
         this.tipo = tipo;
-        // Operadores ternarios que dão ao ponto 1 as menores coordenadas X e Y, e ao ponto 2, as maiores
-        this.posicaoX1 = posicaoX1 < posicaoX2 ? posicaoX1 : posicaoX2;
-        this.posicaoX2 = posicaoX1 < posicaoX2 ? posicaoX2 : posicaoX1;
-        this.posicaoY1 = posicaoY1 < posicaoY2 ? posicaoY1 : posicaoY2;
-        this.posicaoY2 = posicaoY1 < posicaoY2 ? posicaoY2 : posicaoY1;
+        this.posicaoX1 = posicaoX1;
+        this.posicaoX2 = posicaoY1;
+        this.posicaoY1 = posicaoX2;
+        this.posicaoY2 = posicaoY2;
+        ordenarCoordenadas();
     }
 
+    /**
+     * Ordena as coordenadas do obstaculo para facilitar uso, tornando o ponto 1 o de menores
+     * coordenadas e o ponto 2 o de maiores
+     */
+    public void ordenarCoordenadas() {
+        setPosicaoX1(getPosicaoX1() < getPosicaoX2() ? getPosicaoX1() : getPosicaoX2());
+        setPosicaoX2(getPosicaoX1() < getPosicaoX2() ? getPosicaoX2() : getPosicaoX1());
+        setPosicaoY1(getPosicaoY1() < getPosicaoY2() ? getPosicaoY1() : getPosicaoY2());
+        setPosicaoY2(getPosicaoY1() < getPosicaoY2() ? getPosicaoY2() : getPosicaoY1());
+    }
+    
+    public TipoObstaculo getTipoObstaculo() {
+        return tipo;
+    }
+
+    public void setPosicaoX1(int pos) {
+        posicaoX1 = pos;
+        ordenarCoordenadas();
+    }
+
+    public void setPosicaoX2(int pos) {
+        posicaoX2 = pos;
+        ordenarCoordenadas();
+    }
+
+    public void setPosicaoY1(int pos) {
+        posicaoY1 = pos;
+        ordenarCoordenadas();
+    }
+
+    public void setPosicaoY2(int pos) {
+        posicaoY2 = pos;
+        ordenarCoordenadas();
+    }
+    
     public int getPosicaoX1() {
         return posicaoX1;
     }
