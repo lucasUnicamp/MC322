@@ -1,16 +1,17 @@
 package simulador;
 
 public enum TipoObstaculo {
-    PAREDE (3 , true ) ,
-    ARVORE (5 , true ) ,
-    PREDIO (10 , true ) ,
-    BURACO (0 , true );
+    TORRE_DE_BABEL(70) ,
+    CICLO_BASICO(10) ,
+    EUCALIPTO(3) ,
+    PEDRA(1) ,
+    ESTATUA_DE_ELEFANTE(4) ,
+    THE_BEAN(11); //ESCULTURA EM CHIGAGO
 
-    private final int alturaPadrao ;
-    private final boolean bloqueiaPassagem ;
+    private final static int altura;
 
-    TipoObstaculo (int alturaPadrao , boolean bloqueiaPassagem ) {
-        this.alturaPadrao = alturaPadrao ;
-        this.bloqueiaPassagem = bloqueiaPassagem ;
+    TipoObstaculo(int altura){
+        this.altura = altura;
     }
+
 }

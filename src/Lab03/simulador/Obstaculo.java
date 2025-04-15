@@ -10,8 +10,12 @@ public class Obstaculo {
 
     public Obstaculo(int posicaoX1, int posicaoY1, int altura, int posicaoX2, int posicaoY2, TipoObstaculo tipo) {
         this.altura = altura;
-
         this.tipo = tipo;
+        // Operadores ternarios que dão ao ponto 1 as menores coordenadas X e Y, e ao ponto 2, as maiores
+        this.posicaoX1 = posicaoX1 < posicaoX2 ? posicaoX1 : posicaoX2;
+        this.posicaoX2 = posicaoX1 < posicaoX2 ? posicaoX2 : posicaoX1;
+        this.posicaoY1 = posicaoY1 < posicaoY2 ? posicaoY1 : posicaoY2;
+        this.posicaoY2 = posicaoY1 < posicaoY2 ? posicaoY2 : posicaoY1;
     }
 
     public int getPosicaoX1() {

@@ -52,9 +52,13 @@ public class Ambiente {
     public boolean ehObstaculo(int x, int y) {
         for (int i = 0; i < obstaculos.size(); i++) {
             Obstaculo obs = obstaculos.get(i);
-            if (obs.getPosicaoX1() < x &&
-                x < obs.getPosicaoX2())
+            // Checa se as coordenadas do ponto dado estao no interior do obstaculo retangular
+            if (obs.getPosicaoX1() <= x && x <= obs.getPosicaoX2() &&
+                obs.getPosicaoY1() <= y && y <= obs.getPosicaoY2()) {
+                    return true;
+                }
         }
+        return false;
     }
 
     public int getLargura() {
