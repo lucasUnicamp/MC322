@@ -30,9 +30,8 @@ public class Main {
         RoboPreguica roboPreguica = new RoboPreguica("Delta", 30, 80, salaTeste, 25, 1);        // Cria o robo terrestre do tipo preguiça
         RoboAereo roboAereo = new RoboAereo("Gama", 100, 100, salaTeste, 40, 80);      // Cria o robo aereo generico
         RoboPlanador roboPlanador = new RoboPlanador("Phi", 60, 90, salaTeste, 0, 80, 50);      // Cria o robo aereo do tipo planador
-        RoboSatelite roboSatelite = new RoboSatelite("Sigma", 80, 80, salaTeste, 30, 100, 45);      // Cria o robo satelite
-        
-        salaTeste.adicionarObstaculos(obstaculos);
+    
+
 
         scan.close();
     }

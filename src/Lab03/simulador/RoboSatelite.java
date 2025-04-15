@@ -6,24 +6,21 @@ public class RoboSatelite extends RoboAereo {
     private double angulo;
     private double raioArea;
 
-    public RoboSatelite(String nome, int posicaoX, int posicaoY, Ambiente ambiente, int altitude, int altitudeMaxima, double angulo) {
+    public RoboSatelite(String nome, int posicaoX, int posicaoY, Ambiente ambiente, int altitude, int altitudeMaxima) {
         super(nome, posicaoX, posicaoY, ambiente, altitude, altitudeMaxima);
-        setAngulo(angulo);
-        setRaio();
+
     }
 
     @Override 
     public void subir(int metros) {
         super.subir(metros);
-        setRaio();
-        exibirRaio();
+
     }
 
     @Override 
     public void descer(int metros) {
         super.descer(metros);
-        setRaio();
-        exibirRaio();
+
     }
 
     @Override
@@ -32,6 +29,7 @@ public class RoboSatelite extends RoboAereo {
         , getNome(), getX(),getY(), getAltitude(), getDirecao(), getAltitudeMax(), angulo);
     }
 
+/* 
     // O angulo definido para o escaner corresponde ao 'campo de visao' do Robo, que procura obstaculos abaixo dele e no interior
     // do circulo de raio dependente da altura e do angulo
     public void escanear() {
@@ -77,4 +75,5 @@ public class RoboSatelite extends RoboAereo {
     public double getRaio() {
         return raioArea;
     }
+ */
 }

@@ -1,7 +1,6 @@
 package simulador;
 
 import java.util.ArrayList;
-import java.lang.Math;
 
 public class Robo {
     private String nome;
