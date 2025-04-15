@@ -49,10 +49,15 @@ public class Ambiente {
         return (x >= 0 && x <= altura) && (y >= 0 && y <= largura) && (z >= 0 && z <= altMax);
     }
 
+    /**
+     * Checa se as coordenadas do ponto dado estao no interior do obstaculo retangular
+     * @param x coordenada x da posicao procurada
+     * @param y coordenada y da posicao procurada
+     * @return true ou false dependendo se o ponto esta dentro de um obstaculo
+     */
     public boolean ehObstaculo(int x, int y) {
         for (int i = 0; i < obstaculos.size(); i++) {
             Obstaculo obs = obstaculos.get(i);
-            // Checa se as coordenadas do ponto dado estao no interior do obstaculo retangular
             if (obs.getPosicaoX1() <= x && x <= obs.getPosicaoX2() &&
                 obs.getPosicaoY1() <= y && y <= obs.getPosicaoY2()) {
                     return true;
