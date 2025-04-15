@@ -39,7 +39,7 @@ public class RoboSatelite extends RoboAereo {
         boolean temObstaculo = false;
 
         // Percorre a lista de coordenadas dos obstaculos e calcula se essas estao no interior do circulo de visao
-        for (int i = 0; i < getAmbiente().obstaculosLista.length; i++) {
+        for (int i = 0; i < getAmbiente().obstaculos.size(); i++) {
             // Usa formula da distancia entre dois pontos no plano
             distancia = Math.sqrt(Math.pow(getAmbiente().obstaculosLista[i][0] - getX(), 2) + Math.pow(getAmbiente().obstaculosLista[i][1] - getY(), 2));
             if (distancia <= raioArea) {

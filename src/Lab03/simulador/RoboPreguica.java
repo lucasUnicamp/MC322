@@ -20,11 +20,8 @@ public class RoboPreguica extends RoboTerrestre {
         // Checa se o Robo tem energia para mover
         if (energia > 0) {
             super.mover(deltaX, deltaY);
-            // Checa se o Robo pode se mover
-            if (podeMover(deltaX, deltaY)) {
-                energia -= 1;
-                exibirEnergia();  
-            }
+            energia -= 1;
+            exibirEnergia();  
         }
         else
             System.out.printf("'%s' nao tem energia o suficiente, precisa descansar.\n\n", getNome());
