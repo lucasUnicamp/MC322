@@ -49,6 +49,14 @@ public class Ambiente {
         return (x >= 0 && x <= altura) && (y >= 0 && y <= largura) && (z >= 0 && z <= altMax);
     }
 
+    public boolean ehObstaculo(int x, int y) {
+        for (int i = 0; i < obstaculos.size(); i++) {
+            Obstaculo obs = obstaculos.get(i);
+            if (obs.getPosicaoX1() < x &&
+                x < obs.getPosicaoX2())
+        }
+    }
+
     public int getLargura() {
         return largura;
     }

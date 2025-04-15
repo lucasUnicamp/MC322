@@ -39,18 +39,16 @@ public class Robo {
         // Checa se o robo nao esta saindo dos limites do ambiente
         if (getAmbiente().dentroDosLimites(novoX, novoY)) {
             // Checa se nao ha obstaculos nos 2 caminhos até o ponto final
-            if (checarObstaculoCaminho(deltaX, deltaY)) {
-                posicaoX = novoX;
-                posicaoY = novoY;
-                System.out.printf("Movimentado com sucesso.\n");
-                this.exibirPosicao();
+            for (int i = 1; i <= deltaX; i++) {
+                if ()
+            }
             } 
             else 
                 System.out.printf("Ha obstaculos impedindo o movimento de '%s'.\n\n", nome);
         } 
         // Nao atualiza posicao caso tenha saindo dos limites
         else 
-            System.out.printf("'%s' nao tem permissai para sair do ambiente.\n\n", nome);
+            System.out.printf("'%s' nao tem permissao para sair do ambiente.\n\n", nome);
     }
 
     // /**
