@@ -8,7 +8,7 @@ public enum TipoObstaculo {
     ESTATUA_DE_ELEFANTE(4) ,
     THE_BEAN(11); //ESCULTURA EM CHIGAGO
 
-    private final static int altura;
+    private final int altura;
 
     TipoObstaculo(int altura){
         this.altura = altura;
