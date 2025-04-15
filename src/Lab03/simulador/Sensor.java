@@ -5,6 +5,10 @@ public class Sensor {
 
     public Sensor(double raio) {
         this.raio = raio;
+    }  
+
+    public int monitorar(Robo robo) {
+        return 1;
     }
 
     public double getRaio() {
