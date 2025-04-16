@@ -1,9 +1,7 @@
 package simulador;
 
 import java.lang.Math;
-/**
- * Robo que perde altitude a medida que se move
- */
+
 public class RoboPlanador extends RoboAereo {
     private int tamanhoAsa;     // Quanto maior a asa, por mais tempo consegue planar e também consegue subir mais
 

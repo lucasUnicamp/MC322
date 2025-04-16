@@ -20,7 +20,7 @@ public class RoboXadrez extends RoboTerrestre {
     @Override
     public void mover(int deltaX, int deltaY) {
         if (getTipoMovimento() == 1) {
-            // Cheque de validade do movimento de tipo Cavalo
+            // Cheques de validade do movimento de tipo Cavalo
             if ((Math.abs(deltaX) == 2 && Math.abs(deltaY) == 1) || (Math.abs(deltaX) == 1 && Math.abs(deltaY) == 2)) {
                 super.mover(deltaX, deltaY);
                 return;

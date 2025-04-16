@@ -23,14 +23,14 @@ public class Main {
             {80, 72}
         };      // Adiciona uma série de obstáculos no ambiente nas coordenadas {x, y} especificadas
         Scanner scan = new Scanner(System.in);
-        Ambiente salaTeste = new Ambiente(100, 100, obstaculos.length);        // Cria o ambiente para testes
+        Ambiente salaTeste = new Ambiente(50, 50, obstaculos.length);        // Cria o ambiente para testes
  
-        RoboTerrestre roboTerrestre = new RoboTerrestre("Beta", 50, 50, salaTeste, 60);     // Cria o robo terrestre generico
+        RoboTerrestre roboTerrestre = new RoboTerrestre("Beta", 25, 25, salaTeste, 60);     // Cria o robo terrestre generico
         RoboXadrez roboXadrez = new RoboXadrez("Theta", 30, 20, salaTeste, 6, 1);       // Cria o robo terrestre do tipo xadrez
-        RoboPreguica roboPreguica = new RoboPreguica("Delta", 30, 80, salaTeste, 25, 1);        // Cria o robo terrestre do tipo preguiça
-        RoboAereo roboAereo = new RoboAereo("Gama", 100, 100, salaTeste, 40, 80);      // Cria o robo aereo generico
-        RoboPlanador roboPlanador = new RoboPlanador("Phi", 60, 90, salaTeste, 0, 80, 50);      // Cria o robo aereo do tipo planador
-    
+        RoboPreguica roboPreguica = new RoboPreguica("Delta", 10, 50, salaTeste, 25, 1);        // Cria o robo terrestre do tipo preguiça
+        RoboAereo roboAereo = new RoboAereo("Gama", 0, 0, salaTeste, 40, 80);      // Cria o robo aereo generico
+        RoboPlanador roboPlanador = new RoboPlanador("Phi", 40, 10, salaTeste, 0, 80, 50);      // Cria o robo aereo do tipo planador
+        RoboSatelite roboSatelite = new RoboSatelite("Sigma", 20, 20, salaTeste, 10, 50, 30, 0);        // Cria o robo aereo do tipo satelite
 
 
         scan.close();

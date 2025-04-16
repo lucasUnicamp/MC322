@@ -1,32 +1,100 @@
 package simulador;
 
-import java.lang.Math;
-
 public class RoboSatelite extends RoboAereo {
-    private double angulo;
-    private double raioArea;
+    private int altitudeMinima;
+    private int cargaLancamento;
+    private boolean emOrbita;
 
-    public RoboSatelite(String nome, int posicaoX, int posicaoY, Ambiente ambiente, int altitude, int altitudeMaxima) {
+    public RoboSatelite(String nome, int posicaoX, int posicaoY, Ambiente ambiente, int altitude, int altitudeMaxima, int altitudeMinima, int cargaLancamento) {
         super(nome, posicaoX, posicaoY, ambiente, altitude, altitudeMaxima);
-
+        this.altitudeMinima = altitudeMinima;
+        this.cargaLancamento = cargaLancamento;
+        emOrbita = false;
     }
 
     @Override 
     public void subir(int metros) {
-        super.subir(metros);
-
+        if (emOrbita) {
+            super.subir(metros);
+        }
     }
 
     @Override 
     public void descer(int metros) {
-        super.descer(metros);
-
+        int altitudeNova = getAltitude() - metros;
+        // Robo so desce se esta em orbita, pois caso nao esteja sua altitude eh sempre 0
+        if (emOrbita) {
+            if (altitudeNova < getAltitudeMin()) {
+                System.out.printf("O Robo '%s' desceu abaixo da altitude de orbita; preparando-se para o pouso.\n");
+                emOrbita = false;
+                setAltitude(0);
+            }
+            else
+                super.descer(metros);
+        }
     }
 
     @Override
     public void info() {
-        System.out.printf("Robo Satelite '%s' esta na posicao (%d, %d, %d) apontado na direcao %s com altitude maxima permitida de %d e o angulo do escaner eh de %.1f°.\n\n"
-        , getNome(), getX(),getY(), getAltitude(), getDirecao(), getAltitudeMax(), angulo);
+        System.out.printf("Robo Satelite '%s' esta na posicao (%d, %d, %d) apontado na direcao %s com %d de carga para o lancamento, altitude maxima permitida de %d e minima para orbita de %d.\n\n"
+        , getNome(), getX(), getY(), getAltitude(), getDirecao(), getCargaLancamento(), getAltitudeMax(), getAltitudeMin());
+    }
+
+    public void checarQueda() {
+        if (getAltitude() < getAltitudeMin()) {
+            System.out.printf("Altitude minima para orbita nao alcancada, '%s' despencou.\n", getNome());
+            setAltitude(0);
+            exibirAltitude();
+        }
+    }
+
+    public void carregar(int carga) {
+        cargaLancamento += carga;
+        exibirCarga();
+    }
+
+    public void descarregar(int carga) {
+        cargaLancamento -= carga;
+        exibirCarga();
+    }
+
+    public void lancamento() {
+        float forcaLancamento = getAltitudeMax() / getAltitudeMin();
+        int novaAltitude = Math.round(cargaLancamento * forcaLancamento);
+
+        if (novaAltitude > getAltitudeMax()) {
+            System.out.printf("O Robo '%s' foi lancado alto demais, atingiu o limite e caiu de volta para o chao.\n");
+            setAltitude(0);
+        }
+        else if (novaAltitude < getAltitudeMin()) {
+            System.out.printf("O Robo '%s' nao alcancou sua altura de orbita e caiu de volta para o chao.\n");
+            setAltitude(0);
+        }
+        else {
+            System.out.printf("O Robo '%s' alcancou uma altura de orbita com sucesso.\n");
+            emOrbita = true;
+            setAltitude(novaAltitude);
+        }
+    }
+
+    public void exibirCarga() {
+        System.out.printf("'%s' Carga atual: %d", cargaLancamento);
+    }
+
+    public void setAltitudeMinima(int metros) {
+        altitudeMinima = metros <= getAltitudeMax() ? metros : getAltitudeMax();
+    }
+
+    public void setCargaLancamento(int carga) {
+        cargaLancamento = carga;
+    }
+
+    public int getAltitudeMin() {
+        return altitudeMinima;
+    }
+
+    public int getCargaLancamento() {
+        return cargaLancamento;
     }
 
 /* 

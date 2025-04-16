@@ -68,17 +68,11 @@ public class RoboAereo extends Robo {
     }
 
     protected void setAltitude(int metros) {
-        if(metros >= 0)
-            altitudeMaxima = metros;
-        else
-            altitudeMaxima = 0;
+        altitude = metros >= 0 ? metros : 0;        // Corrige altura contra valores negativos
     }
 
     protected void setAltitudeMaxima(int metros) {
-        if(metros >= 0)
-            altitudeMaxima = metros;
-        else
-            altitudeMaxima = 0;
+        altitudeMaxima = metros >= 0 ? metros : 0;
     }
 
     public int getAltitude(){
