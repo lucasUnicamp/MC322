@@ -100,6 +100,7 @@ public class Robo {
             }
             posicaoY -= j;
         }
+        System.out.printf("O Robo '%s' terminou o movimento na posicao (%d, %d).\n\n", nome, posicaoX, posicaoY);
     }
 
     // /**

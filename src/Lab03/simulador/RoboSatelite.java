@@ -10,6 +10,7 @@ public class RoboSatelite extends RoboAereo {
         this.altitudeMinima = altitudeMinima;
         this.cargaLancamento = cargaLancamento;
         emOrbita = false;
+        checarQueda();
     }
 
     @Override 
@@ -17,6 +18,8 @@ public class RoboSatelite extends RoboAereo {
         if (emOrbita) {
             super.subir(metros);
         }
+        else
+            System.out.printf("O Robo '%s' nao esta em orbita para poder subir.\n\n", getNome());
     }
 
     @Override 
@@ -49,36 +52,41 @@ public class RoboSatelite extends RoboAereo {
     }
 
     public void carregar(int carga) {
+        System.out.printf("Robo carregado.\n");
         cargaLancamento += carga;
         exibirCarga();
     }
 
     public void descarregar(int carga) {
+        System.out.printf("Robo descarregado.\n");
         cargaLancamento -= carga;
         exibirCarga();
     }
 
     public void lancamento() {
-        float forcaLancamento = getAltitudeMax() / getAltitudeMin();
+        float forcaLancamento = getAltitudeMax() / 10;
         int novaAltitude = Math.round(cargaLancamento * forcaLancamento);
 
         if (novaAltitude > getAltitudeMax()) {
-            System.out.printf("O Robo '%s' foi lancado alto demais, atingiu o limite e caiu de volta para o chao.\n");
+            System.out.printf("O Robo '%s' foi lancado alto demais, atingiu o limite e caiu de volta para o chao.\n", getNome());
             setAltitude(0);
         }
         else if (novaAltitude < getAltitudeMin()) {
-            System.out.printf("O Robo '%s' nao alcancou sua altura de orbita e caiu de volta para o chao.\n");
+            System.out.printf("O Robo '%s' nao alcancou sua altura de orbita no lancamento e caiu de volta para o chao.\n", getNome());
             setAltitude(0);
         }
         else {
-            System.out.printf("O Robo '%s' alcancou uma altura de orbita com sucesso.\n");
+            System.out.printf("O Robo '%s' alcancou uma altura de orbita com sucesso em seu lancamento.\n", getNome());
             emOrbita = true;
             setAltitude(novaAltitude);
         }
+        setCargaLancamento(0);
+        exibirAltitude();
+        descarregar(cargaLancamento);
     }
 
     public void exibirCarga() {
-        System.out.printf("'%s' Carga atual: %d", cargaLancamento);
+        System.out.printf("'%s' Carga atual: %d\n\n", getNome(), cargaLancamento);
     }
 
     public void setAltitudeMinima(int metros) {

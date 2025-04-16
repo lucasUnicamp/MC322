@@ -36,8 +36,10 @@ public class RoboAereo extends Robo {
 
     public void subir(int metros) {
         // Compara altitude do Robo com a maxima dada
-        if (altitude + metros <= altitudeMaxima)
+        if (altitude + metros <= altitudeMaxima) {
+            System.out.printf("O Robo subiu com sucesso.\n");
             altitude += metros;
+        }
         // Nao atualiza a altitude caso tenha ultrapassado a maxima dada
         else
             System.out.printf("'%s' ultrapassaria a altitude maxima permitida.\n\n", getNome());
@@ -47,8 +49,10 @@ public class RoboAereo extends Robo {
 
     public void descer(int metros) {
         // Compara a altitude do Robo com a disância ao chao (0)
-        if (altitude - metros >= 0)
+        if (altitude - metros >= 0) {
+            System.out.printf("O Robo desceu com sucesso.\n");
             altitude -= metros;
+        }
         // Atualiza a altitude para 0 caso tenha descido demais
         else {
             System.out.printf("'%s' espatifou-se no chao.\n\n", getNome());

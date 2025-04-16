@@ -32,7 +32,13 @@ public class Main {
         RoboPlanador roboPlanador = new RoboPlanador("Phi", 40, 10, salaTeste, 0, 80, 50);      // Cria o robo aereo do tipo planador
         RoboSatelite roboSatelite = new RoboSatelite("Sigma", 20, 20, salaTeste, 10, 50, 30, 0);        // Cria o robo aereo do tipo satelite
 
-
+        roboSatelite.info();
+        roboSatelite.mover(10, 10);
+        roboSatelite.subir(10);
+        roboSatelite.carregar(10);
+        roboSatelite.lancamento();
+        roboSatelite.subir(20);
+        roboSatelite.descer(5);
         scan.close();
     }
 }
