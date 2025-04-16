@@ -3,6 +3,7 @@ package simulador;
 public class RoboSatelite extends RoboAereo {
     private int altitudeMinima;
     private int cargaLancamento;
+    // Flag para validar os movimentos de sobe e desce, que so podem funcionar caso o robo esteja no ar
     private boolean emOrbita;
 
     public RoboSatelite(String nome, int posicaoX, int posicaoY, Ambiente ambiente, int altitude, int altitudeMaxima, int altitudeMinima, int cargaLancamento) {
@@ -15,6 +16,7 @@ public class RoboSatelite extends RoboAereo {
 
     @Override 
     public void subir(int metros) {
+        // Robo so sobe se esta em orbita, pois caso nao esteja sua altitude eh sempre 0
         if (emOrbita) {
             super.subir(metros);
         }
@@ -27,6 +29,7 @@ public class RoboSatelite extends RoboAereo {
         int altitudeNova = getAltitude() - metros;
         // Robo so desce se esta em orbita, pois caso nao esteja sua altitude eh sempre 0
         if (emOrbita) {
+            // Se puder descer mas descer abaixo do limite de orbita, o robo cai
             if (altitudeNova < getAltitudeMin()) {
                 System.out.printf("O Robo '%s' desceu abaixo da altitude de orbita; preparando-se para o pouso.\n");
                 emOrbita = false;
@@ -44,6 +47,7 @@ public class RoboSatelite extends RoboAereo {
     }
 
     public void checarQueda() {
+        // Serve para zerar a altitude inicial caso ela nao seja suficiente para botar o robo em orbita
         if (getAltitude() < getAltitudeMin()) {
             System.out.printf("Altitude minima para orbita nao alcancada, '%s' despencou.\n", getNome());
             setAltitude(0);
@@ -63,7 +67,14 @@ public class RoboSatelite extends RoboAereo {
         exibirCarga();
     }
 
+    /**
+     * Funcao encarregada de lancar o robo verticalmente baseado em uma forca carregada previamente.
+     * Se o carregamento for exagerado, o robo 'bate no teto' do ambiente e cai;
+     * se nao for o suficiente, o robo nao alcanca a altura minima de orbita e cai;
+     * e se for o bastante, o robo entra em orbita e 'flutua' no espaco, podendo agora subir e descer livremente.
+     */
     public void lancamento() {
+        // Funcao de forca definida arbitrariamente
         float forcaLancamento = getAltitudeMax() / 10;
         int novaAltitude = Math.round(cargaLancamento * forcaLancamento);
 
