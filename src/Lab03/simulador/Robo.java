@@ -19,10 +19,18 @@ public class Robo {
         ambiente.adicionarRobo(this);       // Adiciona o robo no ambiente logo que é criado
 
         System.out.printf("Robo '%s' criado\n", nome);
+        checarPosicao(posicaoX, posicaoY);
     }
 
     public void info() {
         System.out.printf("Robo '%s' esta na posicao (%d, %d) apontado na direcao %s.\n\n", getNome(), getX(), getY(), direcao);
+    }
+
+    public void checarPosicao(int posX, int posY) {
+        if (ambiente.ehObstaculo(posX, posY)) {
+            System.out.printf("AVISO: Robo '%s' foi inicializado dentro de um obstaculo. Nao faca isso.\n", getNome());
+            // Colocar ele numa posicao valida
+        }
     }
 
     /**
@@ -43,11 +51,13 @@ public class Robo {
                 // Checa se a posicao em que vai andar eh um obstaculo
                 if (getAmbiente().ehObstaculo(posicaoX + i, posicaoY)) {
                     System.out.printf("Ha um obstaculo em (%d, %d) impedindo o movimento horizontal de '%s'.\n", getX() + i, getY(), nome);
+                    i -= 1;
                     break;
                 }
                 // Checa se a posicao em que vai andar esta fora dos limites do ambiente
                 else if (!getAmbiente().dentroDosLimites(posicaoX + i, posicaoY)) {
                     System.out.printf("O robo nao tem autorizacao para sair do ambiente.\n\n");
+                    i -= 1;
                     break;
                 }
             }
@@ -59,10 +69,12 @@ public class Robo {
             for ( ; i < -deltaX; i++) {
                 if (getAmbiente().ehObstaculo(posicaoX - i, posicaoY)) {
                     System.out.printf("Ha um obstaculo em (%d, %d) impedindo o movimento horizontal de '%s'.\n", getX() - i, getY(), nome);
+                    i += 1;
                     break;
                 }
                 else if (!getAmbiente().dentroDosLimites(posicaoX - i, posicaoY)) {
                     System.out.printf("O robo nao tem autorizacao para sair do ambiente.\n\n");
+                    i += 1;
                     break;
                 }
             }
@@ -71,16 +83,18 @@ public class Robo {
         // Depois move o robo totalmente na vertical
         // Caso deltaY positivo, anda na direcao Norte. Aqui checa o valor de i antes pois i so eh diferente de deltaX 
         // se o robo ja bateu em algum obstaculo, assim nao tem porque continuar checando na vertical
-        if (deltaY >= 0 && i == deltaX) {
+        if (deltaY >= 0 && i == Math.abs(deltaX)) {
             for ( ; j < deltaY; j++) {
                 // Checa se a posicao em que vai andar eh um obstaculo
                 if (getAmbiente().ehObstaculo(posicaoX, posicaoY + j)) {
                     System.out.printf("Ha um obstaculo em (%d, %d) impedindo o movimento vertical de '%s'.\n", getX(), getY() + j, nome);
+                    j -= 1;
                     break;
                 }
                 // Checa se a posicao em que vai andar esta fora dos limites do ambiente
                 else if (!getAmbiente().dentroDosLimites(posicaoX, posicaoY + j)) {
                     System.out.printf("O robo nao tem autorizacao para sair do ambiente.\n\n");
+                    j -= 1;
                     break;
                 }
             }
@@ -88,14 +102,16 @@ public class Robo {
             posicaoY += j;
         }
         // Caso deltaY negativo, anda na direcao Sul
-        else if (deltaY < 0 && i == deltaX) {
-            for ( ; j < -deltaX; j++) {
+        else if (deltaY < 0 && i == Math.abs(deltaX)) {
+            for ( ; j < -deltaY; j++) {
                 if (getAmbiente().ehObstaculo(posicaoX, posicaoY - j)) {
-                    System.out.printf("Ha um obstaculo em (%d, %D) impedindo o movimento vertical de '%s'.\n", getX(), getY() - j, nome);
+                    System.out.printf("Ha um obstaculo em (%d, %d) impedindo o movimento vertical de '%s'.\n", getX(), getY() - j, nome);
+                    j += 1;
                     break;
                 }
                 else if (!getAmbiente().dentroDosLimites(posicaoX, posicaoY - j)) {
                     System.out.printf("O robo nao tem autorizacao para sair do ambiente.\n\n");
+                    j += 1;
                     break;
                 }
             }
