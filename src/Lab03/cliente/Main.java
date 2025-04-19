@@ -29,6 +29,7 @@ public class Main {
 
         roboTerrestre.info();
         roboTerrestre.mover(10, 10);
+        roboTerrestre.mover(-5, -5);
 
         roboSatelite.info();
         roboSatelite.mover(10, 10);

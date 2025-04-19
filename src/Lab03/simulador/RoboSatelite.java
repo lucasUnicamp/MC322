@@ -49,7 +49,7 @@ public class RoboSatelite extends RoboAereo {
     public void checarQueda() {
         // Serve para zerar a altitude inicial caso ela nao seja suficiente para botar o robo em orbita
         if (getAltitude() < getAltitudeMin()) {
-            System.out.printf("AVISO: Altitude minima para orbita nao alcancada, '%s' despencou.\n", getNome());
+            System.out.printf("AVISO: Robo '%s' nao foi inicializado com altitude minima para orbita e despencou.\n", getNome());
             setAltitude(0);
             exibirAltitude();
         }
