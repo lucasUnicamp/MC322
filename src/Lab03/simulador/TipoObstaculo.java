@@ -14,4 +14,7 @@ public enum TipoObstaculo {
         this.altura = altura;
     }
 
+    public int getAltura() {
+        return altura;
+    }
 }

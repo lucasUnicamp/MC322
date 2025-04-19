@@ -17,6 +17,10 @@ public class Robo {
         setY(posicaoY);
         setAmbiente(ambiente);
         ambiente.adicionarRobo(this);       // Adiciona o robo no ambiente logo que é criado
+        
+        sensores = new ArrayList<>();
+        adicionarSensor(1, 5);
+        atualizaSensores();
 
         System.out.printf("Robo '%s' criado\n", nome);
     }
@@ -100,6 +104,7 @@ public class Robo {
             }
             posicaoY -= j;
         }
+        atualizaSensores();
         System.out.printf("O Robo '%s' terminou o movimento na posicao (%d, %d).\n\n", nome, posicaoX, posicaoY);
     }
 
@@ -182,10 +187,17 @@ public class Robo {
 
     public void adicionarSensor(int tipoSensor, int raio) {
         if (tipoSensor == 1) {
-            sensores.add(new Sensor(raio));
+            sensores.add(new Sensor(raio, ambiente));
         }
         else if (tipoSensor == 2) {
-            sensores.add(new Sensor(raio));
+            sensores.add(new Sensor(raio, ambiente));
+        }
+    }
+
+    public void atualizaSensores(){
+        for(Sensor sensor:sensores) {
+            sensor.setX(posicaoX);
+            sensor.setY(posicaoY);
         }
     }
 

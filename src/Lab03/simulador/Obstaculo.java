@@ -3,13 +3,11 @@ package simulador;
 public class Obstaculo {
     private int posicaoX1;
     private int posicaoY1;
-    private int altura;
     private int posicaoX2;
     private int posicaoY2;
     TipoObstaculo tipo;
 
-    public Obstaculo(int posicaoX1, int posicaoY1, int altura, int posicaoX2, int posicaoY2, TipoObstaculo tipo) {
-        this.altura = altura;
+    public Obstaculo(int posicaoX1, int posicaoY1, int posicaoX2, int posicaoY2, TipoObstaculo tipo) {
         this.tipo = tipo;
         this.posicaoX1 = posicaoX1;
         this.posicaoX2 = posicaoY1;
