@@ -58,8 +58,13 @@ public class Ambiente {
     public boolean ehObstaculo(int x, int y) {
         for (int i = 0; i < obstaculos.size(); i++) {
             Obstaculo obs = obstaculos.get(i);
-            if (obs.getPosicaoX1() <= x && x <= obs.getPosicaoX2() &&
-                obs.getPosicaoY1() <= y && y <= obs.getPosicaoY2()) {
+            int menorPosX = obs.getPosicaoX1() > obs.getPosicaoX2() ? obs.getPosicaoX2() : obs.getPosicaoX1();
+            int maiorPosX = obs.getPosicaoX1() > obs.getPosicaoX2() ? obs.getPosicaoX1() : obs.getPosicaoX2();
+            int menorPosY = obs.getPosicaoY1() > obs.getPosicaoY2() ? obs.getPosicaoY2() : obs.getPosicaoY1();
+            int maiorPosY = obs.getPosicaoY1() > obs.getPosicaoY2() ? obs.getPosicaoY1() : obs.getPosicaoY2();
+
+            if (menorPosX <= x && x <= maiorPosX &&
+                menorPosY <= y && y <= maiorPosY) {
                     return true;
                 }
         }

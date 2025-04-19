@@ -38,11 +38,11 @@ public class Robo {
 
         // Primeiro move o robo totalmente na horizontal
         // Caso deltaX positivo, anda na direcao Leste
-        if(deltaX > 0) {
+        if (deltaX >= 0) {
             for ( ; i < deltaX; i++) {
                 // Checa se a posicao em que vai andar eh um obstaculo
                 if (getAmbiente().ehObstaculo(posicaoX + i, posicaoY)) {
-                    System.out.printf("Ha obstaculos impedindo o movimento horizontal de '%s'.\n", nome);
+                    System.out.printf("Ha um obstaculo em (%d, %d) impedindo o movimento horizontal de '%s'.\n", getX() + i, getY(), nome);
                     break;
                 }
                 // Checa se a posicao em que vai andar esta fora dos limites do ambiente
@@ -54,11 +54,11 @@ public class Robo {
             // Atualiza posicao X do robo baseado em quanto conseguiu andar
             posicaoX += i;
         }
-        // Caso deltaX negativo, anda na direcao Oeste
-        else {
+        // Caso deltaX negativo, anda na direcao Oeste.
+        else if (deltaX < 0) {
             for ( ; i < -deltaX; i++) {
                 if (getAmbiente().ehObstaculo(posicaoX - i, posicaoY)) {
-                    System.out.printf("Ha obstaculos impedindo o movimento horizontal de '%s'.\n", nome);
+                    System.out.printf("Ha um obstaculo em (%d, %d) impedindo o movimento horizontal de '%s'.\n", getX() - i, getY(), nome);
                     break;
                 }
                 else if (!getAmbiente().dentroDosLimites(posicaoX - i, posicaoY)) {
@@ -69,12 +69,13 @@ public class Robo {
             posicaoX -= i;
         }
         // Depois move o robo totalmente na vertical
-        // Caso deltaY positivo, anda na direcao Norte
-        if(deltaY > 0) {
+        // Caso deltaY positivo, anda na direcao Norte. Aqui checa o valor de i antes pois i so eh diferente de deltaX 
+        // se o robo ja bateu em algum obstaculo, assim nao tem porque continuar checando na vertical
+        if (deltaY >= 0 && i == deltaX) {
             for ( ; j < deltaY; j++) {
                 // Checa se a posicao em que vai andar eh um obstaculo
                 if (getAmbiente().ehObstaculo(posicaoX, posicaoY + j)) {
-                    System.out.printf("Ha obstaculos impedindo o movimento vertical de '%s'.\n", nome);
+                    System.out.printf("Ha um obstaculo em (%d, %d) impedindo o movimento vertical de '%s'.\n", getX(), getY() + j, nome);
                     break;
                 }
                 // Checa se a posicao em que vai andar esta fora dos limites do ambiente
@@ -87,10 +88,10 @@ public class Robo {
             posicaoY += j;
         }
         // Caso deltaY negativo, anda na direcao Sul
-        else {
+        else if (deltaY < 0 && i == deltaX) {
             for ( ; j < -deltaX; j++) {
                 if (getAmbiente().ehObstaculo(posicaoX, posicaoY - j)) {
-                    System.out.printf("Ha obstaculos impedindo o movimento vertical de '%s'.\n", nome);
+                    System.out.printf("Ha um obstaculo em (%d, %D) impedindo o movimento vertical de '%s'.\n", getX(), getY() - j, nome);
                     break;
                 }
                 else if (!getAmbiente().dentroDosLimites(posicaoX, posicaoY - j)) {

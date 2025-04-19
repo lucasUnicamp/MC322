@@ -12,21 +12,9 @@ public class Obstaculo {
         this.altura = altura;
         this.tipo = tipo;
         this.posicaoX1 = posicaoX1;
-        this.posicaoX2 = posicaoY1;
-        this.posicaoY1 = posicaoX2;
+        this.posicaoY1 = posicaoY1;
+        this.posicaoX2 = posicaoX2;
         this.posicaoY2 = posicaoY2;
-        ordenarCoordenadas();
-    }
-
-    /**
-     * Ordena as coordenadas do obstaculo para facilitar uso, tornando o ponto 1 o de menores
-     * coordenadas e o ponto 2 o de maiores
-     */
-    public void ordenarCoordenadas() {
-        setPosicaoX1(getPosicaoX1() < getPosicaoX2() ? getPosicaoX1() : getPosicaoX2());
-        setPosicaoX2(getPosicaoX1() < getPosicaoX2() ? getPosicaoX2() : getPosicaoX1());
-        setPosicaoY1(getPosicaoY1() < getPosicaoY2() ? getPosicaoY1() : getPosicaoY2());
-        setPosicaoY2(getPosicaoY1() < getPosicaoY2() ? getPosicaoY2() : getPosicaoY1());
     }
     
     public TipoObstaculo getTipoObstaculo() {
@@ -35,22 +23,18 @@ public class Obstaculo {
 
     public void setPosicaoX1(int pos) {
         posicaoX1 = pos;
-        ordenarCoordenadas();
     }
 
     public void setPosicaoX2(int pos) {
         posicaoX2 = pos;
-        ordenarCoordenadas();
     }
 
     public void setPosicaoY1(int pos) {
         posicaoY1 = pos;
-        ordenarCoordenadas();
     }
 
     public void setPosicaoY2(int pos) {
         posicaoY2 = pos;
-        ordenarCoordenadas();
     }
     
     public int getPosicaoX1() {
