@@ -7,12 +7,12 @@ Esse é o *Repositório Oficial*™ do grupo 8 para os laboratórios de MC322, o
 - 281289 &emsp; Leonardo Ferreira
 
 ## **EXECUÇÃO**
-Dentro da pasta MC322, usar os comandos para compilação e execução:<br/>
-- `javac -d bin src/Lab03/cliente/*.java src/Lab03/simulador/*.java`
+Dentro da pasta MC322, usar os comandos para compilação e execução, subsitutindo *XX* pelo número do Lab que se quer executar:<br/>
+- `javac -d bin src/LabXX/cliente/*.java src/LabXX/simulador/*.java`
 - `java -cp bin cliente.Main`
 
 ## **EXPLICAÇÕES**
-> ### **Lab 03**
+> ### **Lab03**
 ### Movimentação do Robô<br/>
 Em razão da implementação de sensores, houve uma pequena mudança na movimentação do robô base. Agora, dado um `deltaX` e um `deltaY`, o robô irá sempre tentar percorrer todo o `deltaX` primeiro e depois o `deltaY`, parando de se mover:
 - caso chegue ao seu destino.
@@ -29,7 +29,7 @@ Novamente em razão dos sensores, um dos robôs foi alterado:
 Os outros tipos de robôs permanecem inalterados.
 
  ---
-> ### **Lab 02**
+> ### **Lab02**
 ### Movimentação do Robô<br/>
 Consideramos que o robô pode tomar somente dois caminhos dado um `deltaX` e um `deltaY`, sendo esses:
 - mover-se `deltaX` totalmente no eixo X primeiro e depois `deltaY` totalmente no eixo Y.
