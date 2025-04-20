@@ -28,6 +28,9 @@ Novamente em razão dos sensores, um dos robôs foi alterado:
 
 Os outros tipos de robôs permanecem inalterados.
 
+### Ambiente<br/>
+O Ambiente agora conta com um novo atributo, a *Temperatura*, para que possamos monitorá-la com um sensor. Um ponto aleatório é escolhido e lhe é atribuído uma temperatura, também aleatória, a partir da qual todas as posições em seu arredor serão progressivamente menores, seguindo uma [Função Gaussiana](https://en.wikipedia.org/wiki/Gaussian_function#Two-dimensional_Gaussian_function).
+
  ---
 > ### **Lab02**
 ### Movimentação do Robô<br/>
