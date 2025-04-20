@@ -1,7 +1,5 @@
 package simulador;
 
-import java.lang.Math;
-
 public class SensorTemp extends Sensor {
 
     public SensorTemp(double raio, Ambiente ambiente) {
@@ -9,16 +7,12 @@ public class SensorTemp extends Sensor {
     }
 
     @Override
-    public int monitorar(int posicaoX, int posicaoY) {
-        // Deltas sao a distancia do sensor (ou seja, do robo ao qual o sensor esta atribuido) ate a posicao passada
-        int deltaX = posicaoX - getX();
-        int deltaY = posicaoY - getY();
-
-        if (!ambiente.dentroDosLimites(posicaoX, posicaoY)) {
+    public int monitorar(int posX, int posY) {
+        if (!ambiente.dentroDosLimites(posX, posY)) {
             System.out.println("Fora dos limites do ambiente.\n");
             return 1;       // Fora do ambiente
         }
-        else if (Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2)) > getRaio()) {
+        else if (!dentroDoRaio(posX, posY)) {
             System.out.println("Fora do alcance do sensor.\n");
             return 2;       // Fora do alcance
         }
@@ -27,10 +21,22 @@ public class SensorTemp extends Sensor {
         }
     }
 
+    /**
+     * Exibe a temperatura em um ponto especifico
+     * @param posX coordenada x do ponto
+     * @param posY coordenada y do ponto
+     */
     public void temperaturaPonto(int posX, int posY) {
         if (monitorar(posX, posY) == 1) {
             System.out.printf("Temperatura no ponto (%d, %d) é de %.1f°C.\n", posX, posY, ambiente.temperaturas[posX][posY]);
         }
+    }
+
+    /**
+     * Exibe a temperatura maxima e sua posicao
+     */
+    public void temperaturaMax() {
+
     }
     
 }

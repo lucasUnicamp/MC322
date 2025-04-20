@@ -196,12 +196,12 @@ public class Robo {
             direcao = "Norte";
     }
 
-    protected void setX(int x) {
-        posicaoX = x;
+    protected void setX(int posX) {
+        posicaoX = posX;
     }
 
-    protected void setY(int y) {
-        posicaoY = y;
+    protected void setY(int posY) {
+        posicaoY = posY;
     }
 
     protected void setAmbiente(Ambiente ambiente) {

@@ -13,26 +13,22 @@ public class Sensor {
         setAmbiente(ambiente);
     }  
 
-    public int monitorar(int posicaoX, int posicaoY) {
-        // Deltas sao a distancia do sensor (ou seja, do robo ao qual o sensor esta atribuido) ate a posicao passada
-        int deltaX = posicaoX - this.posicaoX;
-        int deltaY = posicaoY - this.posicaoY;
-
-        if (!ambiente.dentroDosLimites(posicaoX, posicaoY)) {
+    public int monitorar(int posX, int posY) {
+        if (!ambiente.dentroDosLimites(posX, posY)) {
             System.out.println("Fora dos limites do ambiente.\n");
             return 2;       // Fora do ambiente
         }
         // Usa teorema de pitagoras para calcular a distancia em linha reta e compara com o raio do sensor
-        else if (Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2)) > raio) {
+        else if (!dentroDoRaio(posX, posY)) {
             System.out.println("Fora do alcance do sensor.\n");
             return 3;       // Fora do alcance
         }
         else {
             for (Obstaculo obstaculo:ambiente.obstaculos) {
-                if (obstaculo.getPosicaoX1() <= posicaoX &&
-                    obstaculo.getPosicaoX2() >= posicaoX &&
-                    obstaculo.getPosicaoY1() <= posicaoY &&
-                    obstaculo.getPosicaoY2() >= posicaoY ) {
+                if (obstaculo.getPosicaoX1() <= posX &&
+                    obstaculo.getPosicaoX2() >= posX &&
+                    obstaculo.getPosicaoY1() <= posY &&
+                    obstaculo.getPosicaoY2() >= posY ) {
                     return 1;       // Obstaculo detectado
                 }
             }
@@ -40,16 +36,27 @@ public class Sensor {
         }
     }
 
+    public boolean dentroDoRaio(int posX, int posY) {
+        // Deltas sao a distancia do sensor (ou seja, do robo ao qual o sensor esta atribuido) ate a posicao passada
+        int deltaX = posX - posicaoX;
+        int deltaY = posY - posicaoY;
+
+        if (Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2)) <= raio)
+            return true;
+        else
+            return false;
+    }
+
     public void setRaio(double raio) {
         this.raio = raio;
     }
 
-    public void setX(int posicaoX) {
-        this.posicaoX = posicaoX;
+    public void setX(int posX) {
+        posicaoX = posX;
     }
 
-    public void setY(int posicaoY) {
-        this.posicaoY = posicaoY;
+    public void setY(int posY) {
+        posicaoY = posY;
     }
 
     public void setAmbiente(Ambiente ambiente) {
