@@ -18,10 +18,14 @@ public class Ambiente {
         gradienteTemperatura();
     }
 
+    /**
+     * Cria um 'gradiente' de temperatura para o Ambiente, atribuindo a um ponto aleatorio um valor de temperatura maxima que
+     * vai se reduzindo conforme se afasta desse ponto, seguindo uma funcao Gaussiana
+     */
     public void gradienteTemperatura() {
         temperaturas = new double[getLargura()][getAltura()];
         double tempMax = (Math.random() * 36);        // Gera uma temperatura aleatoria para ser o maximo do ambiente
-        int posX = (int)(Math.random() * getLargura());
+        int posX = (int)(Math.random() * getLargura());     // Gera coordenadas aleatorias para terem essa temperatura maxima
         int posY = (int)(Math.random() * getAltura());
 
         for (int i = 0; i < getLargura(); i++) {
@@ -29,26 +33,19 @@ public class Ambiente {
                 temperaturas[i][j] = gradienteGaussiano(tempMax, posX, posY, i, j, getLargura()/2, 2*getAltura());
             }
         }
-
-        System.out.printf("%.1f, %d, %d\n", tempMax, posX, posY);
-        for (int i = 0; i < getLargura(); i++) {
-            for (int j = 0; j < getAltura(); j++) {
-                System.out.printf("%03.1f ", temperaturas[i][j]);
-            }
-            System.out.printf("\n");
-        }
     }
 
     /**
-     * Usa a funcao gaussiana de duas dimensoes para gerar uma especie de gradiente dado um ponto central e uma amplitude para a variacao
-     * @param amplitude
-     * @param centroX
-     * @param centroY
-     * @param x
-     * @param y
-     * @param horizontal
-     * @param vertical
-     * @return
+     * Usa a funcao gaussiana de duas dimensoes para gerar uma especie de gradiente dado um ponto central e uma amplitude para a variacao,
+     * formando uma elipse que vai diminuindo de valor a partir do centro
+     * @param amplitude valor maximo que a funcao pode ter
+     * @param centroX coordenada x do centro 
+     * @param centroY coordenada y do centro
+     * @param x posicao x qualquer
+     * @param y posicao y qualquer  
+     * @param horizontal o quao 'rapido' ela vai diminuir na horizontal
+     * @param vertical o quao 'rapido' ela vai diminuir na vertical
+     * @return resultado da formula, que deve ser um numero menor que a amplitude
      */
     public double gradienteGaussiano(double amplitude, int centroX, int centroY, int x, int y, int horizontal, int vertical) {
         return amplitude * (Math.pow(Math.E, -((Math.pow(Math.abs(x - centroX), 2))/(2 * Math.pow(horizontal, 2)) + 

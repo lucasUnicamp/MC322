@@ -29,10 +29,10 @@ public class Sensor {
                     obstaculo.getPosicaoX2() >= posicaoX &&
                     obstaculo.getPosicaoY1() <= posicaoY &&
                     obstaculo.getPosicaoY2() >= posicaoY ) {
-                    return 1;       // Obstáculo detectado
+                    return 1;       // Obstaculo detectado
                 }
             }
-            return 0;       // Obstáculo não detectado
+            return 0;       // Obstaculo não detectado
         }
     }
 
