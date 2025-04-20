@@ -23,7 +23,7 @@ public class Robo {
         atualizaSensores();
 
         System.out.printf("Robo '%s' criado\n", nome);
-        checarPosicaoInicial(posicaoX, posicaoY);
+        checarPosicaoInicial(posicaoX, posicaoY);       // Checa se a posicao em que foi inicializado eh valida
     }
 
     public void info() {
@@ -163,6 +163,11 @@ public class Robo {
         System.out.printf("O robo '%s' esta em (%d, %d) na direcao %s.\n\n", nome, posicaoX, posicaoY, direcao);
     }
 
+    /**
+     * Adiciona um sensor de tipo especificado ao robo
+     * @param tipoSensor tipo do sensor, o que ele vai monitorar
+     * @param raio alcance maximo do sensor 
+     */
     public void adicionarSensor(int tipoSensor, int raio) {
         if (tipoSensor == 1) {
             sensores.add(new Sensor(raio, ambiente));
