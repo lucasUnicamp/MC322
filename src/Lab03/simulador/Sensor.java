@@ -18,10 +18,14 @@ public class Sensor {
         int deltaX = posicaoX - this.posicaoX;
         int deltaY = posicaoY - this.posicaoY;
 
+        if (!ambiente.dentroDosLimites(posicaoX, posicaoY)) {
+            System.out.println("Fora dos limites do ambiente.\n");
+            return 2;       // Fora do ambiente
+        }
         // Usa teorema de pitagoras para calcular a distancia em linha reta e compara com o raio do sensor
-        if (Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2)) > raio) {
+        else if (Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2)) > raio) {
             System.out.println("Fora do alcance do sensor.\n");
-            return 2;       // Fora do alcance
+            return 3;       // Fora do alcance
         }
         else {
             for (Obstaculo obstaculo:ambiente.obstaculos) {
@@ -36,24 +40,32 @@ public class Sensor {
         }
     }
 
-    public double getRaio() {
-        return raio;
-    }
-
     public void setRaio(double raio) {
         this.raio = raio;
     }
 
-    public void setX(int posicaoX){
+    public void setX(int posicaoX) {
         this.posicaoX = posicaoX;
     }
 
-    public void setY(int posicaoY){
+    public void setY(int posicaoY) {
         this.posicaoY = posicaoY;
     }
 
     public void setAmbiente(Ambiente ambiente) {
         this.ambiente = ambiente;
+    }
+
+    public double getRaio() {
+        return raio;
+    }
+
+    public int getX() {
+        return posicaoX;
+    }
+
+    public int getY() {
+        return posicaoY;
     }
 
 }

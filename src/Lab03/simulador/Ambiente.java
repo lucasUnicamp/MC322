@@ -24,7 +24,7 @@ public class Ambiente {
      */
     public void gradienteTemperatura() {
         temperaturas = new double[getLargura()][getAltura()];
-        double tempMax = (Math.random() * 36);        // Gera uma temperatura aleatoria para ser o maximo do ambiente
+        double tempMax = (Math.random() * 100);        // Gera uma temperatura aleatoria para ser o maximo do ambiente
         int posX = (int)(Math.random() * getLargura());     // Gera coordenadas aleatorias para terem essa temperatura maxima
         int posY = (int)(Math.random() * getAltura());
 
