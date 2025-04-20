@@ -41,7 +41,7 @@ public class Sensor {
         int deltaX = posX - posicaoX;
         int deltaY = posY - posicaoY;
 
-        if (Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2)) <= raio)
+        if (Math.pow(deltaX, 2) + Math.pow(deltaY, 2) <= Math.pow(raio, 2))
             return true;
         else
             return false;
