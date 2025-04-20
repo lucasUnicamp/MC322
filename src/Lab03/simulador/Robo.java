@@ -23,17 +23,50 @@ public class Robo {
         atualizaSensores();
 
         System.out.printf("Robo '%s' criado\n", nome);
-        checarPosicao(posicaoX, posicaoY);
+        checarPosicaoInicial(posicaoX, posicaoY);
     }
 
     public void info() {
         System.out.printf("Robo '%s' esta na posicao (%d, %d) apontado na direcao %s.\n\n", getNome(), getX(), getY(), direcao);
     }
 
-    public void checarPosicao(int posX, int posY) {
+    /**
+     * Checa se o robo foi inicializado em uma posicao valida, ou seja, fora da regiao de um obstaculo e dentro do ambiente.
+     * Caso nao, muda a posicao do robo para uma valida aleatoria
+     * @param posX coordenada x da posicao inicial do robo
+     * @param posY coordenada y da posicao inicial do robo
+     */
+    public void checarPosicaoInicial(int posX, int posY) {
+        boolean ehValido = true;
+
         if (ambiente.ehObstaculo(posX, posY)) {
             System.out.printf("AVISO: Robo '%s' foi inicializado dentro de um obstaculo. Nao faca isso.\n", getNome());
-            // Colocar ele numa posicao valida
+            ehValido = false;
+        }
+        if (!ambiente.dentroDosLimites(posX, posY)) {
+            System.out.printf("AVISO: Robo '%s' foi inicializado fora dos limites do ambiente. Nao faca isso.\n", getNome());
+            ehValido = false;
+        }
+
+        if (!ehValido)
+            moverParaValida();
+    }
+
+    /**
+     * Metodo auxiliar de 'checarPosicaoValida', gera uma nova posicao aleatoria para colocar um robo 
+     * que foi inicializado em uma invalida 
+     */
+    public void moverParaValida() {
+        int posX = (int)(Math.random() * ambiente.getLargura());
+        int posY = (int)(Math.random() * ambiente.getAltura());
+
+        // Se a posicao gerada tambem nao for valida, tenta novamente
+        if (ambiente.ehObstaculo(posX, posY) || !ambiente.dentroDosLimites(posX, posY))
+            moverParaValida();
+        else {
+            setX(posX);
+            setY(posY);
+            System.out.printf("Robo '%s' foi mudado para a posicao (%d, %d).\n", getNome(), getX(), getY());
         }
     }
 
@@ -60,7 +93,7 @@ public class Robo {
                 }
                 // Checa se a posicao em que vai andar esta fora dos limites do ambiente
                 else if (!getAmbiente().dentroDosLimites(posicaoX + i, posicaoY)) {
-                    System.out.printf("O robo nao tem autorizacao para sair do ambiente.\n\n");
+                    System.out.printf("O robo nao tem autorizacao para sair do ambiente.\n");
                     i -= 1;
                     break;
                 }
@@ -77,7 +110,7 @@ public class Robo {
                     break;
                 }
                 else if (!getAmbiente().dentroDosLimites(posicaoX - i, posicaoY)) {
-                    System.out.printf("O robo nao tem autorizacao para sair do ambiente.\n\n");
+                    System.out.printf("O robo nao tem autorizacao para sair do ambiente.\n");
                     i += 1;
                     break;
                 }
@@ -97,7 +130,7 @@ public class Robo {
                 }
                 // Checa se a posicao em que vai andar esta fora dos limites do ambiente
                 else if (!getAmbiente().dentroDosLimites(posicaoX, posicaoY + j)) {
-                    System.out.printf("O robo nao tem autorizacao para sair do ambiente.\n\n");
+                    System.out.printf("O robo nao tem autorizacao para sair do ambiente.\n");
                     j -= 1;
                     break;
                 }
@@ -114,7 +147,7 @@ public class Robo {
                     break;
                 }
                 else if (!getAmbiente().dentroDosLimites(posicaoX, posicaoY - j)) {
-                    System.out.printf("O robo nao tem autorizacao para sair do ambiente.\n\n");
+                    System.out.printf("O robo nao tem autorizacao para sair do ambiente.\n");
                     j += 1;
                     break;
                 }

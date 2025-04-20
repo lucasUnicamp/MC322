@@ -17,7 +17,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
 
-        Ambiente salaTeste = new Ambiente(50, 50, 2);        // Cria o ambiente para testes
+        Ambiente salaTeste = new Ambiente(25, 25, 2);        // Cria o ambiente para testes
         salaTeste.adicionarObstaculos(new Obstaculo(10, 20, 20, 30, TipoObstaculo.ESTATUA_DE_ELEFANTE));
         salaTeste.adicionarObstaculos(new Obstaculo(45, 30, 35, 50, TipoObstaculo.TORRE_DE_BABEL));
 
