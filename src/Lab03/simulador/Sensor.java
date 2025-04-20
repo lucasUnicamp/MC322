@@ -14,21 +14,25 @@ public class Sensor {
     }  
 
     public int monitorar(int posicaoX, int posicaoY) {
+        // Deltas sao a distancia do sensor (ou seja, do robo ao qual o sensor esta atribuido) ate a posicao passada
         int deltaX = posicaoX - this.posicaoX;
         int deltaY = posicaoY - this.posicaoY;
-        if(Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2)) > raio) {
-            System.out.println("Fora do alcance do sensor.");
-            return 2; // fora do alcance
-        } else {
-            for(Obstaculo obstaculo:ambiente.obstaculos) {
-                if(obstaculo.getPosicaoX1() <= posicaoX &&
-                obstaculo.getPosicaoX2() >= posicaoX &&
-                obstaculo.getPosicaoY1() <= posicaoY &&
-                obstaculo.getPosicaoY2() >= posicaoY ) {
-                    return 1; // obstáculo detectado
+
+        // Usa teorema de pitagoras para calcular a distancia em linha reta e compara com o raio do sensor
+        if (Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2)) > raio) {
+            System.out.println("Fora do alcance do sensor.\n");
+            return 2;       // Fora do alcance
+        }
+        else {
+            for (Obstaculo obstaculo:ambiente.obstaculos) {
+                if (obstaculo.getPosicaoX1() <= posicaoX &&
+                    obstaculo.getPosicaoX2() >= posicaoX &&
+                    obstaculo.getPosicaoY1() <= posicaoY &&
+                    obstaculo.getPosicaoY2() >= posicaoY ) {
+                    return 1;       // Obstáculo detectado
                 }
             }
-            return 0; // obstáculo não detectado
+            return 0;       // Obstáculo não detectado
         }
     }
 

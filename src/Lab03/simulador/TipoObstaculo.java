@@ -6,8 +6,8 @@ public enum TipoObstaculo {
     EUCALIPTO(3) ,
     PEDRA(1) ,
     ESTATUA_DE_ELEFANTE(4) ,
-    THE_BEAN(11); //ESCULTURA EM CHIGAGO
-
+    THE_BEAN(11);
+    
     private final int altura;
 
     TipoObstaculo(int altura){

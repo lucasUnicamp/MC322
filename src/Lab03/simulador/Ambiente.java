@@ -1,20 +1,58 @@
 package simulador;
 
 import java.util.ArrayList;
+import java.lang.Math;
 
 public class Ambiente {
     private int largura;
     private int altura;
     public ArrayList<Robo> robosAtivos;
     public ArrayList<Obstaculo> obstaculos;
-
-    // Gradiente de temperatura logo na criacao. Gerar aleatoriamente uma temperatura e uma posicao e ir diminuindo-a em todas as direcoes
+    public double[][] temperaturas;
     
     public Ambiente(int largura, int altura, int qntdObstaculo) {
         this.largura = largura;
         this.altura = altura;
-        this.robosAtivos = new ArrayList<>();
-        obstaculos = new ArrayList<>();
+        this.robosAtivos = new ArrayList<Robo>();
+        obstaculos = new ArrayList<Obstaculo>();
+        gradienteTemperatura();
+    }
+
+    public void gradienteTemperatura() {
+        temperaturas = new double[getLargura()][getAltura()];
+        double tempMax = (Math.random() * 36);        // Gera uma temperatura aleatoria para ser o maximo do ambiente
+        int posX = (int)(Math.random() * getLargura());
+        int posY = (int)(Math.random() * getAltura());
+
+        for (int i = 0; i < getLargura(); i++) {
+            for (int j = 0; j < getAltura(); j++) {
+                temperaturas[i][j] = gradienteGaussiano(tempMax, posX, posY, i, j, getLargura()/2, 2*getAltura());
+            }
+        }
+
+        System.out.printf("%.1f, %d, %d\n", tempMax, posX, posY);
+        for (int i = 0; i < getLargura(); i++) {
+            for (int j = 0; j < getAltura(); j++) {
+                System.out.printf("%03.1f ", temperaturas[i][j]);
+            }
+            System.out.printf("\n");
+        }
+    }
+
+    /**
+     * Usa a funcao gaussiana de duas dimensoes para gerar uma especie de gradiente dado um ponto central e uma amplitude para a variacao
+     * @param amplitude
+     * @param centroX
+     * @param centroY
+     * @param x
+     * @param y
+     * @param horizontal
+     * @param vertical
+     * @return
+     */
+    public double gradienteGaussiano(double amplitude, int centroX, int centroY, int x, int y, int horizontal, int vertical) {
+        return amplitude * (Math.pow(Math.E, -((Math.pow(Math.abs(x - centroX), 2))/(2 * Math.pow(horizontal, 2)) + 
+        (Math.pow(Math.abs(y - centroY), 2))/(2 * Math.pow(vertical, 2)))));
     }
 
     public void adicionarRobo(Robo r) {
@@ -32,6 +70,12 @@ public class Ambiente {
         obstaculos.add(obstaculo);
     }
 
+    /**
+     * Checa se as coordenadas de um ponto estão contidas na região definida do ambiente
+     * @param x valor da coordenada horizontal
+     * @param y valor da coordenada vertical
+     * @return true ou false dependendo se esta ou nao dentro do ambiente
+     */
     public boolean dentroDosLimites(int x, int y) {
         return (x >= 0 && x <= altura) && (y >= 0 && y <= largura);
     }
@@ -39,7 +83,7 @@ public class Ambiente {
     /**
      * Checa se as coordenadas de um robo aereo estão contidas na região definida do ambiente, considerando tambem a altitude
      * @param robo objeto da classe robo que esta dentro do ambiente executando movimentos
-     * @return true ou false dependendo se esta ou não dentro do ambiente
+     * @return true ou false dependendo se esta ou nao dentro do ambiente
      */
     public boolean dentroDosLimites(RoboAereo robo) {
         int x = robo.getX();
@@ -78,5 +122,9 @@ public class Ambiente {
 
     public int getAltura() {
         return altura;
+    }
+
+    public double[][] getTemperaturas() {
+        return temperaturas;
     }
 }
