@@ -1,9 +1,10 @@
 package simulador;
 
 public class SensorObstaculo extends Sensor {
-    
+
     public SensorObstaculo(double raio, Ambiente ambiente) {
         super(raio, ambiente);
+        setTipo(1);
     }
 
     public int monitorar(int posX, int posY) {

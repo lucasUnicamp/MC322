@@ -169,11 +169,11 @@ public class Robo {
      * @param raio alcance maximo do sensor 
      */
     public void adicionarSensor(int tipoSensor, int raio) {
-        if (tipoSensor == 1) {
-            sensores.add(new SensorTemp(raio, ambiente));
+        if (tipoSensor == 1 && temSensorTipo(tipoSensor) != -1) {
+            sensores.add(new SensorObstaculo(raio, ambiente));
         }
         else if (tipoSensor == 2) {
-            sensores.add(new SensorTemp(raio, ambiente));
+            sensores.add(new SensorTemperatura(raio, ambiente));
         }
     }
 
@@ -185,8 +185,21 @@ public class Robo {
         }
     }
 
+    public int temSensorTipo(int tipoSensor) {
+        for (int i = 0; i < sensores.size(); i++) {
+            if (sensores.get(i).getTipo() == tipoSensor)
+                return i;
+        }
+        return -1;
+    }
+
     public void usarSensor(int tipoSensor) {
-        switch(tipoSensor) {
+        int indice = temSensorTipo(tipoSensor);
+
+        if (indice == -1) 
+            indice = 0;
+
+        switch(indice) {
             case 1:
                 System.out.printf("Monitoramento ocorreu com sucesso.\n\n");
                 break;
@@ -195,9 +208,10 @@ public class Robo {
                 break;
             case 3:
                 System.out.printf("Nao se pode monitorar posicoes fora do alcance do sensor.\n\n");
-
+                break;
+            default:
+                System.out.printf("O Robo nao tem esse tipo de sensor.\n\n");
         }
-
     }
 
     public void setNome(String nome) {

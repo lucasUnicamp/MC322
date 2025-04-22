@@ -1,9 +1,10 @@
 package simulador;
 
-public class SensorTemp extends Sensor {
+public class SensorTemperatura extends Sensor {
 
-    public SensorTemp(double raio, Ambiente ambiente) {
+    public SensorTemperatura(double raio, Ambiente ambiente) {
         super(raio, ambiente);
+        setTipo(2);
     }
 
     public int monitorar(int posX, int posY) {        

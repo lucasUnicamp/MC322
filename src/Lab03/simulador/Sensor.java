@@ -6,6 +6,7 @@ abstract class Sensor {
     private double raio;
     private int posicaoX;
     private int posicaoY;
+    private int tipo;
     Ambiente ambiente;
 
     public Sensor(double raio, Ambiente ambiente) {
@@ -38,6 +39,10 @@ abstract class Sensor {
         posicaoY = posY;
     }
 
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
+    }
+
     public void setAmbiente(Ambiente ambiente) {
         this.ambiente = ambiente;
     }
@@ -54,5 +59,8 @@ abstract class Sensor {
         return posicaoY;
     }
 
+    public int getTipo(){
+        return tipo;
+    }
 }
 
