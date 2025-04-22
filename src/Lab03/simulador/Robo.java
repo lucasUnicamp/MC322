@@ -170,10 +170,10 @@ public class Robo {
      */
     public void adicionarSensor(int tipoSensor, int raio) {
         if (tipoSensor == 1) {
-            sensores.add(new Sensor(raio, ambiente));
+            sensores.add(new SensorTemp(raio, ambiente));
         }
         else if (tipoSensor == 2) {
-            sensores.add(new Sensor(raio, ambiente));
+            sensores.add(new SensorTemp(raio, ambiente));
         }
     }
 
@@ -183,6 +183,21 @@ public class Robo {
             sensor.setX(posicaoX);
             sensor.setY(posicaoY);
         }
+    }
+
+    public void usarSensor(int tipoSensor) {
+        switch(tipoSensor) {
+            case 1:
+                System.out.printf("Monitoramento ocorreu com sucesso.\n\n");
+                break;
+            case 2:
+                System.out.printf("Nao se pode monitorar posicoes fora do ambiente.\n\n");
+                break;
+            case 3:
+                System.out.printf("Nao se pode monitorar posicoes fora do alcance do sensor.\n\n");
+
+        }
+
     }
 
     public void setNome(String nome) {
