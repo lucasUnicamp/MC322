@@ -5,7 +5,7 @@ public class Obstaculo {
     private int posicaoY1;
     private int posicaoX2;
     private int posicaoY2;
-    TipoObstaculo tipo;
+    private final TipoObstaculo tipo;
 
     public Obstaculo(int posicaoX1, int posicaoY1, int posicaoX2, int posicaoY2, TipoObstaculo tipo) {
         this.tipo = tipo;
