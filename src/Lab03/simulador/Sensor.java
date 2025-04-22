@@ -6,7 +6,7 @@ public class Sensor {
     private double raio;
     private int posicaoX;
     private int posicaoY;
-    Ambiente ambiente;
+    private Ambiente ambiente;
 
     public Sensor(double raio, Ambiente ambiente) {
         setRaio(raio);
@@ -61,6 +61,10 @@ public class Sensor {
 
     public void setAmbiente(Ambiente ambiente) {
         this.ambiente = ambiente;
+    }
+
+    public Ambiente getAmbiente() {
+        return ambiente;
     }
 
     public double getRaio() {

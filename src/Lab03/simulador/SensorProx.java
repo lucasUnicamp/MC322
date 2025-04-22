@@ -9,13 +9,13 @@ public class SensorProx extends Sensor{
     public double monitorar() {
         double distancia;
         double distanciaAtual;
-        if (ambiente.obstaculos.size() == 0 ||
-            (ambiente.obstaculos.size() == 1 && calculaDistancia(ambiente.obstaculos.get(0)) > getRaio())) {
+        if (getAmbiente().obstaculos.size() == 0 ||
+            (getAmbiente().obstaculos.size() == 1 && calculaDistancia(getAmbiente().obstaculos.get(0)) > getRaio())) {
             System.out.println("Não há obstáculos próximos");
             return -1; // nenhum obatáculo no alcance
         } else {
-            distancia = calculaDistancia(ambiente.obstaculos.get(0));
-            for (Obstaculo obstaculo:ambiente.obstaculos) {
+            distancia = calculaDistancia(getAmbiente().obstaculos.get(0));
+            for (Obstaculo obstaculo:getAmbiente().obstaculos) {
                 distanciaAtual = calculaDistancia(obstaculo);
                 if (distanciaAtual > distancia)
                     distancia = distanciaAtual;           

@@ -19,8 +19,6 @@ public class Robo {
         ambiente.adicionarRobo(this);       // Adiciona o robo no ambiente logo que é criado
         
         sensores = new ArrayList<Sensor>();       // Inicializa array para os sensores
-        adicionarSensor(1, 5);      // Comeca com o sensor do tipo 
-        atualizaSensores();
 
         System.out.printf("Robo '%s' criado\n", nome);
         checarPosicaoInicial(posicaoX, posicaoY);       // Checa se a posicao em que foi inicializado eh valida
@@ -168,12 +166,11 @@ public class Robo {
      * @param tipoSensor tipo do sensor, o que ele vai monitorar
      * @param raio alcance maximo do sensor 
      */
-    public void adicionarSensor(int tipoSensor, int raio) {
-        if (tipoSensor == 1) {
-            sensores.add(new Sensor(raio, ambiente));
-        }
-        else if (tipoSensor == 2) {
-            sensores.add(new Sensor(raio, ambiente));
+    public void adicionarSensor(Sensor sensor) {
+        if(sensor.getAmbiente() == getAmbiente()) {
+            sensores.add(sensor);
+        } else {
+            System.out.println("Sensor de outro ambiente");
         }
     }
 
