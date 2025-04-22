@@ -21,7 +21,7 @@ public class SensorProx extends Sensor{
                     distancia = distanciaAtual;           
             }
         }
-        System.out.printf("Há um obtáculo há %f de distância", distancia)
+        System.out.printf("Há um obtáculo há %f de distância", distancia);
         return distancia;
     }
 
