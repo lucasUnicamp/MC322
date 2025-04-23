@@ -17,12 +17,12 @@ public class Robo {
         setY(posicaoY);
         setAmbiente(ambiente);
         ambiente.adicionarRobo(this);       // Adiciona o robo no ambiente logo que é criado
-        
+        System.out.printf("\nRobo '%s' criado\n", nome);
+
         sensores = new ArrayList<Sensor>();       // Inicializa array para os sensores
         adicionarSensor(1, 5);      // Comeca com o sensor do tipo 
         atualizaSensores();
 
-        System.out.printf("Robo '%s' criado\n\n", nome);
         checarPosicaoInicial(posicaoX, posicaoY);       // Checa se a posicao em que foi inicializado eh valida
     }
 
@@ -66,7 +66,7 @@ public class Robo {
         else {
             setX(posX);
             setY(posY);
-            System.out.printf("Robo '%s' foi mudado para a posicao (%d, %d).\n\n", getNome(), getX(), getY());
+            System.out.printf("Robo '%s' foi mudado para a posicao aleatoria (%d, %d).\n", getNome(), getX(), getY());
         }
     }
 
