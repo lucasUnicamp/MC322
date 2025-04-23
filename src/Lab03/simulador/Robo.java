@@ -22,7 +22,7 @@ public class Robo {
         adicionarSensor(1, 5);      // Comeca com o sensor do tipo 
         atualizaSensores();
 
-        System.out.printf("Robo '%s' criado\n", nome);
+        System.out.printf("Robo '%s' criado\n\n", nome);
         checarPosicaoInicial(posicaoX, posicaoY);       // Checa se a posicao em que foi inicializado eh valida
     }
 
@@ -66,7 +66,7 @@ public class Robo {
         else {
             setX(posX);
             setY(posY);
-            System.out.printf("Robo '%s' foi mudado para a posicao (%d, %d).\n", getNome(), getX(), getY());
+            System.out.printf("Robo '%s' foi mudado para a posicao (%d, %d).\n\n", getNome(), getX(), getY());
         }
     }
 
@@ -90,8 +90,7 @@ public class Robo {
     }
 
     public void moverSemSensor(int deltaX, int deltaY) {
-        int i = 0;
-        int j = 0;
+        int i = 0, j = 0;
         // Primeiro move o robo totalmente na horizontal
         // Caso deltaX positivo, anda na direcao Leste
         if (deltaX >= 0) {
@@ -177,7 +176,7 @@ public class Robo {
         // Checa se o robô não vai sair dos limites do ambiente após se mover
         if (getAmbiente().dentroDosLimites(novoX, novoY)) {
             // Checa se não há obstáculos nos 2 caminhos até o ponto final
-            if (sensorObs.checarObstaculoCaminho(getX(), getY(), novoX, novoY)) {
+            if (sensorObs.checarObstaculoCaminho(getX(), getY(), deltaX, deltaY)) {
                 posicaoX = novoX;
                 posicaoY = novoY;
                 System.out.printf("Movimentado com sucesso.\n");

@@ -6,7 +6,10 @@ public class SensorTemperatura extends Sensor {
         super(raio, ambiente);
         setTipo(2);
     }
-
+    /**
+     * Nesse sensor, o monitorar checa e exibe a temperatura do ponto especificado 
+     * e tambem a maior temperatura dentro de seu raio de alcance
+     */
     public int monitorar(int posX, int posY) {        
         if (!ambiente.dentroDosLimites(posX, posY))
             return 2;       // Fora do ambiente
