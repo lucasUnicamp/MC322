@@ -29,7 +29,7 @@ public class Main {
         RoboPlanador roboPlanador = new RoboPlanador("Phi", 40, 10, salaTeste, 0, 80, 50);      // Cria o robo aereo do tipo planador
         RoboSatelite roboSatelite = new RoboSatelite("Sigma", 20, 20, salaTeste, 10, 50, 30, 0);        // Cria o robo aereo do tipo satelite
 
-        System.out.printf("************************************************************");
+        System.out.printf("**********************************************************************\n");
 
         scan.close();
     }
