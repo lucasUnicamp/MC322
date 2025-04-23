@@ -71,8 +71,9 @@ public class Robo {
     }
 
     /**
-     * Tenta mover o robo totalmente na horizontal e depois totalmente na vertical ate que chegue em seu destino,
-     * bata em um obstaculo ou chegue no limite do ambiente, conforme explicado no README
+     * Movimentacao do robo que depende se tem ou nao um sensor de obstaculos. Se nao tiver, vai tentar apenas um caminho
+     * e ir andando de 1 um a 1 ate chegar ao destino ou colidir; se tiver, vai checar antes se ha obstaculos obstruindo 
+     * dois possiveis caminhos e nem vai tentar andar caso tenha
      * @param deltaX inteiro do quanto deve se mover na horizontal
      * @param deltaY inteiro do quanto deve se mover na vertical
      */
@@ -89,6 +90,12 @@ public class Robo {
         System.out.printf("O Robo '%s' terminou o movimento na posicao (%d, %d).\n\n", nome, posicaoX, posicaoY);
     }
 
+    /**
+     * Tenta mover o robo totalmente na horizontal e depois totalmente na vertical ate que chegue em seu destino,
+     * bata em um obstaculo ou chegue no limite do ambiente, conforme explicado no README
+     * @param deltaX inteiro do quanto deve se mover na horizontal
+     * @param deltaY inteiro do quanto deve se mover na vertical
+     */
     public void moverSemSensor(int deltaX, int deltaY) {
         int i = 0, j = 0;
         // Primeiro move o robo totalmente na horizontal
@@ -166,6 +173,13 @@ public class Robo {
         }
     }
 
+    /**
+     * Tenta mover o robo ou totalmente na vertical e depois na horizontal ou totalmente na horizontal e depois na vertical,
+     * mas checa se ha obstaculos impedindo ambos os caminhos, conforme explicado no README
+     * @param deltaX inteiro do quanto deve se mover na horizontal
+     * @param deltaY inteiro do quanto deve se mover na vertical
+     * @param indice posicao do SensorObstaculo na ArrayList de sensores do robo 
+     */
     public void moverComSensor(int deltaX, int deltaY, int indice) {
         int novoX = posicaoX + deltaX;
         int novoY = posicaoY + deltaY;
@@ -188,10 +202,6 @@ public class Robo {
         // Não atualiza posição caso tenha saído dos limites
         else 
             System.out.printf("'%s' não tem permissão para sair do ambiente.\n\n", getNome());
-    }
-
-    public void exibirPosicao() {
-        System.out.printf("O robo '%s' esta em (%d, %d) na direcao %s.\n\n", getNome(), getX(), getY(), getDirecao());
     }
 
     /**
@@ -262,6 +272,10 @@ public class Robo {
             default:
                 System.out.println("O Robo nao tem esse tipo de sensor.\n\n");
         }
+    }
+
+    public void exibirPosicao() {
+        System.out.printf("O robo '%s' esta em (%d, %d) na direcao %s.\n\n", getNome(), getX(), getY(), getDirecao());
     }
 
     public void setNome(String nome) {
