@@ -68,6 +68,8 @@ Os 4 robôs adicionais que criamos são:
 - *Robô Aéreo Satélite*
     - move-se normalmente e consegue escanear uma área circular à procura de obstáculos dado um ângulo de visão; quanto mais alto, mais consegue ver.
 
+---
+---
+
 [^1]: [Cavalo (xadrez)](<https://pt.wikipedia.org/wiki/Cavalo_(xadrez)>)
 [^2]: [Peão (xadrez)](<https://pt.wikipedia.org/wiki/Pe%C3%A3o_(xadrez)>)
-
