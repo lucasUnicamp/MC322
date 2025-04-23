@@ -77,10 +77,21 @@ public class Robo {
      * @param deltaY inteiro do quanto deve se mover na vertical
      */
     public void mover(int deltaX, int deltaY) {
+        int indice = temSensorTipo(1);
+        System.out.printf("Tentando mover o robo '%s' em %d no eixo x e em %d no y.\n", nome, deltaX, deltaY);
+        
+        if (indice != -1)
+            moverComSensor(deltaX, deltaY, indice);
+        else
+            moverSemSensor(deltaX, deltaY);
+        
+        atualizaSensores();
+        System.out.printf("O Robo '%s' terminou o movimento na posicao (%d, %d).\n\n", nome, posicaoX, posicaoY);
+    }
+
+    public void moverSemSensor(int deltaX, int deltaY) {
         int i = 0;
         int j = 0;
-        System.out.printf("Tentando mover o robo '%s' em %d no eixo x e em %d no y.\n", nome, deltaX, deltaY);
-
         // Primeiro move o robo totalmente na horizontal
         // Caso deltaX positivo, anda na direcao Leste
         if (deltaX >= 0) {
@@ -154,9 +165,30 @@ public class Robo {
             }
             posicaoY -= j;
         }
+    }
 
-        atualizaSensores();
-        System.out.printf("O Robo '%s' terminou o movimento na posicao (%d, %d).\n\n", nome, posicaoX, posicaoY);
+    public void moverComSensor(int deltaX, int deltaY, int indice) {
+        int novoX = posicaoX + deltaX;
+        int novoY = posicaoY + deltaY;
+        // Downcasting porque sei que esse elemento da ArrayList deve ser do tipo SensorObstaculo. Necessario pois preciso acessar o metodo
+        // 'checarObstaculoCaminho' que nao seria possivel mantendo o objeto como da classe Sensor
+        SensorObstaculo sensorObs = (SensorObstaculo)sensores.get(indice);
+
+        // Checa se o robô não vai sair dos limites do ambiente após se mover
+        if (getAmbiente().dentroDosLimites(novoX, novoY)) {
+            // Checa se não há obstáculos nos 2 caminhos até o ponto final
+            if (sensorObs.checarObstaculoCaminho(getX(), getY(), novoX, novoY)) {
+                posicaoX = novoX;
+                posicaoY = novoY;
+                System.out.printf("Movimentado com sucesso.\n");
+                this.exibirPosicao();
+            } 
+            else 
+                System.out.printf("Há obstáculos impedindo o movimento de '%s'.\n\n", nome);
+        } 
+        // Não atualiza posição caso tenha saído dos limites
+        else 
+            System.out.printf("'%s' não tem permissão para sair do ambiente.\n\n", nome);
     }
 
     public void exibirPosicao() {
@@ -185,6 +217,12 @@ public class Robo {
         }
     }
 
+    /**
+     * Procura na lista de sensores do robo um sensor do tipo especificado
+     * @param tipoSensor tipo de sensor que se procura, sendo 1 = obstaculo e 2 = temperatura 
+     * @return o indice do sensor procurado na lista ou -1 caso o robo nao tenha aquele sensor. Retornar o indice faz com que a funcao possa
+     * ser usada como booleana (se for diferente de -1, tem o sensor) e possamos acessar o sensor da lista de sensores
+     */
     public int temSensorTipo(int tipoSensor) {
         for (int i = 0; i < sensores.size(); i++) {
             if (sensores.get(i).getTipo() == tipoSensor)
@@ -193,13 +231,19 @@ public class Robo {
         return -1;
     }
 
+    /**
+     * Aciona o metodo 'monitorar' do sensor especificado caso o robo o tenha
+     * @param tipoSensor tipo de sensor que se quer usar, sendo 1 = obstaculo e 2 = temperatura
+     */
     public void usarSensor(int tipoSensor) {
         int indice = temSensorTipo(tipoSensor);
-
-        if (indice == -1) 
+        // Como 'temSensorTipo' retorna -1 quando o robo nao tem determinado sensor e vamos usar esse valor como indice,
+        // transformamos em 0 para que nao haja erro de acesso ah memoria
+        if(indice == -1)
             indice = 0;
 
-        switch(indice) {
+        // Switch case com o valor retornado pelo 'monitorar' do sensor
+        switch(sensores.get(indice).monitorar(tipoSensor, tipoSensor)) {
             case 1:
                 System.out.printf("Monitoramento ocorreu com sucesso.\n\n");
                 break;
