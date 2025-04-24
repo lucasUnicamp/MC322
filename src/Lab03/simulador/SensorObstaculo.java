@@ -4,14 +4,13 @@ public class SensorObstaculo extends Sensor {
 
     public SensorObstaculo(double raio, Ambiente ambiente) {
         super(raio, ambiente);
-        setTipo(1);
     }
 
     /**
      * Nesse sensor, o monitorar checa se ha um obstaculo no ponto especificado
      */
     public int monitorar(int posX, int posY) {
-        if (!ambiente.dentroDosLimites(posX, posY))
+        if (!getAmbiente().dentroDosLimites(posX, posY))
             return 2;       // Fora do ambiente
         else if (!dentroDoRaio(posX, posY))
             return 3;       // Fora do alcance
@@ -30,7 +29,7 @@ public class SensorObstaculo extends Sensor {
      */
     public boolean checarObstaculoPosicao(int x, int y) {
         // Percorre a ArrayList de obstaculos e checa se ha um obstaculo na posicao dada
-        for (Obstaculo obstaculo:ambiente.obstaculos) {
+        for (Obstaculo obstaculo:getAmbiente().obstaculos) {
             if (obstaculo.getPosicaoX1() <= x &&
                 obstaculo.getPosicaoX2() >= x &&
                 obstaculo.getPosicaoY1() <= y &&

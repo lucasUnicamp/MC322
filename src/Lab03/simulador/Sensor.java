@@ -37,11 +37,6 @@ abstract class Sensor {
     public void setY(int posY) {
         posicaoY = posY;
     }
-
-    public void setTipo(int tipo) {
-        this.tipo = tipo;
-    }
-
     public void setAmbiente(Ambiente ambiente) {
         this.ambiente = ambiente;
     }
@@ -62,8 +57,5 @@ abstract class Sensor {
         return posicaoY;
     }
 
-    public int getTipo(){
-        return tipo;
-    }
 }
 

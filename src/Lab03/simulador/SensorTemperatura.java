@@ -4,14 +4,13 @@ public class SensorTemperatura extends Sensor {
 
     public SensorTemperatura(double raio, Ambiente ambiente) {
         super(raio, ambiente);
-        setTipo(2);
     }
     /**
      * Nesse sensor, o monitorar checa e exibe a temperatura do ponto especificado 
      * e tambem a maior temperatura dentro de seu raio de alcance
      */
     public int monitorar(int posX, int posY) {        
-        if (!ambiente.dentroDosLimites(posX, posY))
+        if (!getAmbiente().dentroDosLimites(posX, posY))
             return 2;       // Fora do ambiente
         else if (!dentroDoRaio(posX, posY)) 
             return 3;       // Fora do alcance
@@ -23,7 +22,7 @@ public class SensorTemperatura extends Sensor {
     }
 
     public void temperaturaPonto(int posX, int posY) {
-        System.out.printf("A temperatura no ponto (%d, %d) eh %.1f.\n", ambiente.temperaturas[posX][posY]);
+        System.out.printf("A temperatura no ponto (%d, %d) eh %.1f.\n", getAmbiente().temperaturas[posX][posY]);
     }
 
     /**
@@ -44,8 +43,8 @@ public class SensorTemperatura extends Sensor {
             for (int j = limiteSul; j <= limiteNorte; j++) {
                 // Checa se a coordenada esta dentro do sensor
                 if (dentroDoRaio(i, j)) {
-                    if (ambiente.temperaturas[i][j] > tempMax) {
-                        tempMax = ambiente.temperaturas[i][j];
+                    if (getAmbiente().temperaturas[i][j] > tempMax) {
+                        tempMax = getAmbiente().temperaturas[i][j];
                         posX = i;
                         posY = j;
                     }

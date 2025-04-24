@@ -76,7 +76,7 @@ public class Robo {
      * @param deltaY inteiro do quanto deve se mover na vertical
      */
     public void mover(int deltaX, int deltaY) {
-        int indice = temSensorTipo(1);
+        int indice = temSensorTipo("Sensor");
         System.out.printf("Tentando mover o robo '%s' em %d no eixo x e em %d no y.\n", nome, deltaX, deltaY);
         
         if (indice != -1)
@@ -229,9 +229,9 @@ public class Robo {
      * @return o indice do sensor procurado na lista ou -1 caso o robo nao tenha aquele sensor. Retornar o indice faz com que a funcao possa
      * ser usada como booleana (se for diferente de -1, tem o sensor) e possamos acessar o sensor da lista de sensores
      */
-    public int temSensorTipo(int tipoSensor) {
+    public int temSensorTipo(String classe) {
         for (int i = 0; i < sensores.size(); i++) {
-            if (sensores.get(i).getTipo() == tipoSensor)
+            if (sensores.get(i).getClass().getName() == classe)
                 return i;
         }
         return -1;
@@ -242,7 +242,7 @@ public class Robo {
      * @param tipoSensor tipo de sensor que se quer usar, sendo 1 = obstaculo e 2 = temperatura
      */
     public void usarSensor(int tipoSensor) {
-        int indice = temSensorTipo(tipoSensor);
+        int indice = temSensorTipo("Sensor");
         // Como 'temSensorTipo' retorna -1 quando o robo nao tem determinado sensor e vamos usar esse valor como indice,
         // transformamos em 0 para que nao haja erro de acesso ah memoria
         if(indice == -1)
