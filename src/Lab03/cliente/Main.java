@@ -16,10 +16,11 @@ public class Main {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
 
-        Ambiente salaTeste = new Ambiente(25, 25, 2);        // Cria o ambiente para testes
+        Ambiente salaTeste = new Ambiente(50, 50, 3);        // Cria o ambiente para testes
         salaTeste.adicionarObstaculos(new Obstaculo(10, 20, 20, 30, TipoObstaculo.ESTATUA_DE_ELEFANTE));
         salaTeste.adicionarObstaculos(new Obstaculo(45, 30, 35, 50, TipoObstaculo.TORRE_DE_BABEL));
 
+        Robo roboGenerico = new Robo("Alfa", 10, 25, salaTeste);
         RoboTerrestre roboTerrestre = new RoboTerrestre("Beta", 25, 25, salaTeste, 60);     // Cria o robo terrestre generico
         RoboXadrez roboXadrez = new RoboXadrez("Theta", 30, 20, salaTeste, 6, 1);       // Cria o robo terrestre do tipo xadrez
         RoboPreguica roboPreguica = new RoboPreguica("Delta", 10, 50, salaTeste, 25, 1);        // Cria o robo terrestre do tipo preguiça
@@ -27,17 +28,8 @@ public class Main {
         RoboPlanador roboPlanador = new RoboPlanador("Phi", 40, 10, salaTeste, 0, 80, 50);      // Cria o robo aereo do tipo planador
         RoboSatelite roboSatelite = new RoboSatelite("Sigma", 20, 20, salaTeste, 10, 50, 30, 0);        // Cria o robo aereo do tipo satelite
 
-        roboTerrestre.info();
-        roboTerrestre.mover(10, 10);
-        roboTerrestre.mover(-5, -5);
+        System.out.printf("**********************************************************************\n");
 
-        roboSatelite.info();
-        roboSatelite.mover(10, 10);
-        roboSatelite.subir(10);
-        roboSatelite.carregar(10);
-        roboSatelite.lancamento();
-        roboSatelite.subir(20);
-        roboSatelite.descer(5);
         scan.close();
     }
 }

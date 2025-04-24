@@ -62,5 +62,4 @@ public class RoboPreguica extends RoboTerrestre {
     public int getEnergiaMax() {
         return energiaMaxima;
     }
-
 }

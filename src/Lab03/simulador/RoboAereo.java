@@ -26,7 +26,7 @@ public class RoboAereo extends Robo {
             if(getAmbiente().dentroDosLimites(getX() + deltaX, getY() + deltaY)){
                 setX(getX() + deltaX);
                 setY(getY() + deltaY);
-                System.out.printf("Movimentado com sucesso.\n");
+                System.out.println("Movimentado com sucesso.\n");
                 this.exibirPosicao();
             }
             else
@@ -37,7 +37,7 @@ public class RoboAereo extends Robo {
     public void subir(int metros) {
         // Compara altitude do Robo com a maxima dada
         if (altitude + metros <= altitudeMaxima) {
-            System.out.printf("O Robo subiu com sucesso.\n");
+            System.out.println("O Robo subiu com sucesso.\n");
             altitude += metros;
         }
         // Nao atualiza a altitude caso tenha ultrapassado a maxima dada
@@ -50,7 +50,7 @@ public class RoboAereo extends Robo {
     public void descer(int metros) {
         // Compara a altitude do Robo com a disância ao chao (0)
         if (altitude - metros >= 0) {
-            System.out.printf("O Robo desceu com sucesso.\n");
+            System.out.println("O Robo desceu com sucesso.\n");
             altitude -= metros;
         }
         // Atualiza a altitude para 0 caso tenha descido demais

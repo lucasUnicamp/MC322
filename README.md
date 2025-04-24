@@ -19,7 +19,7 @@ Em razão da implementação de sensores, houve uma pequena mudança na moviment
 - caso colida com algum obstáculo.
 - caso chegue em um dos limites do ambiente.
 
-Nota-se que agora o robô genérico faz os cheques de viabilidade de movimento *durante* essa movimentação. 
+Nota-se que agora o robô genérico faz os cheques de viabilidade de movimento *durante* essa movimentação.
 
 ### Tipos de Robô<br/>
 Novamente em razão dos sensores, um dos robôs foi alterado:
@@ -31,7 +31,15 @@ Os outros tipos de robôs permanecem inalterados.
 ### Ambiente<br/>
 O Ambiente agora conta com um novo atributo, a *Temperatura*, para que possamos monitorá-la com um sensor. Um ponto aleatório é escolhido e lhe é atribuído uma temperatura, também aleatória, a partir da qual todas as posições em seu arredor serão progressivamente menores, seguindo uma [Função Gaussiana](https://en.wikipedia.org/wiki/Gaussian_function#Two-dimensional_Gaussian_function).
 
- ---
+### Tipos de Sensores<br/>
+Os 2 tipos de sensores que criamos são:
+- *Sensor de Obstáculo*
+    - consegue checar se determinada posição dentro de seu alcance é um obstáculo ou não. Também consegue avaliar se há obstáculos impedindo a movimentação do robô até certo ponto antes mesmo dele se movimentar. Assim, um robô que tenha o sensor de obstáculo move-se tal como um robô do Lab02 (ver abaixo)
+- *Sensor de Temperatura*
+    - consegue checar a temperatura de um ponto específico dentro de seu alcance e também exibir a maior temperatura, junto de suas coordenadas, dentro do mesmo.
+
+---
+---
 > ### **Lab02**
 ### Movimentação do Robô<br/>
 Consideramos que o robô pode tomar somente dois caminhos dado um `deltaX` e um `deltaY`, sendo esses:
@@ -60,6 +68,8 @@ Os 4 robôs adicionais que criamos são:
 - *Robô Aéreo Satélite*
     - move-se normalmente e consegue escanear uma área circular à procura de obstáculos dado um ângulo de visão; quanto mais alto, mais consegue ver.
 
+---
+---
+
 [^1]: [Cavalo (xadrez)](<https://pt.wikipedia.org/wiki/Cavalo_(xadrez)>)
 [^2]: [Peão (xadrez)](<https://pt.wikipedia.org/wiki/Pe%C3%A3o_(xadrez)>)
-

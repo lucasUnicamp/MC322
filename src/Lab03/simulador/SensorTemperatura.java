@@ -1,23 +1,29 @@
 package simulador;
 
-public class SensorTemp extends Sensor {
+public class SensorTemperatura extends Sensor {
 
-    public SensorTemp(double raio, Ambiente ambiente) {
+    public SensorTemperatura(double raio, Ambiente ambiente) {
         super(raio, ambiente);
+        setTipo(2);
+    }
+    /**
+     * Nesse sensor, o monitorar checa e exibe a temperatura do ponto especificado 
+     * e tambem a maior temperatura dentro de seu raio de alcance
+     */
+    public int monitorar(int posX, int posY) {        
+        if (!ambiente.dentroDosLimites(posX, posY))
+            return 2;       // Fora do ambiente
+        else if (!dentroDoRaio(posX, posY)) 
+            return 3;       // Fora do alcance
+        else {
+            temperaturaPonto(posX, posY);
+            temperaturaMax();
+            return 1;       // Sucesso no monitoramento
+        }
     }
 
-    /**
-     * Exibe a temperatura em um ponto especifico
-     * @param posX coordenada x do ponto
-     * @param posY coordenada y do ponto
-     */
     public void temperaturaPonto(int posX, int posY) {
-        if (monitorar(posX, posY) == 1) {
-            System.out.printf("Nao eh possivel detectar a temperatura dentro de um obstaculo.\n");
-        }
-        else if (monitorar(posX, posY) == 0) {
-            System.out.printf("Temperatura no ponto (%d, %d) é de %.1f°C.\n", posX, posY, ambiente.temperaturas[posX][posY]);
-        }
+        System.out.printf("A temperatura no ponto (%d, %d) eh %.1f.\n", ambiente.temperaturas[posX][posY]);
     }
 
     /**
@@ -36,8 +42,8 @@ public class SensorTemp extends Sensor {
         // Checa as coordenadas dentro do quadrado circunscrito no circulo de raio definido
         for (int i = limiteOeste; i <= limiteLeste; i++) {
             for (int j = limiteSul; j <= limiteNorte; j++) {
-                // Checa se a coordenada esta dentro do sensor e fora de um obstaculo
-                if (dentroDoRaio(i, j) && !ambiente.ehObstaculo(i, j)) {
+                // Checa se a coordenada esta dentro do sensor
+                if (dentroDoRaio(i, j)) {
                     if (ambiente.temperaturas[i][j] > tempMax) {
                         tempMax = ambiente.temperaturas[i][j];
                         posX = i;
@@ -46,6 +52,6 @@ public class SensorTemp extends Sensor {
                 }
             }
         }
-        System.out.printf("A temperatura maxima encontrada de %.1f°C e esta na posicao (%d, %d).\n", tempMax, posX, posY);
+        System.out.printf("A temperatura maxima encontrada num raio de %d eh de %.1f°C e esta na posicao (%d, %d).\n", getRaio(), tempMax, posX, posY);
     }
 }

@@ -63,8 +63,15 @@ public class Ambiente {
         }
     }
 
-    public void adicionarObstaculos(Obstaculo obstaculo) {
-        obstaculos.add(obstaculo);
+    public void adicionarObstaculos(Obstaculo obs) {
+        obstaculos.add(obs);
+    }
+
+    public void removerObstaculo(Obstaculo obs) {
+        for (int i = 0; i < obstaculos.size(); i++) {
+            if (obstaculos.get(i) == obs)
+                obstaculos.remove(i);
+        }
     }
 
     /**

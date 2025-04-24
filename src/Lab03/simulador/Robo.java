@@ -17,10 +17,10 @@ public class Robo {
         setY(posicaoY);
         setAmbiente(ambiente);
         ambiente.adicionarRobo(this);       // Adiciona o robo no ambiente logo que é criado
-        
+        System.out.printf("\nRobo '%s' criado\n", nome);
+
         sensores = new ArrayList<Sensor>();       // Inicializa array para os sensores
 
-        System.out.printf("Robo '%s' criado\n", nome);
         checarPosicaoInicial(posicaoX, posicaoY);       // Checa se a posicao em que foi inicializado eh valida
     }
 
@@ -38,11 +38,11 @@ public class Robo {
         boolean ehValido = true;
 
         if (ambiente.ehObstaculo(posX, posY)) {
-            System.out.printf("AVISO: Robo '%s' foi inicializado dentro de um obstaculo. Nao faca isso.\n", getNome());
+            System.out.printf("> AVISO: Robo '%s' foi inicializado dentro de um obstaculo. Nao faca isso.\n", getNome());
             ehValido = false;
         }
         if (!ambiente.dentroDosLimites(posX, posY)) {
-            System.out.printf("AVISO: Robo '%s' foi inicializado fora dos limites do ambiente. Nao faca isso.\n", getNome());
+            System.out.printf("> AVISO: Robo '%s' foi inicializado fora dos limites do ambiente. Nao faca isso.\n", getNome());
             ehValido = false;
         }
 
@@ -64,8 +64,28 @@ public class Robo {
         else {
             setX(posX);
             setY(posY);
-            System.out.printf("Robo '%s' foi mudado para a posicao (%d, %d).\n", getNome(), getX(), getY());
+            System.out.printf("Robo '%s' foi mudado para a posicao aleatoria (%d, %d).\n", getNome(), getX(), getY());
         }
+    }
+
+    /**
+     * Movimentacao do robo que depende se tem ou nao um sensor de obstaculos. Se nao tiver, vai tentar apenas um caminho
+     * e ir andando de 1 um a 1 ate chegar ao destino ou colidir; se tiver, vai checar antes se ha obstaculos obstruindo 
+     * dois possiveis caminhos e nem vai tentar andar caso tenha
+     * @param deltaX inteiro do quanto deve se mover na horizontal
+     * @param deltaY inteiro do quanto deve se mover na vertical
+     */
+    public void mover(int deltaX, int deltaY) {
+        int indice = temSensorTipo(1);
+        System.out.printf("Tentando mover o robo '%s' em %d no eixo x e em %d no y.\n", nome, deltaX, deltaY);
+        
+        if (indice != -1)
+            moverComSensor(deltaX, deltaY, indice);
+        else
+            moverSemSensor(deltaX, deltaY);
+        
+        atualizaSensores();
+        System.out.printf("O Robo '%s' terminou o movimento na posicao (%d, %d).\n\n", nome, posicaoX, posicaoY);
     }
 
     /**
@@ -74,11 +94,8 @@ public class Robo {
      * @param deltaX inteiro do quanto deve se mover na horizontal
      * @param deltaY inteiro do quanto deve se mover na vertical
      */
-    public void mover(int deltaX, int deltaY) {
-        int i = 0;
-        int j = 0;
-        System.out.printf("Tentando mover o robo '%s' em %d no eixo x e em %d no y.\n", nome, deltaX, deltaY);
-
+    public void moverSemSensor(int deltaX, int deltaY) {
+        int i = 0, j = 0;
         // Primeiro move o robo totalmente na horizontal
         // Caso deltaX positivo, anda na direcao Leste
         if (deltaX >= 0) {
@@ -91,7 +108,7 @@ public class Robo {
                 }
                 // Checa se a posicao em que vai andar esta fora dos limites do ambiente
                 else if (!getAmbiente().dentroDosLimites(posicaoX + i, posicaoY)) {
-                    System.out.printf("O robo nao tem autorizacao para sair do ambiente.\n");
+                    System.out.println("O robo nao tem autorizacao para sair do ambiente.\n");
                     i -= 1;
                     break;
                 }
@@ -108,7 +125,7 @@ public class Robo {
                     break;
                 }
                 else if (!getAmbiente().dentroDosLimites(posicaoX - i, posicaoY)) {
-                    System.out.printf("O robo nao tem autorizacao para sair do ambiente.\n");
+                    System.out.println("O robo nao tem autorizacao para sair do ambiente.\n");
                     i += 1;
                     break;
                 }
@@ -128,7 +145,7 @@ public class Robo {
                 }
                 // Checa se a posicao em que vai andar esta fora dos limites do ambiente
                 else if (!getAmbiente().dentroDosLimites(posicaoX, posicaoY + j)) {
-                    System.out.printf("O robo nao tem autorizacao para sair do ambiente.\n");
+                    System.out.println("O robo nao tem autorizacao para sair do ambiente.\n");
                     j -= 1;
                     break;
                 }
@@ -145,20 +162,44 @@ public class Robo {
                     break;
                 }
                 else if (!getAmbiente().dentroDosLimites(posicaoX, posicaoY - j)) {
-                    System.out.printf("O robo nao tem autorizacao para sair do ambiente.\n");
+                    System.out.println("O robo nao tem autorizacao para sair do ambiente.\n");
                     j += 1;
                     break;
                 }
             }
             posicaoY -= j;
         }
-
-        atualizaSensores();
-        System.out.printf("O Robo '%s' terminou o movimento na posicao (%d, %d).\n\n", nome, posicaoX, posicaoY);
     }
 
-    public void exibirPosicao() {
-        System.out.printf("O robo '%s' esta em (%d, %d) na direcao %s.\n\n", nome, posicaoX, posicaoY, direcao);
+    /**
+     * Tenta mover o robo ou totalmente na vertical e depois na horizontal ou totalmente na horizontal e depois na vertical,
+     * mas checa se ha obstaculos impedindo ambos os caminhos, conforme explicado no README
+     * @param deltaX inteiro do quanto deve se mover na horizontal
+     * @param deltaY inteiro do quanto deve se mover na vertical
+     * @param indice posicao do SensorObstaculo na ArrayList de sensores do robo 
+     */
+    public void moverComSensor(int deltaX, int deltaY, int indice) {
+        int novoX = posicaoX + deltaX;
+        int novoY = posicaoY + deltaY;
+        // Downcasting porque sei que esse elemento da ArrayList deve ser do tipo SensorObstaculo. Necessario pois preciso acessar o metodo
+        // 'checarObstaculoCaminho' que nao seria possivel mantendo o objeto como da classe Sensor
+        SensorObstaculo sensorObs = (SensorObstaculo)sensores.get(indice);
+
+        // Checa se o robo nao vai sair dos limites do ambiente apos se mover
+        if (getAmbiente().dentroDosLimites(novoX, novoY)) {
+            // Checa se nao ha obstaculos nos 2 caminhos até o ponto final
+            if (sensorObs.checarObstaculoCaminho(getX(), getY(), deltaX, deltaY)) {
+                posicaoX = novoX;
+                posicaoY = novoY;
+                System.out.println("Movimentado com sucesso.\n");
+                this.exibirPosicao();
+            } 
+            else 
+                System.out.printf("Obstaculos que impederiam o movimento de '%s' foram detectados, '%s' permaneceu parado.\n\n", getNome(), getNome());
+        } 
+        // Não atualiza posição caso tenha saído dos limites
+        else 
+            System.out.printf("'%s' não tem permissão para sair do ambiente.\n\n", getNome());
     }
 
     /**
@@ -180,6 +221,51 @@ public class Robo {
             sensor.setX(posicaoX);
             sensor.setY(posicaoY);
         }
+    }
+
+    /**
+     * Procura na lista de sensores do robo um sensor do tipo especificado
+     * @param tipoSensor tipo de sensor que se procura, sendo 1 = obstaculo e 2 = temperatura 
+     * @return o indice do sensor procurado na lista ou -1 caso o robo nao tenha aquele sensor. Retornar o indice faz com que a funcao possa
+     * ser usada como booleana (se for diferente de -1, tem o sensor) e possamos acessar o sensor da lista de sensores
+     */
+    public int temSensorTipo(int tipoSensor) {
+        for (int i = 0; i < sensores.size(); i++) {
+            if (sensores.get(i).getTipo() == tipoSensor)
+                return i;
+        }
+        return -1;
+    }
+
+    /**
+     * Aciona o metodo 'monitorar' do sensor especificado caso o robo o tenha
+     * @param tipoSensor tipo de sensor que se quer usar, sendo 1 = obstaculo e 2 = temperatura
+     */
+    public void usarSensor(int tipoSensor) {
+        int indice = temSensorTipo(tipoSensor);
+        // Como 'temSensorTipo' retorna -1 quando o robo nao tem determinado sensor e vamos usar esse valor como indice,
+        // transformamos em 0 para que nao haja erro de acesso ah memoria
+        if(indice == -1)
+            indice = 0;
+
+        // Switch case com o valor retornado pelo 'monitorar' do sensor
+        switch(sensores.get(indice).monitorar(tipoSensor, tipoSensor)) {
+            case 1:
+                System.out.println("Monitoramento ocorreu com sucesso.\n\n");
+                break;
+            case 2:
+                System.out.println("Nao se pode monitorar posicoes fora do ambiente.\n\n");
+                break;
+            case 3:
+                System.out.println("Nao se pode monitorar posicoes fora do alcance do sensor.\n\n");
+                break;
+            default:
+                System.out.println("O Robo nao tem esse tipo de sensor.\n\n");
+        }
+    }
+
+    public void exibirPosicao() {
+        System.out.printf("O robo '%s' esta em (%d, %d) na direcao %s.\n\n", getNome(), getX(), getY(), getDirecao());
     }
 
     public void setNome(String nome) {
