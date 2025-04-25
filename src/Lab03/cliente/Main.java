@@ -11,6 +11,8 @@ import simulador.RoboPreguica;
 import simulador.RoboSatelite;
 import simulador.RoboTerrestre;
 import simulador.RoboXadrez;
+import simulador.SensorObstaculo;
+import simulador.SensorTemperatura;
 import simulador.TipoObstaculo;
 
 public class Main {
@@ -28,7 +30,15 @@ public class Main {
         RoboAereo roboAereo = new RoboAereo("Gama", 0, 0, salaTeste, 40, 80);      // Cria o robo aereo generico
         RoboPlanador roboPlanador = new RoboPlanador("Phi", 40, 10, salaTeste, 0, 80, 50);      // Cria o robo aereo do tipo planador
         RoboSatelite roboSatelite = new RoboSatelite("Sigma", 20, 20, salaTeste, 10, 50, 30, 0);        // Cria o robo aereo do tipo satelite
-
+        
+        roboTerrestre.adicionarSensor(new SensorObstaculo(10, salaTeste));
+        roboXadrez.adicionarSensor(new SensorObstaculo(5, salaTeste));
+        roboPreguica.adicionarSensor(new SensorObstaculo(30, salaTeste));
+        roboPreguica.adicionarSensor(new SensorTemperatura(20, salaTeste));
+        roboAereo.adicionarSensor(new SensorTemperatura(10, salaTeste));
+        roboPlanador.adicionarSensor(new SensorObstaculo(20, salaTeste));
+        roboSatelite.adicionarSensor(new SensorObstaculo(50, salaTeste));
+        roboSatelite.adicionarSensor(new SensorTemperatura(50, salaTeste));
         System.out.printf("**********************************************************************\n");
 
         scan.close();

@@ -18,27 +18,23 @@ public class RoboAereo extends Robo {
 
     @Override
     public void mover(int deltaX, int deltaY){
-        if (getAltitude() == 0) 
-            super.mover(deltaX, deltaY);
-        else {
-            System.out.printf("Tentando mover o Robo '%s' em %d no eixo x e em %d no y.\n", getNome(), deltaX, deltaY);
-
-            if(getAmbiente().dentroDosLimites(getX() + deltaX, getY() + deltaY)){
-                setX(getX() + deltaX);
-                setY(getY() + deltaY);
-                System.out.println("Movimentado com sucesso.\n");
-                this.exibirPosicao();
-            }
-            else
-                System.out.printf("'%s' nao tem permissao para sair do ambiente.\n\n", getNome());
-        }
+        int indice = temSensorTipo("SensorObstaculo");
+        System.out.printf("Tentando mover o robo '%s' em %d no eixo x e em %d no y.\n", getNome(), deltaX, deltaY);
+        
+        if (indice != -1) {
+            moverComSensor(deltaX, deltaY, indice);
+            System.out.printf("O Robo '%s' terminou o movimento na posicao (%d, %d).\n\n", getNome(), getX(), getY());
+        } else
+            System.out.println("Não pode voar sem sensor de obtáculo, é muito perigoso");
+        
+        atualizaSensores();
     }
 
     public void subir(int metros) {
         // Compara altitude do Robo com a maxima dada
-        if (altitude + metros <= altitudeMaxima) {
+        if (getAltitude() + metros <= altitudeMaxima) {
             System.out.println("O Robo subiu com sucesso.\n");
-            altitude += metros;
+            setAltitude(getAltitude() + metros);;
         }
         // Nao atualiza a altitude caso tenha ultrapassado a maxima dada
         else
@@ -49,17 +45,27 @@ public class RoboAereo extends Robo {
 
     public void descer(int metros) {
         // Compara a altitude do Robo com a disância ao chao (0)
-        if (altitude - metros >= 0) {
+        if (getAltitude() - metros >= 0) {
             System.out.println("O Robo desceu com sucesso.\n");
-            altitude -= metros;
+            setAltitude(altitude - metros);
         }
         // Atualiza a altitude para 0 caso tenha descido demais
         else {
             System.out.printf("'%s' espatifou-se no chao.\n\n", getNome());
-            altitude = 0;
+            setAltitude(0);;
         }
 
         exibirAltitude();
+    }
+
+    @Override
+    public void atualizaSensores() {
+        // Atualiza a posicao do robo em cada sensor que o robo possui 
+        for (Sensor sensor:sensores) {
+            sensor.setX(getX());
+            sensor.setY(getY());
+            sensor.setAltitude(getAltitude());
+        }
     }
 
     @Override
@@ -68,11 +74,12 @@ public class RoboAereo extends Robo {
     }
 
     public void exibirAltitude() {
-        System.out.printf("'%s' Altitude atual: %d\n\n", getNome(), altitude);
+        System.out.printf("'%s' Altitude atual: %d\n\n", getNome(), getAltitude());
     }
 
     protected void setAltitude(int metros) {
         altitude = metros >= 0 ? metros : 0;        // Corrige altura contra valores negativos
+        atualizaSensores();
     }
 
     protected void setAltitudeMaxima(int metros) {

@@ -30,7 +30,8 @@ public class SensorObstaculo extends Sensor {
     public boolean checarObstaculoPosicao(int x, int y) {
         // Percorre a ArrayList de obstaculos e checa se ha um obstaculo na posicao dada
         for (Obstaculo obstaculo:getAmbiente().obstaculos) {
-            if (obstaculo.getPosicaoX1() <= x &&
+            if (obstaculo.getTipoObstaculo().getAltura() <= getAltitude() &&
+                obstaculo.getPosicaoX1() <= x &&
                 obstaculo.getPosicaoX2() >= x &&
                 obstaculo.getPosicaoY1() <= y &&
                 obstaculo.getPosicaoY2() >= y ) {

@@ -6,11 +6,13 @@ abstract class Sensor {
     private double raio;
     private int posicaoX;
     private int posicaoY;
+    private int altitude;
     private Ambiente ambiente;
 
     public Sensor(double raio, Ambiente ambiente) {
         setRaio(raio);
         setAmbiente(ambiente);
+        altitude = 0; //padrão para caso robôs terrestres estejam usando o sensor
     }  
 
     public abstract int monitorar(int posX, int posY);
@@ -37,6 +39,11 @@ abstract class Sensor {
     public void setY(int posY) {
         posicaoY = posY;
     }
+
+    public void setAltitude(int altitude) {
+        this.altitude = altitude;
+    }
+
     public void setAmbiente(Ambiente ambiente) {
         this.ambiente = ambiente;
     }
@@ -55,6 +62,10 @@ abstract class Sensor {
 
     public int getY() {
         return posicaoY;
+    }
+
+    public int getAltitude() {
+        return altitude;
     }
 
 }
