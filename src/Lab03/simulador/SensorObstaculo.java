@@ -44,7 +44,7 @@ public class SensorObstaculo extends Sensor {
     public boolean checarObstaculoPosicao(int x, int y, int altititude) {
         // Percorre a ArrayList de obstaculos e checa se ha um obstaculo na posicao dada
         for (Obstaculo obstaculo:getAmbiente().obstaculos) {
-            if (obstaculo.getTipoObstaculo().getAltura() <= altititude &&
+            if (obstaculo.getTipoObstaculo().getAltura() >= altititude &&
                 obstaculo.getPosicaoX1() <= x &&
                 obstaculo.getPosicaoX2() >= x &&
                 obstaculo.getPosicaoY1() <= y &&
@@ -68,7 +68,7 @@ public class SensorObstaculo extends Sensor {
         // ou partindo da posição do robô após andar toda sua componente vertical, contém algum obstáculo;
         // O loop eh interrompido se ambos os caminhos tiverem um obstáculo;
         if (deltaX > 0) {
-            for (int a = 0; (caminhoBaixo || caminhoCima) && a < deltaX; a++) {
+            for (int a = 0; (caminhoBaixo || caminhoCima) && a <= deltaX; a++) {
                 if (checarObstaculoPosicao(posX + a, posY)) 
                     caminhoCima = false;
                 if (checarObstaculoPosicao(posX + a, posY + deltaY)) 
@@ -76,7 +76,7 @@ public class SensorObstaculo extends Sensor {
             }
         }
         else {
-            for (int b = 0; (caminhoBaixo || caminhoCima) && b > deltaX; b--) {
+            for (int b = 0; (caminhoBaixo || caminhoCima) && b >= deltaX; b--) {
                 if (checarObstaculoPosicao(posX + b, posY)) 
                     caminhoCima = false;
                 if (checarObstaculoPosicao(posX + b, posY + deltaY)) 
@@ -88,7 +88,7 @@ public class SensorObstaculo extends Sensor {
         // ou partindo da posição do robô após andar toda sua componente horizontal, contém algum obstáculo;
         // O loop eh interrompido se ambos os caminhos tiverem um obstáculo;
         if (deltaY > 0) {
-            for (int c = 0; (caminhoBaixo || caminhoCima) && c < deltaY; c++) {
+            for (int c = 0; (caminhoBaixo || caminhoCima) && c <= deltaY; c++) {
                 if (checarObstaculoPosicao(posX, posY + c)) 
                     caminhoBaixo = false;
                 if (checarObstaculoPosicao(posX + deltaX, posY + c))
@@ -96,7 +96,7 @@ public class SensorObstaculo extends Sensor {
             }
         }
         else {
-            for (int d = 0; (caminhoBaixo || caminhoCima) && d > deltaY; d--) {
+            for (int d = 0; (caminhoBaixo || caminhoCima) && d >= deltaY; d--) {
                 if (checarObstaculoPosicao(posX, posY + d))
                     caminhoBaixo = false;
                 if (checarObstaculoPosicao(posX + deltaX, posY + d))

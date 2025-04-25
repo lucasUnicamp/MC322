@@ -53,19 +53,18 @@ public class RoboAereo extends Robo {
             sensorObs = (SensorObstaculo) sensores.get(indice);
         }
         // Compara a altitude do Robo com a disância ao chao (0)
-        if (getAltitude() - metros >= 0 && sensorObs.checarObstaculoPosicao(getX(), getY(), getAltitude() - metros)) {
+        if (getAltitude() - metros >= 0 && !sensorObs.checarObstaculoPosicao(getX(), getY(), getAltitude() - metros)) {
             System.out.println("O Robo desceu com sucesso.\n");
             setAltitude(altitude - metros);
         }
         // Atualiza a altitude para 0 caso tenha descido demais e não há obtáculo abaixo
-        else if (sensorObs.checarObstaculoPosicao(getX(), getY())){
+        else if (!sensorObs.checarObstaculoPosicao(getX(), getY(), 0)){
             System.out.printf("'%s' espatifou-se no chao.\n\n", getNome());
-            setAltitude(0);;
+            setAltitude(0);
         }
-        // Atualiza a altitude para 0 caso tenha descido demais
+        // Não Atualiza a altitude caso tenha obstaculos abaixo
         else {
-            System.out.printf("'%s' espatifou-se no chao.\n\n", getNome());
-            setAltitude(0);;
+            System.out.printf("'%s' Obstaculos abaixo. Nao pode descer.\n\n", getNome());
         }
 
         exibirAltitude();

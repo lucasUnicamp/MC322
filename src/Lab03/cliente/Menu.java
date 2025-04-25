@@ -110,7 +110,8 @@ public class Menu {
         if (robo instanceof RoboSatelite) {
             System.out.println("[5] :: carregar");
             System.out.println("[6] :: descarregar");
-            maximoAcoes = 6;
+            System.out.println("[7] :: lançar");
+            maximoAcoes = 7;
         }
         return maximoAcoes;
     }
@@ -233,13 +234,17 @@ public class Menu {
                     int vlc = scan.nextInt();
                     ((RoboTerrestre) robo).diminuirVelocidade(vlc);
                 }
+                else if (robo instanceof RoboSatelite) {
+                    System.out.print("[int] Quantos metros quer descer? ");
+                    int metros = scan.nextInt();
+                    ((RoboSatelite) robo).descer(metros);
+                }
                 else if (robo instanceof RoboAereo) {
                     System.out.print("[int] Quantos metros quer descer? ");
                     int metros = scan.nextInt();
                     ((RoboAereo) robo).descer(metros);
                 }
                 break;
-
             case 5:
                 if (robo instanceof RoboXadrez) {
                     ((RoboXadrez) robo).alteraTipoMovimento();
@@ -267,6 +272,9 @@ public class Menu {
                 System.out.print("[int] Em quanto você quer descarregar? ");
                 int cargaRemovida = scan.nextInt();
                 ((RoboSatelite) robo).descarregar(cargaRemovida);
+                break;
+            case 7:
+                ((RoboSatelite) robo).lancamento();
                 break;
         }
     }
