@@ -253,17 +253,20 @@ public class Menu {
                     ((RoboPreguica)robo).descansar();
                 }
                 if (robo instanceof RoboPlanador) {
-                    System.out.print("Qual o novo tamanho da asa? ");
+                    System.out.print("[int] Qual o novo tamanho da asa? ");
                     int novoTamanhoAsa = scan.nextInt();
                     ((RoboPlanador) robo).setTamanhoAsa(novoTamanhoAsa);
                 }
                 if (robo instanceof RoboSatelite) {
-
+                    System.out.print("[int] Em quanto você quer carregar? ");
+                    int cargaAdicionada = scan.nextInt();
+                    ((RoboSatelite) robo).carregar(cargaAdicionada);
                 }
-                
                 break;
             case 6:
-                
+                System.out.print("[int] Em quanto você quer descarregar? ");
+                int cargaRemovida = scan.nextInt();
+                ((RoboSatelite) robo).descarregar(cargaRemovida);
                 break;
         }
     }
