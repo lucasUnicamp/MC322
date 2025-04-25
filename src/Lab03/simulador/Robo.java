@@ -76,7 +76,7 @@ public class Robo {
      * @param deltaY inteiro do quanto deve se mover na vertical
      */
     public void mover(int deltaX, int deltaY) {
-        int indice = temSensorTipo("Sensor");
+        int indice = temSensorTipo("SensorObstaculo");
         System.out.printf("Tentando mover o robo '%s' em %d no eixo x e em %d no y.\n", nome, deltaX, deltaY);
         
         if (indice != -1)
@@ -187,13 +187,15 @@ public class Robo {
 
         // Checa se o robo nao vai sair dos limites do ambiente apos se mover
         if (getAmbiente().dentroDosLimites(novoX, novoY)) {
+            int haObstaculosCaminho = sensorObs.checarObstaculoCaminho(getX(), getY(), deltaX, deltaY);
             // Checa se nao ha obstaculos nos 2 caminhos até o ponto final
-            if (sensorObs.checarObstaculoCaminho(getX(), getY(), deltaX, deltaY)) {
+            if (haObstaculosCaminho == 1) {
                 posicaoX = novoX;
                 posicaoY = novoY;
                 System.out.println("Movimentado com sucesso.\n");
                 this.exibirPosicao();
-            } 
+            } else if (haObstaculosCaminho == 0)
+                System.out.printf("Caminho sai do raio do sensor do robô %s. Não é possível garantir sua segurança, portanto ficará parado.\n\n", getNome(), getNome());
             else 
                 System.out.printf("Obstaculos que impederiam o movimento de '%s' foram detectados, '%s' permaneceu parado.\n\n", getNome(), getNome());
         } 

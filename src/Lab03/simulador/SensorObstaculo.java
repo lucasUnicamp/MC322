@@ -40,8 +40,15 @@ public class SensorObstaculo extends Sensor {
         return false;
     }
 
-    public boolean checarObstaculoCaminho(int posX, int posY, int deltaX, int deltaY) {
+    public int checarObstaculoCaminho(int posX, int posY, int deltaX, int deltaY) {
         boolean caminhoCima = true, caminhoBaixo = true;
+        int novoX = posX + deltaX;
+        int novoY = posY + deltaY;
+
+        if (!dentroDoRaio(novoX, novoY)) {
+            return 0;
+        }
+
 
         // Checa se a linha reta da componente horizontal do movimento, partindo da posição atual do robô 
         // ou partindo da posição do robô após andar toda sua componente vertical, contém algum obstáculo;
@@ -83,6 +90,10 @@ public class SensorObstaculo extends Sensor {
             }
         }
 
-        return caminhoBaixo || caminhoCima;
+        if(caminhoBaixo || caminhoCima) {
+            return 1;
+        } else {
+            return -1;
+        }
     }
 }

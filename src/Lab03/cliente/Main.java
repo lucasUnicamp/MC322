@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import simulador.Ambiente;
 import simulador.Obstaculo;
+import simulador.Robo;
 import simulador.RoboAereo;
 import simulador.RoboPlanador;
 import simulador.RoboPreguica;
