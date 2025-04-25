@@ -28,7 +28,16 @@ public class RoboTerrestre extends Robo {
 
     public void aumentarVelocidade(int vlc) {
         velocidade += vlc;
-        System.out.printf("'%s' Velocidade atual: %d\n\n", getNome(), velocidade);
+        exibirVelocidade();
+    }
+
+    public void diminuirVelocidade(int vlc) {
+        velocidade -= vlc;
+        exibirVelocidade();
+    }
+
+    public void exibirVelocidade() {
+        System.out.printf("'%s' Velocidade atual: %d\n\n", getNome(), getVelocidade());
     }
 
     protected int setVelocidade() {

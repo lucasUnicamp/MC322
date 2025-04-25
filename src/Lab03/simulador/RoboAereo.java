@@ -73,12 +73,13 @@ public class RoboAereo extends Robo {
 
     @Override
     public void atualizaSensores() {
-        // Atualiza a posicao do robo em cada sensor que o robo possui 
-        for (Sensor sensor:sensores) {
-            sensor.setX(getX());
-            sensor.setY(getY());
-            sensor.setAltitude(getAltitude());
-        }
+        if(sensores != null) {
+            for (Sensor sensor:sensores) {
+                sensor.setX(getX());
+                sensor.setY(getY());
+                sensor.setAltitude(getAltitude());
+            }
+        }      
     }
 
     @Override

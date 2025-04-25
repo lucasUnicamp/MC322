@@ -218,10 +218,12 @@ public class Robo {
     }
 
     public void atualizaSensores() {
-        // Atualiza a posicao do robo em cada sensor que o robo possui 
-        for (Sensor sensor:sensores) {
-            sensor.setX(posicaoX);
-            sensor.setY(posicaoY);
+        if (sensores != null) {
+            // Atualiza a posicao do robo em cada sensor que o robo possui 
+            for (Sensor sensor : sensores) {
+                sensor.setX(posicaoX);
+                sensor.setY(posicaoY);
+            }
         }
     }
 
@@ -232,9 +234,11 @@ public class Robo {
      * ser usada como booleana (se for diferente de -1, tem o sensor) e possamos acessar o sensor da lista de sensores
      */
     public int temSensorTipo(String classe) {
-        for (int i = 0; i < sensores.size(); i++) {
-            if (sensores.get(i).getClass().getName() == classe)
-                return i;
+        if (sensores != null) {
+            for (int i = 0; i < sensores.size(); i++) {
+                if (sensores.get(i).getClass().getName() == classe)
+                    return i;
+            }
         }
         return -1;
     }
