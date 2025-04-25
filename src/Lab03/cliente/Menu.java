@@ -252,6 +252,14 @@ public class Menu {
                 if (robo instanceof RoboPreguica) {
                     ((RoboPreguica)robo).descansar();
                 }
+                if (robo instanceof RoboPlanador) {
+                    System.out.print("Qual o novo tamanho da asa? ");
+                    int novoTamanhoAsa = scan.nextInt();
+                    ((RoboPlanador) robo).setTamanhoAsa(novoTamanhoAsa);
+                }
+                if (robo instanceof RoboSatelite) {
+
+                }
                 
                 break;
             case 6:
@@ -261,23 +269,27 @@ public class Menu {
     }
 
     private void imprimirAmbiente() {
-        int [][] matriz = new int[salaTeste.getAltura() + 1][salaTeste.getLargura() + 1];
+        char [][] matriz = new char[salaTeste.getAltura() + 1][salaTeste.getLargura() + 1];
+
+        for(int i = 0; i <= salaTeste.getAltura(); i++) 
+            for(int j = 0; j <= salaTeste.getLargura(); j++)
+                matriz[i][j] = '.';
 
         for(Obstaculo obstaculo:salaTeste.obstaculos)
             for(int i = obstaculo.getPosicaoX1(); i <= obstaculo.getPosicaoX2(); i++)
                 for(int j = obstaculo.getPosicaoY1(); j <= obstaculo.getPosicaoY2(); j++)
-                    matriz[i][j] = 1;
+                    matriz[i][j] = '#';
 
         for(Robo robo:salaTeste.robosAtivos)
-            matriz[robo.getX()][robo.getY()] = 2; 
+            matriz[robo.getX()][robo.getY()] = 'o'; 
 
         for(int j = salaTeste.getLargura(); j >= 0; j--) {
             for(int i = 0; i <= salaTeste.getAltura(); i++) {
-                System.out.printf("%d ", matriz[i][j]);
+                System.out.printf("%c ", matriz[i][j]);
             }
             System.out.print("\n");
         }
 
-        System.out.println("Legenda: 0=vazio 1=obstáculo 2=robô");
+        System.out.println("Legenda: .=vazio #=obstáculo o=robô");
     }
 }
