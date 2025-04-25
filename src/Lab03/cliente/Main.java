@@ -27,42 +27,133 @@ public class Main {
                     Robo robo = ambiente.robosAtivos.get(i);
                     System.out.printf("Robo %d :: %s '%s'\n", i, robo.getClass().getName(), robo.getNome());
                 }
-                System.out.print("\nDigite o numero do robo que quer usar: ");
+                System.out.println("Digite -1 para encerrar o programa.\n");
+
+                System.out.print("Digite o numero do robo que quer usar: ");
                 indiceRobo = scan.nextInt();  
-                if(indiceRobo < ambiente.robosAtivos.size() && indiceRobo >= 0) 
+                
+                if(indiceRobo < ambiente.robosAtivos.size() && indiceRobo >= -1) 
                     break;
                 else 
                     System.out.println("Digite um numero valido.\n");
         }
+        System.out.println("");
         return indiceRobo;
     }
-
-    public static void mostrarAcoes(Robo robo) {
+    
+    
+     // Exibe as acoes possiveis para o robo especificado
+    public static int mostrarAcoes(Robo robo) {
+        int maximoAcoes = 0;
+        System.out.println("[-1] :: voltar");
+        
         if (robo instanceof Robo) {
-            System.out.printf("[0] :: informacoes\n");
-            System.out.println("[1] :: mover robo\n");
-            System.out.println("[2] :: usar sensores\n");
+            System.out.println("[0] :: informacoes");
+            System.out.println("[1] :: mover robo");
+            System.out.println("[2] :: usar sensores");
+            maximoAcoes = 2;
         }
         if (robo instanceof RoboTerrestre) {
-            System.out.println("[3] :: aumentar velocidade\n");
-            System.out.println("[4] :: diminuir velocidade\n");
+            System.out.println("[3] :: aumentar velocidade");
+            System.out.println("[4] :: diminuir velocidade");
+            maximoAcoes = 4;
         }
         if (robo instanceof RoboXadrez) {
-            System.out.println("[5] :: mudar peça\n");
+            System.out.println("[5] :: mudar peça");
+            maximoAcoes = 5;
         }
         if (robo instanceof RoboPreguica) {
-            System.out.println("[5] :: descançar\n");
+            System.out.println("[5] :: descançar");
+            maximoAcoes = 5;
         }
         if (robo instanceof RoboAereo) {
-            System.out.println("[3] :: subir\n");
-            System.out.println("[4] :: descer\n");
+            System.out.println("[3] :: subir");
+            System.out.println("[4] :: descer");
+            maximoAcoes = 4;
         }
         if (robo instanceof RoboPlanador) {
-            System.out.println("[5] :: mudar tamanho da asa\n");
+            System.out.println("[5] :: mudar tamanho da asa");
+            maximoAcoes = 5;
         }
         if (robo instanceof RoboSatelite) {
-            System.out.println("[5] :: carregar\n");
-            System.out.println("[6] :: descarregar\n");
+            System.out.println("[5] :: carregar");
+            System.out.println("[6] :: descarregar");
+            maximoAcoes = 6;
+        }
+        return maximoAcoes;
+    }
+
+    /**
+     * Pega a entrada do usuario para qual acao do robo ele quer fazer
+     */
+    public static int lerAcao(Robo robo, int maximoAcoes, Scanner scan) {
+        int acao = scan.nextInt();
+        if(acao <= maximoAcoes && acao >= -1) 
+            return acao;
+        else {
+            System.out.println("Acao invalida. Tente novamente.\n");
+            mostrarAcoes(robo);
+            return lerAcao(robo, maximoAcoes, scan);
+        }
+    }
+
+    public static void realizarAcao(Robo robo, int acao, Scanner scan) {
+        switch (acao) {
+            case 0:
+                robo.info();
+                break;
+
+            case 1:
+                System.out.print("[int] Quanto quer andar na horizontal (eixo x)? ");
+                int deltaX = scan.nextInt();
+                System.out.print("[int] Quanto quer andar na vertical (eixo y)? ");
+                int deltaY = scan.nextInt();
+                robo.mover(deltaX, deltaY);
+                break;
+            
+            case 2:
+                
+                break;
+
+            case 3:
+                if (robo instanceof RoboTerrestre) {
+                    System.out.print("[int] Em quanto quer aumentar a velocidade? ");
+                    int vlc = scan.nextInt();
+                    ((RoboTerrestre) robo).aumentarVelocidade(vlc);
+                }
+                else if (robo instanceof RoboAereo) {
+                    System.out.print("[int] Quantos metros quer subir? ");
+                    int metros = scan.nextInt();
+                    ((RoboAereo) robo).subir(metros);
+                }
+                break;
+                
+            case 4:
+                if (robo instanceof RoboTerrestre) {
+                    System.out.print("[int] Em quanto quer diminuir a velocidade? ");
+                    int vlc = scan.nextInt();
+                    ((RoboTerrestre) robo).diminuirVelocidade(vlc);
+                }
+                else if (robo instanceof RoboAereo) {
+                    System.out.print("[int] Quantos metros quer descer? ");
+                    int metros = scan.nextInt();
+                    ((RoboAereo) robo).descer(metros);
+                }
+                break;
+
+            case 5:
+                if (robo instanceof RoboXadrez) {
+                    ((RoboXadrez) robo).alteraTipoMovimento();
+                    if (((RoboXadrez)robo).getTipoMovimento() == 1)
+                        System.out.println("Tipo de peça mudado para Cavalo\n");
+                    else
+                        System.out.println("Tipo de peça mudado para Peao\n");
+                }
+                
+                break;
+            case 6:
+                
+                break;
         }
     }
 
@@ -102,12 +193,27 @@ public class Main {
         System.out.printf("**********************************************************************\n");
 
         /**
-         * Inicio dos testes interativos
+         * Inicio dmaximoAcoes = mostrarAcoes(roboUsado);os testes interativos
          */
+        int acao;
+        int maximoAcoes;
+        int indiceRobo;
+
         while (true) {
-            Robo roboUsado = salaTeste.robosAtivos.get(escolherRobo(salaTeste, scan));
-            mostrarAcoes(roboUsado);
-            break;
+            indiceRobo = escolherRobo(salaTeste, scan);
+            
+            if(indiceRobo == -1) {
+                break;
+            }
+
+            Robo roboUsado = salaTeste.robosAtivos.get(indiceRobo);
+            acao = 0;
+            
+            while (acao != -1) {
+                maximoAcoes = mostrarAcoes(roboUsado);
+                acao = lerAcao(roboUsado, maximoAcoes, scan);
+                realizarAcao(roboUsado, acao, scan);    
+            }
         }
 
         scan.close();
