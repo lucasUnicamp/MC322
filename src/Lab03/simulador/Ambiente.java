@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.lang.Math;
 
 public class Ambiente {
-    private int largura;
-    private int altura;
+    private final int largura;
+    private final int altura;
     public ArrayList<Robo> robosAtivos;
     public ArrayList<Obstaculo> obstaculos;
     public double[][] temperaturas;

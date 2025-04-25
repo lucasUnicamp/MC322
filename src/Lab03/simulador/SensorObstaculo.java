@@ -41,6 +41,20 @@ public class SensorObstaculo extends Sensor {
         return false;
     }
 
+    public boolean checarObstaculoPosicao(int x, int y, int altititude) {
+        // Percorre a ArrayList de obstaculos e checa se ha um obstaculo na posicao dada
+        for (Obstaculo obstaculo:getAmbiente().obstaculos) {
+            if (obstaculo.getTipoObstaculo().getAltura() <= altititude &&
+                obstaculo.getPosicaoX1() <= x &&
+                obstaculo.getPosicaoX2() >= x &&
+                obstaculo.getPosicaoY1() <= y &&
+                obstaculo.getPosicaoY2() >= y ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int checarObstaculoCaminho(int posX, int posY, int deltaX, int deltaY) {
         boolean caminhoCima = true, caminhoBaixo = true;
         int novoX = posX + deltaX;

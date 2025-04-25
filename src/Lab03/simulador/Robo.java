@@ -102,8 +102,8 @@ public class Robo {
             for ( ; i <= deltaX; i++) {
                 // Checa se a posicao em que vai andar eh um obstaculo
                 if (getAmbiente().ehObstaculo(posicaoX + i, posicaoY)) {
-                    System.out.printf("Ha um obstaculo em (%d, %d) impedindo o movimento horizontal de '%s'.\n", getX() + i, getY(), nome);
-                    i -= 1;
+                    System.out.printf("Ha um obstaculo em (%d, %d) impedindo o movimento horizontal de '%s'.\n", getX() + i, getY(), getNome());
+                    i -= 1;     // Remove um para "voltar" a posicao anterior que nao era um obstaculo
                     break;
                 }
                 // Checa se a posicao em que vai andar esta fora dos limites do ambiente
@@ -120,8 +120,8 @@ public class Robo {
         else if (deltaX < 0) {
             for ( ; i <= -deltaX; i++) {
                 if (getAmbiente().ehObstaculo(posicaoX - i, posicaoY)) {
-                    System.out.printf("Ha um obstaculo em (%d, %d) impedindo o movimento horizontal de '%s'.\n", getX() - i, getY(), nome);
-                    i += 1;
+                    System.out.printf("Ha um obstaculo em (%d, %d) impedindo o movimento horizontal de '%s'.\n", getX() - i, getY(), getNome());
+                    i += 1;     // Adiciona um para "voltar" a posicao anterior que nao era um obstaculo
                     break;
                 }
                 else if (!getAmbiente().dentroDosLimites(posicaoX - i, posicaoY)) {
@@ -139,7 +139,7 @@ public class Robo {
             for ( ; j <= deltaY; j++) {
                 // Checa se a posicao em que vai andar eh um obstaculo
                 if (getAmbiente().ehObstaculo(posicaoX, posicaoY + j)) {
-                    System.out.printf("Ha um obstaculo em (%d, %d) impedindo o movimento vertical de '%s'.\n", getX(), getY() + j, nome);
+                    System.out.printf("Ha um obstaculo em (%d, %d) impedindo o movimento vertical de '%s'.\n", getX(), getY() + j, getNome());
                     j -= 1;
                     break;
                 }
@@ -157,7 +157,7 @@ public class Robo {
         else if (deltaY < 0 && i == Math.abs(deltaX)) {
             for ( ; j <= -deltaY; j++) {
                 if (getAmbiente().ehObstaculo(posicaoX, posicaoY - j)) {
-                    System.out.printf("Ha um obstaculo em (%d, %d) impedindo o movimento vertical de '%s'.\n", getX(), getY() - j, nome);
+                    System.out.printf("Ha um obstaculo em (%d, %d) impedindo o movimento vertical de '%s'.\n", getX(), getY() - j, getNome());
                     j += 1;
                     break;
                 }

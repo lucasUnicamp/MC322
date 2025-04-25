@@ -23,7 +23,7 @@ public class Main {
         salaTeste.adicionarObstaculos(new Obstaculo(10, 20, 20, 30, TipoObstaculo.ESTATUA_DE_ELEFANTE));
         salaTeste.adicionarObstaculos(new Obstaculo(45, 30, 35, 50, TipoObstaculo.TORRE_DE_BABEL));
 
-        Robo roboGenerico = new Robo("Alfa", 10, 25, salaTeste);
+        Robo roboGenerico = new Robo("Alfa", 10, 15, salaTeste);        // Cria o robo generico
         RoboTerrestre roboTerrestre = new RoboTerrestre("Beta", 25, 25, salaTeste, 60);     // Cria o robo terrestre generico
         RoboXadrez roboXadrez = new RoboXadrez("Theta", 30, 20, salaTeste, 6, 1);       // Cria o robo terrestre do tipo xadrez
         RoboPreguica roboPreguica = new RoboPreguica("Delta", 10, 50, salaTeste, 25, 1);        // Cria o robo terrestre do tipo preguiça
@@ -31,6 +31,7 @@ public class Main {
         RoboPlanador roboPlanador = new RoboPlanador("Phi", 40, 10, salaTeste, 0, 80, 50);      // Cria o robo aereo do tipo planador
         RoboSatelite roboSatelite = new RoboSatelite("Sigma", 20, 20, salaTeste, 10, 50, 30, 0);        // Cria o robo aereo do tipo satelite
         
+        // Adiciona sensores aos robos arbitrariamente
         roboTerrestre.adicionarSensor(new SensorObstaculo(10, salaTeste));
         roboXadrez.adicionarSensor(new SensorObstaculo(5, salaTeste));
         roboPreguica.adicionarSensor(new SensorObstaculo(30, salaTeste));
@@ -39,7 +40,9 @@ public class Main {
         roboPlanador.adicionarSensor(new SensorObstaculo(20, salaTeste));
         roboSatelite.adicionarSensor(new SensorObstaculo(50, salaTeste));
         roboSatelite.adicionarSensor(new SensorTemperatura(50, salaTeste));
+
         System.out.printf("**********************************************************************\n");
+        roboGenerico.mover(10, 10);
 
         scan.close();
     }
