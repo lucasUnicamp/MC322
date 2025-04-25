@@ -235,6 +235,7 @@ public class Robo {
         }
         else
             System.out.printf("Nao foi possivel adicionar um %s pois o robo '%s' ja o tem.\n\n", getNome(), sensor.nomeDoSensor());
+        atualizaSensores();
     }
 
     public void atualizaSensores() {

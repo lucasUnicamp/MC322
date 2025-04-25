@@ -52,7 +52,7 @@ public class Menu {
         while(true) {
                 for (int i = 0; i < ambiente.robosAtivos.size(); i++) {
                     Robo robo = ambiente.robosAtivos.get(i);
-                    System.out.printf("Robo %d :: %s '%s'\n", i, robo.getClass().getName(), robo.getNome());
+                    System.out.printf("Robo %d :: %s '%s'\n", i, robo.getClass().getSimpleName(), robo.getNome());
                 }
                 System.out.println("Digite -1 para encerrar o programa.\n");
 
@@ -154,7 +154,7 @@ public class Menu {
             return;
         System.out.print("[int] Qual coordenada x gostaria de monitorar? ");
         int posicaoX = scan.nextInt();
-        System.out.print("[int] Qual coordenada x gostaria de monitorar? ");
+        System.out.print("[int] Qual coordenada y gostaria de monitorar? ");
         int posicaoY = scan.nextInt();
         int monitoramento;
         if(robo.sensores.get(indiceSensor) instanceof SensorObstaculo) {
@@ -242,6 +242,10 @@ public class Menu {
                         System.out.println("Tipo de peça mudado para Cavalo\n");
                     else
                         System.out.println("Tipo de peça mudado para Peao\n");
+                }
+
+                if (robo instanceof RoboPreguica) {
+                    ((RoboPreguica)robo).descansar();
                 }
                 
                 break;
