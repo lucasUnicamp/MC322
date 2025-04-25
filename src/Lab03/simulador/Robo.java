@@ -89,7 +89,7 @@ public class Robo {
      * @param deltaY inteiro do quanto deve se mover na vertical
      */
     public void mover(int deltaX, int deltaY) {
-        int indice = temSensorTipo("SensorObstaculo");
+        int indice = temSensorTipo("simulador.SensorObstaculo");
         System.out.printf("Tentando mover o robo '%s' em %d no eixo x e em %d no y.\n", nome, deltaX, deltaY);
         
         if (indice != -1)
@@ -116,17 +116,16 @@ public class Robo {
                 // Checa se a posicao em que vai andar eh um obstaculo
                 if (getAmbiente().ehObstaculo(posicaoX + i, posicaoY)) {
                     System.out.printf("Ha um obstaculo em (%d, %d) impedindo o movimento horizontal de '%s'.\n", getX() + i, getY(), getNome());
-                    i -= 1;     // Remove um para "voltar" a posicao anterior que nao era um obstaculo
                     break;
                 }
                 // Checa se a posicao em que vai andar esta fora dos limites do ambiente
                 else if (!getAmbiente().dentroDosLimites(posicaoX + i, posicaoY)) {
                     System.out.println("O robo nao tem autorizacao para sair do ambiente.\n");
-                    i -= 1;
                     break;
                 }
             }
             // Atualiza posicao X do robo baseado em quanto conseguiu andar
+            i -= 1;
             posicaoX += i;
         }
         // Caso deltaX negativo, anda na direcao Oeste.
@@ -134,15 +133,14 @@ public class Robo {
             for ( ; i <= -deltaX; i++) {
                 if (getAmbiente().ehObstaculo(posicaoX - i, posicaoY)) {
                     System.out.printf("Ha um obstaculo em (%d, %d) impedindo o movimento horizontal de '%s'.\n", getX() - i, getY(), getNome());
-                    i += 1;     // Adiciona um para "voltar" a posicao anterior que nao era um obstaculo
                     break;
                 }
                 else if (!getAmbiente().dentroDosLimites(posicaoX - i, posicaoY)) {
                     System.out.println("O robo nao tem autorizacao para sair do ambiente.\n");
-                    i += 1;
                     break;
                 }
             }
+            i -= 1;
             posicaoX -= i;
         }
         // Depois move o robo totalmente na vertical
@@ -153,17 +151,16 @@ public class Robo {
                 // Checa se a posicao em que vai andar eh um obstaculo
                 if (getAmbiente().ehObstaculo(posicaoX, posicaoY + j)) {
                     System.out.printf("Ha um obstaculo em (%d, %d) impedindo o movimento vertical de '%s'.\n", getX(), getY() + j, getNome());
-                    j -= 1;
                     break;
                 }
                 // Checa se a posicao em que vai andar esta fora dos limites do ambiente
                 else if (!getAmbiente().dentroDosLimites(posicaoX, posicaoY + j)) {
                     System.out.println("O robo nao tem autorizacao para sair do ambiente.\n");
-                    j -= 1;
                     break;
                 }
             }
             // Atualiza posicao X do robo baseado em quanto conseguiu andar
+            j -= 1;
             posicaoY += j;
         }
         // Caso deltaY negativo, anda na direcao Sul
@@ -171,15 +168,14 @@ public class Robo {
             for ( ; j <= -deltaY; j++) {
                 if (getAmbiente().ehObstaculo(posicaoX, posicaoY - j)) {
                     System.out.printf("Ha um obstaculo em (%d, %d) impedindo o movimento vertical de '%s'.\n", getX(), getY() - j, getNome());
-                    j += 1;
                     break;
                 }
                 else if (!getAmbiente().dentroDosLimites(posicaoX, posicaoY - j)) {
                     System.out.println("O robo nao tem autorizacao para sair do ambiente.\n");
-                    j += 1;
                     break;
                 }
             }
+            j -= 1;
             posicaoY -= j;
         }
     }
@@ -207,10 +203,11 @@ public class Robo {
                 posicaoY = novoY;
                 System.out.println("Movimentado com sucesso.\n");
                 this.exibirPosicao();
-            } else if (haObstaculosCaminho == 0)
-                System.out.printf("Caminho sai do raio do sensor do robô %s. Não é possível garantir sua segurança, portanto ficará parado.\n\n", getNome(), getNome());
+            }
+            else if (haObstaculosCaminho == 0)
+                System.out.printf("Caminho sai do raio do sensor do robo '%s'. Não eh possivel garantir sua segurança, portanto ficara parado.\n\n", getNome(), getNome());
             else 
-                System.out.printf("Obstaculos que impederiam o movimento de '%s' foram detectados, '%s' permaneceu parado.\n\n", getNome(), getNome());
+                System.out.printf("Obstaculos que impediriam o movimento de '%s' foram detectados, '%s' permaneceu parado.\n\n", getNome(), getNome());
         } 
         // Não atualiza posição caso tenha saído dos limites
         else 
