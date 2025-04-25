@@ -257,7 +257,7 @@ public class Robo {
     public int temSensorTipo(String classe) {
         if (sensores != null) {
             for (int i = 0; i < sensores.size(); i++) {
-                if (sensores.get(i).getClass().getName() == classe)
+                if (sensores.get(i).getClass().getSimpleName().equals(classe))
                     return i;
             }
         }

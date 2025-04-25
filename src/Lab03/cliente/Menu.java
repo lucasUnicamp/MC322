@@ -12,6 +12,7 @@ import simulador.RoboTerrestre;
 import simulador.RoboXadrez;
 import simulador.SensorObstaculo;
 import simulador.SensorTemperatura;
+import simulador.Obstaculo;
 
 public class Menu {
     private final Ambiente salaTeste;
@@ -31,6 +32,9 @@ public class Menu {
             
             if(indiceRobo == -1) {
                 break;
+            } else if (indiceRobo == -2) {
+                imprimirAmbiente();
+                continue;
             }
 
             Robo roboUsado = salaTeste.robosAtivos.get(indiceRobo);
@@ -54,12 +58,13 @@ public class Menu {
                     Robo robo = ambiente.robosAtivos.get(i);
                     System.out.printf("Robo %d :: %s '%s'\n", i, robo.getClass().getSimpleName(), robo.getNome());
                 }
+                System.out.println("Digite -2 imprimir o ambiente.");
                 System.out.println("Digite -1 para encerrar o programa.\n");
 
                 System.out.print("Digite o numero do robo que quer usar: ");
                 indiceRobo = scan.nextInt();  
                 
-                if(indiceRobo < ambiente.robosAtivos.size() && indiceRobo >= -1) 
+                if(indiceRobo < ambiente.robosAtivos.size() && indiceRobo >= -2) 
                     break;
                 else 
                     System.out.println("Digite um numero valido.\n");
@@ -253,5 +258,26 @@ public class Menu {
                 
                 break;
         }
+    }
+
+    private void imprimirAmbiente() {
+        int [][] matriz = new int[salaTeste.getAltura() + 1][salaTeste.getLargura() + 1];
+
+        for(Obstaculo obstaculo:salaTeste.obstaculos)
+            for(int i = obstaculo.getPosicaoX1(); i <= obstaculo.getPosicaoX2(); i++)
+                for(int j = obstaculo.getPosicaoY1(); j <= obstaculo.getPosicaoY2(); j++)
+                    matriz[i][j] = 1;
+
+        for(Robo robo:salaTeste.robosAtivos)
+            matriz[robo.getX()][robo.getY()] = 2; 
+
+        for(int j = salaTeste.getLargura(); j >= 0; j--) {
+            for(int i = 0; i <= salaTeste.getAltura(); i++) {
+                System.out.printf("%d ", matriz[i][j]);
+            }
+            System.out.print("\n");
+        }
+
+        System.out.println("Legenda: 0=vazio 1=obstáculo 2=robô");
     }
 }
