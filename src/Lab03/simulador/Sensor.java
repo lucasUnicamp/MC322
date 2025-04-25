@@ -32,6 +32,8 @@ abstract class Sensor {
             return false;
     }
 
+    public abstract String nomeDoSensor();
+
     public void setRaio(double raio) {
         this.raio = raio;
     }
@@ -52,10 +54,6 @@ abstract class Sensor {
         this.ambiente = ambiente;
     }
 
-    public Ambiente getAmbiente() {
-        return ambiente;
-    }
-
     public double getRaio() {
         return raio;
     }
@@ -70,6 +68,10 @@ abstract class Sensor {
 
     public int getAltitude() {
         return altitude;
+    }
+
+    public Ambiente getAmbiente() {
+        return ambiente;
     }
 
 }

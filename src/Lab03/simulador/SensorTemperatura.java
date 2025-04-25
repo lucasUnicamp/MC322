@@ -53,4 +53,8 @@ public class SensorTemperatura extends Sensor {
         }
         System.out.printf("A temperatura maxima encontrada num raio de %d eh de %.1f°C e esta na posicao (%d, %d).\n", getRaio(), tempMax, posX, posY);
     }
+
+    public String nomeDoSensor() {
+        return "Sensor de Temperatura";
+    } 
 }

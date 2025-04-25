@@ -17,9 +17,8 @@ public class Robo {
         setY(posicaoY);
         setAmbiente(ambiente);
         ambiente.adicionarRobo(this);       // Adiciona o robo no ambiente logo que é criado
-        System.out.printf("\nRobo '%s' criado\n", nome);
-
         sensores = new ArrayList<Sensor>();       // Inicializa array para os sensores
+        System.out.printf("\nRobo '%s' criado\n", nome);
 
         checarPosicaoInicial(posicaoX, posicaoY);       // Checa se a posicao em que foi inicializado eh valida
     }
@@ -32,11 +31,14 @@ public class Robo {
         Sensor sensor;
         for (int i = 0; i < sensores.size(); i++) {
             sensor = sensores.get(i);
+
             System.out.printf("[%d] ", i);
-            if(sensor instanceof SensorObstaculo)
+
+            if (sensor instanceof SensorObstaculo)
                 System.out.println("Sensor de obtáculos -> ");
-            else if(sensor instanceof SensorTemperatura)
+            else if (sensor instanceof SensorTemperatura)
                 System.out.println("Sensor de Temperatura -> ");
+
             sensor.info();
         }
     }
@@ -51,11 +53,11 @@ public class Robo {
         boolean ehValido = true;
 
         if (ambiente.ehObstaculo(posX, posY)) {
-            System.out.printf("> AVISO: Robo '%s' foi inicializado dentro de um obstaculo. Nao faca isso.\n", getNome());
+            System.out.printf("!!! AVISO: Robo '%s' foi inicializado dentro de um obstaculo. Nao faca isso. !!!\n", getNome());
             ehValido = false;
         }
         if (!ambiente.dentroDosLimites(posX, posY)) {
-            System.out.printf("> AVISO: Robo '%s' foi inicializado fora dos limites do ambiente. Nao faca isso.\n", getNome());
+            System.out.printf("!!! AVISO: Robo '%s' foi inicializado fora dos limites do ambiente. Nao faca isso. !!!\n", getNome());
             ehValido = false;
         }
 
@@ -211,7 +213,7 @@ public class Robo {
         } 
         // Não atualiza posição caso tenha saído dos limites
         else 
-            System.out.printf("'%s' não tem permissão para sair do ambiente.\n\n", getNome());
+            System.out.printf("O sensor checou que essa posicao sairia dos limites do ambiente, e '%s' não tem permissão para fazer isso.\n\n", getNome());
     }
 
     /**
@@ -220,11 +222,17 @@ public class Robo {
      * @param raio alcance maximo do sensor 
      */
     public void adicionarSensor(Sensor sensor) {
-        if(sensor.getAmbiente() == getAmbiente()) {
-            sensores.add(sensor);
-        } else {
-            System.out.println("Sensor de outro ambiente");
+        // Checa se o robo ja nao tem o sensor dado
+        if (sensores.size() == 0 || temSensorTipo(sensor.getClass().getName()) == -1) {
+            if (sensor.getAmbiente() == getAmbiente()) {
+                sensores.add(sensor);
+                System.out.printf("%s adicionado ao robo '%s' com sucesso.\n\n", sensor.nomeDoSensor(), getNome());
+            }
+            else 
+                System.out.printf("Nao foi possivel adicionar um %s ao robo '%s' pois esse é de outro ambiente.\n\n", sensor.nomeDoSensor(), getNome());
         }
+        else
+            System.out.printf("Nao foi possivel adicionar um %s pois o robo '%s' ja o tem.\n\n", getNome(), sensor.nomeDoSensor());
     }
 
     public void atualizaSensores() {
@@ -239,7 +247,7 @@ public class Robo {
 
     /**
      * Procura na lista de sensores do robo um sensor do tipo especificado
-     * @param tipoSensor tipo de sensor que se procura, sendo 1 = obstaculo e 2 = temperatura 
+     * @param tipoSensor tipo de sensor que se procura, identificado pelo nome da classe
      * @return o indice do sensor procurado na lista ou -1 caso o robo nao tenha aquele sensor. Retornar o indice faz com que a funcao possa
      * ser usada como booleana (se for diferente de -1, tem o sensor) e possamos acessar o sensor da lista de sensores
      */

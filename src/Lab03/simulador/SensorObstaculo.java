@@ -64,7 +64,6 @@ public class SensorObstaculo extends Sensor {
             return 0;
         }
 
-
         // Checa se a linha reta da componente horizontal do movimento, partindo da posição atual do robô 
         // ou partindo da posição do robô após andar toda sua componente vertical, contém algum obstáculo;
         // O loop eh interrompido se ambos os caminhos tiverem um obstáculo;
@@ -110,5 +109,9 @@ public class SensorObstaculo extends Sensor {
         } else {
             return -1;
         }
+    }
+
+    public String nomeDoSensor() {
+        return "Sensor de Obstaculo";
     }
 }
