@@ -112,7 +112,9 @@ public class Main {
                 break;
             
             case 2:
-                
+                System.out.println("[-1] voltar");
+                robo.mostrarSensores();
+                int  indiceSensor = scan.nextInt();
                 break;
 
             case 3:

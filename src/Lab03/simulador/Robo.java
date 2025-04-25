@@ -28,6 +28,19 @@ public class Robo {
         System.out.printf("Robo '%s' esta na posicao (%d, %d) apontado na direcao %s.\n\n", getNome(), getX(), getY(), direcao);
     }
 
+    public void mostrarSensores() {
+        Sensor sensor;
+        for (int i = 0; i < sensores.size(); i++) {
+            sensor = sensores.get(i);
+            System.out.printf("[%d] ", i);
+            if(sensor instanceof SensorObstaculo)
+                System.out.println("Sensor de obtáculos -> ");
+            else if(sensor instanceof SensorTemperatura)
+                System.out.println("Sensor de Temperatura -> ");
+            sensor.info();
+        }
+    }
+
     /**
      * Checa se o robo foi inicializado em uma posicao valida, ou seja, fora da regiao de um obstaculo e dentro do ambiente.
      * Caso nao, muda a posicao do robo para uma valida aleatoria
