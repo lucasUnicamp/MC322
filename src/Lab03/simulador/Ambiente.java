@@ -23,13 +23,13 @@ public class Ambiente {
      * vai se reduzindo conforme se afasta desse ponto, seguindo uma funcao Gaussiana
      */
     public void gradienteTemperatura() {
-        temperaturas = new double[getLargura()][getAltura()];
+        temperaturas = new double[getLargura() + 1][getAltura() + 1];
         double tempMax = (Math.random() * 100);        // Gera uma temperatura aleatoria para ser o maximo do ambiente
         int posX = (int)(Math.random() * getLargura());     // Gera coordenadas aleatorias para terem essa temperatura maxima
         int posY = (int)(Math.random() * getAltura());
 
-        for (int i = 0; i < getLargura(); i++) {
-            for (int j = 0; j < getAltura(); j++) {
+        for (int i = 0; i <= getLargura(); i++) {
+            for (int j = 0; j <= getAltura(); j++) {
                 temperaturas[i][j] = gradienteGaussiano(tempMax, posX, posY, i, j, getLargura()/2, 2*getAltura());
             }
         }

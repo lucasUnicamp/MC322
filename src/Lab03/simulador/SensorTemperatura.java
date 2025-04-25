@@ -22,7 +22,7 @@ public class SensorTemperatura extends Sensor {
     }
 
     public void temperaturaPonto(int posX, int posY) {
-        System.out.printf("A temperatura no ponto (%d, %d) eh %.1f.\n", getAmbiente().temperaturas[posX][posY]);
+        System.out.printf("A temperatura no ponto (%d, %d) eh %.1f.\n", posX, posY, getAmbiente().temperaturas[posX][posY]);
     }
 
     /**
@@ -42,7 +42,7 @@ public class SensorTemperatura extends Sensor {
         for (int i = limiteOeste; i <= limiteLeste; i++) {
             for (int j = limiteSul; j <= limiteNorte; j++) {
                 // Checa se a coordenada esta dentro do sensor
-                if (dentroDoRaio(i, j)) {
+                if (dentroDoRaio(i, j) && getAmbiente().dentroDosLimites(i, j)) {
                     if (getAmbiente().temperaturas[i][j] > tempMax) {
                         tempMax = getAmbiente().temperaturas[i][j];
                         posX = i;
@@ -51,7 +51,7 @@ public class SensorTemperatura extends Sensor {
                 }
             }
         }
-        System.out.printf("A temperatura maxima encontrada num raio de %d eh de %.1f°C e esta na posicao (%d, %d).\n", getRaio(), tempMax, posX, posY);
+        System.out.printf("A temperatura maxima encontrada num raio de %.2f eh de %.1f°C e esta na posicao (%d, %d).\n", getRaio(), tempMax, posX, posY);
     }
 
     public String nomeDoSensor() {

@@ -29,17 +29,19 @@ public class Robo {
 
     public void mostrarSensores() {
         Sensor sensor;
-        for (int i = 0; i < sensores.size(); i++) {
-            sensor = sensores.get(i);
+        if (sensores != null) {
+            for (int i = 0; i < sensores.size(); i++) {
+                sensor = sensores.get(i);
 
-            System.out.printf("[%d] ", i);
+                System.out.printf("[%d] ", i);
 
-            if (sensor instanceof SensorObstaculo)
-                System.out.println("Sensor de obtáculos -> ");
-            else if (sensor instanceof SensorTemperatura)
-                System.out.println("Sensor de Temperatura -> ");
+                if (sensor instanceof SensorObstaculo)
+                    System.out.println("Sensor de obtáculos -> ");
+                else if (sensor instanceof SensorTemperatura)
+                    System.out.println("Sensor de Temperatura -> ");
 
-            sensor.info();
+                sensor.info();
+            }
         }
     }
 

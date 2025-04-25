@@ -91,12 +91,79 @@ public class Main {
         if(acao <= maximoAcoes && acao >= -1) 
             return acao;
         else {
-            System.out.println("Acao invalida. Tente novamente.\n");
+            System.out.println("\u001B[31mAcao invalida. Tente novamente.\u001B[0m\n");
             mostrarAcoes(robo);
             return lerAcao(robo, maximoAcoes, scan);
         }
     }
 
+    public static void acaoSensor(Robo robo, Scanner scan) {
+        int indiceSensor;
+        int n_sensores;
+        while (true) {
+            System.out.println("[-1] voltar");
+            robo.mostrarSensores();
+
+            n_sensores = 0;
+            if(robo.sensores != null)
+                n_sensores = robo.sensores.size();
+            if(n_sensores == 0) {
+                indiceSensor = -1;
+                System.out.println("Nao há sensores nesse robo");
+                break;
+            } 
+
+            indiceSensor = scan.nextInt();
+            
+            
+            if(indiceSensor == -1)
+                break;
+            if(indiceSensor >= 0 && indiceSensor < n_sensores)
+                break;
+            else
+                System.out.println("\u001B[31mSensor invalido digitado\u001B[0m");
+        }
+        if(indiceSensor == -1) 
+            return;
+        System.out.print("[int] Qual coordenada x gostaria de monitorar? ");
+        int posicaoX = scan.nextInt();
+        System.out.print("[int] Qual coordenada x gostaria de monitorar? ");
+        int posicaoY = scan.nextInt();
+        int monitoramento;
+        if(robo.sensores.get(indiceSensor) instanceof SensorObstaculo) {
+            SensorObstaculo sensorUsado = ((SensorObstaculo) robo.sensores.get(indiceSensor));
+            monitoramento = sensorUsado.monitorar(posicaoX, posicaoY);
+            switch (monitoramento) {
+                case 0:
+                    System.out.println("Nenhum obstáculo detectado nesse ponto");
+                    break;
+                case 1:
+                    System.out.println("Há um obstáculo nesse ponto");
+                    break;
+                case 2:
+                    System.out.println("Ponto fora dos limites do ambiente");
+                    break;
+                case 3:
+                    System.out.println("Ponto fora do raio de detecçao do sensor");
+                    break;
+            }
+        }
+
+        if(robo.sensores.get(indiceSensor) instanceof SensorTemperatura) {
+            SensorTemperatura sensorUsado = ((SensorTemperatura) robo.sensores.get(indiceSensor));
+            monitoramento = sensorUsado.monitorar(posicaoX, posicaoY);
+            switch (monitoramento) {
+                case 1:
+                    break;
+                case 2:
+                    System.out.println("Ponto fora dos limites do ambiente");
+                    break;
+                case 3:
+                    System.out.println("Ponto fora do raio de detecçao do sensor");
+                    break;
+            }
+        }
+    }
     public static void realizarAcao(Robo robo, int acao, Scanner scan) {
         switch (acao) {
             case 0:
@@ -112,9 +179,7 @@ public class Main {
                 break;
             
             case 2:
-                System.out.println("[-1] voltar");
-                robo.mostrarSensores();
-                int  indiceSensor = scan.nextInt();
+                acaoSensor(robo, scan);
                 break;
 
             case 3:
