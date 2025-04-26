@@ -313,6 +313,12 @@ public class Menu {
         acaoMonitorar(robo, indiceSensor, scan);
     }
 
+    /**
+     * Pega a entrada do usuario de qual ponto deve ser 'monitorado' e usa o sensor especificado naquele ponto
+     * @param robo robo que foi escolhido na entrada principal
+     * @param indiceSensor posicao do sensor que se quer usar na lista de sensores do robo especificado
+     * @param scan Scanner para ler entradas de usuarios
+     */
     public static void acaoMonitorar(Robo robo, int indiceSensor, Scanner scan) {
         System.out.print("[int] Qual coordenada x gostaria de monitorar? ");
         int posX = scan.nextInt();
@@ -334,8 +340,22 @@ public class Menu {
                 for (int d = obstaculo.getPosicaoY1(); d <= obstaculo.getPosicaoY2(); d++)
                     matriz[c][d] = '#';
 
-        for (Robo robo:salaTeste.robosAtivos)
-            matriz[robo.getX()][robo.getY()] = 'o'; 
+        for (Robo robo:salaTeste.robosAtivos) {
+            if (robo instanceof RoboSatelite)
+                matriz[robo.getX()][robo.getY()] = 'S';
+            else if (robo instanceof RoboPlanador)
+                matriz[robo.getX()][robo.getY()] = 'P'; 
+            else if (robo instanceof RoboAereo)
+                matriz[robo.getX()][robo.getY()] = 'A';
+            else if (robo instanceof RoboPreguica)
+                matriz[robo.getX()][robo.getY()] = 'G';
+            else if (robo instanceof RoboXadrez)
+                matriz[robo.getX()][robo.getY()] = 'X';
+            else if (robo instanceof RoboTerrestre)
+                matriz[robo.getX()][robo.getY()] = 'T';
+            else if (robo instanceof Robo)
+                matriz[robo.getX()][robo.getY()] = 'R';
+        }
 
         for (int e = salaTeste.getLargura(); e >= 0; e--) {
             for (int f = 0; f <= salaTeste.getAltura(); f++)
@@ -343,6 +363,7 @@ public class Menu {
             System.out.print("\n");
         }
 
-        System.out.println("Legenda: . = vazio    # = obstaculo   o = robo\n");
+        System.out.println("Legenda: . = vazio    # = obstaculo    R = robo generico    T = robo terrestre    X = robo xadrez");
+        System.out.println("         G = robo preguica    A = robo aereo    P = robo planador    S = robo satelite");
     }
 }
