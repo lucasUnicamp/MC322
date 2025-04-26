@@ -6,44 +6,54 @@ Esse é o *Repositório Oficial*™ do grupo 8 para os laboratórios de MC322, o
 - 276617 &emsp; Lucas Henrique Bertanha     
 - 281289 &emsp; Leonardo Ferreira
 
-## **EXECUÇÃO**
+## **- EXECUÇÃO**
 Dentro da pasta MC322, usar os comandos para compilação e execução do laboratório mais recente:<br/>
 - `javac -d bin src/Lab03/cliente/*.java src/Lab03/simulador/*.java`
 - `java -cp bin cliente.Main`
 
 <sup>Caso queira rodar laboratórios passados, basta substituir o número que segue `Lab`</sup>
 
-## **EXPLICAÇÕES**
-> ### **Lab03**
-### Movimentação do Robô<br/>
-Em razão da implementação de sensores, houve uma pequena mudança na movimentação do robô base. Agora, dado um `deltaX` e um `deltaY`, o robô irá sempre tentar percorrer todo o `deltaX` primeiro e depois o `deltaY`, parando de se mover:
+Recomenda-se usar:
+- **IDE:** VS Code
+- **Versão do Java:** 21.0.6
+
+## **- EXPLICAÇÕES**
+> ### **-- LAB03**
+#### --- MOVIMENTAÇÃO DO ROBÔ<br/>
+Em razão da implementação de sensores, houve uma pequena mudança na movimentação do Robô Genérico. Agora, dado um `deltaX` e um `deltaY`, o robô irá sempre tentar percorrer todo o `deltaX` primeiro e depois o `deltaY`, parando de se mover:
 - caso chegue ao seu destino.
 - caso colida com algum obstáculo.
 - caso chegue em um dos limites do ambiente.
 
-Nota-se que agora o robô genérico faz os cheques de viabilidade de movimento *durante* essa movimentação.
+Nota-se que agora o robô genérico faz os cheques de viabilidade de movimento *durante* essa movimentação. Ademais, o Robô Aéreo e seus filhos não conseguem mais se mover caso não tenham um sensor de obstáculo.
 
-### Tipos de Robô<br/>
-Novamente em razão dos sensores, um dos robôs foi alterado:
+#### --- TTIPOS DE ROBÔ<br/>
+Novamente em razão dos sensores, um dos robôs foi mudado:
 - *Robô Aéreo Satélite*
     - pode ser carregado com uma carga que o permite ser lançado verticalmente. Se tiver carga suficiente, entra em órbita e pode se movimentar como um robô aéreo normalmente nessa região.
 
 Os outros tipos de robôs permanecem inalterados.
 
-### Ambiente<br/>
+#### --- AMBIENTE<br/>
 O Ambiente agora conta com um novo atributo, a *Temperatura*, para que possamos monitorá-la com um sensor. Um ponto aleatório é escolhido e lhe é atribuído uma temperatura, também aleatória, a partir da qual todas as posições em seu arredor serão progressivamente menores, seguindo uma [Função Gaussiana](https://en.wikipedia.org/wiki/Gaussian_function#Two-dimensional_Gaussian_function).
 
-### Tipos de Sensores<br/>
+#### --- TIPOS DE SENSORES<br/>
 Os 2 tipos de sensores que criamos são:
 - *Sensor de Obstáculo*
-    - consegue checar se determinada posição dentro de seu alcance é um obstáculo ou não. Também consegue avaliar se há obstáculos impedindo a movimentação do robô até certo ponto antes mesmo dele se movimentar. Assim, um robô que tenha o sensor de obstáculo move-se tal como um robô do Lab02 (ver abaixo)
+    - consegue checar se determinada posição dentro de seu alcance é um obstáculo ou não.
+    - consegue avaliar se há obstáculos impedindo a movimentação do robô até certo ponto antes mesmo dele se movimentar.
 - *Sensor de Temperatura*
-    - consegue checar a temperatura de um ponto específico dentro de seu alcance e também exibir a maior temperatura, junto de suas coordenadas, dentro do mesmo.
+    - consegue checar a temperatura de um ponto específico dentro de seu alcance.
+    - exibe a maior temperatura, junto de suas coordenadas, dentro do alcance.
 
+ Assim, um robô que tenha o sensor de obstáculo testa se há caminhos livres antes de se movimentar, tal como um robô do Lab02, ao invés de mover-se até bater em algo.
+
+ #### --- DIAGRAMA DE CLASSES<br/>
+ 
 ---
 ---
-> ### **Lab02**
-### Movimentação do Robô<br/>
+> ### **-- LAB02**
+#### --- MOVIMENTAÇÃO DO ROBÔ<br/>
 Consideramos que o robô pode tomar somente dois caminhos dado um `deltaX` e um `deltaY`, sendo esses:
 - mover-se `deltaX` totalmente no eixo X primeiro e depois `deltaY` totalmente no eixo Y.
 ```
@@ -59,7 +69,7 @@ Consideramos que o robô pode tomar somente dois caminhos dado um `deltaX` e um 
 ```
 <sup>Em que [ ] representa o caminho que o robô irá fazer.</sup>
 
-### Tipos de Robô<br/>
+#### --- TIPOS DE ROBÔ<br/>
 Os 4 robôs adicionais que criamos são:
 - *Robô Terrestre Xadrex*
     - move-se ou como a peça Cavalo[^1], que anda duas posições em uma direção e uma na outra, formando um L; ou um Peão[^2], que deve andar uma ou duas posições para alguma direção.
@@ -69,9 +79,6 @@ Os 4 robôs adicionais que criamos são:
     - move-se normalmente na horizontal e vertical, mas sua altitude vai diminuindo conforme é deslocado.
 - *Robô Aéreo Satélite*
     - move-se normalmente e consegue escanear uma área circular à procura de obstáculos dado um ângulo de visão; quanto mais alto, mais consegue ver.
-
----
----
 
 [^1]: [Cavalo (xadrez)](<https://pt.wikipedia.org/wiki/Cavalo_(xadrez)>)
 [^2]: [Peão (xadrez)](<https://pt.wikipedia.org/wiki/Pe%C3%A3o_(xadrez)>)
