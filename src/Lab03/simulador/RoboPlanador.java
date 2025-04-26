@@ -88,9 +88,12 @@ public class RoboPlanador extends RoboAereo {
     }
 
     public void setTamanhoAsa(int tamanhoAsa) {
-        if (tamanhoAsa <= 100)        // Tamanho maximo da asa de 100
+        if (tamanhoAsa <= 100) {     // Tamanho maximo da asa de 100
             this.tamanhoAsa = tamanhoAsa;
-        else
+            System.out.printf("Tamanho da asa alterado para %d.\n", this.tamanhoAsa);
+        } else {
             this.tamanhoAsa = 100;
+            System.out.print("Tamanho da asa alterado para 100 (máximo).\n");
+        }
     }
 }
