@@ -16,15 +16,20 @@ public class RoboAereo extends Robo {
         , getNome(), getX(),getY(), altitude, getDirecao(), altitudeMaxima);
     }
 
-    @Override
+    /**
+     * Override necessario pois o Robo Aereo nao deve se mover se nao tiver um sensor. Caso nao fizessemos 
+     * o override, ele tentaria usar o 'moverSemSensor'
+     */
+     @Override
     public void mover(int deltaX, int deltaY){
         int indice = temSensorTipo("SensorObstaculo");
-        System.out.printf("Tentando mover o robo '%s' em %d no eixo x e em %d no y.\n", getNome(), deltaX, deltaY);
+        System.out.printf("Tentando mover o Robo '%s' em %d no eixo x e em %d no y.\n", getNome(), deltaX, deltaY);
         
         if (indice != -1) {
             moverComSensor(deltaX, deltaY, indice);
             System.out.printf("O Robo '%s' terminou o movimento na posicao (%d, %d, %d).\n", getNome(), getX(), getY(), getAltitude());
-        } else
+        }
+        else
             System.out.println("Nao pode voar sem sensor de obtaculo, eh muito perigoso.");
         
         atualizaSensores();
@@ -48,7 +53,7 @@ public class RoboAereo extends Robo {
         SensorObstaculo sensorObs;
 
         if(indice == -1) {
-            System.out.println("Impossivel descer com segurança, nao ha sensor de obstaculo.\n");
+            System.out.println("Impossivel descer com segurança, nao ha sensor de obstaculo.");
             return;
         } 
         else

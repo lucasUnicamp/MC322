@@ -171,6 +171,7 @@ public class Menu {
             // Mesmo em todos os robos
             case 0:
                 robo.info();
+                System.out.println("");
                 break;
 
             // Mesmo em todos os robos

@@ -193,7 +193,7 @@ public class Robo {
             else if (haObstaculosCaminho == 0)
                 System.out.printf("Caminho sai do raio do sensor do robo '%s'. Não eh possivel garantir sua segurança, portanto ficara parado.\n", getNome(), getNome());
             else 
-                System.out.printf("Obstaculos que impediriam o movimento de '%s' foram detectados, '%s' permaneceu parado.\n", getNome(), getNome());
+                System.out.printf("Obstaculos que impediriam o movimento de '%s' foram detectados pelo sensor, '%s' permaneceu parado.\n", getNome(), getNome());
         } 
         // Não atualiza posição caso tenha saído dos limites
         else 

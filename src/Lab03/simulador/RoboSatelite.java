@@ -38,6 +38,9 @@ public class RoboSatelite extends RoboAereo {
             else
                 super.descer(metros);
         }
+        else {
+            System.out.printf("O Robo '%s' nao esta em orbita para pode descer.\n", getNome());
+        }
     }
 
     @Override
