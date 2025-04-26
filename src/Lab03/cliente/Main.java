@@ -27,11 +27,16 @@ public class Main {
 
         /**
          * TESTES MANUAIS
-         * Essas 3 situacoes devem gerar 3 avisos logo na criaçao dos robos.
+         * 
+         * Essas 4 situacoes devem gerar 4 avisos logo na criaçao dos robos.
          * O Robo Generico Alfa foi propositalmente colocado dentro de um obstaculo para testar a funcionalidade de recolocar robos em posicoes aleatorias;
          * O Robo Preguica Delta também foi posto em uma posicao invalida, fora do Ambiente, para o mesmo tipo de teste;
          * O Robo Satelite Sigma foi propositalemente posto numa altura menor do que a de orbita para testar se caia no chao;
          * 2 sensores iguais foram postos no Robo Generico Alfa para testar funcionalidade de rejeicao a sensores repetidos;
+         * 
+         * Acreditamos que esses sao os unicos 'casos' que podem ser testados que nao dependem de entradas de usuario, ja que dependem de onde instanciamos
+         * os robos. Outros acontecimentos, como colidir com obstaculo, nao ter carga suficiente, monitorar uma posicao, etc, podem todos serem feitos 
+         * facilmente no menu interativo com poucas entradas. 
          */
         System.out.printf("\n********************************************CRIACAO**ROBOS********************************************");
         // Instanciamento em massa de robos e adicao de sensores por composiçao (sensor eh instanciado dentro do robo, logo nao existe fora dele)
@@ -61,6 +66,8 @@ public class Main {
 
         /**
          * TESTES INTERATIVOS
+         * 
+         * Aqui o usuario pode fazer quantos testes quiser rapidamente, uma vez que açoes podem ser feitas uma logo apos a outra.
          */
         Menu menu = new Menu(salaTeste, scan);
         menu.iniciarMenu();
