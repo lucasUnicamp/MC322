@@ -49,14 +49,14 @@ Os 2 tipos de sensores que criamos são:
  Assim, um robô que tenha o sensor de obstáculo testa se há caminhos livres antes de se movimentar, tal como um robô do Lab02, ao invés de mover-se até bater em algo.
 
  #### --- MENU INTERATIVO<br/>
-![Arte Promocional do Menu Interativo](assets\artePromocional.png)
+![Arte Promocional do Menu Interativo](assets/artePromocional.png)
  
  O Menu Interativo criado é bastante simples, recebendo apenas entradas de valores inteiros[^1] que agem como opções do menu. O programa inicia-se nesse menu, a partir do qual o usuário poderá escolher um dos robôs para controlar digitando seu número específico. Isso exibirá o submenu do robô, que listará as ações específicas desse. Ao escolher uma, basta digitar os parâmetros que serão pedidos para que o robô realize a ação desejada.<br/>
 
  É possível realizar quantas ações quiser e também voltar ao menu principal para trocar de robô, imprimir o ambiente ou encerrar o programa.
 
  #### --- DIAGRAMA DE CLASSES<br/>
-![Diagrama de Classes do Lab03](assets\diagramaLab03.png)
+![Diagrama de Classes do Lab03](assets/diagramaLab03.png)
 
 Seguindo o que foi explicado em aula, o diagrama foi construido com foco em relacionar as classes e apresentar seus principais métodos. Nota-se a relação de herança entre os diferentes tipos de robôs e também a de composição entre o sensor e o robô, uma vez que aquele só existe dentro deste.
 
