@@ -23,7 +23,7 @@ public class RoboTerrestre extends Robo {
             super.mover(deltaX, deltaY);
         // Não atualiza posicao caso tenha ultrapassado a velocidade
         else 
-            System.out.printf("'%s' esta acima da velocidade maxima de %d.\n\n", getNome(), velocidadeMaxima);
+            System.out.printf("'%s' esta acima da velocidade maxima de %d.\n", getNome(), velocidadeMaxima);
     }
 
     public void aumentarVelocidade(int vlc) {
@@ -37,7 +37,7 @@ public class RoboTerrestre extends Robo {
     }
 
     public void exibirVelocidade() {
-        System.out.printf("'%s' Velocidade atual: %d\n\n", getNome(), getVelocidade());
+        System.out.printf("'%s' - Velocidade atual: %d\n", getNome(), getVelocidade());
     }
 
     protected int setVelocidade() {

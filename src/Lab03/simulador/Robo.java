@@ -84,7 +84,7 @@ public class Robo {
             moverSemSensor(deltaX, deltaY);
         
         atualizaSensores();
-        System.out.printf("O Robo '%s' terminou o movimento na posicao (%d, %d).\n\n", nome, posicaoX, posicaoY);
+        System.out.printf("O Robo '%s' terminou o movimento na posicao (%d, %d).\n", nome, posicaoX, posicaoY);
     }
 
     /**
@@ -106,7 +106,7 @@ public class Robo {
                 }
                 // Checa se a posicao em que vai andar esta fora dos limites do ambiente
                 else if (!getAmbiente().dentroDosLimites(posicaoX + i, posicaoY)) {
-                    System.out.println("O robo nao tem autorizacao para sair do ambiente.\n");
+                    System.out.println("O robo nao tem autorizacao para sair do ambiente.");
                     break;
                 }
             }
@@ -122,7 +122,7 @@ public class Robo {
                     break;
                 }
                 else if (!getAmbiente().dentroDosLimites(posicaoX - i, posicaoY)) {
-                    System.out.println("O robo nao tem autorizacao para sair do ambiente.\n");
+                    System.out.println("O robo nao tem autorizacao para sair do ambiente.");
                     break;
                 }
             }
@@ -141,7 +141,7 @@ public class Robo {
                 }
                 // Checa se a posicao em que vai andar esta fora dos limites do ambiente
                 else if (!getAmbiente().dentroDosLimites(posicaoX, posicaoY + j)) {
-                    System.out.println("O robo nao tem autorizacao para sair do ambiente.\n");
+                    System.out.println("O robo nao tem autorizacao para sair do ambienten");
                     break;
                 }
             }
@@ -157,7 +157,7 @@ public class Robo {
                     break;
                 }
                 else if (!getAmbiente().dentroDosLimites(posicaoX, posicaoY - j)) {
-                    System.out.println("O robo nao tem autorizacao para sair do ambiente.\n");
+                    System.out.println("O robo nao tem autorizacao para sair do ambiente.");
                     break;
                 }
             }
@@ -191,13 +191,13 @@ public class Robo {
                 this.exibirPosicao();
             }
             else if (haObstaculosCaminho == 0)
-                System.out.printf("Caminho sai do raio do sensor do robo '%s'. Não eh possivel garantir sua segurança, portanto ficara parado.\n\n", getNome(), getNome());
+                System.out.printf("Caminho sai do raio do sensor do robo '%s'. Não eh possivel garantir sua segurança, portanto ficara parado.\n", getNome(), getNome());
             else 
-                System.out.printf("Obstaculos que impediriam o movimento de '%s' foram detectados, '%s' permaneceu parado.\n\n", getNome(), getNome());
+                System.out.printf("Obstaculos que impediriam o movimento de '%s' foram detectados, '%s' permaneceu parado.\n", getNome(), getNome());
         } 
         // Não atualiza posição caso tenha saído dos limites
         else 
-            System.out.printf("O sensor checou que essa posicao sairia dos limites do ambiente, e '%s' não tem permissão para fazer isso.\n\n", getNome());
+            System.out.printf("O sensor checou que essa posicao sairia dos limites do ambiente, e '%s' não tem permissão para fazer isso.\n", getNome());
     }
 
     /**
@@ -213,10 +213,10 @@ public class Robo {
                 System.out.printf("%s adicionado ao robo '%s' com sucesso.\n", sensor.nomeDoSensor(), getNome());
             }
             else 
-                System.out.printf("Nao foi possivel adicionar um %s ao robo '%s' pois esse é de outro ambiente.\n\n", sensor.nomeDoSensor(), getNome());
+                System.out.printf("Nao eh possivel adicionar um %s ao Robo '%s' pois esse eh de outro ambiente.\n", sensor.nomeDoSensor(), getNome());
         }
         else
-            System.out.printf("Nao foi possivel adicionar um %s pois o robo '%s' ja o tem.\n\n", sensor.nomeDoSensor(), getNome());
+            System.out.printf("Nao eh possivel adicionar mais de um %s ao Robo '%s'.\n", sensor.nomeDoSensor(), getNome());
         atualizaSensores();
     }
 
@@ -253,34 +253,35 @@ public class Robo {
     public void usarSensor(int indiceSensor, int posX, int posY) {
         // Switch case com o valor retornado pelo 'monitorar' do sensor
         switch(sensores.get(indiceSensor).monitorar(posX, posY)) {
+            case 1:
+                System.out.println("Monitoramento ocorreu com sucesso.");
+                break;
             case 2:
                 System.out.println("Nao se pode monitorar posicoes fora do ambiente.");
                 break;
             case 3:
                 System.out.println("Nao se pode monitorar posicoes fora do alcance do sensor.");
                 break;
-            case 1:
-                if (sensores.get(indiceSensor) instanceof SensorObstaculo) {
-                System.out.println("Monitoramento ocorreu com sucesso.");
-                System.out.println("O Robo nao tem esse tipo de sensor.");
-                // ARRUMAR PRINT DO SENSOR OBSTACULO
-                }
+
         }
     }
 
+    /**
+     * Exibe
+     */
     public void exibirSensores() {
         Sensor sensor;
         if (sensores != null) {
             for (int i = 0; i < sensores.size(); i++) {
                 sensor = sensores.get(i);
-                System.out.printf("[%d] ", i);
+                System.out.printf("[%d] :: ", i);
                 sensor.exibirRaio();
             }
         }
     }
 
     public void exibirPosicao() {
-        System.out.printf("O robo '%s' esta agora em (%d, %d) na direcao %s.\n\n", getNome(), getX(), getY(), getDirecao());
+        System.out.printf("O robo '%s' esta agora em (%d, %d) na direcao %s.\n", getNome(), getX(), getY(), getDirecao());
     }
 
     public void setNome(String nome) {

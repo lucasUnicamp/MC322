@@ -25,8 +25,8 @@ public class Main {
         salaTeste.adicionarObstaculos(new Obstaculo(35, 30, 45, 50, TipoObstaculo.TORRE_DE_BABEL));
         salaTeste.adicionarObstaculos(new Obstaculo(30, 5, 40, 10, TipoObstaculo.THE_BEAN));
 
-        System.out.printf("******************************************************************************************************\n");
-        // Instancia robos
+        System.out.printf("******************************************************************************************************");
+        // Instanciamento em massa de robos e adicao de sensores por composiçao (sensor eh instanciado dentro do robo, logo nao existe fora dele)
         Robo roboGenerico = new Robo("Alfa", 15, 25, salaTeste);        // Cria o robo generico
         RoboTerrestre roboTerrestre = new RoboTerrestre("Beta", 25, 25, salaTeste, 60);     // Cria o robo terrestre generico
         roboTerrestre.adicionarSensor(new SensorObstaculo(10, salaTeste));
@@ -43,15 +43,13 @@ public class Main {
         RoboSatelite roboSatelite = new RoboSatelite("Sigma", 30, 40, salaTeste, 10, 50, 30, 0);        // Cria o robo aereo do tipo satelite
         roboSatelite.adicionarSensor(new SensorObstaculo(50, salaTeste));
         roboSatelite.adicionarSensor(new SensorTemperatura(50, salaTeste));
-        
         /**
          * TESTES MANUAIS
          * Essas 3 situacoes devem gerar 3 avisos logo na criaçao dos robos.
          * O Robo Generico Alfa foi propositalmente colocado dentro de um obstaculo para testar a funcionalidade de recolocar robos em posicoes aleatorias;
          * O Robo Preguica Delta também foi posto em uma posicao invalida, fora do Ambiente, para o mesmo tipo de teste;
          * O Robo Satelite Sigma foi propositalemente posto numa altura menor do que a de orbita para testar se caia no chao;
-         * 2 sensores iguais foram postos no Robo Generico Alfa para testar 
-         * 
+         * 2 sensores iguais foram postos no Robo Generico Alfa para testar funcionalidade de rejeicao a sensores repetidos;
          */
         System.out.printf("******************************************************************************************************\n");
 

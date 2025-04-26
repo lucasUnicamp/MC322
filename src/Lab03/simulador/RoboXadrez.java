@@ -58,7 +58,7 @@ public class RoboXadrez extends RoboTerrestre {
             }
         }
 
-        System.out.printf("Movimento invalidado pelas regras do xadrez.\n\n");
+        System.out.printf("Movimento invalidado pelas regras do xadrez.\n");
     }
 
     public void setTipoMovimento(int tipoMovimento) {

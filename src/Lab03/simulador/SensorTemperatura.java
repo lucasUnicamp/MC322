@@ -15,13 +15,13 @@ public class SensorTemperatura extends Sensor {
         else if (!dentroDoRaio(posX, posY)) 
             return 3;       // Fora do alcance
         else {
-            temperaturaPonto(posX, posY);
+            exibirTempPonto(posX, posY);
             temperaturaMax();
             return 1;       // Sucesso no monitoramento
         }
     }
 
-    public void temperaturaPonto(int posX, int posY) {
+    public void exibirTempPonto(int posX, int posY) {
         System.out.printf("A temperatura no ponto (%d, %d) eh %.1f.\n", posX, posY, getAmbiente().temperaturas[posX][posY]);
     }
 

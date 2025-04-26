@@ -97,7 +97,7 @@ public class RoboSatelite extends RoboAereo {
     }
 
     public void exibirCarga() {
-        System.out.printf("'%s' - Carga atual: %d\n\n", getNome(), cargaLancamento);
+        System.out.printf("'%s' - Carga atual: %d\n", getNome(), cargaLancamento);
     }
 
     public void setAltitudeMinima(int metros) {

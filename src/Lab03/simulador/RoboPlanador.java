@@ -24,7 +24,7 @@ public class RoboPlanador extends RoboAereo {
             super.mover(deltaX, deltaY);
         } 
         else 
-            System.out.printf("'%s' não tem permissao para sair do ambiente.\n\n", getNome());
+            System.out.printf("'%s' não tem permissao para sair do ambiente.\n", getNome());
     }
 
     @Override
@@ -32,7 +32,7 @@ public class RoboPlanador extends RoboAereo {
         if (metros <= tamanhoAsa)     // Quanto maior a asa mais pode subir
             super.subir(metros);
         else
-            System.out.printf("'%s' tem as asas muito curtas.\n\n", getNome());
+            System.out.printf("'%s' tem as asas muito curtas.\n", getNome());
     }
 
     public void setTamanhoAsa(int tamanhoAsa) {

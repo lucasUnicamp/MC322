@@ -24,21 +24,21 @@ public class RoboPreguica extends RoboTerrestre {
             exibirEnergia();  
         }
         else
-            System.out.printf("'%s' nao tem energia o suficiente, precisa descansar.\n\n", getNome());
+            System.out.printf("'%s' nao tem energia o suficiente, precisa descansar.\n", getNome());
     }
 
     public void descansar() {
         if (energia == energiaMaxima)
-            System.out.printf("'%s' ja esta completamente descansado.\n\n", getNome());
+            System.out.printf("'%s' ja esta completamente descansado.\n", getNome());
         else {
             energia += 1;
-            System.out.printf("'%s' descansou um pouco.\n\n", getNome());
+            System.out.printf("'%s' descansou um pouco.\n", getNome());
             exibirEnergia();
         }
     }
 
     public void exibirEnergia() {
-        System.out.printf("'%s' Energia atual: %d\n\n", getNome(), energia);
+        System.out.printf("'%s' - Energia atual: %d\n", getNome(), energia);
     }
 
     public void setEnergia(int energiaTotal) {

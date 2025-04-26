@@ -12,7 +12,7 @@ public class RoboAereo extends Robo {
 
     @Override
     public void info() {     
-        System.out.printf("Robo Aereo '%s' está na posicao (%d, %d, %d) apontado na direcao %s com altitude maxima permitida de %d.\n\n"
+        System.out.printf("Robo Aereo '%s' está na posicao (%d, %d, %d) apontado na direcao %s com altitude maxima permitida de %d.\n"
         , getNome(), getX(),getY(), altitude, getDirecao(), altitudeMaxima);
     }
 
@@ -25,7 +25,7 @@ public class RoboAereo extends Robo {
             moverComSensor(deltaX, deltaY, indice);
             System.out.printf("O Robo '%s' terminou o movimento na posicao (%d, %d, %d).\n", getNome(), getX(), getY(), getAltitude());
         } else
-            System.out.println("Nao pode voar sem sensor de obtaculo, eh muito perigoso.\n");
+            System.out.println("Nao pode voar sem sensor de obtaculo, eh muito perigoso.");
         
         atualizaSensores();
     }
@@ -38,7 +38,7 @@ public class RoboAereo extends Robo {
         }
         // Nao atualiza a altitude caso tenha ultrapassado a maxima dada
         else
-            System.out.printf("'%s' ultrapassaria a altitude maxima permitida.\n\n", getNome());
+            System.out.printf("'%s' ultrapassaria a altitude maxima permitida.\n", getNome());
 
         exibirAltitude();
     }
@@ -56,17 +56,17 @@ public class RoboAereo extends Robo {
 
         // Compara a altitude do Robo com a disância ao chao (0)
         if (getAltitude() - metros >= 0 && !sensorObs.checarObstaculoPosicao(getX(), getY(), getAltitude() - metros)) {
-            System.out.println("O Robo desceu com sucesso.\n");
+            System.out.println("O Robo desceu com sucesso.");
             setAltitude(altitude - metros);
         }
         // Atualiza a altitude para 0 caso tenha descido demais e não há obtáculo abaixo
         else if (!sensorObs.checarObstaculoPosicao(getX(), getY(), 0)){
-            System.out.printf("'%s' espatifou-se no chao.\n\n", getNome());
+            System.out.printf("'%s' espatifou-se no chao.\n", getNome());
             setAltitude(0);
         }
         // Não Atualiza a altitude caso tenha obstaculos abaixo
         else {
-            System.out.printf("Ha obstaculos abaixo de '%s', nao tem como descer.\n\n", getNome());
+            System.out.printf("Ha obstaculos abaixo de '%s', nao tem como descer.\n", getNome());
         }
 
         exibirAltitude();
@@ -89,7 +89,7 @@ public class RoboAereo extends Robo {
     }
 
     public void exibirAltitude() {
-        System.out.printf("'%s' Altitude atual: %d\n", getNome(), getAltitude());
+        System.out.printf("'%s' - Altitude atual: %d\n", getNome(), getAltitude());
     }
 
     protected void setAltitude(int metros) {
