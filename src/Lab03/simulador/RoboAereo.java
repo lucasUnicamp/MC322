@@ -87,7 +87,7 @@ public class RoboAereo extends Robo {
     }
 
     public void exibirAltitude() {
-        System.out.printf("'%s' Altitude atual: %d\n\n", getNome(), getAltitude());
+        System.out.printf("'%s' Altitude atual: %d\n", getNome(), getAltitude());
     }
 
     protected void setAltitude(int metros) {

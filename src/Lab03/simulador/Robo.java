@@ -228,7 +228,7 @@ public class Robo {
         if (sensores.size() == 0 || temSensorTipo(sensor.getClass().getName()) == -1) {
             if (sensor.getAmbiente() == getAmbiente()) {
                 sensores.add(sensor);
-                System.out.printf("%s adicionado ao robo '%s' com sucesso.\n\n", sensor.nomeDoSensor(), getNome());
+                System.out.printf("%s adicionado ao robo '%s' com sucesso.\n", sensor.nomeDoSensor(), getNome());
             }
             else 
                 System.out.printf("Nao foi possivel adicionar um %s ao robo '%s' pois esse é de outro ambiente.\n\n", sensor.nomeDoSensor(), getNome());
