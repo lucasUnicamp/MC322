@@ -13,6 +13,18 @@ public class Obstaculo {
         this.posicaoY1 = posicaoY1;
         this.posicaoX2 = posicaoX2;
         this.posicaoY2 = posicaoY2;
+        ordenaObstaculo(posicaoX1, posicaoY1, posicaoX2, posicaoY2);
+    }
+
+    public void ordenaObstaculo(int posX1, int posY1, int posX2, int posY2) {
+        if (posX1 > posX2) {
+            setPosicaoX2(posX1);
+            setPosicaoX1(posX2);
+        }
+        if (posY1 > posY2) {
+            setPosicaoY2(posY1);
+            setPosicaoY1(posY2);
+        }
     }
     
     public TipoObstaculo getTipoObstaculo() {
