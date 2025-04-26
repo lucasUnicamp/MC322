@@ -188,10 +188,10 @@ public class Robo {
                 posicaoX = novoX;
                 posicaoY = novoY;
                 System.out.println("Movimentado com sucesso.");
-                this.exibirPosicao();
+                exibirPosicao();
             }
             else if (haObstaculosCaminho == 0)
-                System.out.printf("Caminho sai do raio do sensor do robo '%s'. Não eh possivel garantir sua segurança, portanto ficara parado.\n", getNome(), getNome());
+                System.out.printf("Caminho sai do raio do sensor do Robo '%s'. Como não eh possivel garantir sua segurança, preferiu ficar parado.\n", getNome(), getNome());
             else 
                 System.out.printf("Obstaculos que impediriam o movimento de '%s' foram detectados pelo sensor, '%s' permaneceu parado.\n", getNome(), getNome());
         } 
@@ -210,7 +210,7 @@ public class Robo {
         if (sensores.size() == 0 || temSensorTipo(sensor.getClass().getSimpleName()) == -1) {
             if (sensor.getAmbiente() == getAmbiente()) {
                 sensores.add(sensor);
-                System.out.printf("%s adicionado ao robo '%s' com sucesso.\n", sensor.nomeDoSensor(), getNome());
+                System.out.printf("%s adicionado ao Robo '%s' com sucesso.\n", sensor.nomeDoSensor(), getNome());
             }
             else 
                 System.out.printf("Nao eh possivel adicionar um %s ao Robo '%s' pois esse eh de outro ambiente.\n", sensor.nomeDoSensor(), getNome());
@@ -281,7 +281,7 @@ public class Robo {
     }
 
     public void exibirPosicao() {
-        System.out.printf("O robo '%s' esta agora em (%d, %d) na direcao %s.\n", getNome(), getX(), getY(), getDirecao());
+        System.out.printf("O Robo '%s' esta agora em (%d, %d) na direcao %s.\n", getNome(), getX(), getY(), getDirecao());
     }
 
     public void setNome(String nome) {
