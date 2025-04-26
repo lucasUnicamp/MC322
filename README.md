@@ -48,8 +48,18 @@ Os 2 tipos de sensores que criamos são:
 
  Assim, um robô que tenha o sensor de obstáculo testa se há caminhos livres antes de se movimentar, tal como um robô do Lab02, ao invés de mover-se até bater em algo.
 
- #### --- DIAGRAMA DE CLASSES<br/>
+ #### --- MENU INTERATIVO<br/>
+![Arte Promocional do Menu Interativo](assets\artePromocional.png)
  
+ O Menu Interativo criado é bastante simples, recebendo apenas entradas de valores inteiros[^1] que agem como opções do menu. O programa inicia-se nesse menu, a partir do qual o usuário poderá escolher um dos robôs para controlar digitando seu número específico. Isso exibirá o submenu do robô, que listará as ações específicas desse. Ao escolher uma, basta digitar os parâmetros que serão pedidos para que o robô realize a ação desejada.<br/>
+
+ É possível realizar quantas ações quiser e também voltar ao menu principal para trocar de robô, imprimir o ambiente ou encerrar o programa.
+
+ #### --- DIAGRAMA DE CLASSES<br/>
+![Diagrama de Classes do Lab03](assets\diagramaLab03.png)
+
+Seguindo o que foi explicado em aula, o diagrama foi construido com foco em relacionar as classes e apresentar seus principais métodos. Nota-se a relação de herança entre os diferentes tipos de robôs e também a de composição entre o sensor e o robô, uma vez que aquele só existe dentro deste.
+
 ---
 ---
 > ### **-- LAB02**
@@ -72,7 +82,7 @@ Consideramos que o robô pode tomar somente dois caminhos dado um `deltaX` e um 
 #### --- TIPOS DE ROBÔ<br/>
 Os 4 robôs adicionais que criamos são:
 - *Robô Terrestre Xadrex*
-    - move-se ou como a peça Cavalo[^1], que anda duas posições em uma direção e uma na outra, formando um L; ou um Peão[^2], que deve andar uma ou duas posições para alguma direção.
+    - move-se ou como a peça Cavalo[^2], que anda duas posições em uma direção e uma na outra, formando um L; ou um Peão[^3], que deve andar uma ou duas posições para alguma direção.
 - *Robô Terrestre Preguiça*
     - move-se normalmente mas descarrega sua energia a cada movimento, tendo que descançar para reabastecê-la.
 - *Robô Aéreo Planador*
@@ -80,5 +90,7 @@ Os 4 robôs adicionais que criamos são:
 - *Robô Aéreo Satélite*
     - move-se normalmente e consegue escanear uma área circular à procura de obstáculos dado um ângulo de visão; quanto mais alto, mais consegue ver.
 
-[^1]: [Cavalo (xadrez)](<https://pt.wikipedia.org/wiki/Cavalo_(xadrez)>)
-[^2]: [Peão (xadrez)](<https://pt.wikipedia.org/wiki/Pe%C3%A3o_(xadrez)>)
+
+[^1]: Embora tenhamos implementado tratamento para entradas inteiras inválidas, não fizemos o mesmo para entradas não-inteiras (como Strings) por ser assunto de aulas futuras.
+[^2]: [Cavalo (xadrez)](<https://pt.wikipedia.org/wiki/Cavalo_(xadrez)>)
+[^3]: [Peão (xadrez)](<https://pt.wikipedia.org/wiki/Pe%C3%A3o_(xadrez)>)
