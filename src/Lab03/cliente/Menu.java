@@ -244,7 +244,7 @@ public class Menu {
             case 6:
                 if (robo instanceof RoboXadrez) {
                     System.out.println("");
-                    ((RoboXadrez) robo).alteraTipoMovimento();
+                    ((RoboXadrez) robo).alternaTipoMovimento();
                     if (((RoboXadrez)robo).getTipoMovimento() == 1)
                         System.out.println("Tipo de peça mudado para Cavalo\n");
                     else
