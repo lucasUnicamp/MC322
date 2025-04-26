@@ -291,30 +291,31 @@ public class Robo {
     public void setDirecao(String drc) {
         if (drc == "Norte" || drc == "Sul" || drc == "Leste" || drc == "Oeste") {
             direcao = drc;
-            System.out.printf("Direção alterada para %s\n", direcao);
+            System.out.printf("Direçao alterada para %s\n", direcao);
         } else {
             direcao = "Norte";
-            System.out.printf("Direção alterada para o padrão (Norte)\n", direcao);
+            System.out.printf("Entrada invalida. O Robo foi posto na direcao padrao (Norte)\n", direcao);
         }
     }
 
     public void setDirecao(int drc) {
-        /*1 = Norte
+        /**
+         * 1 = Norte
          * 2 = Sul
          * 3 = Leste
          * 4 = Oeste
          */
         switch (drc) {
-            case 1:
+            case 0:
                 setDirecao("Norte");
                 break;
-            case 2:
+            case 1:
                 setDirecao("Sul");
                 break;
-            case 3:
+            case 2:
                 setDirecao("Leste");
                 break; 
-            case 4:
+            case 3:
                 setDirecao("Oeste");
                 break;       
             default:

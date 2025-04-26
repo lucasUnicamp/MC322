@@ -191,13 +191,7 @@ public class Menu {
             
             // Mesmo em todos os robos  
             case 3:
-                System.out.println("Para qual direção deseja mudar?");
-                System.out.println("[1] :: Norte");
-                System.out.println("[2] :: Sul");
-                System.out.println("[3] :: Leste");
-                System.out.println("[4] :: Oeste");
-                int escolha = scan.nextInt();
-                robo.setDirecao(escolha);
+                acaoDirecao(robo, scan);
                 break;
             
             // Aumenta velocidade para robos terrestres
@@ -287,6 +281,25 @@ public class Menu {
         }
     }
 
+    public static void acaoDirecao(Robo robo, Scanner scan) {
+        while(true) {
+            System.out.printf("\n******************************************MENU*DIRECOES**********************************************\n");
+            System.out.println("[0] :: Norte");
+            System.out.println("[1] :: Sul");
+            System.out.println("[2] :: Leste");
+            System.out.println("[3] :: Oeste");
+            System.out.println("\n[-1] :: voltar");
+            System.out.println("Para qual direção deseja mudar?");
+            System.out.print("> ");
+            int direcao = scan.nextInt();
+
+            if (direcao == -1)
+                break;
+            else
+                robo.setDirecao(direcao);
+        }
+    }
+
     /**
      * Caso o usuario escolha usar um sensor de um robo, eh necessario checar se o robo tem o sensor especificado
      * e, depois disso; se tiver, deve pegar a entrada de qual coordenada se quer monitorar com o sensor e exibir
@@ -305,8 +318,9 @@ public class Menu {
             } 
 
             System.out.printf("\n******************************************MENU*SENSORES**********************************************\n");
-            System.out.println("[-1] voltar");
             robo.exibirSensores();
+            System.out.println("\n[-1] voltar");
+            System.out.print("> ");
             indiceSensor = scan.nextInt();
             
             if(indiceSensor == -1)
@@ -330,14 +344,15 @@ public class Menu {
      * @param scan Scanner para ler entradas de usuarios
      */
     public static void acaoMonitorar(Robo robo, int indiceSensor, Scanner scan) {
-        System.out.print("[int] Qual coordenada x gostaria de monitorar? ");
+        System.out.println("[int] Qual coordenada x gostaria de monitorar?");
+        System.out.print("> ");
         int posX = scan.nextInt();
-        System.out.print("[int] Qual coordenada y gostaria de monitorar? ");
+        System.out.println("[int] Qual coordenada y gostaria de monitorar?");
+        System.out.print("> ");
         int posY = scan.nextInt();
-
+        System.out.println("");
         robo.usarSensor(indiceSensor, posX, posY);
     }
-
 
     // Exibe o ambiente, considerando '.' como espacos vazios, '#' como obstaculos e letras como os robos
     private void imprimirAmbiente() {
