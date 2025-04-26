@@ -57,7 +57,7 @@ public class RoboAereo extends Robo {
         // Compara a altitude do Robo com a disância ao chao (0)
         if (getAltitude() - metros >= 0 && !sensorObs.checarObstaculoPosicao(getX(), getY(), getAltitude() - metros)) {
             System.out.println("O Robo desceu com sucesso.");
-            setAltitude(altitude - metros);
+            setAltitude(getAltitude() - metros);
         }
         // Atualiza a altitude para 0 caso tenha descido demais e não há obtáculo abaixo
         else if (!sensorObs.checarObstaculoPosicao(getX(), getY(), 0)){
@@ -68,7 +68,6 @@ public class RoboAereo extends Robo {
         else {
             System.out.printf("Ha obstaculos abaixo de '%s', nao tem como descer.\n", getNome());
         }
-
         exibirAltitude();
     }
 

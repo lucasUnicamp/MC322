@@ -15,10 +15,21 @@ public class SensorObstaculo extends Sensor {
         else if (!dentroDoRaio(posX, posY))
             return 3;       // Fora do alcance
         else {
-            if (checarObstaculoPosicao(posX, posY))
+            if (checarObstaculoPosicao(posX, posY)) {
+                exibirObsPonto(posX, posY);
                 return 1;       // Obstaculo detectado
+            }
+            exibirNenhumObs(posX, posY);
             return 0;       // Obstaculo não detectado
         }
+    }
+
+    public void exibirObsPonto(int posX, int posY) {
+        System.out.printf("O sensor detectou um obstaculo no ponto (%d, %d).\n", posX, posY);
+    }
+
+    public void exibirNenhumObs(int posX, int posY) {
+        System.out.printf("O sensor nao detectou nenhum obstaculo no ponto (%d, %d).\n", posX, posY);
     }
 
     /**
@@ -41,6 +52,12 @@ public class SensorObstaculo extends Sensor {
         return false;
     }
 
+    /**
+     * Overload da funcao anterior, diferenca eh que essa eh usada para Robos Aereos e
+     * recebe uma altitude para comparar com a do obstaculo; que nao necessariamente eh a 
+     * propria altitude do robo (ja que isso ja eh checado no 'if'), mas uma altura apos 
+     * certo movimento de descer, por exemplo
+     */
     public boolean checarObstaculoPosicao(int x, int y, int altititude) {
         // Percorre a ArrayList de obstaculos e checa se ha um obstaculo na posicao dada
         for (Obstaculo obstaculo:getAmbiente().obstaculos) {
@@ -55,6 +72,18 @@ public class SensorObstaculo extends Sensor {
         return false;
     }
 
+    /**
+     * Checa se ha algum obstaculo em ambos os caminhos possiveis a serem percorridos ate o ponto dado.
+     * Esses caminhos estao explicados no README, mas basicamente sao: mover totalmente em uma das
+     * duas direcoes e depois na outra.
+     * e depois na outra.
+     * @param posX posicao horizontal do Robo no momento
+     * @param posY posicao vertical do Robo no momento
+     * @param deltaX o quanto se quer mover na horizontal
+     * @param deltaY o quanto se quer mover na vertical
+     * @return 0 caso caso o ponto em que se quer chegar esteja fora do raio do sensor, -1 caso haja
+     * obstaculos em ambos os caminhos ou 1 caso qualquer um dos dois caminhos estiver livre 
+     */
     public int checarObstaculoCaminho(int posX, int posY, int deltaX, int deltaY) {
         boolean caminhoCima = true, caminhoBaixo = true;
         int novoX = posX + deltaX;

@@ -18,7 +18,7 @@ public class Robo {
         setAmbiente(ambiente);
         ambiente.adicionarRobo(this);       // Adiciona o robo no ambiente logo que é criado
         sensores = new ArrayList<Sensor>();       // Inicializa array para os sensores
-        System.out.printf("\nRobo '%s' criado\n", nome);
+        System.out.printf("\nRobo '%s' criado.\n", nome);
 
         checarPosicaoInicial(posicaoX, posicaoY);       // Checa se a posicao em que foi inicializado eh valida
     }
@@ -75,7 +75,7 @@ public class Robo {
      * @param deltaY inteiro do quanto deve se mover na vertical
      */
     public void mover(int deltaX, int deltaY) {
-        int indice = temSensorTipo("simulador.SensorObstaculo");
+        int indice = temSensorTipo("SensorObstaculo");
         System.out.printf("Tentando mover o robo '%s' em %d no eixo x e em %d no y.\n", nome, deltaX, deltaY);
         
         if (indice != -1)

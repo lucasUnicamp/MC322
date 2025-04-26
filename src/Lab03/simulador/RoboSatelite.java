@@ -21,7 +21,7 @@ public class RoboSatelite extends RoboAereo {
             super.subir(metros);
         }
         else
-            System.out.printf("O Robo '%s' nao esta em orbita para poder subir.\n\n", getNome());
+            System.out.printf("O Robo '%s' nao esta em orbita para poder subir.\n", getNome());
     }
 
     @Override 
@@ -42,7 +42,7 @@ public class RoboSatelite extends RoboAereo {
 
     @Override
     public void info() {
-        System.out.printf("Robo Satelite '%s' esta na posicao (%d, %d, %d) apontado na direcao %s com %d de carga para o lancamento, altitude maxima permitida de %d e minima para orbita de %d.\n\n"
+        System.out.printf("Robo Satelite '%s' esta na posicao (%d, %d, %d) apontado na direcao %s com %d de carga para o lancamento, altitude maxima permitida de %d e minima para orbita de %d.\n"
         , getNome(), getX(), getY(), getAltitude(), getDirecao(), getCargaLancamento(), getAltitudeMax(), getAltitudeMin());
     }
 
@@ -56,13 +56,13 @@ public class RoboSatelite extends RoboAereo {
     }
 
     public void carregar(int carga) {
-        System.out.println("Robo carregado.\n");
+        System.out.println("Robo carregado.");
         cargaLancamento += carga;
         exibirCarga();
     }
 
     public void descarregar(int carga) {
-        System.out.println("Robo descarregado.\n");
+        System.out.println("Robo descarregado.");
         cargaLancamento -= carga;
         exibirCarga();
     }

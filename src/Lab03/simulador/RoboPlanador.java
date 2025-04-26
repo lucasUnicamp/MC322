@@ -13,15 +13,15 @@ public class RoboPlanador extends RoboAereo {
     @Override
     public void info() {
         System.out.printf("Robo Planador'%s' está na posicao (%d, %d, %d) apontado na direcao %s com altitude maxima permitida de %d e asa de tamanho %d.\n"
-        , getNome(), getX(),getY(), getAltitude(), getDirecao(), getAltitudeMax(), tamanhoAsa);
+        , getNome(), getX(), getY(), getAltitude(), getDirecao(), getAltitudeMax(), tamanhoAsa);
     }
 
     @Override
     public void mover(int deltaX, int deltaY) {
         if (getAmbiente().dentroDosLimites(getX() + deltaX, getY() + deltaY)){
             int deslocamento = Math.abs(deltaY) + Math.abs(deltaX);
-            super.descer(((120 - tamanhoAsa)*deslocamento)/100);        // Cai lentamente quando deslocado
             super.mover(deltaX, deltaY);
+            super.descer(((120 - tamanhoAsa)*deslocamento)/100);        // Cai lentamente quando deslocado
         } 
         else 
             System.out.printf("'%s' não tem permissao para sair do ambiente.\n", getNome());
@@ -33,6 +33,34 @@ public class RoboPlanador extends RoboAereo {
             super.subir(metros);
         else
             System.out.printf("'%s' tem as asas muito curtas.\n", getNome());
+    }
+ 
+    public void descerPlanando(int metros) {
+        int indice = temSensorTipo("SensorObstaculo");
+        SensorObstaculo sensorObs;
+
+        if(indice == -1) {
+            System.out.println("Impossivel descer com segurança, nao ha sensor de obstaculo.\n");
+            return;
+        } 
+        else
+            sensorObs = (SensorObstaculo) sensores.get(indice);
+
+        // Compara a altitude do Robo com a disância ao chao (0)
+        if (getAltitude() - metros >= 0 && !sensorObs.checarObstaculoPosicao(getX(), getY(), getAltitude() - metros)) {
+            System.out.println("O Robo desceu com sucesso.");
+            setAltitude(getAltitude() - metros);
+        }
+        // Atualiza a altitude para 0 caso tenha descido demais e não há obtáculo abaixo
+        else if (!sensorObs.checarObstaculoPosicao(getX(), getY(), 0)){
+            System.out.printf("'%s' espatifou-se no chao.\n", getNome());
+            setAltitude(0);
+        }
+        // Não Atualiza a altitude caso tenha obstaculos abaixo
+        else {
+            System.out.printf("Ha obstaculos abaixo de '%s', nao tem como descer.\n", getNome());
+        }
+        exibirAltitude();
     }
 
     public void setTamanhoAsa(int tamanhoAsa) {

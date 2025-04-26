@@ -22,7 +22,7 @@ public class SensorTemperatura extends Sensor {
     }
 
     public void exibirTempPonto(int posX, int posY) {
-        System.out.printf("A temperatura no ponto (%d, %d) eh %.1f.\n", posX, posY, getAmbiente().temperaturas[posX][posY]);
+        System.out.printf("A temperatura no ponto (%d, %d) eh %.1f°C.\n", posX, posY, getAmbiente().temperaturas[posX][posY]);
     }
 
     /**
