@@ -49,7 +49,7 @@ public class Main {
         roboPreguica.adicionarSensor(new SensorTemperatura(20, salaTeste));
         roboPreguica.info();
         RoboAereo roboAereo = new RoboAereo("Gama", 5, 5, salaTeste, 40, 80);      // Cria o robo aereo generico
-        roboAereo.adicionarSensor(new SensorTemperatura(10, salaTeste));
+        roboAereo.adicionarSensor(new SensorObstaculo(10, salaTeste));
         roboAereo.info();
         RoboPlanador roboPlanador = new RoboPlanador("Phi", 5, 40, salaTeste, 0, 80, 50);      // Cria o robo aereo do tipo planador
         roboPlanador.adicionarSensor(new SensorObstaculo(20, salaTeste));
