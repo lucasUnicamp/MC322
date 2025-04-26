@@ -27,7 +27,7 @@ Em razão da implementação de sensores, houve uma pequena mudança na moviment
 
 Nota-se que agora o robô genérico faz os cheques de viabilidade de movimento *durante* essa movimentação. Ademais, o Robô Aéreo e seus filhos não conseguem mais se mover caso não tenham um sensor de obstáculo.
 
-#### --- TTIPOS DE ROBÔ<br/>
+#### --- TIPOS DE ROBÔ<br/>
 Novamente em razão dos sensores, um dos robôs foi mudado:
 - *Robô Aéreo Satélite*
     - pode ser carregado com uma carga que o permite ser lançado verticalmente. Se tiver carga suficiente, entra em órbita e pode se movimentar como um robô aéreo normalmente nessa região.
