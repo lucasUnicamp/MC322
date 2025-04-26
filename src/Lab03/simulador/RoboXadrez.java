@@ -66,7 +66,7 @@ public class RoboXadrez extends RoboTerrestre {
             this.tipoMovimento = tipoMovimento;
     }
 
-    public void alteraTipoMovimento() {
+    public void alternaTipoMovimento() {
         if(getTipoMovimento() == 1) {
             setTipoMovimento(2);
         } else {
