@@ -26,32 +26,42 @@ public class Menu {
     public void iniciarMenu() {
         int acao;
         int maximoAcoes;
-        int entradaRobo;
+        int entradaPrincipal;
 
         while (true) {
-            entradaRobo = escolherRobo(salaTeste, scan);
+            entradaPrincipal = menuPrincipal(salaTeste, scan);
             
-            if (entradaRobo == -1)
+            if (entradaPrincipal == -1)
                 break;
-            else if (entradaRobo == -2) {
+            else if (entradaPrincipal == -2) {
                 imprimirAmbiente();
                 continue;
             }
 
-            Robo roboUsado = salaTeste.robosAtivos.get(entradaRobo);
+            Robo roboUsado = salaTeste.robosAtivos.get(entradaPrincipal);
             acao = 0;
             
-            while (acao != -1) {
-                maximoAcoes = mostrarAcoes(roboUsado);
-                acao = lerAcao(roboUsado, maximoAcoes, scan);
+            while (true) {
+                maximoAcoes = exibirEscolhaAcoes(roboUsado);
+                acao = lerEscolhaAcoes(roboUsado, maximoAcoes, scan);
+                if (acao == -1) {
+                    System.out.println("");
+                    break;
+                }
                 realizarAcao(roboUsado, acao, scan);    
             }
         }
     }
 
-    // Funcao para leitura da entrada de escolha do robo
-    public static int escolherRobo(Ambiente ambiente, Scanner scan) {
-        int entradaRobo;
+    /**
+     * Exibe as escolhas que o usuario pode fazer no menu inicial, que sao selecionar um robo, imprimir ambiente
+     * ou encerrar o programa, e pega a entrada em seguida
+     * @param ambiente ambiente onde os testes serao feitos
+     * @param scan Scanner para ler entradas de usuarios
+     * @return 'entradaPrincipal', inteiro representativo do robo escolhido
+     */
+    public static int menuPrincipal(Ambiente ambiente, Scanner scan) {
+        int entradaPrincipal;
         
         // Loop "infinito" para lidar com entradas invalidas
         while(true) {
@@ -62,30 +72,30 @@ public class Menu {
                 System.out.println("\n[-2] :: imprimir o ambiente.");
                 System.out.println("[-1] :: encerrar o programa.\n");
                 System.out.print("Digite um numero para prosseguir: ");
-                entradaRobo = scan.nextInt();  
+                entradaPrincipal = scan.nextInt();  
                 
                 // Se o numero da entrada esta entre as opçoes possiveis, eh valido
-                if(entradaRobo < ambiente.robosAtivos.size() && entradaRobo >= -2) 
+                if(entradaPrincipal < ambiente.robosAtivos.size() && entradaPrincipal >= -2) 
                     break;
                 else 
                     System.out.println("Digite um numero valido.\n");
         }
-        System.out.println("");
-        return entradaRobo;
+        return entradaPrincipal;
     }
     
     
     /**
      * Exibe as acoes possiveis para cada robo. Diferencia o tipo de robo pelo uso de 'instanceof' e tira proveito
      * do fato de robos serem filhos de outros para imprimir informaçoes mais gerais (como as do Robo, que sao validas
-     * para todos os seus filhos) antes das mais especificas.
+     * para todos os seus filhos) antes das mais especificas. Açoes especificas de cada robo aparecem como opcao 
+     * valida apenas para o tipo de robo que as tem
      * @param robo robo que foi escolhido na entrada
-     * @return maximoAcoes, que sera usado para checar se a selecao da acao eh valida ou nao baseada em quantas opcoes
+     * @return que sera usado para checar se a selecao da acao eh valida ou nao baseada em quantas opcoes
      * de acao aquele robo tem
      */
-    public static int mostrarAcoes(Robo robo) {
+    public static int exibirEscolhaAcoes(Robo robo) {
         int maximoAcoes = 0;
-        System.out.println("[-1] :: voltar");
+        System.out.println("\n[-1] :: voltar");
         
         if (robo instanceof Robo) {
             System.out.println("[0] :: informacoes");
@@ -125,100 +135,43 @@ public class Menu {
     }
 
     /**
-     * Pega a entrada do usuario para qual acao do robo ele quer que realize acoes
-     * @param robo robo que foi escolhido na entrada
+     * Pega a entrada do usuario de qual acao especifica ele quer que o robo escolhido realize
+     * @param robo robo que foi escolhido na entrada principal
      * @param maximoAcoes eh a quantidade de acoes que o robo pode fazer no total; como a entrada eh feita 
      * lendo inteiros, se for um numero maior que esse, sabemos que nao eh uma entrada valida
      * @param scan Scanner para ler entradas de usuario
      * @return inteiro representativo da acao escolhida pelo usuario para o robo fazer
      */
-    public static int lerAcao(Robo robo, int maximoAcoes, Scanner scan) {
-        int acao = scan.nextInt();
-        if(acao <= maximoAcoes && acao >= -1) 
-            return acao;
+    public static int lerEscolhaAcoes(Robo robo, int maximoAcoes, Scanner scan) {
+        int entradaAcao = scan.nextInt();
+        if(entradaAcao <= maximoAcoes && entradaAcao >= -1) 
+            return entradaAcao;
         else {
             System.out.println("Acao invalida. Tente novamente.\n");
-            mostrarAcoes(robo);
-            return lerAcao(robo, maximoAcoes, scan);
+            exibirEscolhaAcoes(robo);
+            return lerEscolhaAcoes(robo, maximoAcoes, scan);
         }
     }
 
-    public static void acaoSensor(Robo robo, Scanner scan) {
-        int indiceSensor;
-        int n_sensores;
-
-        while (true) {
-            System.out.println("[-1] voltar");
-            robo.mostrarSensores();
-
-            n_sensores = 0;
-            if(robo.sensores != null)
-                n_sensores = robo.sensores.size();
-            if(n_sensores == 0) {
-                indiceSensor = -1;
-                System.out.println("Nao há sensores nesse robo");
-                break;
-            } 
-
-            indiceSensor = scan.nextInt();
-            
-            if(indiceSensor == -1)
-                break;
-            if(indiceSensor >= 0 && indiceSensor < n_sensores)
-                break;
-            else
-                System.out.println("Sensor invalido digitado.\n");
-        }
-        if(indiceSensor == -1) 
-            return;
-
-        System.out.print("[int] Qual coordenada x gostaria de monitorar? ");
-        int posicaoX = scan.nextInt();
-        System.out.print("[int] Qual coordenada y gostaria de monitorar? ");
-        int posicaoY = scan.nextInt();
-        int monitoramento;
-
-        if(robo.sensores.get(indiceSensor) instanceof SensorObstaculo) {
-            SensorObstaculo sensorUsado = ((SensorObstaculo) robo.sensores.get(indiceSensor));
-            monitoramento = sensorUsado.monitorar(posicaoX, posicaoY);
-            switch (monitoramento) {
-                case 0:
-                    System.out.println("Nenhum obstaculo detectado nesse ponto.");
-                    break;
-                case 1:
-                    System.out.println("Ha um obstaculo nesse ponto.");
-                    break;
-                case 2:
-                    System.out.println("Ponto fora dos limites do ambiente.");
-                    break;
-                case 3:
-                    System.out.println("Ponto fora do raio de detecçao do sensor.");
-                    break;
-            }
-        }
-
-        if(robo.sensores.get(indiceSensor) instanceof SensorTemperatura) {
-            SensorTemperatura sensorUsado = ((SensorTemperatura) robo.sensores.get(indiceSensor));
-            monitoramento = sensorUsado.monitorar(posicaoX, posicaoY);
-            switch (monitoramento) {
-                case 1:
-                    break;
-                case 2:
-                    System.out.println("Ponto fora dos limites do ambiente.");
-                    break;
-                case 3:
-                    System.out.println("Ponto fora do raio de detecçao do sensor.");
-                    break;
-            }
-        }
-    }
-
-    public static void realizarAcao(Robo robo, int acao, Scanner scan) {
-        switch (acao) {
+     /**
+     * Pega a entrada do usuario para qual acao do robo escolhido ele quer realizar. Apos uma entrada valida, pode pegar 
+     * outra entrada do usuario que servira como parametro da acao que foi escolhida anteriormente (ou nao, caso a acao 
+     * nao necessite de paramentros)
+     * @param robo robo que foi escolhido na entrada principal
+     * @param entradaAcao acao que foi escolhida na entrada anterior 
+     * @param scan Scanner para ler entradas de usuarios
+     */
+    public static void realizarAcao(Robo robo, int entradaAcao, Scanner scan) {
+        // Cada 'case' do 'switch' é uma possivel entrada valida, que deve ser separada em casos quando robos diferentes
+        // compartilham um mesmo indice de acao (por exemplo 3 pode significar 'aumentarVelocidade' para um robo terrestre
+        // ou 'subir' para um aereo) 
+        switch (entradaAcao) {
+            // Mesmo em todos os robos
             case 0:
                 robo.info();
                 break;
 
+            // Mesmo em todos os robos
             case 1:
                 System.out.print("[int] Quanto quer andar na horizontal (eixo x)? ");
                 int deltaX = scan.nextInt();
@@ -227,10 +180,13 @@ public class Menu {
                 robo.mover(deltaX, deltaY);
                 break;
             
+            // Mesmo em todos os robos
             case 2:
                 acaoSensor(robo, scan);
                 break;
 
+            // Aumenta velocidade para robos terrestres
+            // Sobe para robos aereos
             case 3:
                 if (robo instanceof RoboTerrestre) {
                     System.out.print("[int] Em quanto quer aumentar a velocidade? ");
@@ -243,17 +199,14 @@ public class Menu {
                     ((RoboAereo) robo).subir(metros);
                 }
                 break;
-                
+            
+            // Diminui velocidade para robos terrestres
+            // Desce para robos aereos
             case 4:
                 if (robo instanceof RoboTerrestre) {
                     System.out.print("[int] Em quanto quer diminuir a velocidade? ");
                     int vlc = scan.nextInt();
                     ((RoboTerrestre) robo).diminuirVelocidade(vlc);
-                }
-                else if (robo instanceof RoboSatelite) {
-                    System.out.print("[int] Quantos metros quer descer? ");
-                    int metros = scan.nextInt();
-                    ((RoboSatelite) robo).descer(metros);
                 }
                 else if (robo instanceof RoboAereo) {
                     System.out.print("[int] Quantos metros quer descer? ");
@@ -261,6 +214,11 @@ public class Menu {
                     ((RoboAereo) robo).descer(metros);
                 }
                 break;
+            
+            // Muda o tipo de movimento para robos xadrez
+            // Descança energias para robo preguiça
+            // Muda o tamanho da asa para robos planadores
+            // Carrega o tanque para robos satelites
             case 5:
                 if (robo instanceof RoboXadrez) {
                     ((RoboXadrez) robo).alteraTipoMovimento();
@@ -269,54 +227,100 @@ public class Menu {
                     else
                         System.out.println("Tipo de peça mudado para Peao\n");
                 }
-
-                if (robo instanceof RoboPreguica) {
+                else if (robo instanceof RoboPreguica) {
                     ((RoboPreguica)robo).descansar();
                 }
-                if (robo instanceof RoboPlanador) {
+                else if (robo instanceof RoboPlanador) {
                     System.out.print("[int] Qual o novo tamanho da asa? ");
                     int novoTamanhoAsa = scan.nextInt();
                     ((RoboPlanador) robo).setTamanhoAsa(novoTamanhoAsa);
                 }
-                if (robo instanceof RoboSatelite) {
-                    System.out.print("[int] Em quanto você quer carregar? ");
+                else if (robo instanceof RoboSatelite) {
+                    System.out.print("[int] Em quanto quer carregar? ");
                     int cargaAdicionada = scan.nextInt();
                     ((RoboSatelite) robo).carregar(cargaAdicionada);
                 }
                 break;
+
+            // Descarrega o tanque para robos satelites
             case 6:
-                System.out.print("[int] Em quanto você quer descarregar? ");
+                System.out.print("[int] Em quanto quer descarregar? ");
                 int cargaRemovida = scan.nextInt();
                 ((RoboSatelite) robo).descarregar(cargaRemovida);
                 break;
+
+            // Executa o lancamento para robos satelites
             case 7:
                 ((RoboSatelite) robo).lancamento();
                 break;
         }
     }
 
+    /**
+     * Caso o usuario escolha usar um sensor de um robo, eh necessario checar se o robo tem o sensor especificado
+     * e, depois disso; se tiver, deve pegar a entrada de qual coordenada se quer monitorar com o sensor e exibir
+     * uma resposta apropriada
+     * @param robo robo que foi escolhido na entrada principal
+     * @param scan Scanner para ler entradas de usuarios
+     */
+    public static void acaoSensor(Robo robo, Scanner scan) {
+        int indiceSensor;
+
+        while (true) {
+            if (robo.sensores != null && robo.sensores.size() == 0) {
+                indiceSensor = -1;
+                System.out.println("Nao ha sensores nesse robo.");
+                break;
+            } 
+
+            System.out.println("\n[-1] voltar");
+            robo.exibirSensores();
+            indiceSensor = scan.nextInt();
+            
+            if(indiceSensor == -1)
+                break;
+            if(indiceSensor >= 0 && indiceSensor < robo.sensores.size())
+                break;
+            else
+                System.out.println("Esse nao eh um sensor valido.");
+        }
+
+        if(indiceSensor == -1)
+            return;
+
+        acaoMonitorar(robo, indiceSensor, scan);
+    }
+
+    public static void acaoMonitorar(Robo robo, int indiceSensor, Scanner scan) {
+        System.out.print("[int] Qual coordenada x gostaria de monitorar? ");
+        int posX = scan.nextInt();
+        System.out.print("[int] Qual coordenada y gostaria de monitorar? ");
+        int posY = scan.nextInt();
+
+        robo.usarSensor(indiceSensor, posX, posY);
+    }
+
     private void imprimirAmbiente() {
         char [][] matriz = new char[salaTeste.getAltura() + 1][salaTeste.getLargura() + 1];
 
-        for(int i = 0; i <= salaTeste.getAltura(); i++) 
-            for(int j = 0; j <= salaTeste.getLargura(); j++)
-                matriz[i][j] = '.';
+        for (int a = 0; a <= salaTeste.getAltura(); a++) 
+            for (int b = 0; b <= salaTeste.getLargura(); b++)
+                matriz[a][b] = '.';
 
-        for(Obstaculo obstaculo:salaTeste.obstaculos)
-            for(int i = obstaculo.getPosicaoX1(); i <= obstaculo.getPosicaoX2(); i++)
-                for(int j = obstaculo.getPosicaoY1(); j <= obstaculo.getPosicaoY2(); j++)
-                    matriz[i][j] = '#';
+        for (Obstaculo obstaculo:salaTeste.obstaculos)
+            for (int c = obstaculo.getPosicaoX1(); c <= obstaculo.getPosicaoX2(); c++)
+                for (int d = obstaculo.getPosicaoY1(); d <= obstaculo.getPosicaoY2(); d++)
+                    matriz[c][d] = '#';
 
-        for(Robo robo:salaTeste.robosAtivos)
+        for (Robo robo:salaTeste.robosAtivos)
             matriz[robo.getX()][robo.getY()] = 'o'; 
 
-        for(int j = salaTeste.getLargura(); j >= 0; j--) {
-            for(int i = 0; i <= salaTeste.getAltura(); i++) {
-                System.out.printf("%c ", matriz[i][j]);
-            }
+        for (int e = salaTeste.getLargura(); e >= 0; e--) {
+            for (int f = 0; f <= salaTeste.getAltura(); f++)
+                System.out.printf("%c ", matriz[f][e]);
             System.out.print("\n");
         }
 
-        System.out.println("Legenda: .=vazio #=obstáculo o=robô");
+        System.out.println("Legenda: . = vazio    # = obstaculo   o = robo\n");
     }
 }

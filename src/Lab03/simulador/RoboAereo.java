@@ -23,7 +23,7 @@ public class RoboAereo extends Robo {
         
         if (indice != -1) {
             moverComSensor(deltaX, deltaY, indice);
-            System.out.printf("O Robo '%s' terminou o movimento na posicao (%d, %d).\n\n", getNome(), getX(), getY());
+            System.out.printf("O Robo '%s' terminou o movimento na posicao (%d, %d, %d).\n", getNome(), getX(), getY(), getAltitude());
         } else
             System.out.println("Nao pode voar sem sensor de obtaculo, eh muito perigoso.\n");
         
@@ -46,12 +46,14 @@ public class RoboAereo extends Robo {
     public void descer(int metros) {
         int indice = temSensorTipo("SensorObstaculo");
         SensorObstaculo sensorObs;
+
         if(indice == -1) {
             System.out.println("Impossivel descer com segurança, nao ha sensor de obstaculo.\n");
             return;
-        } else {
+        } 
+        else
             sensorObs = (SensorObstaculo) sensores.get(indice);
-        }
+
         // Compara a altitude do Robo com a disância ao chao (0)
         if (getAltitude() - metros >= 0 && !sensorObs.checarObstaculoPosicao(getX(), getY(), getAltitude() - metros)) {
             System.out.println("O Robo desceu com sucesso.\n");
@@ -64,7 +66,7 @@ public class RoboAereo extends Robo {
         }
         // Não Atualiza a altitude caso tenha obstaculos abaixo
         else {
-            System.out.printf("'%s' Obstaculos abaixo. Nao pode descer.\n\n", getNome());
+            System.out.printf("Ha obstaculos abaixo de '%s', nao tem como descer.\n\n", getNome());
         }
 
         exibirAltitude();
@@ -83,7 +85,7 @@ public class RoboAereo extends Robo {
 
     @Override
     public void exibirPosicao() {
-        System.out.printf("O Robo '%s' está em (%d, %d) na direcao %s e %d acima do solo.\n\n", getNome(), getX(), getY(), getDirecao(), altitude);
+        System.out.printf("O Robo '%s' está em (%d, %d) na direcao %s e %d acima do solo.\n", getNome(), getX(), getY(), getDirecao(), altitude);
     }
 
     public void exibirAltitude() {

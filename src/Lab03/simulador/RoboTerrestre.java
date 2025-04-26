@@ -12,7 +12,7 @@ public class RoboTerrestre extends Robo {
 
     @Override
     public void info() {
-        System.out.printf("Robo Terrestre '%s' esta na posicao (%d, %d) apontado na direcao %s com velocidade %d e velocidade maxima permitida de %d.\n\n"
+        System.out.printf("Robo Terrestre '%s' esta na posicao (%d, %d) apontado na direcao %s com velocidade %d e velocidade maxima permitida de %d.\n"
         , getNome(), getX(), getY(), getDirecao(), velocidade, velocidadeMaxima);
     }
 

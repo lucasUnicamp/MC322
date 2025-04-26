@@ -24,25 +24,7 @@ public class Robo {
     }
 
     public void info() {
-        System.out.printf("Robo '%s' esta na posicao (%d, %d) apontado na direcao %s.\n\n", getNome(), getX(), getY(), direcao);
-    }
-
-    public void mostrarSensores() {
-        Sensor sensor;
-        if (sensores != null) {
-            for (int i = 0; i < sensores.size(); i++) {
-                sensor = sensores.get(i);
-
-                System.out.printf("[%d] ", i);
-
-                if (sensor instanceof SensorObstaculo)
-                    System.out.println("Sensor de obtáculos -> ");
-                else if (sensor instanceof SensorTemperatura)
-                    System.out.println("Sensor de Temperatura -> ");
-
-                sensor.info();
-            }
-        }
+        System.out.printf("Robo '%s' esta na posicao (%d, %d) apontado na direcao %s.\n", getNome(), getX(), getY(), direcao);
     }
 
     /**
@@ -195,7 +177,7 @@ public class Robo {
         int novoX = posicaoX + deltaX;
         int novoY = posicaoY + deltaY;
         // Downcasting porque sei que esse elemento da ArrayList deve ser do tipo SensorObstaculo. Necessario pois preciso acessar o metodo
-        // 'checarObstaculoCaminho' que nao seria possivel mantendo o objeto como da classe Sensor
+        // 'checarObstaculoCaminho' que nao seria possivel mantendo o objeto como da classeSensor Sensor
         SensorObstaculo sensorObs = (SensorObstaculo)sensores.get(indice);
 
         // Checa se o robo nao vai sair dos limites do ambiente apos se mover
@@ -205,7 +187,7 @@ public class Robo {
             if (haObstaculosCaminho == 1) {
                 posicaoX = novoX;
                 posicaoY = novoY;
-                System.out.println("Movimentado com sucesso.\n");
+                System.out.println("Movimentado com sucesso.");
                 this.exibirPosicao();
             }
             else if (haObstaculosCaminho == 0)
@@ -225,7 +207,7 @@ public class Robo {
      */
     public void adicionarSensor(Sensor sensor) {
         // Checa se o robo ja nao tem o sensor dado
-        if (sensores.size() == 0 || temSensorTipo(sensor.getClass().getName()) == -1) {
+        if (sensores.size() == 0 || temSensorTipo(sensor.getClass().getSimpleName()) == -1) {
             if (sensor.getAmbiente() == getAmbiente()) {
                 sensores.add(sensor);
                 System.out.printf("%s adicionado ao robo '%s' com sucesso.\n", sensor.nomeDoSensor(), getNome());
@@ -234,7 +216,7 @@ public class Robo {
                 System.out.printf("Nao foi possivel adicionar um %s ao robo '%s' pois esse é de outro ambiente.\n\n", sensor.nomeDoSensor(), getNome());
         }
         else
-            System.out.printf("Nao foi possivel adicionar um %s pois o robo '%s' ja o tem.\n\n", getNome(), sensor.nomeDoSensor());
+            System.out.printf("Nao foi possivel adicionar um %s pois o robo '%s' ja o tem.\n\n", sensor.nomeDoSensor(), getNome());
         atualizaSensores();
     }
 
@@ -250,14 +232,14 @@ public class Robo {
 
     /**
      * Procura na lista de sensores do robo um sensor do tipo especificado
-     * @param tipoSensor tipo de sensor que se procura, identificado pelo nome da classe
+     * @param tipoSensor tipo de sensor que se procura, identificado pelo nome da classeSensor
      * @return o indice do sensor procurado na lista ou -1 caso o robo nao tenha aquele sensor. Retornar o indice faz com que a funcao possa
      * ser usada como booleana (se for diferente de -1, tem o sensor) e possamos acessar o sensor da lista de sensores
      */
-    public int temSensorTipo(String classe) {
+    public int temSensorTipo(String classeSensor) {
         if (sensores != null) {
             for (int i = 0; i < sensores.size(); i++) {
-                if (sensores.get(i).getClass().getSimpleName().equals(classe))
+                if (sensores.get(i).getClass().getSimpleName().equals(classeSensor))
                     return i;
             }
         }
@@ -268,31 +250,37 @@ public class Robo {
      * Aciona o metodo 'monitorar' do sensor especificado caso o robo o tenha
      * @param tipoSensor tipo de sensor que se quer usar, sendo 1 = obstaculo e 2 = temperatura
      */
-    public void usarSensor(int tipoSensor) {
-        int indice = temSensorTipo("Sensor");
-        // Como 'temSensorTipo' retorna -1 quando o robo nao tem determinado sensor e vamos usar esse valor como indice,
-        // transformamos em 0 para que nao haja erro de acesso ah memoria
-        if(indice == -1)
-            indice = 0;
-
+    public void usarSensor(int indiceSensor, int posX, int posY) {
         // Switch case com o valor retornado pelo 'monitorar' do sensor
-        switch(sensores.get(indice).monitorar(tipoSensor, tipoSensor)) {
-            case 1:
-                System.out.println("Monitoramento ocorreu com sucesso.\n\n");
-                break;
+        switch(sensores.get(indiceSensor).monitorar(posX, posY)) {
             case 2:
-                System.out.println("Nao se pode monitorar posicoes fora do ambiente.\n\n");
+                System.out.println("Nao se pode monitorar posicoes fora do ambiente.");
                 break;
             case 3:
-                System.out.println("Nao se pode monitorar posicoes fora do alcance do sensor.\n\n");
+                System.out.println("Nao se pode monitorar posicoes fora do alcance do sensor.");
                 break;
-            default:
-                System.out.println("O Robo nao tem esse tipo de sensor.\n\n");
+            case 1:
+                if (sensores.get(indiceSensor) instanceof SensorObstaculo) {
+                System.out.println("Monitoramento ocorreu com sucesso.");
+                System.out.println("O Robo nao tem esse tipo de sensor.");
+                // ARRUMAR PRINT DO SENSOR OBSTACULO
+                }
+        }
+    }
+
+    public void exibirSensores() {
+        Sensor sensor;
+        if (sensores != null) {
+            for (int i = 0; i < sensores.size(); i++) {
+                sensor = sensores.get(i);
+                System.out.printf("[%d] ", i);
+                sensor.exibirRaio();
+            }
         }
     }
 
     public void exibirPosicao() {
-        System.out.printf("O robo '%s' esta em (%d, %d) na direcao %s.\n\n", getNome(), getX(), getY(), getDirecao());
+        System.out.printf("O robo '%s' esta agora em (%d, %d) na direcao %s.\n\n", getNome(), getX(), getY(), getDirecao());
     }
 
     public void setNome(String nome) {

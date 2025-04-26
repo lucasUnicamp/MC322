@@ -25,6 +25,7 @@ public class Main {
         salaTeste.adicionarObstaculos(new Obstaculo(35, 30, 45, 50, TipoObstaculo.TORRE_DE_BABEL));
         salaTeste.adicionarObstaculos(new Obstaculo(30, 5, 40, 10, TipoObstaculo.THE_BEAN));
 
+        System.out.printf("******************************************************************************************************\n");
         // Instancia robos
         Robo roboGenerico = new Robo("Alfa", 15, 25, salaTeste);        // Cria o robo generico
         RoboTerrestre roboTerrestre = new RoboTerrestre("Beta", 25, 25, salaTeste, 60);     // Cria o robo terrestre generico
@@ -52,7 +53,7 @@ public class Main {
          * 2 sensores iguais foram postos no Robo Generico Alfa para testar 
          * 
          */
-        System.out.printf("**********************************************************************\n");
+        System.out.printf("******************************************************************************************************\n");
 
         /**
          * TESTES INTERATIVOS

@@ -13,7 +13,7 @@ public class RoboXadrez extends RoboTerrestre {
 
     @Override
     public void info() {
-        System.out.printf("Robo Xadrez '%s' esta na posicao (%d, %d) apontado na direcao %s com velocidade %d, velocidade maxima permitida de %d e com o tipo %d selecionado.\n\n"
+        System.out.printf("Robo Xadrez '%s' esta na posicao (%d, %d) apontado na direcao %s com velocidade %d, velocidade maxima permitida de %d e com o tipo %d selecionado.\n"
         , getNome(), getX(), getY(), getDirecao(), getVelocidade(), getVelocidadeMax(), tipoMovimento);
     }
 

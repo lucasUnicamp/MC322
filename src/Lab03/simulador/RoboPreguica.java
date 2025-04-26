@@ -11,7 +11,7 @@ public class RoboPreguica extends RoboTerrestre {
 
     @Override
     public void info() {
-        System.out.printf("Robo Preguica '%s' esta na posicao (%d, %d) apontado na direcao %s com velocidade %d, velocidade maxima permitida de %d e tem %d de energia de um maximo de %d.\n\n"
+        System.out.printf("Robo Preguica '%s' esta na posicao (%d, %d) apontado na direcao %s com velocidade %d, velocidade maxima permitida de %d e tem %d de energia de um maximo de %d.\n"
         , getNome(), getX(), getY(), getDirecao(), getVelocidade(), getVelocidadeMax(), energia, energiaMaxima);
     }
 

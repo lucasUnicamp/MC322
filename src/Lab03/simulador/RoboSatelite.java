@@ -31,7 +31,7 @@ public class RoboSatelite extends RoboAereo {
         if (emOrbita) {
             // Se puder descer mas descer abaixo do limite de orbita, o robo cai
             if (altitudeNova < getAltitudeMin()) {
-                System.out.printf("O Robo '%s' desceu abaixo da altitude de orbita; preparando-se para o pouso\n", getNome());
+                System.out.printf("O Robo '%s' esta descendo abaixo da altitude de orbita para tentar pousar.\n", getNome());
                 emOrbita = false;
                 super.descer(getAltitude());
             }
@@ -97,7 +97,7 @@ public class RoboSatelite extends RoboAereo {
     }
 
     public void exibirCarga() {
-        System.out.printf("'%s' Carga atual: %d\n\n", getNome(), cargaLancamento);
+        System.out.printf("'%s' - Carga atual: %d\n\n", getNome(), cargaLancamento);
     }
 
     public void setAltitudeMinima(int metros) {

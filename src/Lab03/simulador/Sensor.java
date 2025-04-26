@@ -15,10 +15,6 @@ abstract class Sensor {
         altitude = 0; //padrão para caso robôs terrestres estejam usando o sensor
     }  
 
-    public void info() {
-        System.out.printf("raio: %.2f\n", getRaio());
-    }
-
     public abstract int monitorar(int posX, int posY);
 
     public boolean dentroDoRaio(int posX, int posY) {
@@ -33,6 +29,10 @@ abstract class Sensor {
     }
 
     public abstract String nomeDoSensor();
+
+    public void exibirRaio() {
+        System.out.printf("%s - Raio: %.2f\n", nomeDoSensor(), getRaio());
+    }
 
     public void setRaio(double raio) {
         this.raio = raio;
@@ -73,6 +73,5 @@ abstract class Sensor {
     public Ambiente getAmbiente() {
         return ambiente;
     }
-
 }
 
