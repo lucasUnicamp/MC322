@@ -7,9 +7,11 @@ Esse é o *Repositório Oficial*™ do grupo 8 para os laboratórios de MC322, o
 - 281289 &emsp; Leonardo Ferreira
 
 ## **EXECUÇÃO**
-Dentro da pasta MC322, usar os comandos para compilação e execução, subsitutindo *XX* pelo número do Lab que se quer executar:<br/>
-- `javac -d bin src/LabXX/cliente/*.java src/LabXX/simulador/*.java`
+Dentro da pasta MC322, usar os comandos para compilação e execução do laboratório mais recente:<br/>
+- `javac -d bin src/Lab03/cliente/*.java src/Lab03/simulador/*.java`
 - `java -cp bin cliente.Main`
+
+<sup>Caso queira rodar laboratórios passados, basta substituir o número que segue `Lab`</sup>
 
 ## **EXPLICAÇÕES**
 > ### **Lab03**
