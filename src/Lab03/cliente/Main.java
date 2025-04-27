@@ -34,9 +34,9 @@ public class Main {
          * O Robo Satelite Sigma foi propositalemente posto numa altura menor do que a de orbita para testar se caia no chao;
          * 2 sensores iguais foram postos no Robo Generico Alfa para testar funcionalidade de rejeicao a sensores repetidos;
          * 
-         * Acreditamos que esses sao os unicos 'casos' que podem ser testados que nao dependem de entradas de usuario, ja que dependem de onde instanciamos
-         * os robos. Outros acontecimentos, como colidir com obstaculo, nao ter carga suficiente, monitorar uma posicao, etc, podem todos serem feitos 
-         * facilmente no menu interativo com poucas entradas. 
+         * Acreditamos que esses sao os unicos 'casos' que podem ser testados que nao dependem de entradas de usuario (assim como foi pedido nas instruçoes do lab), 
+         * ja que dependem de onde instanciamos os robos. Outros acontecimentos, como colidir com obstaculo, nao ter carga suficiente, monitorar uma posicao, etc,
+         * podem todos serem feitos facilmente pelo menu interativo com poucas entradas. 
          */
         System.out.printf("\n********************************************CRIACAO**ROBOS********************************************");
         // Instanciamento em massa de robos e adicao de sensores por composiçao (sensor eh instanciado dentro do robo, logo nao existe fora dele)
