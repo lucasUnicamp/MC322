@@ -77,7 +77,7 @@ public class Menu {
             if(entradaPrincipal < ambiente.robosAtivos.size() && entradaPrincipal >= -2) 
                 break;
             else 
-                System.out.println("Digite um numero valido.\n");
+                System.out.println("Digite um numero valido.");
         }
         return entradaPrincipal;
     }
@@ -148,7 +148,7 @@ public class Menu {
         if(entradaAcao <= maximoAcoes && entradaAcao >= -1) 
             return entradaAcao;
         else {
-            System.out.println("Acao invalida. Tente novamente.\n");
+            System.out.println("Acao invalida. Tente novamente.");
             exibirEscolhaAcoes(robo);
             return lerEscolhaAcoes(robo, maximoAcoes, scan);
         }
@@ -387,6 +387,7 @@ public class Menu {
                 matrizAmbiente[robo.getX()][robo.getY()] = 'R';
         }
 
+        System.out.println("");
         // Loop para efetivamente imprimir a matrizAmbiente
         for (int e = salaTeste.getLargura(); e >= 0; e--) {
             for (int f = 0; f <= salaTeste.getAltura(); f++)
