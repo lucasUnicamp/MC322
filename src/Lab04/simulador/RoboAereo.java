@@ -11,8 +11,8 @@ public class RoboAereo extends Robo {
     }
 
     @Override
-    public void info() {     
-        System.out.printf("Robo Aereo '%s' está na posicao (%d, %d, %d) apontado na direcao %s com altitude maxima permitida de %d.\n"
+    public String getDescricao() {     
+        return String.format("Robo Aereo '%s' está na posicao (%d, %d, %d) apontado na direcao %s com altitude maxima permitida de %d.\n"
         , getNome(), getX(),getY(), altitude, getDirecao(), altitudeMaxima);
     }
 

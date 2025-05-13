@@ -2,11 +2,12 @@ package simulador;
 
 import java.util.ArrayList;
 
-public class Robo {
+public abstract class Robo implements Entidade {
     private String nome;
     private String direcao;
     private int posicaoX;
     private int posicaoY;
+    private int posicaoZ;
     private Ambiente ambiente;
     public ArrayList<Sensor> sensores;
 
@@ -15,16 +16,13 @@ public class Robo {
         setDirecao("Norte");
         setX(posicaoX);
         setY(posicaoY);
+        setZ(0);
         setAmbiente(ambiente);
         ambiente.adicionarRobo(this);       // Adiciona o robo no ambiente logo que é criado
         sensores = new ArrayList<Sensor>();       // Inicializa array para os sensores
         System.out.printf("\nRobo '%s' criado.\n", nome);
 
         checarPosicaoInicial(posicaoX, posicaoY);       // Checa se a posicao em que foi inicializado eh valida
-    }
-
-    public void info() {
-        System.out.printf("Robo '%s' esta na posicao (%d, %d) apontado na direcao %s.\n", getNome(), getX(), getY(), direcao);
     }
 
     /**
@@ -55,7 +53,7 @@ public class Robo {
      */
     public void moverParaValida() {
         int posX = (int)(Math.random() * ambiente.getLargura());
-        int posY = (int)(Math.random() * ambiente.getAltura());
+        int posY = (int)(Math.random() * ambiente.getProfundidade());
 
         // Se a posicao gerada tambem nao for valida, tenta novamente
         if (ambiente.ehObstaculo(posX, posY) || !ambiente.dentroDosLimites(posX, posY))
@@ -220,15 +218,7 @@ public class Robo {
         atualizaSensores();
     }
 
-    public void atualizaSensores() {
-        if (sensores != null) {
-            // Atualiza a posicao do robo em cada sensor que o robo possui 
-            for (Sensor sensor : sensores) {
-                sensor.setX(posicaoX);
-                sensor.setY(posicaoY);
-            }
-        }
-    }
+    public abstract void atualizaSensores();
 
     /**
      * Procura na lista de sensores do robo um sensor do tipo especificado
@@ -337,12 +327,25 @@ public class Robo {
         atualizaSensores();
     }
 
+    protected void setZ(int posZ) {
+        posicaoZ = posZ;
+        atualizaSensores();
+    }
+
     protected void setAmbiente(Ambiente ambiente) {
         this.ambiente = ambiente;
     }
 
     public String getNome() {
         return nome;
+    }
+
+    public String getDirecao() {
+        return direcao;
+    }
+
+    public Ambiente getAmbiente(){
+        return ambiente;
     }
     
     public int getX() {
@@ -353,11 +356,17 @@ public class Robo {
         return posicaoY;
     }
 
-    public String getDirecao() {
-        return direcao;
+    public int getZ() {
+        return posicaoZ;
     }
 
-    public Ambiente getAmbiente(){
-        return ambiente;
+    public TipoEntidade getTipo() {
+        return TipoEntidade.ROBO;
+    }
+
+    public abstract String getDescricao();
+
+    public char getRepresentacao() {
+        return 'R';
     }
 }

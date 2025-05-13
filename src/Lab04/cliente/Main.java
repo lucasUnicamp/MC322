@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 import simulador.Ambiente;
 import simulador.Obstaculo;
-import simulador.Robo;
 import simulador.RoboAereo;
 import simulador.RoboPlanador;
 import simulador.RoboPreguica;
@@ -20,7 +19,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
 
-        Ambiente salaTeste = new Ambiente(50, 50, 3);        // Cria o ambiente para testes
+        Ambiente salaTeste = new Ambiente(50, 50, 50, 3);        // Cria o ambiente para testes
         salaTeste.adicionarObstaculos(new Obstaculo(10, 20, 20, 30, TipoObstaculo.ESTATUA_DE_ELEFANTE));
         salaTeste.adicionarObstaculos(new Obstaculo(35, 30, 45, 50, TipoObstaculo.TORRE_DE_BABEL));
         salaTeste.adicionarObstaculos(new Obstaculo(30, 5, 40, 10, TipoObstaculo.THE_BEAN));
@@ -40,29 +39,26 @@ public class Main {
          */
         System.out.printf("\n********************************************CRIACAO**ROBOS********************************************");
         // Instanciamento em massa de robos e adicao de sensores por composiçao (sensor eh instanciado dentro do robo, logo nao existe fora dele)
-        Robo roboGenerico = new Robo("Alfa", 15, 25, salaTeste);        // Cria o robo generico
-        roboGenerico.info();
         RoboTerrestre roboTerrestre = new RoboTerrestre("Beta", 25, 25, salaTeste, 60);     // Cria o robo terrestre generico
         roboTerrestre.adicionarSensor(new SensorObstaculo(10, salaTeste));
         roboTerrestre.adicionarSensor(new SensorObstaculo(30, salaTeste));
-        roboTerrestre.info();
+        roboTerrestre.getDescricao();
         RoboXadrez roboXadrez = new RoboXadrez("Theta", 40, 20, salaTeste, 6, 1);       // Cria o robo terrestre do tipo xadrez
         roboXadrez.adicionarSensor(new SensorObstaculo(5, salaTeste));
-        roboXadrez.info();
+        roboXadrez.getDescricao();
         RoboPreguica roboPreguica = new RoboPreguica("Delta", 60, 60, salaTeste, 25, 1);        // Cria o robo terrestre do tipo preguiça
         roboPreguica.adicionarSensor(new SensorObstaculo(30, salaTeste));
         roboPreguica.adicionarSensor(new SensorTemperatura(20, salaTeste));
-        roboPreguica.info();
+        roboPreguica.getDescricao();
         RoboAereo roboAereo = new RoboAereo("Gama", 5, 5, salaTeste, 40, 80);      // Cria o robo aereo generico
         roboAereo.adicionarSensor(new SensorTemperatura(10, salaTeste));
-        roboAereo.info();
         RoboPlanador roboPlanador = new RoboPlanador("Phi", 5, 40, salaTeste, 0, 80, 50);      // Cria o robo aereo do tipo planador
         roboPlanador.adicionarSensor(new SensorObstaculo(20, salaTeste));
-        roboPlanador.info();
+        roboPlanador.getDescricao();
         RoboSatelite roboSatelite = new RoboSatelite("Sigma", 30, 40, salaTeste, 10, 50, 30, 0);        // Cria o robo aereo do tipo satelite
         roboSatelite.adicionarSensor(new SensorObstaculo(50, salaTeste));
         roboSatelite.adicionarSensor(new SensorTemperatura(50, salaTeste));
-        roboSatelite.info();
+        roboSatelite.getDescricao();
 
         /**
          * TESTES INTERATIVOS

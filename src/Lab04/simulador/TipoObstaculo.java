@@ -10,7 +10,7 @@ public enum TipoObstaculo {
     
     private final int altura;
 
-    TipoObstaculo(int altura){
+    TipoObstaculo(int altura) {
         this.altura = altura;
     }
 

@@ -44,8 +44,8 @@ public class RoboSatelite extends RoboAereo {
     }
 
     @Override
-    public void info() {
-        System.out.printf("Robo Satelite '%s' esta na posicao (%d, %d, %d) apontado na direcao %s com %d de carga para o lancamento, altitude maxima permitida de %d e minima para orbita de %d.\n"
+    public String getDescricao() {
+        return String.format("Robo Satelite '%s' esta na posicao (%d, %d, %d) apontado na direcao %s com %d de carga para o lancamento, altitude maxima permitida de %d e minima para orbita de %d.\n"
         , getNome(), getX(), getY(), getAltitude(), getDirecao(), getCargaLancamento(), getAltitudeMax(), getAltitudeMin());
     }
 

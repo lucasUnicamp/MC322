@@ -32,7 +32,7 @@ public class Menu {
             if (entradaPrincipal == -1)
                 break;
             else if (entradaPrincipal == -2) {
-                imprimirAmbiente();
+                salaTeste.visualizarAmbiente();
                 continue;
             }
 
@@ -169,7 +169,7 @@ public class Menu {
         switch (entradaAcao) {
             // Mesmo em todos os robos
             case 0:
-                robo.info();
+                robo.getDescricao();
                 break;
 
             // Mesmo em todos os robos
@@ -354,48 +354,4 @@ public class Menu {
         robo.usarSensor(indiceSensor, posX, posY);
     }
 
-    // Exibe o ambiente, considerando '.' como espacos vazios, '#' como obstaculos e letras como os robos
-    private void imprimirAmbiente() {
-        char [][] matrizAmbiente = new char[salaTeste.getAltura() + 1][salaTeste.getLargura() + 1];
-
-        // Loop para preencher a matrizAmbiente representativa do ambiente com espacos vazio '.' 
-        for (int a = 0; a <= salaTeste.getAltura(); a++) 
-            for (int b = 0; b <= salaTeste.getLargura(); b++)
-                matrizAmbiente[a][b] = '.';
-
-        // Loop para mudar as posicoes com obstaculos para '#'
-        for (Obstaculo obstaculo:salaTeste.obstaculos)
-            for (int c = obstaculo.getPosicaoX1(); c <= obstaculo.getPosicaoX2(); c++)
-                for (int d = obstaculo.getPosicaoY1(); d <= obstaculo.getPosicaoY2(); d++)
-                    matrizAmbiente[c][d] = '#';
-
-        // Loop para mudar as posicoes com robos para suas respectivas letras
-        for (Robo robo:salaTeste.robosAtivos) {
-            if (robo instanceof RoboSatelite)
-                matrizAmbiente[robo.getX()][robo.getY()] = 'S';
-            else if (robo instanceof RoboPlanador)
-                matrizAmbiente[robo.getX()][robo.getY()] = 'P'; 
-            else if (robo instanceof RoboAereo)
-                matrizAmbiente[robo.getX()][robo.getY()] = 'A';
-            else if (robo instanceof RoboPreguica)
-                matrizAmbiente[robo.getX()][robo.getY()] = 'G';
-            else if (robo instanceof RoboXadrez)
-                matrizAmbiente[robo.getX()][robo.getY()] = 'X';
-            else if (robo instanceof RoboTerrestre)
-                matrizAmbiente[robo.getX()][robo.getY()] = 'T';
-            else if (robo instanceof Robo)
-                matrizAmbiente[robo.getX()][robo.getY()] = 'R';
-        }
-
-        System.out.println("");
-        // Loop para efetivamente imprimir a matrizAmbiente
-        for (int e = salaTeste.getLargura(); e >= 0; e--) {
-            for (int f = 0; f <= salaTeste.getAltura(); f++)
-                System.out.printf("%c ", matrizAmbiente[f][e]);
-            System.out.print("\n");
-        }
-
-        System.out.println("Legenda: . = vazio    # = obstaculo    R = robo generico    T = robo terrestre    X = robo xadrez");
-        System.out.println("         G = robo preguica    A = robo aereo    P = robo planador    S = robo satelite");
-    }
 }

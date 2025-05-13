@@ -5,13 +5,17 @@ import java.lang.Math;
 
 public class Ambiente {
     private final int largura;
+    private final int profundidade;
     private final int altura;
+    public ArrayList<Entidade> entidades;
     public ArrayList<Robo> robosAtivos;
     public ArrayList<Obstaculo> obstaculos;
     public double[][] temperaturas;
+    public TipoEntidade[][][] mapa;
     
-    public Ambiente(int largura, int altura, int qntdObstaculo) {
+    public Ambiente(int largura, int profundidade, int altura, int qntdObstaculo) {
         this.largura = largura;
+        this.profundidade = profundidade;
         this.altura = altura;
         this.robosAtivos = new ArrayList<Robo>();
         obstaculos = new ArrayList<Obstaculo>();
@@ -23,14 +27,14 @@ public class Ambiente {
      * vai se reduzindo conforme se afasta desse ponto, seguindo uma funcao Gaussiana
      */
     public void gradienteTemperatura() {
-        temperaturas = new double[getLargura() + 1][getAltura() + 1];
+        temperaturas = new double[getLargura() + 1][getProfundidade() + 1];
         double tempMax = (Math.random() * 100);        // Gera uma temperatura aleatoria para ser o maximo do ambiente
         int posX = (int)(Math.random() * getLargura());     // Gera coordenadas aleatorias para terem essa temperatura maxima
-        int posY = (int)(Math.random() * getAltura());
+        int posY = (int)(Math.random() * getProfundidade());
 
         for (int i = 0; i <= getLargura(); i++) {
-            for (int j = 0; j <= getAltura(); j++) {
-                temperaturas[i][j] = gradienteGaussiano(tempMax, posX, posY, i, j, getLargura()/2, 2*getAltura());
+            for (int j = 0; j <= getProfundidade(); j++) {
+                temperaturas[i][j] = gradienteGaussiano(tempMax, posX, posY, i, j, getLargura()/2, 2*getProfundidade());
             }
         }
     }
@@ -81,7 +85,7 @@ public class Ambiente {
      * @return true ou false dependendo se esta ou nao dentro do ambiente
      */
     public boolean dentroDosLimites(int x, int y) {
-        return (x >= 0 && x <= altura) && (y >= 0 && y <= largura);
+        return (x >= 0 && x <= profundidade) && (y >= 0 && y <= largura);
     }
 
     /**
@@ -94,7 +98,7 @@ public class Ambiente {
         int y = robo.getY();
         int z = robo.getAltitude();
         int altMax = robo.getAltitudeMax();
-        return (x >= 0 && x <= altura) && (y >= 0 && y <= largura) && (z >= 0 && z <= altMax);
+        return (x >= 0 && x <= profundidade) && (y >= 0 && y <= largura) && (z >= 0 && z <= altMax);
     }
 
     /**
@@ -115,8 +119,57 @@ public class Ambiente {
         return false;
     }
 
+    // Exibe o ambiente, considerando '.' como espacos vazios, '#' como obstaculos e letras como os robos
+    public void visualizarAmbiente() {
+        char [][] matrizAmbiente = new char[getProfundidade() + 1][getLargura() + 1];
+
+        // Loop para preencher a matrizAmbiente representativa do ambiente com espacos vazio '.' 
+        for (int a = 0; a <= getProfundidade(); a++) 
+            for (int b = 0; b <= getLargura(); b++)
+                matrizAmbiente[a][b] = '.';
+
+        // Loop para mudar as posicoes com obstaculos para '#'
+        for (Obstaculo obstaculo:obstaculos)
+            for (int c = obstaculo.getPosicaoX1(); c <= obstaculo.getPosicaoX2(); c++)
+                for (int d = obstaculo.getPosicaoY1(); d <= obstaculo.getPosicaoY2(); d++)
+                    matrizAmbiente[c][d] = '#';
+
+        // Loop para mudar as posicoes com robos para suas respectivas letras
+        for (Robo robo:robosAtivos) {
+            if (robo instanceof RoboSatelite)
+                matrizAmbiente[robo.getX()][robo.getY()] = 'S';
+            else if (robo instanceof RoboPlanador)
+                matrizAmbiente[robo.getX()][robo.getY()] = 'P'; 
+            else if (robo instanceof RoboAereo)
+                matrizAmbiente[robo.getX()][robo.getY()] = 'A';
+            else if (robo instanceof RoboPreguica)
+                matrizAmbiente[robo.getX()][robo.getY()] = 'G';
+            else if (robo instanceof RoboXadrez)
+                matrizAmbiente[robo.getX()][robo.getY()] = 'X';
+            else if (robo instanceof RoboTerrestre)
+                matrizAmbiente[robo.getX()][robo.getY()] = 'T';
+            else if (robo instanceof Robo)
+                matrizAmbiente[robo.getX()][robo.getY()] = 'R';
+        }
+
+        System.out.println("");
+        // Loop para efetivamente imprimir a matrizAmbiente
+        for (int e = getLargura(); e >= 0; e--) {
+            for (int f = 0; f <= getProfundidade(); f++)
+                System.out.printf("%c ", matrizAmbiente[f][e]);
+            System.out.print("\n");
+        }
+
+        System.out.println("Legenda: . = vazio    # = obstaculo    R = robo generico    T = robo terrestre    X = robo xadrez");
+        System.out.println("         G = robo preguica    A = robo aereo    P = robo planador    S = robo satelite");
+    }
+
     public int getLargura() {
         return largura;
+    }
+
+    public int getProfundidade() {
+        return profundidade;
     }
 
     public int getAltura() {
