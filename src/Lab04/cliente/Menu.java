@@ -10,7 +10,6 @@ import simulador.RoboPreguica;
 import simulador.RoboSatelite;
 import simulador.RoboTerrestre;
 import simulador.RoboXadrez;
-import simulador.Obstaculo;
 
 public class Menu {
     private final Ambiente salaTeste;
