@@ -370,7 +370,5 @@ public abstract class Robo implements Entidade {
 
     public abstract String getDescricao();
 
-    public char getRepresentacao() {
-        return 'R';
-    }
+    public abstract char getRepresentacao();
 }

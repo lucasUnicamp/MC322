@@ -17,6 +17,12 @@ public class RoboTerrestre extends Robo {
     }
 
     @Override
+    public char getRepresentacao() {
+        return 'T';
+    }
+
+
+    @Override
     public void mover(int deltaX, int deltaY) {
         // Compara velocidade do robo com a maxima dada
         if (velocidade <= velocidadeMaxima) 

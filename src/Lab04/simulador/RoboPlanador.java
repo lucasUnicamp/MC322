@@ -16,6 +16,12 @@ public class RoboPlanador extends RoboAereo {
         , getNome(), getX(), getY(), getAltitude(), getDirecao(), getAltitudeMax(), tamanhoAsa);
     }
 
+    @Override
+    public char getRepresentacao() {
+        return 'P';
+    }
+
+
     /**
      * Override necessario para exibir que o Robo Planador 'planou' de uma altitude para outra entre tentar se mover e realmente se mover.
      * Caso apenas descessemos o Robo apos movimentacao, a altitude exibida pelo 'moverComSensor' nao estaria correta. Caso descessemos antes,

@@ -14,6 +14,17 @@ public class RoboSatelite extends RoboAereo {
         checarQueda();
     }
 
+    @Override
+    public String getDescricao() {
+        return String.format("Robo Satelite '%s' esta na posicao (%d, %d, %d) apontado na direcao %s com %d de carga para o lancamento, altitude maxima permitida de %d e minima para orbita de %d.\n"
+        , getNome(), getX(), getY(), getAltitude(), getDirecao(), getCargaLancamento(), getAltitudeMax(), getAltitudeMin());
+    }
+    
+    @Override
+    public char getRepresentacao() {
+        return 'S';
+    }
+
     @Override 
     public void subir(int metros) {
         // Robo so sobe se esta em orbita, pois caso nao esteja sua altitude eh sempre 0
@@ -41,12 +52,6 @@ public class RoboSatelite extends RoboAereo {
         else {
             System.out.printf("O Robo '%s' nao esta em orbita para pode descer.\n", getNome());
         }
-    }
-
-    @Override
-    public String getDescricao() {
-        return String.format("Robo Satelite '%s' esta na posicao (%d, %d, %d) apontado na direcao %s com %d de carga para o lancamento, altitude maxima permitida de %d e minima para orbita de %d.\n"
-        , getNome(), getX(), getY(), getAltitude(), getDirecao(), getCargaLancamento(), getAltitudeMax(), getAltitudeMin());
     }
 
     public void checarQueda() {

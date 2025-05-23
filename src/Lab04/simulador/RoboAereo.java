@@ -16,6 +16,11 @@ public class RoboAereo extends Robo {
         , getNome(), getX(),getY(), altitude, getDirecao(), altitudeMaxima);
     }
 
+    @Override
+    public char getRepresentacao() {
+        return 'A';
+    }
+
     /**
      * Override necessario pois o Robo Aereo nao deve se mover se nao tiver um sensor. Caso nao fizessemos 
      * o override, ele tentaria usar o 'moverSemSensor'

@@ -125,12 +125,18 @@ public class Ambiente {
      */
     public boolean estaOcupado(int x, int y, int z) {
         for (int i = 0; i < obstaculos.size(); i++) {
-            Entidade ent = entidades.get(i);
+            Obstaculo obs = obstaculos.get(i);
 
-            if ((ent.getTipo() == TipoEntidade.ROBO || ent.getTipo() == TipoEntidade.OBSTACULO) &&
-                ent.getX() == x && ent.getY() == y && ent.getZ() == z) {
+            if (obs.getPosicaoX1() <= x && x <= obs.getPosicaoX2() &&
+                obs.getPosicaoY1() <= y && y <= obs.getPosicaoY2()) {
                     return true;
                 }
+        }
+        for (int j = 0; j < robosAtivos.size(); j++) {
+            Robo robo = robosAtivos.get(j);
+
+            if(robo.getX() == x && robo.getY() == y && robo.getZ() == z)
+                return true;
         }
         return false;
     }
@@ -145,27 +151,14 @@ public class Ambiente {
                 matrizAmbiente[a][b] = '.';
 
         // Loop para mudar as posicoes com obstaculos para '#'
-        for (Obstaculo obstaculo:obstaculos)
-            for (int c = obstaculo.getPosicaoX1(); c <= obstaculo.getPosicaoX2(); c++)
-                for (int d = obstaculo.getPosicaoY1(); d <= obstaculo.getPosicaoY2(); d++)
+        for (Obstaculo obs:obstaculos)
+            for (int c = obs.getPosicaoX1(); c <= obs.getPosicaoX2(); c++)
+                for (int d = obs.getPosicaoY1(); d <= obs.getPosicaoY2(); d++)
                     matrizAmbiente[c][d] = '#';
 
         // Loop para mudar as posicoes com robos para suas respectivas letras
         for (Robo robo:robosAtivos) {
-            if (robo instanceof RoboSatelite)
-                matrizAmbiente[robo.getX()][robo.getY()] = 'S';
-            else if (robo instanceof RoboPlanador)
-                matrizAmbiente[robo.getX()][robo.getY()] = 'P'; 
-            else if (robo instanceof RoboAereo)
-                matrizAmbiente[robo.getX()][robo.getY()] = 'A';
-            else if (robo instanceof RoboPreguica)
-                matrizAmbiente[robo.getX()][robo.getY()] = 'G';
-            else if (robo instanceof RoboXadrez)
-                matrizAmbiente[robo.getX()][robo.getY()] = 'X';
-            else if (robo instanceof RoboTerrestre)
-                matrizAmbiente[robo.getX()][robo.getY()] = 'T';
-            else if (robo instanceof Robo)
-                matrizAmbiente[robo.getX()][robo.getY()] = 'R';
+            matrizAmbiente[robo.getX()][robo.getY()] = robo.getRepresentacao();
         }
 
         System.out.println("");
@@ -176,8 +169,8 @@ public class Ambiente {
             System.out.print("\n");
         }
 
-        System.out.println("Legenda: . = vazio    # = obstaculo    R = robo generico    T = robo terrestre    X = robo xadrez");
-        System.out.println("         G = robo preguica    A = robo aereo    P = robo planador    S = robo satelite");
+        System.out.println("Legenda: . = vazio    # = obstaculo    T = robo terrestre    X = robo xadrez    G = robo preguica");
+        System.out.println("                A = robo aereo    P = robo planador    S = robo satelite");
     }
 
     public int getLargura() {

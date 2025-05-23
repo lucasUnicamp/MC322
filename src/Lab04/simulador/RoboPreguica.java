@@ -16,6 +16,11 @@ public class RoboPreguica extends RoboTerrestre {
     }
 
     @Override
+    public char getRepresentacao() {
+        return 'G';
+    }
+
+    @Override
     public void mover(int deltaX, int deltaY) {
         // Checa se o Robo tem energia para mover
         if (energia > 0) {

@@ -18,6 +18,11 @@ public class RoboXadrez extends RoboTerrestre {
     }
 
     @Override
+    public char getRepresentacao() {
+        return 'X';
+    }
+
+    @Override
     public void mover(int deltaX, int deltaY) {
         if (getTipoMovimento() == 1) {
             // Cheques de validade do movimento de tipo Cavalo
