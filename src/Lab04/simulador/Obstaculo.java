@@ -5,7 +5,6 @@ public abstract class Obstaculo implements Entidade {
     private int posicaoY1;
     private int posicaoX2;
     private int posicaoY2;
-    private int posicaoZ;
     private final TipoObstaculo tipo;
 
     public Obstaculo(int posicaoX1, int posicaoY1, int posicaoX2, int posicaoY2, TipoObstaculo tipo) {
@@ -14,7 +13,6 @@ public abstract class Obstaculo implements Entidade {
         this.posicaoY1 = posicaoY1;
         this.posicaoX2 = posicaoX2;
         this.posicaoY2 = posicaoY2;
-        this.posicaoZ = posicaoZ;
         ordenaObstaculo(posicaoX1, posicaoY1, posicaoX2, posicaoY2);
     }
 
@@ -78,16 +76,16 @@ public abstract class Obstaculo implements Entidade {
     }
 
     public int getZ() {
-        return posicaoZ;
+        return tipo.getAltura();
     }
 
     public TipoEntidade getTipo() {
-        return TipoEntidade.ROBO;
+        return TipoEntidade.OBSTACULO;
     }
 
     public abstract String getDescricao();
 
     public char getRepresentacao() {
-        return 'R';
+        return '#';
     }
 }
