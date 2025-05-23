@@ -59,6 +59,7 @@ public class Ambiente {
 
     public void adicionarRobo(Robo r) {
         robosAtivos.add(r);
+        adicionarEntidade(r);
     }
 
     public void removerRobo(Robo r) {
@@ -70,6 +71,7 @@ public class Ambiente {
 
     public void adicionarObstaculos(Obstaculo o) {
         obstaculos.add(o);
+        adicionarEntidade(o);
     }
 
     public void removerObstaculo(Obstaculo o) {
@@ -125,7 +127,8 @@ public class Ambiente {
         for (int i = 0; i < obstaculos.size(); i++) {
             Entidade ent = entidades.get(i);
 
-            if (ent.getX() == x && ent.getY() == y && ent.getZ() == z) {
+            if (ent.getTipo() == TipoEntidade.ROBO && ent.getTipo() == TipoEntidade.OBSTACULO &&
+                ent.getX() == x && ent.getY() == y && ent.getZ() == z) {
                     return true;
                 }
         }

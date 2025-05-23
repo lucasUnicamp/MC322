@@ -348,6 +348,10 @@ public abstract class Robo implements Entidade {
         return ambiente;
     }
     
+    /***************************
+     ******** INTERFACE ********
+     ***************************/
+
     public int getX() {
         return posicaoX;
     }

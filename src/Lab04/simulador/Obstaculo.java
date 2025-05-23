@@ -1,10 +1,11 @@
 package simulador;
 
-public class Obstaculo {
+public abstract class Obstaculo implements Entidade {
     private int posicaoX1;
     private int posicaoY1;
     private int posicaoX2;
     private int posicaoY2;
+    private int posicaoZ;
     private final TipoObstaculo tipo;
 
     public Obstaculo(int posicaoX1, int posicaoY1, int posicaoX2, int posicaoY2, TipoObstaculo tipo) {
@@ -13,6 +14,7 @@ public class Obstaculo {
         this.posicaoY1 = posicaoY1;
         this.posicaoX2 = posicaoX2;
         this.posicaoY2 = posicaoY2;
+        this.posicaoZ = posicaoZ;
         ordenaObstaculo(posicaoX1, posicaoY1, posicaoX2, posicaoY2);
     }
 
@@ -61,5 +63,31 @@ public class Obstaculo {
 
     public int getPosicaoY2() {
         return posicaoY2;
+    }
+
+    /***************************
+     ******** INTERFACE ********
+     ***************************/
+
+    public int getX() {
+        return posicaoX1;
+    }
+
+    public int getY() {
+        return posicaoY1;
+    }
+
+    public int getZ() {
+        return posicaoZ;
+    }
+
+    public TipoEntidade getTipo() {
+        return TipoEntidade.ROBO;
+    }
+
+    public abstract String getDescricao();
+
+    public char getRepresentacao() {
+        return 'R';
     }
 }
