@@ -1,6 +1,6 @@
 package simulador;
 
-public abstract class Obstaculo implements Entidade {
+public class Obstaculo implements Entidade {
     private int posicaoX1;
     private int posicaoY1;
     private int posicaoX2;
@@ -67,23 +67,29 @@ public abstract class Obstaculo implements Entidade {
      ******** INTERFACE ********
      ***************************/
 
+    // Definiu-se o ponto 'pivot' X do obstaculo como o de menor coordenada;
+    // como as coordenadas foram ordenadas antes, esse ponto eh o X1
     public int getX() {
         return posicaoX1;
     }
 
+    // Analogamente, a menor coordenada Y eh a Y1
     public int getY() {
         return posicaoY1;
     }
 
+    // Nao ha obstaculos flutuantes, entao o 'pivot' vai estar sempre no chao (0)
     public int getZ() {
-        return tipo.getAltura();
+        return 0;
     }
 
     public TipoEntidade getTipo() {
         return TipoEntidade.OBSTACULO;
     }
 
-    public abstract String getDescricao();
+    public String getDescricao() {
+        return String.format("Obstaculo do tipo: %s\n", tipo.toString());
+    }
 
     public char getRepresentacao() {
         return '#';

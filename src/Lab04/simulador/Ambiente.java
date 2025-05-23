@@ -127,7 +127,7 @@ public class Ambiente {
         for (int i = 0; i < obstaculos.size(); i++) {
             Entidade ent = entidades.get(i);
 
-            if (ent.getTipo() == TipoEntidade.ROBO && ent.getTipo() == TipoEntidade.OBSTACULO &&
+            if ((ent.getTipo() == TipoEntidade.ROBO || ent.getTipo() == TipoEntidade.OBSTACULO) &&
                 ent.getX() == x && ent.getY() == y && ent.getZ() == z) {
                     return true;
                 }

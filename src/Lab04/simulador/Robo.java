@@ -257,7 +257,7 @@ public abstract class Robo implements Entidade {
     }
 
     /**
-     * Exibe os sensores presentes no Robo, na ordem em que foram adicionados
+     * Exibe os sensores presentes no robo, na ordem em que foram adicionados
      */
     public void exibirSensores() {
         Sensor sensor;

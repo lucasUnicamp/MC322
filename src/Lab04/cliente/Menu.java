@@ -168,7 +168,7 @@ public class Menu {
         switch (entradaAcao) {
             // Mesmo em todos os robos
             case 0:
-                robo.getDescricao();
+                System.out.print(robo.getDescricao());
                 break;
 
             // Mesmo em todos os robos
