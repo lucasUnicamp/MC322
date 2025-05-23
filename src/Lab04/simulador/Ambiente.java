@@ -17,8 +17,9 @@ public class Ambiente {
         this.largura = largura;
         this.profundidade = profundidade;
         this.altura = altura;
-        this.robosAtivos = new ArrayList<Robo>();
+        robosAtivos = new ArrayList<Robo>();
         obstaculos = new ArrayList<Obstaculo>();
+        entidades = new ArrayList<Entidade>();
         gradienteTemperatura();
     }
 
@@ -67,14 +68,25 @@ public class Ambiente {
         }
     }
 
-    public void adicionarObstaculos(Obstaculo obs) {
-        obstaculos.add(obs);
+    public void adicionarObstaculos(Obstaculo o) {
+        obstaculos.add(o);
     }
 
-    public void removerObstaculo(Obstaculo obs) {
+    public void removerObstaculo(Obstaculo o) {
         for (int i = 0; i < obstaculos.size(); i++) {
-            if (obstaculos.get(i) == obs)
+            if (obstaculos.get(i) == o)
                 obstaculos.remove(i);
+        }
+    }
+
+    public void adicionarEntidade(Entidade e) {
+        entidades.add(e);
+    }
+
+    public void removerEntidade(Entidade e) {
+        for (int i = 0; i < entidades.size(); i++) {
+            if (entidades.get(i) == e)
+                entidades.remove(i);
         }
     }
 
@@ -102,17 +114,18 @@ public class Ambiente {
     }
 
     /**
-     * Checa se as coordenadas do ponto dado estao no interior do obstaculo retangular
+     * Previamente 'ehObstaculo'. Checa se as coordenadas do ponto dado ja estao ocupadas
+     * por alguma entidade valida (Robo ou Obstaculo)
      * @param x coordenada x da posicao procurada
      * @param y coordenada y da posicao procurada
-     * @return true ou false dependendo se o ponto esta dentro de um obstaculo
+     * @param z coordenada z da posicao procurada
+     * @return true ou false dependendo se a posicao esta ou nao ocupada
      */
-    public boolean ehObstaculo(int x, int y) {
+    public boolean estaOcupado(int x, int y, int z) {
         for (int i = 0; i < obstaculos.size(); i++) {
-            Obstaculo obs = obstaculos.get(i);
+            Entidade ent = entidades.get(i);
 
-            if (obs.getPosicaoX1() <= x && x <= obs.getPosicaoX2() &&
-                obs.getPosicaoY1() <= y && y <= obs.getPosicaoY2()) {
+            if (ent.getX() == x && ent.getY() == y && ent.getZ() == z) {
                     return true;
                 }
         }

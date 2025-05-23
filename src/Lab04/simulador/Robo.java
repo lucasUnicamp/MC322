@@ -22,7 +22,7 @@ public abstract class Robo implements Entidade {
         sensores = new ArrayList<Sensor>();       // Inicializa array para os sensores
         System.out.printf("\nRobo '%s' criado.\n", nome);
 
-        checarPosicaoInicial(posicaoX, posicaoY);       // Checa se a posicao em que foi inicializado eh valida
+        checarPosicaoInicial(posicaoX, posicaoY, posicaoZ);       // Checa se a posicao em que foi inicializado eh valida
     }
 
     /**
@@ -31,11 +31,11 @@ public abstract class Robo implements Entidade {
      * @param posX coordenada x da posicao inicial do robo
      * @param posY coordenada y da posicao inicial do robo
      */
-    public void checarPosicaoInicial(int posX, int posY) {
+    public void checarPosicaoInicial(int posX, int posY, int posZ) {
         boolean ehValido = true;
 
-        if (ambiente.ehObstaculo(posX, posY)) {
-            System.out.printf("!!! AVISO: Robo '%s' foi inicializado dentro de um obstaculo. Nao faca isso. !!!\n", getNome());
+        if (ambiente.estaOcupado(posX, posY, posZ)) {
+            System.out.printf("!!! AVISO: Robo '%s' foi inicializado em uma posicao invalida. Nao faca isso. !!!\n", getNome());
             ehValido = false;
         }
         if (!ambiente.dentroDosLimites(posX, posY)) {
@@ -56,7 +56,7 @@ public abstract class Robo implements Entidade {
         int posY = (int)(Math.random() * ambiente.getProfundidade());
 
         // Se a posicao gerada tambem nao for valida, tenta novamente
-        if (ambiente.ehObstaculo(posX, posY) || !ambiente.dentroDosLimites(posX, posY))
+        if (ambiente.estaOcupado(posX, posY, 0) || !ambiente.dentroDosLimites(posX, posY))
             moverParaValida();
         else {
             setX(posX);
@@ -98,7 +98,7 @@ public abstract class Robo implements Entidade {
         if (deltaX >= 0) {
             for ( ; i <= deltaX; i++) {
                 // Checa se a posicao em que vai andar eh um obstaculo
-                if (getAmbiente().ehObstaculo(posicaoX + i, posicaoY)) {
+                if (getAmbiente().estaOcupado(posicaoX + i, posicaoY, posicaoZ)) {
                     System.out.printf("Ha um obstaculo em (%d, %d) impedindo o movimento horizontal de '%s'.\n", getX() + i, getY(), getNome());
                     break;
                 }
@@ -115,7 +115,7 @@ public abstract class Robo implements Entidade {
         // Caso deltaX negativo, anda na direcao Oeste.
         else if (deltaX < 0) {
             for ( ; i <= -deltaX; i++) {
-                if (getAmbiente().ehObstaculo(posicaoX - i, posicaoY)) {
+                if (getAmbiente().estaOcupado(posicaoX - i, posicaoY, posicaoZ)) {
                     System.out.printf("Ha um obstaculo em (%d, %d) impedindo o movimento horizontal de '%s'.\n", getX() - i, getY(), getNome());
                     break;
                 }
@@ -133,7 +133,7 @@ public abstract class Robo implements Entidade {
         if (deltaY >= 0 && i == Math.abs(deltaX)) {
             for ( ; j <= deltaY; j++) {
                 // Checa se a posicao em que vai andar eh um obstaculo
-                if (getAmbiente().ehObstaculo(posicaoX, posicaoY + j)) {
+                if (getAmbiente().estaOcupado(posicaoX, posicaoY + j, posicaoZ)) {
                     System.out.printf("Ha um obstaculo em (%d, %d) impedindo o movimento vertical de '%s'.\n", getX(), getY() + j, getNome());
                     break;
                 }
@@ -150,7 +150,7 @@ public abstract class Robo implements Entidade {
         // Caso deltaY negativo, anda na direcao Sul
         else if (deltaY < 0 && i == Math.abs(deltaX)) {
             for ( ; j <= -deltaY; j++) {
-                if (getAmbiente().ehObstaculo(posicaoX, posicaoY - j)) {
+                if (getAmbiente().estaOcupado(posicaoX, posicaoY - j, posicaoZ)) {
                     System.out.printf("Ha um obstaculo em (%d, %d) impedindo o movimento vertical de '%s'.\n", getX(), getY() - j, getNome());
                     break;
                 }
@@ -257,7 +257,7 @@ public abstract class Robo implements Entidade {
     }
 
     /**
-     * Exibe
+     * Exibe os sensores presentes no Robo, na ordem em que foram adicionados
      */
     public void exibirSensores() {
         Sensor sensor;
