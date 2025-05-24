@@ -92,6 +92,13 @@ public class Ambiente {
         }
     }
 
+    public void listarRobos() {
+        System.out.println("");
+        for (Robo robo:robosAtivos) {
+            System.out.printf("    {%c} %s, (%d, %d, %d), %s\n", robo.getRepresentacao(), robo.getNome(), robo.getX(), robo.getY(), robo.getZ(), robo.getEstado());
+        }
+    }
+
     /**
      * Checa se as coordenadas de um ponto estão contidas na região definida do ambiente
      * @param x valor da coordenada horizontal

@@ -21,6 +21,9 @@ public class Menu {
         this.scan = scan;
     }
 
+    /*
+     * Metodo que coordena os loops do menu interativo. Chama os outros metodos para construir submenus 
+     */
     public void iniciarMenu() {
         int acaoRobo, acaoAmb;
         int maximoAcoes;
@@ -28,37 +31,47 @@ public class Menu {
         
         while (true) {
             entradaPrincipal = menuPrincipal(salaTeste, scan);
-            
+            // Usuario encerra o programa (break sai do loop e nao ha nada depois no 'Main.java')
             if (entradaPrincipal == -1)
                 break;
+            // Submenu do ambiente 
             else if (entradaPrincipal == -2) {
+                // Loop para que apos uma opcao seja selecionada, continue no submenu
                 while (true) {
+                    // Exibe as opcoes do submenu
                     exibirEscolhaAcoesAmbiente();
                     try {
+                        // Recebe a entrada da escolha do usuario
                         acaoAmb = lerEscolhaAcoesAmbiente(scan);
-                        if (acaoAmb == -1) {
+                        // Sai do submenu
+                        if (acaoAmb == -1) 
                             break;
-                        }
+                        realizarAcaoAmbiente(salaTeste, acaoAmb, scan);
                     }
                     catch (InputMismatchException entradaInvalidaEsclhAcao) {
                         System.out.println("!!! Use apenas numeros !!!");
                         scan.next();
                     }
                 }
+                // Continue para voltar ao menu principal ignorando o resto do metodo abaixo (que corresponde
+                // ao submenu dos robos)
                 continue;
             }
 
             Robo roboUsado = salaTeste.robosAtivos.get(entradaPrincipal);
             acaoRobo = 0;
-
+            // Loop para que apos uma opcao seja selecionada, continue no submenu
             while (true) {
+                // Exibe as opcoes do submenu e armazena a qntd de opcoes ness em 'maximoAcoes'
                 maximoAcoes = exibirEscolhaAcoesRobos(roboUsado);
                 try {
+                    // Recebe a entrada do usuario
                     acaoRobo = lerEscolhaAcoesRobos(roboUsado, maximoAcoes, scan);
                     if (acaoRobo == -1) {
                         break;
                     }
-
+                    // Loop para que, durante a escolha dos paramentros de uma acao, uma entrada invalida nao
+                    // volte ao submenu do robo, mas apenas repeça os parametros
                     while (true) {
                         try {
                             realizarAcoesRobos(roboUsado, acaoRobo, scan);
@@ -95,7 +108,7 @@ public class Menu {
                 Robo robo = ambiente.robosAtivos.get(i);
                 System.out.printf("[%d] :: %s '%s'\n", i, robo.getClass().getSimpleName(), robo.getNome());
             }
-            System.out.printf("\n[-2] :: Ambiente\n");
+            System.out.printf("\n[-2] :: ambiente\n");
             System.out.println("[-1] :: encerrar o programa.");
             System.out.println("Digite um numero para prosseguir:");
             System.out.print("> ");
@@ -136,6 +149,16 @@ public class Menu {
             System.out.println("!!! Acao invalida. Tente novamente !!!");
             exibirEscolhaAcoesAmbiente();
             return lerEscolhaAcoesAmbiente(scan);
+        }
+    }
+
+    public static void realizarAcaoAmbiente(Ambiente ambiente, int acaoAmb, Scanner scan) {
+        switch (acaoAmb) {
+            case 0:
+                ambiente.visualizarAmbiente();
+                break;
+            case 1:
+                ambiente.listarRobos();
         }
     }
     
