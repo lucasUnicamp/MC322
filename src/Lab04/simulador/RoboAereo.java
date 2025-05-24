@@ -25,8 +25,10 @@ public class RoboAereo extends Robo {
      * Override necessario pois o Robo Aereo nao deve se mover se nao tiver um sensor. Caso nao fizessemos 
      * o override, ele tentaria usar o 'moverSemSensor'
      */
-     @Override
-    public void mover(int deltaX, int deltaY){
+    @Override
+    public void moverPara(int x, int y){
+        int deltaX = x - getX();
+        int deltaY = y - getY();
         int indice = temSensorTipo("SensorObstaculo");
         System.out.printf("Tentando mover o Robo '%s' em %d no eixo x e em %d no y.\n", getNome(), deltaX, deltaY);
         

@@ -132,12 +132,6 @@ public class Ambiente {
                     return true;
                 }
         }
-        for (int j = 0; j < robosAtivos.size(); j++) {
-            Robo robo = robosAtivos.get(j);
-
-            if(robo.getX() == x && robo.getY() == y && robo.getZ() == z)
-                return true;
-        }
         return false;
     }
 

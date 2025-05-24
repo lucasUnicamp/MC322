@@ -76,10 +76,15 @@ public abstract class Robo implements Entidade {
      * Movimentacao do robo que depende se tem ou nao um sensor de obstaculos. Se nao tiver, vai tentar apenas um caminho
      * e ir andando de 1 um a 1 ate chegar ao destino ou colidir; se tiver, vai checar antes se ha obstaculos obstruindo 
      * dois possiveis caminhos e nem vai tentar andar caso tenha
-     * @param deltaX inteiro do quanto deve se mover na horizontal
-     * @param deltaY inteiro do quanto deve se mover na vertical
+     * <p>
+     * OBS.: em nossa implementacao, nao faz sentido mover o robo no eixo z, ja que apenas robos aereos e seus filhos
+     * conseguem fazer isso
+     * @param x posicao no eixo x final a qual se quer chegar
+     * @param y posicao no eixo y final a qual se quer chegar
      */
-    public void mover(int deltaX, int deltaY) {
+    public void moverPara(int x, int y) {
+        int deltaX = x - getX();
+        int deltaY = y - getY();
         int indice = temSensorTipo("SensorObstaculo");
         System.out.printf("Tentando mover o robo '%s' em %d no eixo x e em %d no y.\n", nome, deltaX, deltaY);
         
@@ -89,7 +94,7 @@ public abstract class Robo implements Entidade {
             moverSemSensor(deltaX, deltaY);
         
         atualizaSensores();
-        System.out.printf("O Robo '%s' terminou o movimento na posicao (%d, %d).\n", nome, posicaoX, posicaoY);
+        System.out.printf("O Robo '%s' terminou o movimento na posicao (%d, %d).\n", nome, getX(), getY());
     }
 
     /**
@@ -262,6 +267,16 @@ public abstract class Robo implements Entidade {
         }
     }
 
+    public void ligar() {
+        setEstado(EstadoRobo.LIGADO);
+        System.out.printf("O Robo '%s' foi ligado.\n", getNome());
+    }
+
+    public void desligar() {
+        setEstado(EstadoRobo.DESLIGADO);
+        System.out.printf("O Robo '%s' foi desligado.\n", getNome());
+    }
+
     /**
      * Exibe os sensores presentes no robo, na ordem em que foram adicionados
      */
@@ -289,7 +304,11 @@ public abstract class Robo implements Entidade {
     }
 
     public void setDirecao(int drc) {
-        // 1 - Norte, 2 - Sul, 3 - Leste, 4 - Oeste
+        // Para que nada seja impresso na inicializacao
+        if (direcao == null) {
+            direcao = "Norte";
+            return;
+        }
         switch (drc) {
             case 0:
                 direcao = "Norte";

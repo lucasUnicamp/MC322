@@ -28,8 +28,10 @@ public class RoboPlanador extends RoboAereo {
      * nao faria sentido pois ele exibiria que ja tinha descido antes de tentar se mover 
      */
     @Override
-    public void mover(int deltaX, int deltaY) {
-        int deslocamento = Math.abs(deltaY) + Math.abs(deltaX);
+    public void moverPara(int x, int y) {
+        int deltaX = x - getX();
+        int deltaY = y - getY();
+        int deslocamento = Math.abs(deltaX) + Math.abs(deltaY);
         int indice = temSensorTipo("SensorObstaculo");
         System.out.printf("Tentando mover o Robo '%s' em %d no eixo x e em %d no y.\n", getNome(), deltaX, deltaY);
         

@@ -23,11 +23,13 @@ public class RoboXadrez extends RoboTerrestre {
     }
 
     @Override
-    public void mover(int deltaX, int deltaY) {
+    public void moverPara(int x, int y) {
+        int deltaX = x - getX();
+        int deltaY = y - getY();
         if (getTipoMovimento() == 1) {
             // Cheques de validade do movimento de tipo Cavalo
             if ((Math.abs(deltaX) == 2 && Math.abs(deltaY) == 1) || (Math.abs(deltaX) == 1 && Math.abs(deltaY) == 2)) {
-                super.mover(deltaX, deltaY);
+                super.moverPara(x, y);
                 return;
             }
         } 
@@ -36,25 +38,25 @@ public class RoboXadrez extends RoboTerrestre {
             switch (getDirecao()) {
                 case "Norte":
                     if (deltaX == 0 && (deltaY == 2 || deltaY == 1)){
-                        super.mover(deltaX, deltaY);
+                        super.moverPara(deltaX, deltaY);
                         return;
                     }
                     break;
                 case "Sul":
                     if (deltaX == 0 && (deltaY == -2 || deltaY == -1)) {
-                        super.mover(deltaX, deltaY);
+                        super.moverPara(deltaX, deltaY);
                         return;
                     }
                     break;
                 case "Leste":
                     if ((deltaX == 2 || deltaX == 1) && deltaY == 0) {
-                        super.mover(deltaX, deltaY);
+                        super.moverPara(deltaX, deltaY);
                         return;
                     }
                     break;
                 case "Oeste":
                     if ((deltaX == -2 || deltaX == -1) && deltaY == 0) {
-                        super.mover(deltaX, deltaY);
+                        super.moverPara(deltaX, deltaY);
                         return;
                     }
                     break;

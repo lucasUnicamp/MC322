@@ -168,19 +168,20 @@ public class Menu {
         switch (entradaAcao) {
             // Mesmo em todos os robos
             case 0:
+                System.out.println("");
                 System.out.print(robo.getDescricao());
                 break;
 
             // Mesmo em todos os robos
             case 1:
-                System.out.println("[int] Quanto quer andar na horizontal (eixo x)?");
+                System.out.println("[int] Para qual coordenada horizontal quer ir (eixo x)?");
                 System.out.print("> ");
-                int deltaX = scan.nextInt();
-                System.out.println("[int] Quanto quer andar na vertical (eixo y)?");
+                int x = scan.nextInt();
+                System.out.println("[int] Para qual coordenada vertical quer ir (eixo y)?");
                 System.out.print("> ");
-                int deltaY = scan.nextInt();
+                int y = scan.nextInt();
                 System.out.println("");
-                robo.mover(deltaX, deltaY);
+                robo.moverPara(x, y);
                 break;
             
             // Mesmo em todos os robos
