@@ -107,12 +107,7 @@ public class Menu {
             System.out.printf("\n*******************************************MENU*INTERATIVO*******************************************\n");
             for (int i = 0; i < ambiente.robosAtivos.size(); i++) {
                 Robo robo = ambiente.robosAtivos.get(i);
-                System.out.printf("[%d] :: %s '%s'", i, robo.getClass().getSimpleName(), robo.getNome());
-                if(robo.getEstado() == EstadoRobo.LIGADO) {
-                    System.out.println("         (LIGADO)");
-                } else {
-                    System.out.println("         (DESLIGADO)");
-                }
+                System.out.printf("[%d] :: %s '%s'\n", i, robo.getClass().getSimpleName(), robo.getNome());
             }
             System.out.printf("\n[-2] :: ambiente\n");
             System.out.println("[-1] :: encerrar o programa.");
@@ -137,7 +132,7 @@ public class Menu {
     }
 
     public static void exibirEscolhaAcoesAmbiente() {
-        System.out.printf("\n*********************************************MENU*AMBIENTE********************************************\n");
+        System.out.printf("\n********************************************MENU*AMBIENTE********************************************\n");
         System.out.println("[0] :: imprimir ambiente");
         System.out.println("[1] :: listar robos");
 
