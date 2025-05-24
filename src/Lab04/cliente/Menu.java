@@ -22,7 +22,7 @@ public class Menu {
     }
 
     public void iniciarMenu() {
-        int acao;
+        int acaoRobo, acaoAmb;
         int maximoAcoes;
         int entradaPrincipal;
         
@@ -32,24 +32,36 @@ public class Menu {
             if (entradaPrincipal == -1)
                 break;
             else if (entradaPrincipal == -2) {
-                salaTeste.visualizarAmbiente();
+                while (true) {
+                    exibirEscolhaAcoesAmbiente();
+                    try {
+                        acaoAmb = lerEscolhaAcoesAmbiente(scan);
+                        if (acaoAmb == -1) {
+                            break;
+                        }
+                    }
+                    catch (InputMismatchException entradaInvalidaEsclhAcao) {
+                        System.out.println("!!! Use apenas numeros !!!");
+                        scan.next();
+                    }
+                }
                 continue;
             }
 
             Robo roboUsado = salaTeste.robosAtivos.get(entradaPrincipal);
-            acao = 0;
+            acaoRobo = 0;
 
             while (true) {
-                maximoAcoes = exibirEscolhaAcoes(roboUsado);
+                maximoAcoes = exibirEscolhaAcoesRobos(roboUsado);
                 try {
-                    acao = lerEscolhaAcoes(roboUsado, maximoAcoes, scan);
-                    if (acao == -1) {
+                    acaoRobo = lerEscolhaAcoesRobos(roboUsado, maximoAcoes, scan);
+                    if (acaoRobo == -1) {
                         break;
                     }
 
                     while (true) {
                         try {
-                            realizarAcao(roboUsado, acao, scan);
+                            realizarAcoesRobos(roboUsado, acaoRobo, scan);
                             break;
                         }
                         catch (InputMismatchException entradaInvalidaExecAcao) {
@@ -83,7 +95,7 @@ public class Menu {
                 Robo robo = ambiente.robosAtivos.get(i);
                 System.out.printf("[%d] :: %s '%s'\n", i, robo.getClass().getSimpleName(), robo.getNome());
             }
-            System.out.println("\n[-2] :: imprimir o ambiente.");
+            System.out.printf("\n[-2] :: Ambiente\n");
             System.out.println("[-1] :: encerrar o programa.");
             System.out.println("Digite um numero para prosseguir:");
             System.out.print("> ");
@@ -104,6 +116,28 @@ public class Menu {
         }
         return entradaPrincipal;
     }
+
+    public static void exibirEscolhaAcoesAmbiente() {
+        System.out.printf("\n*********************************************MENU*AMBIENTE********************************************\n");
+        System.out.println("[0] :: imprimir ambiente");
+        System.out.println("[1] :: listar robos");
+
+        System.out.println("\n[-1] :: voltar");
+    }
+
+    public static int lerEscolhaAcoesAmbiente(Scanner scan) {
+        System.out.println("Digite um numero para realizar uma acao:");
+        System.out.print("> ");
+        int entradaAcao = scan.nextInt();
+
+        if (entradaAcao <= 2 && entradaAcao >= -1) 
+            return entradaAcao;
+        else {
+            System.out.println("!!! Acao invalida. Tente novamente !!!");
+            exibirEscolhaAcoesAmbiente();
+            return lerEscolhaAcoesAmbiente(scan);
+        }
+    }
     
     /**
      * Exibe as acoes possiveis para cada robo. Diferencia o tipo de robo pelo uso de 'instanceof' e tira proveito
@@ -114,7 +148,7 @@ public class Menu {
      * @return que sera usado para checar se a selecao da acao eh valida ou nao baseada em quantas opcoes
      * de acao aquele robo tem
      */
-    public static int exibirEscolhaAcoes(Robo robo) {
+    public static int exibirEscolhaAcoesRobos(Robo robo) {
         int maximoAcoes = 0;
         System.out.printf("\n**********************************************MENU*ROBO**********************************************\n");
         if (robo instanceof Robo) {
@@ -164,16 +198,17 @@ public class Menu {
      * @param scan Scanner para ler entradas de usuario
      * @return inteiro representativo da acao escolhida pelo usuario para o robo fazer
      */
-    public static int lerEscolhaAcoes(Robo robo, int maximoAcoes, Scanner scan) {
+    public static int lerEscolhaAcoesRobos(Robo robo, int maximoAcoes, Scanner scan) {
         System.out.println("Digite um numero para realizar uma acao:");
         System.out.print("> ");
         int entradaAcao = scan.nextInt();
-        if(entradaAcao <= maximoAcoes && entradaAcao >= -1) 
+
+        if (entradaAcao <= maximoAcoes && entradaAcao >= -1) 
             return entradaAcao;
         else {
             System.out.println("!!! Acao invalida. Tente novamente !!!");
-            exibirEscolhaAcoes(robo);
-            return lerEscolhaAcoes(robo, maximoAcoes, scan);
+            exibirEscolhaAcoesRobos(robo);
+            return lerEscolhaAcoesRobos(robo, maximoAcoes, scan);
         }
     }
 
@@ -185,7 +220,7 @@ public class Menu {
      * @param entradaAcao acao que foi escolhida na entrada anterior 
      * @param scan Scanner para ler entradas de usuarios
      */
-    public static void realizarAcao(Robo robo, int entradaAcao, Scanner scan) {
+    public static void realizarAcoesRobos(Robo robo, int entradaAcao, Scanner scan) {
         // Cada 'case' do 'switch' é uma possivel entrada valida, que deve ser separada em casos quando robos diferentes
         // compartilham um mesmo indice de acao (por exemplo 3 pode significar 'aumentarVelocidade' para um robo terrestre
         // ou 'subir' para um aereo) 
