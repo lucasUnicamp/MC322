@@ -4,6 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import simulador.Ambiente;
+import simulador.EstadoRobo;
 import simulador.Robo;
 import simulador.RoboAereo;
 import simulador.RoboPlanador;
@@ -81,7 +82,12 @@ public class Menu {
             System.out.printf("\n*******************************************MENU*INTERATIVO*******************************************\n");
             for (int i = 0; i < ambiente.robosAtivos.size(); i++) {
                 Robo robo = ambiente.robosAtivos.get(i);
-                System.out.printf("[%d] :: %s '%s'\n", i, robo.getClass().getSimpleName(), robo.getNome());
+                System.out.printf("[%d] :: %s '%s'", i, robo.getClass().getSimpleName(), robo.getNome());
+                if(robo.getEstado() == EstadoRobo.LIGADO) {
+                    System.out.println("         (LIGADO)");
+                } else {
+                    System.out.println("         (DESLIGADO)");
+                }
             }
             System.out.println("\n[-2] :: imprimir o ambiente.");
             System.out.println("[-1] :: encerrar o programa.");
