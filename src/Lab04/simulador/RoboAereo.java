@@ -4,8 +4,8 @@ public class RoboAereo extends Robo {
     private int altitude;
     private int altitudeMaxima;
     
-    public RoboAereo(String nome, int posicaoX, int posicaoY, Ambiente ambiente, int altitude, int altitudeMaxima) {
-        super(nome, posicaoX, posicaoY, ambiente);
+    public RoboAereo(String nome, String id, int posicaoX, int posicaoY, Ambiente ambiente, int altitude, int altitudeMaxima) {
+        super(nome, id, posicaoX, posicaoY, ambiente);
         setAltitude(altitude);
         setAltitudeMaxima(altitudeMaxima);
     }

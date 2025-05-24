@@ -4,8 +4,8 @@ public class RoboPreguica extends RoboTerrestre {
     private int energia;
     private int energiaMaxima;
 
-    public RoboPreguica(String nome, int posicaoX, int posicaoY, Ambiente ambiente, int velocidadeMaxima, int energiaMaxima) {
-        super(nome, posicaoX, posicaoY, ambiente, velocidadeMaxima);
+    public RoboPreguica(String nome, String id, int posicaoX, int posicaoY, Ambiente ambiente, int velocidadeMaxima, int energiaMaxima) {
+        super(nome, id, posicaoX, posicaoY, ambiente, velocidadeMaxima);
         setEnergiaMax(energiaMaxima);
     }
 

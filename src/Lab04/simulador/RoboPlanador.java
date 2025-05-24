@@ -5,8 +5,8 @@ import java.lang.Math;
 public class RoboPlanador extends RoboAereo {
     private int tamanhoAsa;     // Quanto maior a asa, por mais tempo consegue planar e também consegue subir mais
 
-    public RoboPlanador(String nome, int posicaoX, int posicaoY, Ambiente ambiente, int altitude, int altitudeMaxima, int tamanhoAsa){
-        super(nome, posicaoX, posicaoY, ambiente, altitude, altitudeMaxima);
+    public RoboPlanador(String nome, String id, int posicaoX, int posicaoY, Ambiente ambiente, int altitude, int altitudeMaxima, int tamanhoAsa){
+        super(nome, id, posicaoX, posicaoY, ambiente, altitude, altitudeMaxima);
         setTamanhoAsa(tamanhoAsa);
     }
 

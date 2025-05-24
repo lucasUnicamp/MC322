@@ -6,8 +6,8 @@ public class RoboSatelite extends RoboAereo {
     // Flag para validar os movimentos de sobe e desce, que so podem funcionar caso o robo esteja no ar
     private boolean emOrbita;
 
-    public RoboSatelite(String nome, int posicaoX, int posicaoY, Ambiente ambiente, int altitude, int altitudeMaxima, int altitudeMinima, int cargaLancamento) {
-        super(nome, posicaoX, posicaoY, ambiente, altitude, altitudeMaxima);
+    public RoboSatelite(String nome, String id, int posicaoX, int posicaoY, Ambiente ambiente, int altitude, int altitudeMaxima, int altitudeMinima, int cargaLancamento) {
+        super(nome, id, posicaoX, posicaoY, ambiente, altitude, altitudeMaxima);
         this.altitudeMinima = altitudeMinima;
         this.cargaLancamento = cargaLancamento;
         emOrbita = false;

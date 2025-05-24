@@ -5,8 +5,8 @@ import java.lang.Math;
 public class RoboXadrez extends RoboTerrestre {
     private int tipoMovimento;      // Tipo 1 move-se como a peça de xadrez Cavalo e tipo 2 como o Peao 
 
-    public RoboXadrez(String nome, int posicaoX, int posicaoY, Ambiente ambiente, int velocidadeMaxima, int tipoMovimento) {
-        super(nome, posicaoX, posicaoY, ambiente, velocidadeMaxima);
+    public RoboXadrez(String nome, String id, int posicaoX, int posicaoY, Ambiente ambiente, int velocidadeMaxima, int tipoMovimento) {
+        super(nome, id, posicaoX, posicaoY, ambiente, velocidadeMaxima);
         tipoMovimento = 1;      // Padrao (Cavalo)
         setTipoMovimento(tipoMovimento);
     }

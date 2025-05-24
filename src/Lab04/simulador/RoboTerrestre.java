@@ -4,8 +4,8 @@ public class RoboTerrestre extends Robo {
     private int velocidade;
     private int velocidadeMaxima;
 
-    public RoboTerrestre(String nome, int posicaoX, int posicaoY, Ambiente ambiente, int velocidadeMaxima) {
-        super(nome, posicaoX, posicaoY, ambiente);
+    public RoboTerrestre(String nome, String id, int posicaoX, int posicaoY, Ambiente ambiente, int velocidadeMaxima) {
+        super(nome, id, posicaoX, posicaoY, ambiente);
         velocidade = 1;
         setVelocidadeMax(velocidadeMaxima);
     }
