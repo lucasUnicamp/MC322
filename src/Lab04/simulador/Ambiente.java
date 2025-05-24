@@ -10,8 +10,8 @@ public class Ambiente {
     public ArrayList<Entidade> entidades;
     public ArrayList<Robo> robosAtivos;
     public ArrayList<Obstaculo> obstaculos;
-    public double[][] temperaturas;
     public TipoEntidade[][][] mapa;
+    public double[][] temperaturas;
     
     public Ambiente(int largura, int profundidade, int altura, int qntdObstaculo) {
         this.largura = largura;

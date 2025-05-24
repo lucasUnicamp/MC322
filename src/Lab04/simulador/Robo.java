@@ -4,16 +4,22 @@ import java.util.ArrayList;
 
 public abstract class Robo implements Entidade {
     private String nome;
+    private String id;
     private String direcao;
+    private String estado;
+    private final TipoEntidade tipoEnt;
     private int posicaoX;
     private int posicaoY;
     private int posicaoZ;
     private Ambiente ambiente;
     public ArrayList<Sensor> sensores;
 
-    public Robo(String nome, int posicaoX, int posicaoY, Ambiente ambiente) {
+    public Robo(String nome, String id, int posicaoX, int posicaoY, Ambiente ambiente) {
         setNome(nome);
-        setDirecao("Norte");
+        setID(id);
+        setDirecao(0);
+        setEstado();
+        this.tipoEnt = TipoEntidade.ROBO;
         setX(posicaoX);
         setY(posicaoY);
         setZ(0);
@@ -252,7 +258,6 @@ public abstract class Robo implements Entidade {
             case 3:
                 System.out.println("Nao se pode monitorar posicoes fora do alcance do sensor.");
                 break;
-
         }
     }
 
@@ -278,41 +283,32 @@ public abstract class Robo implements Entidade {
         this.nome = nome;
     }
 
-    public void setDirecao(String drc) {
-        if (direcao == null)
-            direcao = drc;
-        else if (drc == "Norte" || drc == "Sul" || drc == "Leste" || drc == "Oeste") {
-            direcao = drc;
-            System.out.printf("Direçao alterada para %s\n", direcao);
-        }
-        else {
-            direcao = "Norte";
-            System.out.printf("Entrada invalida. O Robo foi posto na direcao padrao (Norte)\n", direcao);
-        }
+    public void setID(String id) {
+        this.id = id;
     }
 
     public void setDirecao(int drc) {
-        /**
-         * 1 = Norte
-         * 2 = Sul
-         * 3 = Leste
-         * 4 = Oeste
-         */
+        // 1 - Norte, 2 - Sul, 3 - Leste, 4 - Oeste
         switch (drc) {
             case 0:
-                setDirecao("Norte");
+                direcao = "Norte";
+                System.out.println("Direçao alterada para Norte");
                 break;
             case 1:
-                setDirecao("Sul");
+                direcao = "Sul";
+                System.out.println("Direçao alterada para Sul");
                 break;
             case 2:
-                setDirecao("Leste");
+                direcao = "Leste";
+                System.out.println("Direçao alterada para Leste");
                 break; 
             case 3:
-                setDirecao("Oeste");
+                direcao = "Oeste";
+                System.out.println("Direçao alterada para Oeste");
                 break;       
             default:
-                setDirecao("padrao");
+                direcao = "Norte";
+                System.out.printf("Entrada invalida. O Robo foi posto na direcao padrao (Norte)\n", direcao);
                 break;
         }
     }
@@ -338,6 +334,10 @@ public abstract class Robo implements Entidade {
 
     public String getNome() {
         return nome;
+    }
+
+    public String getID() {
+        return id;
     }
 
     public String getDirecao() {
