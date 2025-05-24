@@ -33,7 +33,7 @@ public class RoboPlanador extends RoboAereo {
         int deltaY = y - getY();
         int deslocamento = Math.abs(deltaX) + Math.abs(deltaY);
         int indice = temSensorTipo("SensorObstaculo");
-        System.out.printf("Tentando mover o Robo '%s' em %d no eixo x e em %d no y.\n", getNome(), deltaX, deltaY);
+        System.out.printf("Tentando mover o Robo '%s' para a posicao (%d, %d).\n", getNome(), deltaX, deltaY);
         
         if (indice != -1) {
             descerPlanando(((120 - tamanhoAsa)*deslocamento)/100);      // Cai lentamente quando deslocado

@@ -1,5 +1,6 @@
 package cliente;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import simulador.Ambiente;
@@ -24,7 +25,7 @@ public class Menu {
         int acao;
         int maximoAcoes;
         int entradaPrincipal;
-
+        
         while (true) {
             entradaPrincipal = menuPrincipal(salaTeste, scan);
             
@@ -37,14 +38,30 @@ public class Menu {
 
             Robo roboUsado = salaTeste.robosAtivos.get(entradaPrincipal);
             acao = 0;
-            
+
             while (true) {
                 maximoAcoes = exibirEscolhaAcoes(roboUsado);
-                acao = lerEscolhaAcoes(roboUsado, maximoAcoes, scan);
-                if (acao == -1) {
-                    break;
+                try {
+                    acao = lerEscolhaAcoes(roboUsado, maximoAcoes, scan);
+                    if (acao == -1) {
+                        break;
+                    }
+
+                    while (true) {
+                        try {
+                            realizarAcao(roboUsado, acao, scan);
+                            break;
+                        }
+                        catch (InputMismatchException entradaInvalidaExecAcao) {
+                            System.out.println("!!! Use apenas numeros !!!");
+                            scan.next();
+                        }
+                    }
                 }
-                realizarAcao(roboUsado, acao, scan);    
+                catch (InputMismatchException entradaInvalidaEsclhAcao) {
+                    System.out.println("!!! Use apenas numeros !!!");
+                    scan.next();
+                } 
             }
         }
     }
@@ -70,13 +87,20 @@ public class Menu {
             System.out.println("[-1] :: encerrar o programa.");
             System.out.println("Digite um numero para prosseguir:");
             System.out.print("> ");
-            entradaPrincipal = scan.nextInt();  
             
-            // Se o numero da entrada esta entre as opçoes possiveis, eh valido
-            if(entradaPrincipal < ambiente.robosAtivos.size() && entradaPrincipal >= -2) 
-                break;
-            else 
-                System.out.println("Digite um numero valido.");
+            try {
+                entradaPrincipal = scan.nextInt();          
+                // Se o numero da entrada esta entre as opçoes possiveis, eh valido
+                if (entradaPrincipal < ambiente.robosAtivos.size() && entradaPrincipal >= -2) 
+                    break;
+                else 
+                    System.out.println("!!! Digite um numero valido !!!"); 
+            }
+            catch (InputMismatchException entradaInvalidaMenu) {
+                System.out.println("!!! Use apenas numeros !!!");
+                scan.next();
+            }
+
         }
         return entradaPrincipal;
     }
@@ -147,7 +171,7 @@ public class Menu {
         if(entradaAcao <= maximoAcoes && entradaAcao >= -1) 
             return entradaAcao;
         else {
-            System.out.println("Acao invalida. Tente novamente.");
+            System.out.println("!!! Acao invalida. Tente novamente !!!");
             exibirEscolhaAcoes(robo);
             return lerEscolhaAcoes(robo, maximoAcoes, scan);
         }
@@ -174,7 +198,7 @@ public class Menu {
 
             // Mesmo em todos os robos
             case 1:
-                System.out.println("[int] Para qual coordenada horizontal quer ir (eixo x)?");
+                System.out.println("\n[int] Para qual coordenada horizontal quer ir (eixo x)?");
                 System.out.print("> ");
                 int x = scan.nextInt();
                 System.out.println("[int] Para qual coordenada vertical quer ir (eixo y)?");
@@ -198,14 +222,14 @@ public class Menu {
             // Sobe para robos aereos
             case 4:
                 if (robo instanceof RoboTerrestre) {
-                    System.out.println("[int] Em quanto quer aumentar a velocidade?");
+                    System.out.println("\n[int] Em quanto quer aumentar a velocidade?");
                     System.out.print("> ");
                     int vlc = scan.nextInt();
                     System.out.println("");
                     ((RoboTerrestre) robo).aumentarVelocidade(vlc);
                 }
                 else if (robo instanceof RoboAereo) {
-                    System.out.print("[int] Quantos metros quer subir? ");
+                    System.out.print("\n[int] Quantos metros quer subir? ");
                     int metros = scan.nextInt();
                     System.out.println("");
                     ((RoboAereo) robo).subir(metros);
@@ -216,14 +240,14 @@ public class Menu {
             // Desce para robos aereos
             case 5:
                 if (robo instanceof RoboTerrestre) {
-                    System.out.println("[int] Em quanto quer diminuir a velocidade?");
+                    System.out.println("\n[int] Em quanto quer diminuir a velocidade?");
                     System.out.print("> ");
                     int vlc = scan.nextInt();
                     System.out.println("");
                     ((RoboTerrestre) robo).diminuirVelocidade(vlc);
                 }
                 else if (robo instanceof RoboAereo) {
-                    System.out.println("[int] Quantos metros quer descer?");
+                    System.out.println("\n[int] Quantos metros quer descer?");
                     System.out.print("> ");
                     int metros = scan.nextInt();
                     System.out.println("");
@@ -249,7 +273,7 @@ public class Menu {
                     ((RoboPreguica)robo).descansar();
                 }
                 else if (robo instanceof RoboPlanador) {
-                    System.out.println("[int] Qual o novo tamanho da asa?");
+                    System.out.println("\n[int] Qual o novo tamanho da asa?");
                     System.out.print("> ");
                     int novoTamanhoAsa = scan.nextInt();
                     System.out.println("");
@@ -266,7 +290,7 @@ public class Menu {
 
             // Descarrega o tanque para robos satelites
             case 7:
-                System.out.println("[int] Em quanto quer descarregar?");
+                System.out.println("\n[int] Em quanto quer descarregar?");
                 System.out.print("> ");
                 int cargaRemovida = scan.nextInt();
                 System.out.println("");
@@ -295,8 +319,13 @@ public class Menu {
 
             if (direcao == -1)
                 break;
-            else
+            else if (direcao > 3){
+                System.out.println("!!! Essa nao eh uma opcao valida !!!");
+            }
+            else {
                 robo.setDirecao(direcao);
+                break;
+            }
         }
     }
 
@@ -309,14 +338,14 @@ public class Menu {
      */
     public static void acaoSensor(Robo robo, Scanner scan) {
         int indiceSensor;
+        
+        if (robo.sensores != null && robo.sensores.size() == 0) {
+            indiceSensor = -1;
+            System.out.println("Nao ha sensores nesse robo.");
+            return;
+        }
 
         while (true) {
-            if (robo.sensores != null && robo.sensores.size() == 0) {
-                indiceSensor = -1;
-                System.out.println("Nao ha sensores nesse robo.");
-                break;
-            } 
-
             System.out.printf("\n******************************************MENU*SENSORES**********************************************\n");
             robo.exibirSensores();
             System.out.println("\n[-1] voltar");
@@ -328,7 +357,7 @@ public class Menu {
             if(indiceSensor >= 0 && indiceSensor < robo.sensores.size())
                 break;
             else
-                System.out.println("Esse nao eh um sensor valido.");
+                System.out.println("!!! Esse nao eh um sensor valido !!!");
         }
 
         if(indiceSensor == -1)
@@ -344,7 +373,7 @@ public class Menu {
      * @param scan Scanner para ler entradas de usuarios
      */
     public static void acaoMonitorar(Robo robo, int indiceSensor, Scanner scan) {
-        System.out.println("[int] Qual coordenada x gostaria de monitorar?");
+        System.out.println("\n[int] Qual coordenada x gostaria de monitorar?");
         System.out.print("> ");
         int posX = scan.nextInt();
         System.out.println("[int] Qual coordenada y gostaria de monitorar?");

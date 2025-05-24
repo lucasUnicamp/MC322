@@ -148,7 +148,7 @@ public class Ambiente {
         for (Obstaculo obs:obstaculos)
             for (int c = obs.getPosicaoX1(); c <= obs.getPosicaoX2(); c++)
                 for (int d = obs.getPosicaoY1(); d <= obs.getPosicaoY2(); d++)
-                    matrizAmbiente[c][d] = '#';
+                    matrizAmbiente[c][d] = obs.getRepresentacao();
 
         // Loop para mudar as posicoes com robos para suas respectivas letras
         for (Robo robo:robosAtivos) {

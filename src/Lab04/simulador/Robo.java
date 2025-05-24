@@ -86,7 +86,7 @@ public abstract class Robo implements Entidade {
         int deltaX = x - getX();
         int deltaY = y - getY();
         int indice = temSensorTipo("SensorObstaculo");
-        System.out.printf("Tentando mover o robo '%s' em %d no eixo x e em %d no y.\n", nome, deltaX, deltaY);
+        System.out.printf("Tentando mover o robo '%s' para a posiçao (%d, %d).\n", nome, x, y);
         
         if (indice != -1)
             moverComSensor(deltaX, deltaY, indice);
@@ -326,10 +326,6 @@ public abstract class Robo implements Entidade {
                 direcao = "Oeste";
                 System.out.println("Direçao alterada para Oeste");
                 break;       
-            default:
-                direcao = "Norte";
-                System.out.printf("Entrada invalida. O Robo foi posto na direcao padrao (Norte)\n", direcao);
-                break;
         }
     }
 

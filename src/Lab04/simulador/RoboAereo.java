@@ -30,7 +30,7 @@ public class RoboAereo extends Robo {
         int deltaX = x - getX();
         int deltaY = y - getY();
         int indice = temSensorTipo("SensorObstaculo");
-        System.out.printf("Tentando mover o Robo '%s' em %d no eixo x e em %d no y.\n", getNome(), deltaX, deltaY);
+        System.out.printf("Tentando mover o Robo '%s' para a posiçao (%d, %d).\n", getNome(), x, y);
         
         if (indice != -1) {
             moverComSensor(deltaX, deltaY, indice);
