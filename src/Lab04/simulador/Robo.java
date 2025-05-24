@@ -6,7 +6,7 @@ public abstract class Robo implements Entidade {
     private String nome;
     private String id;
     private String direcao;
-    private String estado;
+    private EstadoRobo estado;
     private final TipoEntidade tipoEnt;
     private int posicaoX;
     private int posicaoY;
@@ -18,7 +18,7 @@ public abstract class Robo implements Entidade {
         setNome(nome);
         setID(id);
         setDirecao(0);
-        setEstado();
+        setEstado(EstadoRobo.DESLIGADO);
         this.tipoEnt = TipoEntidade.ROBO;
         setX(posicaoX);
         setY(posicaoY);
@@ -313,6 +313,10 @@ public abstract class Robo implements Entidade {
         }
     }
 
+    public void setEstado(EstadoRobo est) {
+        estado = est;
+    }
+
     protected void setX(int posX) {
         posicaoX = posX;
         atualizaSensores();
@@ -342,6 +346,10 @@ public abstract class Robo implements Entidade {
 
     public String getDirecao() {
         return direcao;
+    }
+
+    public EstadoRobo getEstado() {
+        return estado;
     }
 
     public Ambiente getAmbiente(){

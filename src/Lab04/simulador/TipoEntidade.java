@@ -1,8 +1,8 @@
 package simulador;
 
 public enum TipoEntidade {
-    VAZIO ,
-    ROBO ,
+    VAZIO,
+    ROBO,
     OBSTACULO ,
     DESCONHECIDO;
 }
