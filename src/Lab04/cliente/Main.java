@@ -39,23 +39,23 @@ public class Main {
          */
         System.out.printf("\n********************************************CRIACAO**ROBOS********************************************");
         // Instanciamento em massa de robos e adicao de sensores por composiçao (sensor eh instanciado dentro do robo, logo nao existe fora dele)
-        RoboTerrestre roboTerrestre = new RoboTerrestre("Beta", 25, 25, salaTeste, 60);     // Cria o robo terrestre generico
+        RoboTerrestre roboTerrestre = new RoboTerrestre("Beta", "RT01", 25, 25, salaTeste, 60);     // Cria o robo terrestre generico
         roboTerrestre.adicionarSensor(new SensorObstaculo(10, salaTeste));
         roboTerrestre.adicionarSensor(new SensorObstaculo(30, salaTeste));
         roboTerrestre.getDescricao();
-        RoboXadrez roboXadrez = new RoboXadrez("Theta", 40, 20, salaTeste, 6, 1);       // Cria o robo terrestre do tipo xadrez
+        RoboXadrez roboXadrez = new RoboXadrez("Theta", "RT02", 40, 20, salaTeste, 6, 1);       // Cria o robo terrestre do tipo xadrez
         roboXadrez.adicionarSensor(new SensorObstaculo(5, salaTeste));
         roboXadrez.getDescricao();
-        RoboPreguica roboPreguica = new RoboPreguica("Delta", 60, 60, salaTeste, 25, 1);        // Cria o robo terrestre do tipo preguiça
+        RoboPreguica roboPreguica = new RoboPreguica("Delta", "RT03", 60, 60, salaTeste, 25, 1);        // Cria o robo terrestre do tipo preguiça
         roboPreguica.adicionarSensor(new SensorObstaculo(30, salaTeste));
         roboPreguica.adicionarSensor(new SensorTemperatura(20, salaTeste));
         roboPreguica.getDescricao();
-        RoboAereo roboAereo = new RoboAereo("Gama", 5, 5, salaTeste, 40, 80);      // Cria o robo aereo generico
+        RoboAereo roboAereo = new RoboAereo("Gama", "RA01", 5, 5, salaTeste, 40, 80);      // Cria o robo aereo generico
         roboAereo.adicionarSensor(new SensorTemperatura(10, salaTeste));
-        RoboPlanador roboPlanador = new RoboPlanador("Phi", 5, 40, salaTeste, 0, 80, 50);      // Cria o robo aereo do tipo planador
+        RoboPlanador roboPlanador = new RoboPlanador("Phi", "RA02", 5, 40, salaTeste, 0, 80, 50);      // Cria o robo aereo do tipo planador
         roboPlanador.adicionarSensor(new SensorObstaculo(20, salaTeste));
         roboPlanador.getDescricao();
-        RoboSatelite roboSatelite = new RoboSatelite("Sigma", 30, 40, salaTeste, 10, 50, 30, 0);        // Cria o robo aereo do tipo satelite
+        RoboSatelite roboSatelite = new RoboSatelite("Sigma", "RA03", 30, 40, salaTeste, 10, 50, 30, 0);        // Cria o robo aereo do tipo satelite
         roboSatelite.adicionarSensor(new SensorObstaculo(50, salaTeste));
         roboSatelite.adicionarSensor(new SensorTemperatura(50, salaTeste));
         roboSatelite.getDescricao();

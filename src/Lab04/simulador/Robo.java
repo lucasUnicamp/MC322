@@ -24,6 +24,7 @@ public abstract class Robo implements Entidade {
         setY(posicaoY);
         setZ(0);
         setAmbiente(ambiente);
+
         ambiente.adicionarRobo(this);       // Adiciona o robo no ambiente logo que é criado
         sensores = new ArrayList<Sensor>();       // Inicializa array para os sensores
         System.out.printf("\nRobo '%s' criado.\n", nome);
@@ -350,6 +351,10 @@ public abstract class Robo implements Entidade {
 
     public EstadoRobo getEstado() {
         return estado;
+    }
+
+    public TipoEntidade getTipoEntidade() {
+        return tipoEnt;
     }
 
     public Ambiente getAmbiente(){

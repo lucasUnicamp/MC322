@@ -29,24 +29,28 @@ public class Obstaculo implements Entidade {
         }
     }
     
+    public void setPosicaoX1(int pos) {
+        posicaoX1 = pos;
+    }
+    
+    public void setPosicaoX2(int pos) {
+        posicaoX2 = pos;
+    }
+    
+    public void setPosicaoY1(int pos) {
+        posicaoY1 = pos;
+    }
+    
+    public void setPosicaoY2(int pos) {
+        posicaoY2 = pos;
+    }
+    
     public TipoObstaculo getTipoObstaculo() {
         return tipoObs;
     }
 
-    public void setPosicaoX1(int pos) {
-        posicaoX1 = pos;
-    }
-
-    public void setPosicaoX2(int pos) {
-        posicaoX2 = pos;
-    }
-
-    public void setPosicaoY1(int pos) {
-        posicaoY1 = pos;
-    }
-
-    public void setPosicaoY2(int pos) {
-        posicaoY2 = pos;
+    public TipoEntidade getTipoEntidade() {
+        return tipoEnt;
     }
     
     public int getPosicaoX1() {
@@ -90,7 +94,7 @@ public class Obstaculo implements Entidade {
     }
 
     public String getDescricao() {
-        return String.format("Obstaculo do tipo: %s\n", tipo.toString());
+        return String.format("Obstaculo do tipo: %s\n", tipoObs.toString());
     }
 
     public char getRepresentacao() {
