@@ -47,6 +47,40 @@ public class Menu {
         }
     }
 
+    public void exibirEscolhaMenuPrincipal() {
+        System.out.printf("\n*******************************************MENU*INTERATIVO*******************************************\n");
+        for (int i = 0; i < ambiente.robosAtivos.size(); i++) {
+            Robo robo = ambiente.robosAtivos.get(i);
+            System.out.printf("[%d] :: %s '%s'\n", i, robo.getClass().getSimpleName(), robo.getNome());
+        }
+
+        System.out.printf("\n[-2] :: ambiente\n");
+        System.out.println("[-1] :: encerrar o programa.");
+    }
+    
+    public int lerEscolhaMenuPrincipal() {
+        int entradaPrincipal;
+
+        while (true) {
+            System.out.println("Digite um numero para prosseguir:");
+            System.out.print("> ");
+            
+            try {
+                entradaPrincipal = scan.nextInt();          
+                // Se o numero da entrada esta entre as opçoes possiveis, eh valido
+                if (entradaPrincipal < ambiente.robosAtivos.size() && entradaPrincipal >= -2) 
+                    break;
+                else 
+                    System.out.printf("!!! %d Nao eh uma opcao valida. Tente novamente !!!\n", entradaPrincipal); 
+            }
+            catch (InputMismatchException entradaInvalidaMenu) {
+                System.out.println("!!! Use apenas numeros !!!");
+                scan.next();
+            }
+        }
+        return entradaPrincipal;
+    }
+
     public void iniciarMenuAmbiente() {
         while (true) {
             // Exibe as opcoes do submenu
@@ -111,67 +145,18 @@ public class Menu {
         while (true) {
             // Exibe as opcoes do submenu e armazena a qntd de opcoes ness em 'maximoAcoes'
             int maximoAcoes = exibirEscolhaAcoesRobos(roboUsado);
-            try {
-                // Recebe a entrada do usuario
-                int acaoRobo = lerEscolhaAcoesRobos(roboUsado, maximoAcoes, scan);
-                if (acaoRobo == -1) {
+            int entradaRobo = lerEscolhaAcoesRobos(roboUsado, maximoAcoes);
+
+            switch (entradaRobo) {
+                case -1:
+                    return;
+                default:
+                    realizarAcoesRobos(roboUsado, entradaRobo);
                     break;
-                }
-                // Loop para que, durante a escolha dos paramentros de uma acao, uma entrada invalida nao
-                // volte ao submenu do robo, mas apenas repeça os parametros
-                while (true) {
-                    try {
-                        realizarAcoesRobos(roboUsado, acaoRobo, scan);
-                        break;
-                    }
-                    catch (InputMismatchException entradaInvalidaExecAcao) {
-                        System.out.println("!!! Use apenas numeros !!!");
-                        scan.next();
-                    }
-                }
             }
-            catch (InputMismatchException entradaInvalidaEsclhAcao) {
-                System.out.println("!!! Use apenas numeros !!!");
-                scan.next();
-            } 
         }
     }
 
-    public void exibirEscolhaMenuPrincipal() {
-        System.out.printf("\n*******************************************MENU*INTERATIVO*******************************************\n");
-        for (int i = 0; i < ambiente.robosAtivos.size(); i++) {
-            Robo robo = ambiente.robosAtivos.get(i);
-            System.out.printf("[%d] :: %s '%s'\n", i, robo.getClass().getSimpleName(), robo.getNome());
-        }
-
-        System.out.printf("\n[-2] :: ambiente\n");
-        System.out.println("[-1] :: encerrar o programa.");
-    }
-    
-    public int lerEscolhaMenuPrincipal() {
-        int entradaPrincipal;
-
-        while (true) {
-            System.out.println("Digite um numero para prosseguir:");
-            System.out.print("> ");
-            
-            try {
-                entradaPrincipal = scan.nextInt();          
-                // Se o numero da entrada esta entre as opçoes possiveis, eh valido
-                if (entradaPrincipal < ambiente.robosAtivos.size() && entradaPrincipal >= -2) 
-                    break;
-                else 
-                    System.out.println("!!! Digite um numero valido !!!"); 
-            }
-            catch (InputMismatchException entradaInvalidaMenu) {
-                System.out.println("!!! Use apenas numeros !!!");
-                scan.next();
-            }
-        }
-        return entradaPrincipal;
-    }
-
-    
     /**
      * Exibe as acoes possiveis para cada robo. Diferencia o tipo de robo pelo uso de 'instanceof' e tira proveito
      * do fato de robos serem filhos de outros para imprimir informaçoes mais gerais (como as do Robo, que sao validas
@@ -231,17 +216,24 @@ public class Menu {
      * @param scan Scanner para ler entradas de usuario
      * @return inteiro representativo da acao escolhida pelo usuario para o robo fazer
      */
-    public static int lerEscolhaAcoesRobos(Robo robo, int maximoAcoes, Scanner scan) {
+    public int lerEscolhaAcoesRobos(Robo robo, int maximoAcoes) {
         System.out.println("Digite um numero para realizar uma acao:");
-        System.out.print("> ");
-        int entradaAcao = scan.nextInt();
+        
+        while (true) {
+            try {
+                System.out.print("> ");
+                int entradaAcao = scan.nextInt();
 
-        if (entradaAcao <= maximoAcoes && entradaAcao >= -1) 
-            return entradaAcao;
-        else {
-            System.out.printf("!!! %d Nao eh uma opcao valida. Tente novamente !!!\n", entradaAcao);
-            exibirEscolhaAcoesRobos(robo);
-            return lerEscolhaAcoesRobos(robo, maximoAcoes, scan);
+                if (entradaAcao <= maximoAcoes && entradaAcao >= -1) 
+                    return entradaAcao;
+                else {
+                    System.out.printf("!!! %d Nao eh uma opcao valida. Tente novamente !!!\n", entradaAcao);
+                    continue;
+                }
+            } catch (InputMismatchException entradaInvalidaEsclhAcao) {
+                System.out.println("!!! Use apenas numeros !!!");
+                scan.next();
+            }
         }
     }
 
@@ -251,129 +243,137 @@ public class Menu {
      * nao necessite de paramentros)
      * @param robo robo que foi escolhido na entrada principal
      * @param entradaAcao acao que foi escolhida na entrada anterior 
-     * @param scan Scanner para ler entradas de usuarios
      */
-    public static void realizarAcoesRobos(Robo robo, int entradaAcao, Scanner scan) {
+    public void realizarAcoesRobos(Robo robo, int entradaAcao) {
         // Cada 'case' do 'switch' é uma possivel entrada valida, que deve ser separada em casos quando robos diferentes
         // compartilham um mesmo indice de acao (por exemplo 3 pode significar 'aumentarVelocidade' para um robo terrestre
-        // ou 'subir' para um aereo) 
-        try {
-            switch (entradaAcao) {
-                // Mesmo em todos os robos
-                case 0:
-                    System.out.println("");
-                    System.out.print(robo.getDescricao());
-                    break;
+        // ou 'subir' para um aereo)
+        while (true) {
+            try {
+                switch (entradaAcao) {
+                    // Mesmo em todos os robos
+                    case 0:
+                        System.out.println("");
+                        System.out.print(robo.getDescricao());
+                        break;
 
-                // Mesmo em todos os robos
-                case 1:
-                    System.out.println("\n[int] Para qual coordenada horizontal quer ir (eixo x)?");
-                    System.out.print("> ");
-                    int x = scan.nextInt();
-                    System.out.println("[int] Para qual coordenada vertical quer ir (eixo y)?");
-                    System.out.print("> ");
-                    int y = scan.nextInt();
-                    System.out.println("");
-                    robo.moverPara(x, y);
-                    break;
-                
-                // Mesmo em todos os robos
-                case 2:
-                    acaoSensor(robo, scan);
-                    break;
-                
-                // Mesmo em todos os robos  
-                case 3:
-                    acaoDirecao(robo, scan);
-                    break;
-                
-                // Aumenta velocidade para robos terrestres
-                // Sobe para robos aereos
-                case 4:
-                    if (robo instanceof RoboTerrestre) {
-                        System.out.println("\n[int] Em quanto quer aumentar a velocidade?");
+                    // Mesmo em todos os robos
+                    case 1:
+                        System.out.println("\n[int] Para qual coordenada horizontal quer ir (eixo x)?");
                         System.out.print("> ");
-                        int vlc = scan.nextInt();
-                        System.out.println("");
-                        ((RoboTerrestre) robo).aumentarVelocidade(vlc);
-                    }
-                    else if (robo instanceof RoboAereo) {
-                        System.out.print("\n[int] Quantos metros quer subir? ");
-                        int metros = scan.nextInt();
-                        System.out.println("");
-                        ((RoboAereo) robo).subir(metros);
-                    }
-                    break;
-                
-                // Diminui velocidade para robos terrestres
-                // Desce para robos aereos
-                case 5:
-                    if (robo instanceof RoboTerrestre) {
-                        System.out.println("\n[int] Em quanto quer diminuir a velocidade?");
+                        int x = scan.nextInt();
+                        System.out.println("[int] Para qual coordenada vertical quer ir (eixo y)?");
                         System.out.print("> ");
-                        int vlc = scan.nextInt();
+                        int y = scan.nextInt();
                         System.out.println("");
-                        ((RoboTerrestre) robo).diminuirVelocidade(vlc);
-                    }
-                    else if (robo instanceof RoboAereo) {
-                        System.out.println("\n[int] Quantos metros quer descer?");
-                        System.out.print("> ");
-                        int metros = scan.nextInt();
-                        System.out.println("");
-                        ((RoboAereo) robo).descer(metros);
-                    }
-                    break;
-                
-                // Muda o tipo de movimento para robos xadrez
-                // Descança energias para robo preguiça
-                // Muda o tamanho da asa para robos planadores
-                // Carrega o tanque para robos satelites
-                case 6:
-                    if (robo instanceof RoboXadrez) {
-                        System.out.println("");
-                        ((RoboXadrez) robo).alternaTipoMovimento();
-                        if (((RoboXadrez)robo).getTipoMovimento() == 1)
-                            System.out.println("Tipo de peça mudado para Cavalo\n");
-                        else
-                            System.out.println("Tipo de peça mudado para Peao\n");
-                    }
-                    else if (robo instanceof RoboPreguica) {
-                        System.out.println("");
-                        ((RoboPreguica)robo).descansar();
-                    }
-                    else if (robo instanceof RoboPlanador) {
-                        System.out.println("\n[int] Qual o novo tamanho da asa?");
-                        System.out.print("> ");
-                        int novoTamanhoAsa = scan.nextInt();
-                        System.out.println("");
-                        ((RoboPlanador) robo).setTamanhoAsa(novoTamanhoAsa);
-                    }
-                    else if (robo instanceof RoboSatelite) {
-                        System.out.println("[int] Em quanto quer carregar?");
-                        System.out.print("> ");
-                        int cargaAdicionada = scan.nextInt();
-                        System.out.println("");
-                        ((RoboSatelite) robo).carregar(cargaAdicionada);
-                    }
-                    break;
+                        robo.moverPara(x, y);
+                        break;
+                    
+                    // Mesmo em todos os robos
+                    case 2:
+                        acaoSensor(robo, scan);
+                        break;
+                    
+                    // Mesmo em todos os robos  
+                    case 3:
+                        acaoDirecao(robo, scan);
+                        break;
+                    
+                    // Aumenta velocidade para robos terrestres
+                    // Sobe para robos aereos
+                    case 4:
+                        if (robo instanceof RoboTerrestre) {
+                            System.out.println("\n[int] Em quanto quer aumentar a velocidade?");
+                            System.out.print("> ");
+                            int vlc = scan.nextInt();
+                            System.out.println("");
+                            ((RoboTerrestre) robo).aumentarVelocidade(vlc);
+                        }
+                        else if (robo instanceof RoboAereo) {
+                            System.out.print("\n[int] Quantos metros quer subir? ");
+                            int metros = scan.nextInt();
+                            System.out.println("");
+                            ((RoboAereo) robo).subir(metros);
+                        }
+                        break;
+                    
+                    // Diminui velocidade para robos terrestres
+                    // Desce para robos aereos
+                    case 5:
+                        if (robo instanceof RoboTerrestre) {
+                            System.out.println("\n[int] Em quanto quer diminuir a velocidade?");
+                            System.out.print("> ");
+                            int vlc = scan.nextInt();
+                            System.out.println("");
+                            ((RoboTerrestre) robo).diminuirVelocidade(vlc);
+                        }
+                        else if (robo instanceof RoboAereo) {
+                            System.out.println("\n[int] Quantos metros quer descer?");
+                            System.out.print("> ");
+                            int metros = scan.nextInt();
+                            System.out.println("");
+                            ((RoboAereo) robo).descer(metros);
+                        }
+                        break;
+                    
+                    // Muda o tipo de movimento para robos xadrez
+                    // Descança energias para robo preguiça
+                    // Muda o tamanho da asa para robos planadores
+                    // Carrega o tanque para robos satelites
+                    case 6:
+                        if (robo instanceof RoboXadrez) {
+                            System.out.println("");
+                            ((RoboXadrez) robo).alternaTipoMovimento();
+                            if (((RoboXadrez)robo).getTipoMovimento() == 1)
+                                System.out.println("Tipo de peça mudado para Cavalo\n");
+                            else
+                                System.out.println("Tipo de peça mudado para Peao\n");
+                        }
+                        else if (robo instanceof RoboPreguica) {
+                            System.out.println("");
+                            ((RoboPreguica)robo).descansar();
+                        }
+                        else if (robo instanceof RoboPlanador) {
+                            System.out.println("\n[int] Qual o novo tamanho da asa?");
+                            System.out.print("> ");
+                            int novoTamanhoAsa = scan.nextInt();
+                            System.out.println("");
+                            ((RoboPlanador) robo).setTamanhoAsa(novoTamanhoAsa);
+                        }
+                        else if (robo instanceof RoboSatelite) {
+                            System.out.println("[int] Em quanto quer carregar?");
+                            System.out.print("> ");
+                            int cargaAdicionada = scan.nextInt();
+                            System.out.println("");
+                            ((RoboSatelite) robo).carregar(cargaAdicionada);
+                        }
+                        break;
 
-                // Descarrega o tanque para robos satelites
-                case 7:
-                    System.out.println("\n[int] Em quanto quer descarregar?");
-                    System.out.print("> ");
-                    int cargaRemovida = scan.nextInt();
-                    System.out.println("");
-                    ((RoboSatelite) robo).descarregar(cargaRemovida);
-                    break;
+                    // Descarrega o tanque para robos satelites
+                    case 7:
+                        System.out.println("\n[int] Em quanto quer descarregar?");
+                        System.out.print("> ");
+                        int cargaRemovida = scan.nextInt();
+                        System.out.println("");
+                        ((RoboSatelite) robo).descarregar(cargaRemovida);
+                        break;
 
-                // Executa o lancamento para robos satelites
-                case 8:
-                    System.out.println("");
-                    ((RoboSatelite) robo).lancamento();
-                    break;
+                    // Executa o lancamento para robos satelites
+                    case 8:
+                        System.out.println("");
+                        ((RoboSatelite) robo).lancamento();
+                        break;
+                }
+            } 
+            catch (InputMismatchException erro) {
+                System.out.println("!!! Use apenas numeros !!!");
+                scan.next();
+                continue;
             }
-        } catch (RoboDesligadoException erro) {
-            System.out.println(erro.getMessage());
+            catch (RoboDesligadoException erro) {
+                System.out.println(erro.getMessage());
+            }
+            break;
         }
     }
 
