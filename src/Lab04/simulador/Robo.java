@@ -328,19 +328,19 @@ public abstract class Robo implements Entidade {
         switch (drc) {
             case 0:
                 direcao = "Norte";
-                System.out.println("Direçao alterada para Norte");
+                System.out.println("\nDireçao alterada para Norte");
                 break;
             case 1:
                 direcao = "Sul";
-                System.out.println("Direçao alterada para Sul");
+                System.out.println("\nDireçao alterada para Sul");
                 break;
             case 2:
                 direcao = "Leste";
-                System.out.println("Direçao alterada para Leste");
+                System.out.println("\nDireçao alterada para Leste");
                 break; 
             case 3:
                 direcao = "Oeste";
-                System.out.println("Direçao alterada para Oeste");
+                System.out.println("\nDireçao alterada para Oeste");
                 break;       
         }
     }

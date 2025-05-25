@@ -27,7 +27,7 @@ public class Menu {
     /*
      * Metodo que coordena os loops do menu interativo. Chama os outros metodos para construir submenus 
      */
-    public void iniciarMenu() {
+    public void iniciarMenuPrincipal() {
         while (true) {
             exibirEscolhaMenuPrincipal();
             int entradaPrincipal = lerEscolhaMenuPrincipal();
@@ -84,20 +84,20 @@ public class Menu {
     public void iniciarMenuAmbiente() {
         while (true) {
             // Exibe as opcoes do submenu
-            exibirEscolhaAcoesAmbiente();
-            int entradaAmbiente = lerEscolhaAcoesAmbiente();
+            exibirEscolhaMenuAmbiente();
+            int entradaAmbiente = lerEscolhaMenuAmbiente();
 
             switch (entradaAmbiente) {
                 case -1:
                     return;
                 default:
-                    realizarAcaoAmbiente(entradaAmbiente);
+                    realizarAcoesMenuAmbiente(entradaAmbiente);
                     break;
             }
         }
     }
     
-    public static void exibirEscolhaAcoesAmbiente() {
+    public static void exibirEscolhaMenuAmbiente() {
         System.out.printf("\n********************************************MENU*AMBIENTE********************************************\n");
         System.out.println("[0] :: imprimir ambiente");
         System.out.println("[1] :: listar robos");
@@ -106,7 +106,7 @@ public class Menu {
         System.out.println("\n[-1] :: voltar");
     }
 
-    public int lerEscolhaAcoesAmbiente() {
+    public int lerEscolhaMenuAmbiente() {
         System.out.println("Digite um numero para realizar uma acao:");
         
         while (true) {
@@ -127,7 +127,7 @@ public class Menu {
         }
     }
 
-    public void realizarAcaoAmbiente(int acaoAmb) {
+    public void realizarAcoesMenuAmbiente(int acaoAmb) {
         switch (acaoAmb) {
             case 0:
                 ambiente.visualizarAmbiente();
@@ -144,14 +144,14 @@ public class Menu {
     public void iniciarMenuRobo(Robo roboUsado) {
         while (true) {
             // Exibe as opcoes do submenu e armazena a qntd de opcoes ness em 'maximoAcoes'
-            int maximoAcoes = exibirEscolhaAcoesRobos(roboUsado);
-            int entradaRobo = lerEscolhaAcoesRobos(roboUsado, maximoAcoes);
+            int maximoAcoes = exibirEscolhaMenuRobo(roboUsado);
+            int entradaRobo = lerEscolhaMenuRobo(roboUsado, maximoAcoes);
 
             switch (entradaRobo) {
                 case -1:
                     return;
                 default:
-                    realizarAcoesRobos(roboUsado, entradaRobo);
+                    realizarAcoesMenuRobo(roboUsado, entradaRobo);
                     break;
             }
         }
@@ -166,7 +166,7 @@ public class Menu {
      * @return que sera usado para checar se a selecao da acao eh valida ou nao baseada em quantas opcoes
      * de acao aquele robo tem
      */
-    public static int exibirEscolhaAcoesRobos(Robo robo) {
+    public static int exibirEscolhaMenuRobo(Robo robo) {
         int maximoAcoes = 0;
         System.out.println("\n**********************************************MENU*ROBO**********************************************");
         if (robo instanceof Robo) {
@@ -216,7 +216,7 @@ public class Menu {
      * @param scan Scanner para ler entradas de usuario
      * @return inteiro representativo da acao escolhida pelo usuario para o robo fazer
      */
-    public int lerEscolhaAcoesRobos(Robo robo, int maximoAcoes) {
+    public int lerEscolhaMenuRobo(Robo robo, int maximoAcoes) {
         System.out.println("Digite um numero para realizar uma acao:");
         
         while (true) {
@@ -244,12 +244,13 @@ public class Menu {
      * @param robo robo que foi escolhido na entrada principal
      * @param entradaAcao acao que foi escolhida na entrada anterior 
      */
-    public void realizarAcoesRobos(Robo robo, int entradaAcao) {
-        // Cada 'case' do 'switch' é uma possivel entrada valida, que deve ser separada em casos quando robos diferentes
-        // compartilham um mesmo indice de acao (por exemplo 3 pode significar 'aumentarVelocidade' para um robo terrestre
-        // ou 'subir' para um aereo)
+    public void realizarAcoesMenuRobo(Robo robo, int entradaAcao) {
+        // Loop para que o usuario fique 'preso' na opcao selecionada ate dar uma entrada valida
         while (true) {
             try {
+                // Cada 'case' do 'switch' é uma possivel entrada valida, que deve ser separada em casos quando robos diferentes
+                // compartilham um mesmo indice de acao (por exemplo 3 pode significar 'aumentarVelocidade' para um robo terrestre
+                // ou 'subir' para um aereo)
                 switch (entradaAcao) {
                     // Mesmo em todos os robos
                     case 0:
@@ -271,12 +272,12 @@ public class Menu {
                     
                     // Mesmo em todos os robos
                     case 2:
-                        acaoSensor(robo, scan);
+                        acaoSensor(robo);
                         break;
                     
                     // Mesmo em todos os robos  
                     case 3:
-                        acaoDirecao(robo, scan);
+                        iniciarMenuDirecao(robo);
                         break;
                     
                     // Aumenta velocidade para robos terrestres
@@ -377,26 +378,48 @@ public class Menu {
         }
     }
 
-    public static void acaoDirecao(Robo robo, Scanner scan) {
+    public void iniciarMenuDirecao(Robo robo) {
         while(true) {
-            System.out.printf("\n******************************************MENU*DIRECOES**********************************************\n");
-            System.out.println("[0] :: Norte");
-            System.out.println("[1] :: Sul");
-            System.out.println("[2] :: Leste");
-            System.out.println("[3] :: Oeste");
-            System.out.println("\n[-1] :: voltar");
-            System.out.println("Para qual direção deseja mudar?");
-            System.out.print("> ");
-            int direcao = scan.nextInt();
+            exibirEscolhaMenuDirecao();
+            int entradaDirecao = lerEscolhaMenuDirecao();
 
-            if (direcao == -1)
-                break;
-            else if (direcao > 3){
-                System.out.printf("!!! %d Nao eh uma opcao valida. Tente novamente !!!\n", direcao);
+            switch (entradaDirecao) {
+                case -1:
+                    return;
+                default:
+                    robo.setDirecao(entradaDirecao);
+                    break;
             }
-            else {
-                robo.setDirecao(direcao);
-                break;
+        }
+    }
+
+    public void exibirEscolhaMenuDirecao() {
+        System.out.printf("\n******************************************MENU*DIRECOES**********************************************\n");
+        System.out.println("[0] :: Norte");
+        System.out.println("[1] :: Sul");
+        System.out.println("[2] :: Leste");
+        System.out.println("[3] :: Oeste");
+
+        System.out.println("\n[-1] :: voltar");
+    }
+    
+    public int lerEscolhaMenuDirecao() {
+        System.out.println("Para qual direção deseja mudar?");
+
+        while(true) {
+            try {
+                System.out.print("> ");
+                int entradaDirecao = scan.nextInt();
+
+                if (entradaDirecao > 3){
+                    System.out.printf("!!! %d Nao eh uma opcao valida. Tente novamente !!!\n", entradaDirecao);
+                }
+                else {
+                    return entradaDirecao;
+                }
+            } catch (InputMismatchException erro) {
+                System.out.println("!!! Use apenas numeros !!!");
+                scan.next();
             }
         }
     }
@@ -408,7 +431,7 @@ public class Menu {
      * @param robo robo que foi escolhido na entrada principal
      * @param scan Scanner para ler entradas de usuarios
      */
-    public static void acaoSensor(Robo robo, Scanner scan) {
+    public void acaoSensor(Robo robo) {
         int indiceSensor;
         
         if (robo.sensores != null && robo.sensores.size() == 0) {
@@ -417,10 +440,10 @@ public class Menu {
             return;
         }
 
+        System.out.printf("\n******************************************MENU*SENSORES**********************************************\n");
+        robo.exibirSensores();
+        System.out.println("\n[-1] voltar");
         while (true) {
-            System.out.printf("\n******************************************MENU*SENSORES**********************************************\n");
-            robo.exibirSensores();
-            System.out.println("\n[-1] voltar");
             System.out.print("> ");
             indiceSensor = scan.nextInt();
             

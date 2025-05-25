@@ -77,7 +77,7 @@ public class Main {
          * Aqui o usuario pode fazer quantos testes quiser rapidamente, uma vez que açoes podem ser feitas uma logo apos a outra.
          */
         Menu menu = new Menu(salaTeste, scan);
-        menu.iniciarMenu();
+        menu.iniciarMenuPrincipal();
 
         scan.close();
     }
