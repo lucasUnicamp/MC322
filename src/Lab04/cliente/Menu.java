@@ -160,6 +160,10 @@ public class Menu {
             switch (entradaRobo) {
                 case -1:
                     return;
+                case -2:
+                    if (temInterfaceExtra(roboUsado)) {
+                        iniciarMenuExtras();
+                    }
                 default:
                     realizarAcoesMenuRobo(roboUsado, entradaRobo);
                     break;
@@ -218,8 +222,7 @@ public class Menu {
             acoesMaximoMinimo[0] = 9;
         }
 
-        // ADICIONAR OU OUTRAS INTERFACES AQUI
-        if (robo instanceof Comunicavel) {
+        if (temInterfaceExtra(robo)) {
             System.out.print("\n[-2] :: Extras");
             acoesMaximoMinimo[1] = -2;
         } else
@@ -404,6 +407,10 @@ public class Menu {
         }
     }
 
+    public void iniciarMenuExtras() {
+        
+    }
+
     // Metodo que coordena os loops do submenu das direcoes
     public void iniciarMenuDirecao(Robo robo) {
         while(true) {
@@ -536,5 +543,10 @@ public class Menu {
             }
             break;
         }
+    }
+
+    // !!!!!!!!!!!!!!!!!!!!!! ADICIONAR 'OU' OUTRAS INTERFACES AQUI !!!!!!!!!!!!!!!!!!!!!!!1
+    public boolean temInterfaceExtra(Robo robo) {
+        return (robo instanceof Comunicavel);
     }
 }
