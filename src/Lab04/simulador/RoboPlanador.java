@@ -28,7 +28,7 @@ public class RoboPlanador extends RoboAereo {
      * nao faria sentido pois ele exibiria que ja tinha descido antes de tentar se mover 
      */
     @Override
-    public void moverPara(int x, int y) {
+    public void moverPara(int x, int y) throws RoboDesligadoException{
         int deltaX = x - getX();
         int deltaY = y - getY();
         int deslocamento = Math.abs(deltaX) + Math.abs(deltaY);

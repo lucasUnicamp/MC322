@@ -82,19 +82,23 @@ public abstract class Robo implements Entidade {
      * @param x posicao no eixo x final a qual se quer chegar
      * @param y posicao no eixo y final a qual se quer chegar
      */
-    public void moverPara(int x, int y) {
-        int deltaX = x - getX();
-        int deltaY = y - getY();
-        int indice = temSensorTipo("SensorObstaculo");
-        System.out.printf("Tentando mover o robo '%s' para a posiçao (%d, %d).\n", nome, x, y);
-        
-        if (indice != -1)
-            moverComSensor(deltaX, deltaY, indice);
-        else
-            moverSemSensor(deltaX, deltaY);
-        
-        atualizaSensores();
-        System.out.printf("O Robo '%s' terminou o movimento na posicao (%d, %d).\n", nome, getX(), getY());
+    public void moverPara(int x, int y) throws RoboDesligadoException{
+        if (getEstado() == EstadoRobo.LIGADO){
+            int deltaX = x - getX();
+            int deltaY = y - getY();
+            int indice = temSensorTipo("SensorObstaculo");
+            System.out.printf("Tentando mover o robo '%s' para a posiçao (%d, %d).\n", nome, x, y);
+            
+            if (indice != -1)
+                moverComSensor(deltaX, deltaY, indice);
+            else
+                moverSemSensor(deltaX, deltaY);
+            
+            atualizaSensores();
+            System.out.printf("O Robo '%s' terminou o movimento na posicao (%d, %d).\n", nome, getX(), getY());
+        } else {
+            throw new RoboDesligadoException();
+        }
     }
 
     /**
@@ -103,7 +107,7 @@ public abstract class Robo implements Entidade {
      * @param deltaX inteiro do quanto deve se mover na horizontal
      * @param deltaY inteiro do quanto deve se mover na vertical
      */
-    public void moverSemSensor(int deltaX, int deltaY) {
+    private void moverSemSensor(int deltaX, int deltaY) {
         int i = 0, j = 0;
         // Primeiro move o robo totalmente na horizontal
         // Caso deltaX positivo, anda na direcao Leste
@@ -183,32 +187,36 @@ public abstract class Robo implements Entidade {
      * @param deltaY inteiro do quanto deve se mover na vertical
      * @param indice posicao do SensorObstaculo na ArrayList de sensores do robo 
      */
-    public void moverComSensor(int deltaX, int deltaY, int indice) {
-        int novoX = posicaoX + deltaX;
-        int novoY = posicaoY + deltaY;
-        // Downcasting porque sei que esse elemento da ArrayList deve ser do tipo SensorObstaculo. Necessario pois preciso acessar o metodo
-        // 'checarObstaculoCaminho' que nao seria possivel mantendo o objeto como da classeSensor Sensor
-        SensorObstaculo sensorObs = (SensorObstaculo)sensores.get(indice);
+    protected void moverComSensor(int deltaX, int deltaY, int indice) throws RoboDesligadoException{
+        if(getEstado() == EstadoRobo.LIGADO) {
+            int novoX = posicaoX + deltaX;
+            int novoY = posicaoY + deltaY;
+            // Downcasting porque sei que esse elemento da ArrayList deve ser do tipo SensorObstaculo. Necessario pois preciso acessar o metodo
+            // 'checarObstaculoCaminho' que nao seria possivel mantendo o objeto como da classeSensor Sensor
+            SensorObstaculo sensorObs = (SensorObstaculo)sensores.get(indice);
 
-        // Checa se o robo nao vai sair dos limites do ambiente apos se mover
-        if (getAmbiente().dentroDosLimites(novoX, novoY)) {
-            int haObstaculosCaminho = sensorObs.checarObstaculoCaminho(getX(), getY(), deltaX, deltaY);
-            // Checa se nao ha obstaculos nos 2 caminhos até o ponto final
-            if (haObstaculosCaminho == 1) {
-                posicaoX = novoX;
-                posicaoY = novoY;
-                System.out.println("Movimentado com sucesso.");
-                exibirPosicao();
-            }
-            else if (haObstaculosCaminho == 0)
-                System.out.printf("Caminho sai do raio do sensor do Robo '%s'. Como não eh possivel garantir sua segurança, preferiu ficar parado.\n", getNome(), getNome());
+            // Checa se o robo nao vai sair dos limites do ambiente apos se mover
+            if (getAmbiente().dentroDosLimites(novoX, novoY)) {
+                int haObstaculosCaminho = sensorObs.checarObstaculoCaminho(getX(), getY(), deltaX, deltaY);
+                // Checa se nao ha obstaculos nos 2 caminhos até o ponto final
+                if (haObstaculosCaminho == 1) {
+                    posicaoX = novoX;
+                    posicaoY = novoY;
+                    System.out.println("Movimentado com sucesso.");
+                    exibirPosicao();
+                }
+                else if (haObstaculosCaminho == 0)
+                    System.out.printf("Caminho sai do raio do sensor do Robo '%s'. Como não eh possivel garantir sua segurança, preferiu ficar parado.\n", getNome(), getNome());
+                else 
+                    System.out.printf("Obstaculos que impediriam o movimento de '%s' foram detectados pelo sensor, '%s' permaneceu parado.\n", getNome(), getNome());
+            } 
+            // Não atualiza posição caso tenha saído dos limites
             else 
-                System.out.printf("Obstaculos que impediriam o movimento de '%s' foram detectados pelo sensor, '%s' permaneceu parado.\n", getNome(), getNome());
-        } 
-        // Não atualiza posição caso tenha saído dos limites
-        else 
-            System.out.printf("O sensor checou que essa posicao sairia dos limites do ambiente, e '%s' não tem permissão para fazer isso.\n", getNome());
-    }
+                System.out.printf("O sensor checou que essa posicao sairia dos limites do ambiente, e '%s' não tem permissão para fazer isso.\n", getNome());
+        } else {
+            throw new RoboDesligadoException();
+        }
+   }
 
     /**
      * Adiciona um sensor de tipo especificado ao robo

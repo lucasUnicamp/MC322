@@ -21,7 +21,7 @@ public class RoboPreguica extends RoboTerrestre {
     }
 
     @Override
-    public void moverPara(int x, int y) {
+    public void moverPara(int x, int y) throws RoboDesligadoException{
         // Checa se o Robo tem energia para mover
         if (energia > 0) {
             super.moverPara(x, y);
