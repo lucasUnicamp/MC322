@@ -14,11 +14,11 @@ import simulador.RoboXadrez;
 import simulador.Comunicavel;
 
 public class Menu {
-    private final Ambiente salaTeste;
+    private final Ambiente ambiente;
     private final Scanner scan;
 
     public Menu(Ambiente ambiente, Scanner scan){
-        salaTeste = ambiente;
+        this.ambiente = ambiente;
         this.scan = scan;
     }
 
@@ -27,8 +27,8 @@ public class Menu {
      */
     public void iniciarMenu() {
         while (true) {
-            exibirEscolhaMenuPrincipal(salaTeste);
-            int entradaPrincipal = lerEscolhaMenuPrincipal(salaTeste, scan);
+            exibirEscolhaMenuPrincipal();
+            int entradaPrincipal = lerEscolhaMenuPrincipal();
 
             switch (entradaPrincipal) {
                 case -1:
@@ -38,7 +38,7 @@ public class Menu {
                     iniciarMenuAmbiente();
                     break;
                 default:
-                    Robo roboUsado = salaTeste.robosAtivos.get(entradaPrincipal);
+                    Robo roboUsado = ambiente.robosAtivos.get(entradaPrincipal);
                     iniciarMenuRobo(roboUsado);
                     break;           
             }            
@@ -49,17 +49,14 @@ public class Menu {
         while (true) {
             // Exibe as opcoes do submenu
             exibirEscolhaAcoesAmbiente();
-            try {
-                // Recebe a entrada da escolha do usuario
-                int acaoAmb = lerEscolhaAcoesAmbiente(scan);
-                // Sai do submenu
-                if (acaoAmb == -1) 
-                break;
-                realizarAcaoAmbiente(salaTeste, acaoAmb, scan);
-            }
-            catch (InputMismatchException entradaInvalidaEsclhAcao) {
-                System.out.println("!!! Use apenas numeros !!!");
-                scan.next();
+            int entradaAmbiente = lerEscolhaAcoesAmbiente();
+
+            switch (entradaAmbiente) {
+                case -1:
+                    return;
+                default:
+                    realizarAcaoAmbiente(entradaAmbiente);
+                    break;
             }
         }
     }
@@ -73,21 +70,28 @@ public class Menu {
         System.out.println("\n[-1] :: voltar");
     }
 
-    public static int lerEscolhaAcoesAmbiente(Scanner scan) {
+    public int lerEscolhaAcoesAmbiente() {
         System.out.println("Digite um numero para realizar uma acao:");
-        System.out.print("> ");
-        int entradaAcao = scan.nextInt();
+        
+        while (true) {
+            try {
+                System.out.print("> ");
+                int entradaAcao = scan.nextInt();
 
-        if (entradaAcao <= 2 && entradaAcao >= -1) 
-            return entradaAcao;
-        else {
-            System.out.println("!!! Acao invalida. Tente novamente !!!");
-            exibirEscolhaAcoesAmbiente();
-            return lerEscolhaAcoesAmbiente(scan);
+                if (entradaAcao <= 2 && entradaAcao >= -1) 
+                    return entradaAcao;
+                else {
+                    System.out.printf("!!! %d Nao eh uma opcao valida. Tente novamente !!!\n", entradaAcao);
+                    continue;
+                }
+            } catch (InputMismatchException entradaInvalidaEsclhAcao) {
+                System.out.println("!!! Use apenas numeros !!!");
+                scan.next();
+            }
         }
     }
 
-    public static void realizarAcaoAmbiente(Ambiente ambiente, int acaoAmb, Scanner scan) {
+    public void realizarAcaoAmbiente(int acaoAmb) {
         switch (acaoAmb) {
             case 0:
                 ambiente.visualizarAmbiente();
@@ -100,6 +104,7 @@ public class Menu {
                 break;
         }
     }
+
     public void iniciarMenuRobo(Robo roboUsado) {
         while (true) {
             // Exibe as opcoes do submenu e armazena a qntd de opcoes ness em 'maximoAcoes'
@@ -130,7 +135,7 @@ public class Menu {
         }
     }
 
-    public static void exibirEscolhaMenuPrincipal(Ambiente ambiente) {
+    public void exibirEscolhaMenuPrincipal() {
         System.out.printf("\n*******************************************MENU*INTERATIVO*******************************************\n");
         for (int i = 0; i < ambiente.robosAtivos.size(); i++) {
             Robo robo = ambiente.robosAtivos.get(i);
@@ -141,7 +146,7 @@ public class Menu {
         System.out.println("[-1] :: encerrar o programa.");
     }
     
-    public static int lerEscolhaMenuPrincipal(Ambiente ambiente, Scanner scan) {
+    public int lerEscolhaMenuPrincipal() {
         int entradaPrincipal;
 
         while (true) {
@@ -211,11 +216,6 @@ public class Menu {
             System.out.println("[7] :: descarregar");
             System.out.println("[8] :: lançar");
             maximoAcoes = 8;
-        }
-
-        // COLOCAR OU DESTRUTIVEL OU OUTRAS INTERFACES
-        if (robo instanceof Comunicavel) {
-            System.out.println("[-2] :: acoes especiais");
         }
         System.out.println("\n[-1] :: voltar");
         return maximoAcoes;
