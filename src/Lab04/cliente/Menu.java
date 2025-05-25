@@ -26,111 +26,44 @@ public class Menu {
      * Metodo que coordena os loops do menu interativo. Chama os outros metodos para construir submenus 
      */
     public void iniciarMenu() {
-        int acaoRobo, acaoAmb;
-        int maximoAcoes;
-        int entradaPrincipal;
-        
         while (true) {
-            entradaPrincipal = menuPrincipal(salaTeste, scan);
-            // Usuario encerra o programa (break sai do loop e nao ha nada depois no 'Main.java')
-            if (entradaPrincipal == -1)
-                break;
-            // Submenu do ambiente 
-            else if (entradaPrincipal == -2) {
-                // Loop para que apos uma opcao seja selecionada, continue no submenu
-                while (true) {
-                    // Exibe as opcoes do submenu
-                    exibirEscolhaAcoesAmbiente();
-                    try {
-                        // Recebe a entrada da escolha do usuario
-                        acaoAmb = lerEscolhaAcoesAmbiente(scan);
-                        // Sai do submenu
-                        if (acaoAmb == -1) 
-                            break;
-                        realizarAcaoAmbiente(salaTeste, acaoAmb, scan);
-                    }
-                    catch (InputMismatchException entradaInvalidaEsclhAcao) {
-                        System.out.println("!!! Use apenas numeros !!!");
-                        scan.next();
-                    }
-                }
-                // Continue para voltar ao menu principal ignorando o resto do metodo abaixo (que corresponde
-                // ao submenu dos robos)
-                continue;
-            }
+            exibirEscolhaMenuPrincipal(salaTeste);
+            int entradaPrincipal = lerEscolhaMenuPrincipal(salaTeste, scan);
 
-            Robo roboUsado = salaTeste.robosAtivos.get(entradaPrincipal);
-            acaoRobo = 0;
-            // Loop para que apos uma opcao seja selecionada, continue no submenu
-            while (true) {
-                // Exibe as opcoes do submenu e armazena a qntd de opcoes ness em 'maximoAcoes'
-                maximoAcoes = exibirEscolhaAcoesRobos(roboUsado);
-                try {
-                    // Recebe a entrada do usuario
-                    acaoRobo = lerEscolhaAcoesRobos(roboUsado, maximoAcoes, scan);
-                    if (acaoRobo == -1) {
-                        break;
-                    }
-                    // Loop para que, durante a escolha dos paramentros de uma acao, uma entrada invalida nao
-                    // volte ao submenu do robo, mas apenas repeça os parametros
-                    while (true) {
-                        try {
-                            realizarAcoesRobos(roboUsado, acaoRobo, scan);
-                            break;
-                        }
-                        catch (InputMismatchException entradaInvalidaExecAcao) {
-                            System.out.println("!!! Use apenas numeros !!!");
-                            scan.next();
-                        }
-                    }
-                }
-                catch (InputMismatchException entradaInvalidaEsclhAcao) {
-                    System.out.println("!!! Use apenas numeros !!!");
-                    scan.next();
-                } 
-            }
+            switch (entradaPrincipal) {
+                case -1:
+                    System.out.println("\nObrigado por usar nosso sistema!\n");
+                    return;
+                case -2:
+                    iniciarMenuAmbiente();
+                    break;
+                default:
+                    Robo roboUsado = salaTeste.robosAtivos.get(entradaPrincipal);
+                    iniciarMenuRobo(roboUsado);
+                    break;           
+            }            
         }
     }
 
-    /**
-     * Exibe as escolhas que o usuario pode fazer no menu inicial, que sao selecionar um robo, imprimir ambiente
-     * ou encerrar o programa, e pega a entrada em seguida
-     * @param ambiente ambiente onde os testes serao feitos
-     * @param scan Scanner para ler entradas de usuarios
-     * @return 'entradaPrincipal', inteiro representativo do robo escolhido
-     */
-    public static int menuPrincipal(Ambiente ambiente, Scanner scan) {
-        int entradaPrincipal;
-        
-        // Loop "infinito" para lidar com entradas invalidas
-        while(true) {
-            System.out.printf("\n*******************************************MENU*INTERATIVO*******************************************\n");
-            for (int i = 0; i < ambiente.robosAtivos.size(); i++) {
-                Robo robo = ambiente.robosAtivos.get(i);
-                System.out.printf("[%d] :: %s '%s'\n", i, robo.getClass().getSimpleName(), robo.getNome());
-            }
-            System.out.printf("\n[-2] :: ambiente\n");
-            System.out.println("[-1] :: encerrar o programa.");
-            System.out.println("Digite um numero para prosseguir:");
-            System.out.print("> ");
-            
+    public void iniciarMenuAmbiente() {
+        while (true) {
+            // Exibe as opcoes do submenu
+            exibirEscolhaAcoesAmbiente();
             try {
-                entradaPrincipal = scan.nextInt();          
-                // Se o numero da entrada esta entre as opçoes possiveis, eh valido
-                if (entradaPrincipal < ambiente.robosAtivos.size() && entradaPrincipal >= -2) 
-                    break;
-                else 
-                    System.out.println("!!! Digite um numero valido !!!"); 
+                // Recebe a entrada da escolha do usuario
+                int acaoAmb = lerEscolhaAcoesAmbiente(scan);
+                // Sai do submenu
+                if (acaoAmb == -1) 
+                break;
+                realizarAcaoAmbiente(salaTeste, acaoAmb, scan);
             }
-            catch (InputMismatchException entradaInvalidaMenu) {
+            catch (InputMismatchException entradaInvalidaEsclhAcao) {
                 System.out.println("!!! Use apenas numeros !!!");
                 scan.next();
             }
-
         }
-        return entradaPrincipal;
     }
-
+    
     public static void exibirEscolhaAcoesAmbiente() {
         System.out.printf("\n********************************************MENU*AMBIENTE********************************************\n");
         System.out.println("[0] :: imprimir ambiente");
@@ -161,10 +94,76 @@ public class Menu {
                 break;
             case 1:
                 ambiente.listarRobos();
+                break;
             case 2:
                 ambiente.central.exibirMensagens();
+                break;
         }
     }
+    public void iniciarMenuRobo(Robo roboUsado) {
+        while (true) {
+            // Exibe as opcoes do submenu e armazena a qntd de opcoes ness em 'maximoAcoes'
+            int maximoAcoes = exibirEscolhaAcoesRobos(roboUsado);
+            try {
+                // Recebe a entrada do usuario
+                int acaoRobo = lerEscolhaAcoesRobos(roboUsado, maximoAcoes, scan);
+                if (acaoRobo == -1) {
+                    break;
+                }
+                // Loop para que, durante a escolha dos paramentros de uma acao, uma entrada invalida nao
+                // volte ao submenu do robo, mas apenas repeça os parametros
+                while (true) {
+                    try {
+                        realizarAcoesRobos(roboUsado, acaoRobo, scan);
+                        break;
+                    }
+                    catch (InputMismatchException entradaInvalidaExecAcao) {
+                        System.out.println("!!! Use apenas numeros !!!");
+                        scan.next();
+                    }
+                }
+            }
+            catch (InputMismatchException entradaInvalidaEsclhAcao) {
+                System.out.println("!!! Use apenas numeros !!!");
+                scan.next();
+            } 
+        }
+    }
+
+    public static void exibirEscolhaMenuPrincipal(Ambiente ambiente) {
+        System.out.printf("\n*******************************************MENU*INTERATIVO*******************************************\n");
+        for (int i = 0; i < ambiente.robosAtivos.size(); i++) {
+            Robo robo = ambiente.robosAtivos.get(i);
+            System.out.printf("[%d] :: %s '%s'\n", i, robo.getClass().getSimpleName(), robo.getNome());
+        }
+
+        System.out.printf("\n[-2] :: ambiente\n");
+        System.out.println("[-1] :: encerrar o programa.");
+    }
+    
+    public static int lerEscolhaMenuPrincipal(Ambiente ambiente, Scanner scan) {
+        int entradaPrincipal;
+
+        while (true) {
+            System.out.println("Digite um numero para prosseguir:");
+            System.out.print("> ");
+            
+            try {
+                entradaPrincipal = scan.nextInt();          
+                // Se o numero da entrada esta entre as opçoes possiveis, eh valido
+                if (entradaPrincipal < ambiente.robosAtivos.size() && entradaPrincipal >= -2) 
+                    break;
+                else 
+                    System.out.println("!!! Digite um numero valido !!!"); 
+            }
+            catch (InputMismatchException entradaInvalidaMenu) {
+                System.out.println("!!! Use apenas numeros !!!");
+                scan.next();
+            }
+        }
+        return entradaPrincipal;
+    }
+
     
     /**
      * Exibe as acoes possiveis para cada robo. Diferencia o tipo de robo pelo uso de 'instanceof' e tira proveito
