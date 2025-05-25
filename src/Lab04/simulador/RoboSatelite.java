@@ -1,6 +1,6 @@
 package simulador;
 
-public class RoboSatelite extends RoboAereo {
+public class RoboSatelite extends RoboAereo implements Comunicavel {
     private int altitudeMinima;
     private int cargaLancamento;
     // Flag para validar os movimentos de sobe e desce, que so podem funcionar caso o robo esteja no ar
