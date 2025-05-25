@@ -16,8 +16,14 @@ public class CentralComunicacao {
     }
 
     public void exibirMensagens() {
-        for(String msg : mensagens){
-            System.out.println(msg);
+        if (mensagens.size() == 0) {
+            System.out.println("Nao ha mensagens na central. Volte mais tarde.");
+        }
+        else {
+            System.out.println("Mensagens armazenadas na central:");
+            for(String msg: mensagens){
+                System.out.println(msg);
+            }
         }
     }
 }

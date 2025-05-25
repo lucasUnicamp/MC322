@@ -11,6 +11,7 @@ import simulador.RoboPreguica;
 import simulador.RoboSatelite;
 import simulador.RoboTerrestre;
 import simulador.RoboXadrez;
+import simulador.Comunicavel;
 
 public class Menu {
     private final Ambiente salaTeste;
@@ -134,6 +135,7 @@ public class Menu {
         System.out.printf("\n********************************************MENU*AMBIENTE********************************************\n");
         System.out.println("[0] :: imprimir ambiente");
         System.out.println("[1] :: listar robos");
+        System.out.println("[2] :: listar mensagens na central");
 
         System.out.println("\n[-1] :: voltar");
     }
@@ -159,6 +161,8 @@ public class Menu {
                 break;
             case 1:
                 ambiente.listarRobos();
+            case 2:
+                ambiente.central.exibirMensagens();
         }
     }
     
@@ -173,7 +177,7 @@ public class Menu {
      */
     public static int exibirEscolhaAcoesRobos(Robo robo) {
         int maximoAcoes = 0;
-        System.out.printf("\n**********************************************MENU*ROBO**********************************************\n");
+        System.out.println("\n**********************************************MENU*ROBO**********************************************");
         if (robo instanceof Robo) {
             System.out.println("[0] :: informacoes");
             System.out.println("[1] :: mover robo");
@@ -208,6 +212,11 @@ public class Menu {
             System.out.println("[7] :: descarregar");
             System.out.println("[8] :: lançar");
             maximoAcoes = 8;
+        }
+
+        // COLOCAR OU DESTRUTIVEL OU OUTRAS INTERFACES
+        if (robo instanceof Comunicavel) {
+            System.out.println("[-2] :: acoes especiais");
         }
         System.out.println("\n[-1] :: voltar");
         return maximoAcoes;

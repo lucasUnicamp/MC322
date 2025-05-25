@@ -2,7 +2,7 @@ package simulador;
 
 import java.lang.Math;
 
-public class RoboXadrez extends RoboTerrestre {
+public class RoboXadrez extends RoboTerrestre implements Comunicavel {
     private int tipoMovimento;      // Tipo 1 move-se como a peça de xadrez Cavalo e tipo 2 como o Peao 
 
     public RoboXadrez(String nome, String id, int posicaoX, int posicaoY, Ambiente ambiente, int velocidadeMaxima, int tipoMovimento) {
@@ -66,6 +66,18 @@ public class RoboXadrez extends RoboTerrestre {
         }
 
         System.out.printf("Movimento invalidado pelas regras do xadrez.\n");
+    }
+    
+    @Override
+    public void enviarMensagem(Comunicavel destinatario, String mensagem) {
+        destinatario.receberMensagem(mensagem);
+        System.out.println("A mensagem foi enviada com sucesso.");
+    }
+
+    @Override
+    public void receberMensagem(String mensagem) {
+        getAmbiente().central.registrarMensagem(getID(), mensagem);
+        System.out.println("A mensagem foi recebida e registrada com sucesso.");
     }
 
     public void setTipoMovimento(int tipoMovimento) {
