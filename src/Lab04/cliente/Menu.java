@@ -45,15 +45,15 @@ public class Menu {
 
     // Printa as opcoes do menu principal
     public void exibirEscolhaMenuPrincipal() {
-        System.out.println("\n== MENU INTERATIVO ============================= === == = =    =       =");
-        System.out.println("-- ROBOS -------- -- ---  --   -       -");
+        System.out.println("\n## MENU INTERATIVO ################################################");
+        System.out.println("== ROBOS ====================================");
         for (int i = 0; i < ambiente.robosAtivos.size(); i++) {
             Robo robo = ambiente.robosAtivos.get(i);
-            System.out.printf("[%d] :: %s '%s'\n", i, robo.getClass().getSimpleName(), robo.getNome());
+            System.out.printf("[%d] :: %-15s '%s'\n", i, robo.getClass().getSimpleName(), robo.getNome());
         }
-
-        System.out.printf("\n[-2] :: ambiente\n");
-        System.out.println("[-1] :: encerrar o programa.");
+        System.out.println("\n== OUTROS ====================================");
+        System.out.printf("[-2] :: Ambiente\n");
+        System.out.println("[-1] :: Encerrar o programa.\n");
     }
     
     /**
@@ -62,9 +62,10 @@ public class Menu {
      */
     public int lerEscolhaMenuPrincipal() {
         int entradaPrincipal;
+
+        System.out.println("Digite o numero corresponde a sua opçao:");
         // Loop para que o menu nao seja printado novamente caso a entrada seja invalida
         while (true) {
-            System.out.println("Digite o numero corresponde a sua opçao:");
             System.out.print("> ");
             try {
                 entradaPrincipal = scan.nextInt();          
@@ -72,7 +73,7 @@ public class Menu {
                 if (entradaPrincipal < ambiente.robosAtivos.size() && entradaPrincipal >= -2) 
                     break;
                 else 
-                    System.out.printf("!!! %d Nao eh uma opcao valida. Tente novamente !!!\n", entradaPrincipal); 
+                    System.out.printf("!!! %d Nao eh uma opcao valida !!!\n", entradaPrincipal); 
             }
             catch (InputMismatchException entradaInvalidaMenu) {
                 System.out.println("!!! Use apenas numeros !!!");
@@ -100,12 +101,12 @@ public class Menu {
     
     // Printa as opcoes do submenu do ambiente
     public void exibirEscolhaMenuAmbiente() {
-        System.out.printf("\n********************************************MENU*AMBIENTE********************************************\n");
-        System.out.println("[0] :: imprimir ambiente");
-        System.out.println("[1] :: listar robos");
-        System.out.println("[2] :: listar mensagens na central");
+        System.out.println("\n~~ AMBIENTE ~~~~~~~~~~~~~~~~~~");
+        System.out.println("[0] :: Imprimir ambiente");
+        System.out.println("[1] :: Listar robos");
+        System.out.println("[2] :: Listar mensagens na central");
 
-        System.out.println("\n[-1] :: voltar");
+        System.out.println("\n[-1] :: Voltar");
     }
 
     /**
@@ -113,7 +114,7 @@ public class Menu {
      * @return inteiro correspondente a opcao selecionada
      */
     public int lerEscolhaMenuAmbiente() {
-        System.out.println("Digite o numero corresponde a sua opçao:");
+        System.out.println("\nDigite o numero da acao escolhida:");
         // Loop para que o submenu nao seja printado novamente caso a entrada seja invalida
         while (true) {
             try {
@@ -123,7 +124,7 @@ public class Menu {
                 if (entradaAcao <= 2 && entradaAcao >= -1) 
                     return entradaAcao;
                 else {
-                    System.out.printf("!!! %d Nao eh uma opcao valida. Tente novamente !!!\n", entradaAcao);
+                    System.out.printf("!!! %d Nao eh uma opcao valida !!!\n", entradaAcao);
                     continue;
                 }
             } catch (InputMismatchException entradaInvalidaEsclhAcao) {
@@ -176,43 +177,44 @@ public class Menu {
      */
     public int exibirEscolhaMenuRobo(Robo robo) {
         int maximoAcoes = 0;
-        System.out.println("\n**********************************************MENU*ROBO**********************************************");
+        System.out.printf("\n~~ %s ~~~~~~~~~~~~~~~~~~\n", robo.getClass().getSimpleName().toUpperCase());
         if (robo instanceof Robo) {
-            System.out.println("[0] :: informacoes");
-            System.out.println("[1] :: mover robo");
-            System.out.println("[2] :: usar sensores");
-            System.out.println("[3] :: mudar direção");
+            System.out.println("[0] :: Informacoes");
+            System.out.println("[1] :: Mover robo");
+            System.out.println("[2] :: Usar sensores");
+            System.out.println("[3] :: Mudar direção");
             maximoAcoes = 3;
         }
         if (robo instanceof RoboTerrestre) {
-            System.out.println("[4] :: aumentar velocidade");
-            System.out.println("[5] :: diminuir velocidade");
+            System.out.println("[4] :: Aumentar velocidade");
+            System.out.println("[5] :: Diminuir velocidade");
             maximoAcoes = 5;
         }
         if (robo instanceof RoboXadrez) {
-            System.out.println("[6] :: mudar peça");
+            System.out.println("[6] :: Mudar peça");
             maximoAcoes = 6;
         }
         if (robo instanceof RoboPreguica) {
-            System.out.println("[6] :: descançar");
+            System.out.println("[6] :: Descançar");
             maximoAcoes = 6;
         }
         if (robo instanceof RoboAereo) {
-            System.out.println("[4] :: subir");
-            System.out.println("[5] :: descer");
+            System.out.println("[4] :: Subir");
+            System.out.println("[5] :: Descer");
             maximoAcoes = 5;
         }
         if (robo instanceof RoboPlanador) {
-            System.out.println("[6] :: mudar tamanho da asa");
+            System.out.println("[6] :: Mudar tamanho da asa");
             maximoAcoes = 6;
         }
         if (robo instanceof RoboSatelite) {
-            System.out.println("[6] :: carregar");
-            System.out.println("[7] :: descarregar");
-            System.out.println("[8] :: lançar");
+            System.out.println("[6] :: Carregar");
+            System.out.println("[7] :: Descarregar");
+            System.out.println("[8] :: Lançar");
             maximoAcoes = 8;
         }
-        System.out.println("\n[-1] :: voltar");
+
+        System.out.println("\n[-1] :: Voltar");
         return maximoAcoes;
     }
 
@@ -224,7 +226,7 @@ public class Menu {
      * @return inteiro representativo da acao escolhida pelo usuario para o robo fazer
      */
     public int lerEscolhaMenuRobo(Robo robo, int maximoAcoes) {
-        System.out.println("Digite um numero para realizar uma acao:");
+        System.out.println("\nDigite o numero da acao escolhida:");
         // Loop para que o submenu nao seja printado novamente caso a entrada seja invalida
         while (true) {
             try {
@@ -234,7 +236,7 @@ public class Menu {
                 if (entradaAcao <= maximoAcoes && entradaAcao >= -1) 
                     return entradaAcao;
                 else {
-                    System.out.printf("!!! %d Nao eh uma opcao valida. Tente novamente !!!\n", entradaAcao);
+                    System.out.printf("!!! %d Nao eh uma opcao valida !!!\n", entradaAcao);
                     continue;
                 }
             } catch (InputMismatchException entradaInvalidaEsclhAcao) {
@@ -400,13 +402,13 @@ public class Menu {
 
     // Printa as opcoes do submenu das direcoes
     public void exibirEscolhaMenuDirecao() {
-        System.out.printf("\n******************************************MENU*DIRECOES**********************************************\n");
+        System.out.println("\n-- DIREÇOES ---------");
         System.out.println("[0] :: Norte");
         System.out.println("[1] :: Sul");
         System.out.println("[2] :: Leste");
         System.out.println("[3] :: Oeste");
 
-        System.out.println("\n[-1] :: voltar");
+        System.out.println("\n[-1] :: Voltar");
     }
     
     /**
@@ -414,7 +416,7 @@ public class Menu {
      * @return inteiro correspondente a opcao selecionada
      */
     public int lerEscolhaMenuDirecao() {
-        System.out.println("Para qual direção deseja mudar?");
+        System.out.println("\nPara qual direção deseja mudar?");
     // Loop para que o submenu nao seja printado novamente caso a entrada seja invalida
         while (true) {
             try {
@@ -425,7 +427,7 @@ public class Menu {
                     return entradaDirecao;
                 }
                 else {
-                    System.out.printf("!!! %d Nao eh uma opcao valida. Tente novamente !!!\n", entradaDirecao);
+                    System.out.printf("!!! %d Nao eh uma opcao valida !!!\n", entradaDirecao);
                     continue;
                 }
             } catch (InputMismatchException erro) {
@@ -453,7 +455,7 @@ public class Menu {
 
     // Printa as opcoes do submenu dos sensores
     public void exibirEscolhaMenuSensores(Robo robo) {
-        System.out.printf("\n******************************************MENU*SENSORES**********************************************\n");
+        System.out.println("\n-- SENSORES ---------");
         robo.exibirSensores();
 
         System.out.println("\n[-1] voltar");
@@ -470,6 +472,7 @@ public class Menu {
             System.out.println("\nNao ha sensores nesse robo. Tente com outro.");
             return -1;
         }
+        System.out.println("\nQual sensor deseja usar?");
         while (true) {
             try {
                 System.out.print("> ");

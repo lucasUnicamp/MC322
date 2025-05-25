@@ -39,7 +39,7 @@ public class Main {
          * ja que dependem de onde instanciamos os robos. Outros acontecimentos, como colidir com obstaculo, nao ter carga suficiente, monitorar uma posicao, etc,
          * podem todos serem feitos facilmente pelo menu interativo com poucas entradas. 
          */
-        System.out.printf("\n********************************************CRIACAO**ROBOS********************************************");
+        System.out.print("\n## CRIACAO ROBOS ################################");
         // Instanciamento em massa de robos e adicao de sensores por composiçao (sensor eh instanciado dentro do robo, logo nao existe fora dele)
         RoboTerrestre roboTerrestre = new RoboTerrestre("Beta", "RT01", 25, 25, salaTeste, 60);     // Cria o robo terrestre generico
         roboTerrestre.adicionarSensor(new SensorObstaculo(10, salaTeste));
@@ -64,8 +64,8 @@ public class Main {
 
         System.out.println("");
         try {
-            roboSatelite.enviarMensagem(roboXadrez, "E aí, bonitão");
-            roboXadrez.enviarMensagem(roboSatelite, "Já fez o lab?");
+            roboSatelite.enviarMensagem(roboXadrez, "Mensagem teste 1");
+            roboXadrez.enviarMensagem(roboSatelite, "Mensagem teste 2");
             salaTeste.getCentral().exibirMensagens();
         } catch (RoboDesligadoException erro) {
             System.out.println(erro.getMessage());

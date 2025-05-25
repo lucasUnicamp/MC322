@@ -2,6 +2,6 @@ package simulador;
 
 public class RoboDesligadoException extends Exception {
     public RoboDesligadoException (String id) {
-        super(String.format("Robô %s está deligado, não pode executar essa ação", id));
+        super(String.format("Robo %s esta deligado, nao pode executar essa açao.", id));
     }
 }

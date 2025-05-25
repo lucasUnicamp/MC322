@@ -43,7 +43,7 @@ public class RoboAereo extends Robo {
     }
 
     public void subir(int metros) throws RoboDesligadoException{
-        if(estaLigado()) {
+        if (estaLigado()) {
             // Compara altitude do Robo com a maxima dada
             if (getAltitude() + metros <= altitudeMaxima) {
                 System.out.println("O Robo subiu com sucesso.");
