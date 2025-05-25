@@ -95,7 +95,8 @@ public class Ambiente {
     public void listarRobos() {
         System.out.println("");
         for (Robo robo:robosAtivos) {
-            System.out.printf("    {%c} %s, (%d, %d, %d), %s\n", robo.getRepresentacao(), robo.getNome(), robo.getX(), robo.getY(), robo.getZ(), robo.getEstado());
+            System.out.printf("    > %c-%s aka %15s %-7s em (%02d, %02d, %02d) > %s\n", robo.getRepresentacao(), robo.getID(), 
+            robo.getClass().getSimpleName(), robo.getNome(), robo.getX(), robo.getY(), robo.getZ(), robo.getEstado());
         }
     }
 
