@@ -20,8 +20,8 @@ public class CentralComunicacao {
     }
 
     public void exibirMensagens() {
-        if (mensagens.size() == 0) {
-            System.out.println("Nao ha mensagens na central. Volte mais tarde.");
+        if (mensagens == null || mensagens.size() == 0) {
+            System.out.println("\nNao ha mensagens na central. Volte mais tarde.");
         }
         else {
             System.out.println("Mensagens armazenadas na central:");
