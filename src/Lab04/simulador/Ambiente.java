@@ -7,16 +7,18 @@ public class Ambiente {
     private final int largura;
     private final int profundidade;
     private final int altura;
+    public CentralComunicacao central;
     public ArrayList<Entidade> entidades;
     public ArrayList<Robo> robosAtivos;
     public ArrayList<Obstaculo> obstaculos;
     public TipoEntidade[][][] mapa;
     public double[][] temperaturas;
     
-    public Ambiente(int largura, int profundidade, int altura, int qntdObstaculo) {
+    public Ambiente(int largura, int profundidade, int altura, int qntdObstaculo, CentralComunicacao central) {
         this.largura = largura;
         this.profundidade = profundidade;
         this.altura = altura;
+        this.central = central;
         robosAtivos = new ArrayList<Robo>();
         obstaculos = new ArrayList<Obstaculo>();
         entidades = new ArrayList<Entidade>();
@@ -94,8 +96,9 @@ public class Ambiente {
 
     public void listarRobos() {
         System.out.println("");
+        System.out.println(" ID ICONE            TIPO     NOME        POSICAO            STATUS");
         for (Robo robo:robosAtivos) {
-            System.out.printf("    > %c-%s aka %15s %-7s em (%02d, %02d, %02d) > %s\n", robo.getRepresentacao(), robo.getID(), 
+            System.out.printf("%s  %c  aka%15s %-7s em  (%02d, %02d, %02d)  esta  %s\n", robo.getID(), robo.getRepresentacao(), 
             robo.getClass().getSimpleName(), robo.getNome(), robo.getX(), robo.getY(), robo.getZ(), robo.getEstado());
         }
     }
