@@ -102,7 +102,7 @@ public class Menu {
                 ambiente.listarRobos();
                 break;
             case 2:
-                ambiente.central.exibirMensagens();
+                ambiente.getCentral().exibirMensagens();
                 break;
         }
     }
@@ -239,7 +239,7 @@ public class Menu {
         if (entradaAcao <= maximoAcoes && entradaAcao >= -1) 
             return entradaAcao;
         else {
-            System.out.println("!!! Acao invalida. Tente novamente !!!");
+            System.out.printf("!!! %d Nao eh uma opcao valida. Tente novamente !!!\n", entradaAcao);
             exibirEscolhaAcoesRobos(robo);
             return lerEscolhaAcoesRobos(robo, maximoAcoes, scan);
         }
@@ -392,7 +392,7 @@ public class Menu {
             if (direcao == -1)
                 break;
             else if (direcao > 3){
-                System.out.println("!!! Essa nao eh uma opcao valida !!!");
+                System.out.printf("!!! %d Nao eh uma opcao valida. Tente novamente !!!\n", direcao);
             }
             else {
                 robo.setDirecao(direcao);
@@ -429,7 +429,7 @@ public class Menu {
             if(indiceSensor >= 0 && indiceSensor < robo.sensores.size())
                 break;
             else
-                System.out.println("!!! Esse nao eh um sensor valido !!!");
+                System.out.printf("!!! %d nao eh um sensor valido !!!\n", indiceSensor);
         }
 
         if(indiceSensor == -1)
