@@ -127,8 +127,8 @@ public class Menu {
         }
     }
 
-    public void realizarAcoesMenuAmbiente(int acaoAmb) {
-        switch (acaoAmb) {
+    public void realizarAcoesMenuAmbiente(int entradaAcao) {
+        switch (entradaAcao) {
             case 0:
                 ambiente.visualizarAmbiente();
                 break;
@@ -272,7 +272,7 @@ public class Menu {
                     
                     // Mesmo em todos os robos
                     case 2:
-                        acaoSensor(robo);
+                        iniciarMenuSensores(robo);
                         break;
                     
                     // Mesmo em todos os robos  
@@ -365,13 +365,11 @@ public class Menu {
                         ((RoboSatelite) robo).lancamento();
                         break;
                 }
-            } 
-            catch (InputMismatchException erro) {
+            } catch (InputMismatchException erro) {
                 System.out.println("!!! Use apenas numeros !!!");
                 scan.next();
                 continue;
-            }
-            catch (RoboDesligadoException erro) {
+            } catch (RoboDesligadoException erro) {
                 System.out.println(erro.getMessage());
             }
             break;
@@ -406,16 +404,68 @@ public class Menu {
     public int lerEscolhaMenuDirecao() {
         System.out.println("Para qual direção deseja mudar?");
 
-        while(true) {
+        while (true) {
             try {
                 System.out.print("> ");
                 int entradaDirecao = scan.nextInt();
 
-                if (entradaDirecao > 3){
-                    System.out.printf("!!! %d Nao eh uma opcao valida. Tente novamente !!!\n", entradaDirecao);
+                if (entradaDirecao >= -1 && entradaDirecao <= 3){
+                    return entradaDirecao;
                 }
                 else {
-                    return entradaDirecao;
+                    System.out.printf("!!! %d Nao eh uma opcao valida. Tente novamente !!!\n", entradaDirecao);
+                    continue;
+                }
+            } catch (InputMismatchException erro) {
+                System.out.println("!!! Use apenas numeros !!!");
+                scan.next();
+            }
+        }
+    }
+
+    public void iniciarMenuSensores(Robo robo) {
+        while (true) {
+            exibirEscolhaMenuSensores(robo);
+            int entradaSensor = lerEscolhaMenuSensores(robo);
+
+            switch (entradaSensor) {
+                case -1:
+                    return;
+                default:
+                    realizarAcaoMenuSensor(robo, entradaSensor);
+                    break;
+            }
+        }
+    }
+
+    public void exibirEscolhaMenuSensores(Robo robo) {
+        System.out.printf("\n******************************************MENU*SENSORES**********************************************\n");
+        robo.exibirSensores();
+
+        System.out.println("\n[-1] voltar");
+    }
+
+    /**
+     * Caso o usuario escolha usar um sensor de um robo, eh necessario checar se o robo tem o sensor especificado
+     * e, depois disso; se tiver, deve pegar a entrada de qual coordenada se quer monitorar com o sensor e exibir
+     * uma resposta apropriada
+     * @param robo robo que foi escolhido na entrada principal
+     */
+    public int lerEscolhaMenuSensores(Robo robo) {
+        if (robo.sensores == null || robo.sensores.size() == 0) {
+            System.out.println("\nNao ha sensores nesse robo. Tente com outro.");
+            return -1;
+        }
+        while (true) {
+            try {
+                System.out.print("> ");
+                int entradaAcao = scan.nextInt();
+
+                if (entradaAcao >= -1 && entradaAcao < robo.sensores.size())
+                    return entradaAcao;
+                else {
+                    System.out.printf("!!! %d nao eh um sensor valido !!!\n", entradaAcao);
+                    continue;
                 }
             } catch (InputMismatchException erro) {
                 System.out.println("!!! Use apenas numeros !!!");
@@ -425,61 +475,29 @@ public class Menu {
     }
 
     /**
-     * Caso o usuario escolha usar um sensor de um robo, eh necessario checar se o robo tem o sensor especificado
-     * e, depois disso; se tiver, deve pegar a entrada de qual coordenada se quer monitorar com o sensor e exibir
-     * uma resposta apropriada
-     * @param robo robo que foi escolhido na entrada principal
-     * @param scan Scanner para ler entradas de usuarios
-     */
-    public void acaoSensor(Robo robo) {
-        int indiceSensor;
-        
-        if (robo.sensores != null && robo.sensores.size() == 0) {
-            indiceSensor = -1;
-            System.out.println("Nao ha sensores nesse robo.");
-            return;
-        }
-
-        System.out.printf("\n******************************************MENU*SENSORES**********************************************\n");
-        robo.exibirSensores();
-        System.out.println("\n[-1] voltar");
-        while (true) {
-            System.out.print("> ");
-            indiceSensor = scan.nextInt();
-            
-            if(indiceSensor == -1)
-                break;
-            if(indiceSensor >= 0 && indiceSensor < robo.sensores.size())
-                break;
-            else
-                System.out.printf("!!! %d nao eh um sensor valido !!!\n", indiceSensor);
-        }
-
-        if(indiceSensor == -1)
-            return;
-
-        acaoMonitorar(robo, indiceSensor, scan);
-    }
-
-    /**
      * Pega a entrada do usuario de qual ponto deve ser 'monitorado' e usa o sensor especificado naquele ponto
      * @param robo robo que foi escolhido na entrada principal
-     * @param indiceSensor posicao do sensor que se quer usar na lista de sensores do robo especificado
-     * @param scan Scanner para ler entradas de usuarios
+     * @param entradaAcao posicao do sensor que se quer usar na lista de sensores do robo especificado
      */
-    public static void acaoMonitorar(Robo robo, int indiceSensor, Scanner scan) {
-        try {
-        System.out.println("\n[int] Qual coordenada x gostaria de monitorar?");
-        System.out.print("> ");
-        int posX = scan.nextInt();
-        System.out.println("[int] Qual coordenada y gostaria de monitorar?");
-        System.out.print("> ");
-        int posY = scan.nextInt();
-        System.out.println("");
-        robo.usarSensor(indiceSensor, posX, posY);
-        } catch (RoboDesligadoException erro) {
-            System.out.println(erro.getMessage());
+    public void realizarAcaoMenuSensor(Robo robo, int entradaAcao) {
+        while (true) {
+            try {
+                System.out.println("\n[int] Qual coordenada x gostaria de monitorar?");
+                System.out.print("> ");
+                int posX = scan.nextInt();
+                System.out.println("[int] Qual coordenada y gostaria de monitorar?");
+                System.out.print("> ");
+                int posY = scan.nextInt();
+                System.out.println("");
+                robo.usarSensor(entradaAcao, posX, posY);
+            } catch (InputMismatchException erro) {
+                System.out.println("!!! Use apenas numeros !!!");
+                scan.next();
+                continue;
+            } catch (RoboDesligadoException erro) {
+                System.out.println(erro.getMessage());
+            }
+            break;
         }
     }
-
 }
