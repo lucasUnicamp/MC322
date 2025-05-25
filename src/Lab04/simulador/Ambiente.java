@@ -7,7 +7,7 @@ public class Ambiente {
     private final int largura;
     private final int profundidade;
     private final int altura;
-    public CentralComunicacao central;
+    private CentralComunicacao central;
     public ArrayList<Entidade> entidades;
     public ArrayList<Robo> robosAtivos;
     public ArrayList<Obstaculo> obstaculos;
@@ -176,6 +176,10 @@ public class Ambiente {
 
         System.out.println("Legenda: . = vazio    # = obstaculo    T = robo terrestre    X = robo xadrez    G = robo preguica");
         System.out.println("                A = robo aereo    P = robo planador    S = robo satelite");
+    }
+
+    public CentralComunicacao getCentral() {
+        return central;
     }
 
     public int getLargura() {

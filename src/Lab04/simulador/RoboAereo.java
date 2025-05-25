@@ -26,14 +26,14 @@ public class RoboAereo extends Robo {
      * o override, ele tentaria usar o 'moverSemSensor'
      */
     @Override
-    public void moverPara(int x, int y){
+    public void moverPara(int x, int y) throws RoboDesligadoException{
         int deltaX = x - getX();
         int deltaY = y - getY();
         int indice = temSensorTipo("SensorObstaculo");
         System.out.printf("Tentando mover o Robo '%s' para a posiçao (%d, %d).\n", getNome(), x, y);
         
         if (indice != -1) {
-            moverComSensor(deltaX, deltaY, indice);
+            super.moverComSensor(deltaX, deltaY, indice);
             System.out.printf("O Robo '%s' terminou o movimento na posicao (%d, %d, %d).\n", getNome(), getX(), getY(), getAltitude());
         }
         else

@@ -23,7 +23,7 @@ public class RoboXadrez extends RoboTerrestre implements Comunicavel {
     }
 
     @Override
-    public void moverPara(int x, int y) {
+    public void moverPara(int x, int y) throws RoboDesligadoException{
         int deltaX = x - getX();
         int deltaY = y - getY();
         if (getTipoMovimento() == 1) {
@@ -76,7 +76,7 @@ public class RoboXadrez extends RoboTerrestre implements Comunicavel {
 
     @Override
     public void receberMensagem(String mensagem) {
-        getAmbiente().central.registrarMensagem(getID(), mensagem);
+        getAmbiente().getCentral().registrarMensagem(getID(), mensagem);
         System.out.println("A mensagem foi recebida e registrada com sucesso.");
     }
 

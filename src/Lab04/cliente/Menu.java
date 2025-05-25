@@ -6,12 +6,14 @@ import java.util.Scanner;
 import simulador.Ambiente;
 import simulador.Robo;
 import simulador.RoboAereo;
+import simulador.RoboDesligadoException;
 import simulador.RoboPlanador;
 import simulador.RoboPreguica;
 import simulador.RoboSatelite;
 import simulador.RoboTerrestre;
 import simulador.RoboXadrez;
 import simulador.Comunicavel;
+import simulador.EstadoRobo;
 
 public class Menu {
     private final Ambiente ambiente;
@@ -271,7 +273,11 @@ public class Menu {
                 System.out.print("> ");
                 int y = scan.nextInt();
                 System.out.println("");
-                robo.moverPara(x, y);
+                try {
+                    robo.moverPara(x, y);
+                } catch (RoboDesligadoException erro) {
+                    erro.printStackTrace();
+                }
                 break;
             
             // Mesmo em todos os robos
