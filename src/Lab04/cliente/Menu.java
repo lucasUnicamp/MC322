@@ -12,8 +12,6 @@ import simulador.RoboPreguica;
 import simulador.RoboSatelite;
 import simulador.RoboTerrestre;
 import simulador.RoboXadrez;
-import simulador.Comunicavel;
-import simulador.EstadoRobo;
 
 public class Menu {
     private final Ambiente ambiente;
@@ -24,9 +22,7 @@ public class Menu {
         this.scan = scan;
     }
 
-    /*
-     * Metodo que coordena os loops do menu interativo. Chama os outros metodos para construir submenus 
-     */
+    // Metodo que coordena os loops do menu interativo. Chama os outros metodos para construir submenus 
     public void iniciarMenuPrincipal() {
         while (true) {
             exibirEscolhaMenuPrincipal();
@@ -47,8 +43,10 @@ public class Menu {
         }
     }
 
+    // Printa as opcoes do menu principal
     public void exibirEscolhaMenuPrincipal() {
-        System.out.printf("\n*******************************************MENU*INTERATIVO*******************************************\n");
+        System.out.println("\n== MENU INTERATIVO ============================= === == = =    =       =");
+        System.out.println("-- ROBOS -------- -- ---  --   -       -");
         for (int i = 0; i < ambiente.robosAtivos.size(); i++) {
             Robo robo = ambiente.robosAtivos.get(i);
             System.out.printf("[%d] :: %s '%s'\n", i, robo.getClass().getSimpleName(), robo.getNome());
@@ -58,13 +56,16 @@ public class Menu {
         System.out.println("[-1] :: encerrar o programa.");
     }
     
+    /**
+     * Le a entrada do usuario no menu principal. Tem tratamento de erro contra entradas que nao sejam numeros inteiros
+     * @return inteiro correspondente a opcao selecionada
+     */
     public int lerEscolhaMenuPrincipal() {
         int entradaPrincipal;
-
+        // Loop para que o menu nao seja printado novamente caso a entrada seja invalida
         while (true) {
-            System.out.println("Digite um numero para prosseguir:");
+            System.out.println("Digite o numero corresponde a sua opçao:");
             System.out.print("> ");
-            
             try {
                 entradaPrincipal = scan.nextInt();          
                 // Se o numero da entrada esta entre as opçoes possiveis, eh valido
@@ -81,9 +82,9 @@ public class Menu {
         return entradaPrincipal;
     }
 
+    // Metodo que coordena os loops do submenu do ambiente
     public void iniciarMenuAmbiente() {
         while (true) {
-            // Exibe as opcoes do submenu
             exibirEscolhaMenuAmbiente();
             int entradaAmbiente = lerEscolhaMenuAmbiente();
 
@@ -97,7 +98,8 @@ public class Menu {
         }
     }
     
-    public static void exibirEscolhaMenuAmbiente() {
+    // Printa as opcoes do submenu do ambiente
+    public void exibirEscolhaMenuAmbiente() {
         System.out.printf("\n********************************************MENU*AMBIENTE********************************************\n");
         System.out.println("[0] :: imprimir ambiente");
         System.out.println("[1] :: listar robos");
@@ -106,9 +108,13 @@ public class Menu {
         System.out.println("\n[-1] :: voltar");
     }
 
+    /**
+     * Le a entrada do usuario no submenu do ambiente. Tem tratamento de excessao contra entradas que nao sejam numeros inteiros
+     * @return inteiro correspondente a opcao selecionada
+     */
     public int lerEscolhaMenuAmbiente() {
-        System.out.println("Digite um numero para realizar uma acao:");
-        
+        System.out.println("Digite o numero corresponde a sua opçao:");
+        // Loop para que o submenu nao seja printado novamente caso a entrada seja invalida
         while (true) {
             try {
                 System.out.print("> ");
@@ -127,6 +133,7 @@ public class Menu {
         }
     }
 
+    // Baseado na selecao do usario, chama os metodos necessarios do submenu do ambiente
     public void realizarAcoesMenuAmbiente(int entradaAcao) {
         switch (entradaAcao) {
             case 0:
@@ -141,9 +148,10 @@ public class Menu {
         }
     }
 
+    // Metodo que coordena os loops do submenu do ambiente
     public void iniciarMenuRobo(Robo roboUsado) {
         while (true) {
-            // Exibe as opcoes do submenu e armazena a qntd de opcoes ness em 'maximoAcoes'
+            // Exibe as opcoes do submenu e armazena a qntd de opcoes em 'maximoAcoes'
             int maximoAcoes = exibirEscolhaMenuRobo(roboUsado);
             int entradaRobo = lerEscolhaMenuRobo(roboUsado, maximoAcoes);
 
@@ -163,10 +171,10 @@ public class Menu {
      * para todos os seus filhos) antes das mais especificas. Açoes especificas de cada robo aparecem como opcao 
      * valida apenas para o tipo de robo que as tem
      * @param robo robo que foi escolhido na entrada
-     * @return que sera usado para checar se a selecao da acao eh valida ou nao baseada em quantas opcoes
+     * @return inteiro que sera usado para checar se a selecao da acao eh valida ou nao baseada em quantas opcoes
      * de acao aquele robo tem
      */
-    public static int exibirEscolhaMenuRobo(Robo robo) {
+    public int exibirEscolhaMenuRobo(Robo robo) {
         int maximoAcoes = 0;
         System.out.println("\n**********************************************MENU*ROBO**********************************************");
         if (robo instanceof Robo) {
@@ -209,16 +217,15 @@ public class Menu {
     }
 
     /**
-     * Pega a entrada do usuario de qual acao especifica ele quer que o robo escolhido realize
+     * Le a entrada do usuario de qual acao especifica ele quer que o robo escolhido realize
      * @param robo robo que foi escolhido na entrada principal
      * @param maximoAcoes eh a quantidade de acoes que o robo pode fazer no total; como a entrada eh feita 
      * lendo inteiros, se for um numero maior que esse, sabemos que nao eh uma entrada valida
-     * @param scan Scanner para ler entradas de usuario
      * @return inteiro representativo da acao escolhida pelo usuario para o robo fazer
      */
     public int lerEscolhaMenuRobo(Robo robo, int maximoAcoes) {
         System.out.println("Digite um numero para realizar uma acao:");
-        
+        // Loop para que o submenu nao seja printado novamente caso a entrada seja invalida
         while (true) {
             try {
                 System.out.print("> ");
@@ -238,9 +245,8 @@ public class Menu {
     }
 
      /**
-     * Pega a entrada do usuario para qual acao do robo escolhido ele quer realizar. Apos uma entrada valida, pode pegar 
-     * outra entrada do usuario que servira como parametro da acao que foi escolhida anteriormente (ou nao, caso a acao 
-     * nao necessite de paramentros)
+     * Chama os metodos necessarios do robo baseado na acao escolhida no submenu. Tem tratamento de excessao contra entradas nao inteiras
+     * e tambem para caso o robo nao esteja ligado
      * @param robo robo que foi escolhido na entrada principal
      * @param entradaAcao acao que foi escolhida na entrada anterior 
      */
@@ -376,6 +382,7 @@ public class Menu {
         }
     }
 
+    // Metodo que coordena os loops do submenu das direcoes
     public void iniciarMenuDirecao(Robo robo) {
         while(true) {
             exibirEscolhaMenuDirecao();
@@ -391,6 +398,7 @@ public class Menu {
         }
     }
 
+    // Printa as opcoes do submenu das direcoes
     public void exibirEscolhaMenuDirecao() {
         System.out.printf("\n******************************************MENU*DIRECOES**********************************************\n");
         System.out.println("[0] :: Norte");
@@ -401,9 +409,13 @@ public class Menu {
         System.out.println("\n[-1] :: voltar");
     }
     
+    /**
+     * Le a entrada do usuario no submenu das direcoes. Tem tratamento de excessao contra entradas que nao sejam numeros inteiros
+     * @return inteiro correspondente a opcao selecionada
+     */
     public int lerEscolhaMenuDirecao() {
         System.out.println("Para qual direção deseja mudar?");
-
+    // Loop para que o submenu nao seja printado novamente caso a entrada seja invalida
         while (true) {
             try {
                 System.out.print("> ");
@@ -423,6 +435,7 @@ public class Menu {
         }
     }
 
+    // Metodo que coordena os loops do submenu dos sensores
     public void iniciarMenuSensores(Robo robo) {
         while (true) {
             exibirEscolhaMenuSensores(robo);
@@ -438,6 +451,7 @@ public class Menu {
         }
     }
 
+    // Printa as opcoes do submenu dos sensores
     public void exibirEscolhaMenuSensores(Robo robo) {
         System.out.printf("\n******************************************MENU*SENSORES**********************************************\n");
         robo.exibirSensores();
@@ -447,7 +461,7 @@ public class Menu {
 
     /**
      * Caso o usuario escolha usar um sensor de um robo, eh necessario checar se o robo tem o sensor especificado
-     * e, depois disso; se tiver, deve pegar a entrada de qual coordenada se quer monitorar com o sensor e exibir
+     * e, depois disso; se tiver, deve ler a entrada de qual coordenada se quer monitorar com o sensor e exibir
      * uma resposta apropriada
      * @param robo robo que foi escolhido na entrada principal
      */
