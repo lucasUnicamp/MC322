@@ -3,6 +3,7 @@ package cliente;
 import java.util.Scanner;
 
 import simulador.Ambiente;
+import simulador.CentralComunicacao;
 import simulador.Obstaculo;
 import simulador.RoboAereo;
 import simulador.RoboPlanador;
@@ -18,8 +19,8 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-
-        Ambiente salaTeste = new Ambiente(50, 50, 50, 3);        // Cria o ambiente para testes
+        CentralComunicacao central = new CentralComunicacao();
+        Ambiente salaTeste = new Ambiente(50, 50, 50, 3, central);        // Cria o ambiente para testes
         salaTeste.adicionarObstaculos(new Obstaculo(10, 20, 20, 30, TipoObstaculo.ESTATUA_DE_ELEFANTE));
         salaTeste.adicionarObstaculos(new Obstaculo(35, 30, 45, 50, TipoObstaculo.TORRE_DE_BABEL));
         salaTeste.adicionarObstaculos(new Obstaculo(30, 5, 40, 10, TipoObstaculo.THE_BEAN));

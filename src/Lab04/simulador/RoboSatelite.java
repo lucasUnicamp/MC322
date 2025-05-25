@@ -54,6 +54,18 @@ public class RoboSatelite extends RoboAereo implements Comunicavel {
         }
     }
 
+    @Override
+    public void enviarMensagem(Comunicavel destinatario, String mensagem) {
+        destinatario.receberMensagem(mensagem);
+        System.out.println("A mensagem foi enviada com sucesso.");
+    }
+
+    @Override
+    public void receberMensagem(String mensagem) {
+        getAmbiente().central.registrarMensagem(getID(), mensagem);
+        System.out.println("A mensagem foi recebida e registrada com sucesso.");
+    }
+
     public void checarQueda() {
         // Serve para zerar a altitude inicial caso ela nao seja suficiente para botar o robo em orbita
         if (getAltitude() < getAltitudeMin()) {
