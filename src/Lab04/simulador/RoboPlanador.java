@@ -12,8 +12,8 @@ public class RoboPlanador extends RoboAereo {
 
     @Override
     public String getDescricao() {
-        return String.format("Robo Planador'%s' está na posicao (%d, %d, %d) apontado na direcao %s com altitude maxima permitida de %d e asa de tamanho %d.\n"
-        , getNome(), getX(), getY(), getAltitude(), getDirecao(), getAltitudeMax(), tamanhoAsa);
+        return String.format("Robo Planador '%s' esta %s e na posicao (%d, %d, %d) apontado na direcao %s com altitude maxima permitida de %d e asa de tamanho %d.\n",
+        getNome(), getEstado().toString().toLowerCase(), getX(), getY(), getZ(), getDirecao(), getAltitudeMax(), tamanhoAsa);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class RoboPlanador extends RoboAereo {
         if (indice != -1) {
             descerPlanando(((120 - tamanhoAsa)*deslocamento)/100);      // Cai lentamente quando deslocado
             moverComSensor(deltaX, deltaY, indice);
-            System.out.printf("O Robo '%s' terminou o movimento na posicao (%d, %d, %d).\n", getNome(), getX(), getY(), getAltitude());
+            System.out.printf("O Robo '%s' terminou o movimento na posicao (%d, %d, %d).\n", getNome(), getX(), getY(), getZ());
         }
         else
             System.out.println("Nao pode voar sem sensor de obtaculo, eh muito perigoso.");
@@ -61,7 +61,7 @@ public class RoboPlanador extends RoboAereo {
             int indice = temSensorTipo("SensorObstaculo");
             SensorObstaculo sensorObs;
 
-            if (getAltitude() != 0) {
+            if (getZ() != 0) {
                 if (indice == -1) {
                     System.out.println("Impossivel descer com segurança, nao ha sensor de obstaculo.\n");
                     return;
@@ -70,14 +70,14 @@ public class RoboPlanador extends RoboAereo {
                     sensorObs = (SensorObstaculo) sensores.get(indice);
 
                 // Compara a altitude do Robo com a disância ao chao (0)
-                if (getAltitude() - metros >= 0 && !sensorObs.checarObstaculoPosicao(getX(), getY(), getAltitude() - metros)) {
+                if (getZ() - metros >= 0 && !sensorObs.checarObstaculoPosicao(getX(), getY(), getZ() - metros)) {
                     System.out.println("O Robo planou e desceu suavemente no processo.");
-                    setAltitude(getAltitude() - metros);
+                    setZ(getZ() - metros);
                 }
                 // Atualiza a altitude para 0 caso tenha descido demais e não há obtáculo abaixo
                 else if (!sensorObs.checarObstaculoPosicao(getX(), getY(), 0)){
                     System.out.printf("'%s' planou ate chegar no chao e aterrissou.\n", getNome());
-                    setAltitude(0);
+                    setZ(0);
                 }
                 // Não Atualiza a altitude caso tenha obstaculos abaixo
                 else {
@@ -94,7 +94,7 @@ public class RoboPlanador extends RoboAereo {
 
     // Metodo 'intermediario' para impedir que o Robo use o 'descer' apos se mover no chao (altitude 0)
     public void descerPlanando(int metros) throws RoboDesligadoException{
-        if (getAltitude() != 0) {
+        if (getZ() != 0) {
             descer(metros);
         }
     }

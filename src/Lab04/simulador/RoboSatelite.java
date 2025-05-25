@@ -16,8 +16,8 @@ public class RoboSatelite extends RoboAereo implements Comunicavel {
 
     @Override
     public String getDescricao() {
-        return String.format("Robo Satelite '%s' esta na posicao (%d, %d, %d) apontado na direcao %s com %d de carga para o lancamento, altitude maxima permitida de %d e minima para orbita de %d.\n"
-        , getNome(), getX(), getY(), getAltitude(), getDirecao(), getCargaLancamento(), getAltitudeMax(), getAltitudeMin());
+        return String.format("Robo Satelite '%s' esta %s e na posicao (%d, %d, %d) apontado na direcao %s com %d de carga para o lancamento, altitude maxima permitida de %d e minima para orbita de %d.\n",
+        getNome(), getEstado().toString().toLowerCase(), getX(), getY(), getZ(), getDirecao(), getCargaLancamento(), getAltitudeMax(), getAltitudeMin());
     }
     
     @Override
@@ -37,14 +37,14 @@ public class RoboSatelite extends RoboAereo implements Comunicavel {
 
     @Override 
     public void descer(int metros) throws RoboDesligadoException{
-        int altitudeNova = getAltitude() - metros;
+        int altitudeNova = getZ() - metros;
         // Robo so desce se esta em orbita, pois caso nao esteja sua altitude eh sempre 0
         if (emOrbita) {
             // Se puder descer mas descer abaixo do limite de orbita, o robo cai
             if (altitudeNova < getAltitudeMin()) {
                 System.out.printf("O Robo '%s' esta descendo abaixo da altitude de orbita para tentar pousar.\n", getNome());
                 emOrbita = false;
-                super.descer(getAltitude());
+                super.descer(getZ());
             }
             else
                 super.descer(metros);
@@ -78,9 +78,9 @@ public class RoboSatelite extends RoboAereo implements Comunicavel {
 
     public void checarQueda() {
         // Serve para zerar a altitude inicial caso ela nao seja suficiente para botar o robo em orbita
-        if (getAltitude() < getAltitudeMin()) {
+        if (getZ() < getAltitudeMin()) {
             System.out.printf("!!! AVISO: Robo '%s' nao foi inicializado com altitude minima para orbita e despencou. !!!\n", getNome());
-            setAltitude(0);
+            setZ(0);
             exibirAltitude();
         }
     }
@@ -119,16 +119,16 @@ public class RoboSatelite extends RoboAereo implements Comunicavel {
 
             if (novaAltitude > getAltitudeMax()) {
                 System.out.printf("O Robo '%s' foi lancado alto demais, atingiu o limite e caiu de volta para o chao.\n", getNome());
-                setAltitude(0);
+                setZ(0);
             }
             else if (novaAltitude < getAltitudeMin()) {
                 System.out.printf("O Robo '%s' nao alcancou sua altura de orbita no lancamento e caiu de volta para o chao.\n", getNome());
-                setAltitude(0);
+                setZ(0);
             }
             else {
                 System.out.printf("O Robo '%s' alcancou uma altura de orbita com sucesso em seu lancamento.\n", getNome());
                 emOrbita = true;
-                setAltitude(novaAltitude);
+                setZ(novaAltitude);
             }
             setCargaLancamento(0);
             exibirAltitude();

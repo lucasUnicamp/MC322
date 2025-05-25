@@ -11,8 +11,8 @@ public class RoboPreguica extends RoboTerrestre {
 
     @Override
     public String getDescricao() {
-        return String.format("Robo Preguica '%s' esta na posicao (%d, %d) apontado na direcao %s com velocidade %d, velocidade maxima permitida de %d e tem %d de energia de um maximo de %d.\n"
-        , getNome(), getX(), getY(), getDirecao(), getVelocidade(), getVelocidadeMax(), energia, energiaMaxima);
+        return String.format("Robo Preguica '%s' esta %s e na posicao (%d, %d) apontado na direcao %s com velocidade %d, velocidade maxima permitida de %d e tem %d de energia de um maximo de %d.\n",
+        getNome(), getEstado().toString().toLowerCase(), getX(), getY(), getDirecao(), getVelocidade(), getVelocidadeMax(), energia, energiaMaxima);
     }
 
     @Override

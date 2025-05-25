@@ -6,14 +6,14 @@ public class RoboAereo extends Robo {
     
     public RoboAereo(String nome, String id, int posicaoX, int posicaoY, Ambiente ambiente, int altitude, int altitudeMaxima) {
         super(nome, id, posicaoX, posicaoY, ambiente);
-        setAltitude(altitude);
+        setZ(altitude);
         setAltitudeMaxima(altitudeMaxima);
     }
 
     @Override
     public String getDescricao() {     
-        return String.format("Robo Aereo '%s' está na posicao (%d, %d, %d) apontado na direcao %s com altitude maxima permitida de %d.\n"
-        , getNome(), getX(),getY(), altitude, getDirecao(), altitudeMaxima);
+        return String.format("Robo Aereo '%s' esta %s e na posicao (%d, %d, %d) apontado na direcao %s com altitude maxima permitida de %d.\n", 
+        getNome(), getEstado().toString().toLowerCase(), getX(), getY(), getZ(), getDirecao(), altitudeMaxima);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class RoboAereo extends Robo {
         
         if (indice != -1) {
             super.moverComSensor(deltaX, deltaY, indice);
-            System.out.printf("O Robo '%s' terminou o movimento na posicao (%d, %d, %d).\n", getNome(), getX(), getY(), getAltitude());
+            System.out.printf("O Robo '%s' terminou o movimento na posicao (%d, %d, %d).\n", getNome(), getX(), getY(), getZ());
         }
         else
             System.out.println("Nao pode voar sem sensor de obtaculo, eh muito perigoso.");
@@ -45,9 +45,9 @@ public class RoboAereo extends Robo {
     public void subir(int metros) throws RoboDesligadoException{
         if (estaLigado()) {
             // Compara altitude do Robo com a maxima dada
-            if (getAltitude() + metros <= altitudeMaxima) {
+            if (getZ() + metros <= altitudeMaxima) {
                 System.out.println("O Robo subiu com sucesso.");
-                setAltitude(getAltitude() + metros);;
+                setZ(getZ() + metros);;
             }
             // Nao atualiza a altitude caso tenha ultrapassado a maxima dada
             else
@@ -64,7 +64,7 @@ public class RoboAereo extends Robo {
             int indice = temSensorTipo("SensorObstaculo");
             SensorObstaculo sensorObs;
 
-            if (getAltitude() != 0) {
+            if (getZ() != 0) {
                 if(indice == -1) {
                     System.out.println("Impossivel descer com segurança, nao ha sensor de obstaculo.");
                     return;
@@ -73,14 +73,14 @@ public class RoboAereo extends Robo {
                     sensorObs = (SensorObstaculo) sensores.get(indice);
 
                 // Compara a altitude do Robo com a disância ao chao (0)
-                if (getAltitude() - metros >= 0 && !sensorObs.checarObstaculoPosicao(getX(), getY(), getAltitude() - metros)) {
+                if (getZ() - metros >= 0 && !sensorObs.checarObstaculoPosicao(getX(), getY(), getZ() - metros)) {
                     System.out.println("O Robo desceu com sucesso.");
-                    setAltitude(getAltitude() - metros);
+                    setZ(getZ() - metros);
                 }
                 // Atualiza a altitude para 0 caso tenha descido demais e nao ha obtaculo abaixo
                 else if (!sensorObs.checarObstaculoPosicao(getX(), getY(), 0)){
                     System.out.printf("'%s' espatifou-se no chao.\n", getNome());
-                    setAltitude(0);
+                    setZ(0);
                 }
                 // Não Atualiza a altitude caso tenha obstaculos abaixo
                 else {
@@ -101,7 +101,7 @@ public class RoboAereo extends Robo {
             for (Sensor sensor:sensores) {
                 sensor.setX(getX());
                 sensor.setY(getY());
-                sensor.setAltitude(getAltitude());
+                sensor.setAltitude(getZ());
             }
         }      
     }
@@ -112,20 +112,11 @@ public class RoboAereo extends Robo {
     }
 
     public void exibirAltitude() {
-        System.out.printf("'%s' - Altitude atual: %d\n", getNome(), getAltitude());
-    }
-
-    protected void setAltitude(int metros) {
-        altitude = metros >= 0 ? metros : 0;        // Corrige altura contra valores negativos
-        atualizaSensores();
+        System.out.printf("'%s' - Altitude atual: %d\n", getNome(), getZ());
     }
 
     protected void setAltitudeMaxima(int metros) {
         altitudeMaxima = metros >= 0 ? metros : 0;
-    }
-
-    public int getAltitude(){
-        return altitude;
     }
 
     public int getAltitudeMax(){

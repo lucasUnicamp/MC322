@@ -121,7 +121,7 @@ public class Ambiente {
     public boolean dentroDosLimites(RoboAereo robo) {
         int x = robo.getX();
         int y = robo.getY();
-        int z = robo.getAltitude();
+        int z = robo.getZ();
         int altMax = robo.getAltitudeMax();
         return (x >= 0 && x <= profundidade) && (y >= 0 && y <= largura) && (z >= 0 && z <= altMax);
     }

@@ -13,8 +13,8 @@ public class RoboXadrez extends RoboTerrestre implements Comunicavel {
 
     @Override
     public String getDescricao() {
-        return String.format("Robo Xadrez '%s' esta na posicao (%d, %d) apontado na direcao %s com velocidade %d, velocidade maxima permitida de %d e com o tipo %d selecionado.\n"
-        , getNome(), getX(), getY(), getDirecao(), getVelocidade(), getVelocidadeMax(), tipoMovimento);
+        return String.format("Robo Xadrez '%s' esta %s e na posicao (%d, %d) apontado na direcao %s com velocidade %d, velocidade maxima permitida de %d e com o tipo %d selecionado.\n",
+        getNome(), getEstado().toString().toLowerCase(), getX(), getY(), getDirecao(), getVelocidade(), getVelocidadeMax(), tipoMovimento);
     }
 
     @Override

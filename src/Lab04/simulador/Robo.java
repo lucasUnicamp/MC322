@@ -289,6 +289,14 @@ public abstract class Robo implements Entidade {
         System.out.printf("O Robo '%s' foi desligado.\n", getNome());
     }
 
+    public boolean estaLigado() {
+        return getEstado() == EstadoRobo.LIGADO;
+    }
+
+    public void exibirPosicao() {
+        System.out.printf("O Robo '%s' esta agora em (%d, %d) na direcao %s.\n", getNome(), getX(), getY(), getDirecao());
+    }
+
     /**
      * Exibe os sensores presentes no robo, na ordem em que foram adicionados
      */
@@ -301,14 +309,6 @@ public abstract class Robo implements Entidade {
                 sensor.exibirRaio();
             }
         }
-    }
-
-    public boolean estaLigado() {
-        return getEstado() == EstadoRobo.LIGADO;
-    }
-
-    public void exibirPosicao() {
-        System.out.printf("O Robo '%s' esta agora em (%d, %d) na direcao %s.\n", getNome(), getX(), getY(), getDirecao());
     }
 
     public void setNome(String nome) {
@@ -361,6 +361,7 @@ public abstract class Robo implements Entidade {
 
     protected void setZ(int posZ) {
         posicaoZ = posZ;
+        posicaoZ = posZ >= 0 ? posZ : 0;        // Corrige altura contra valores negativos
         atualizaSensores();
     }
 

@@ -12,8 +12,8 @@ public class RoboTerrestre extends Robo {
 
     @Override
     public String getDescricao() {
-        return String.format("Robo Terrestre '%s' esta na posicao (%d, %d) apontado na direcao %s com velocidade %d e velocidade maxima permitida de %d.\n"
-        , getNome(), getX(), getY(), getDirecao(), velocidade, velocidadeMaxima);
+        return String.format("Robo Terrestre '%s' esta %s e na posicao (%d, %d) apontado na direcao %s com velocidade %d e velocidade maxima permitida de %d.\n",
+        getNome(), getEstado().toString().toLowerCase(), getX(), getY(), getDirecao(), velocidade, velocidadeMaxima);
     }
 
     @Override

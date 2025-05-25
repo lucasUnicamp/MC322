@@ -180,38 +180,39 @@ public class Menu {
         System.out.printf("\n~~ %s ~~~~~~~~~~~~~~~~~~\n", robo.getClass().getSimpleName().toUpperCase());
         if (robo instanceof Robo) {
             System.out.println("[0] :: Informacoes");
-            System.out.println("[1] :: Mover robo");
-            System.out.println("[2] :: Usar sensores");
-            System.out.println("[3] :: Mudar direção");
-            maximoAcoes = 3;
+            System.out.println("[1] :: Ligar/Desligar robo");
+            System.out.println("[2] :: Mover robo");
+            System.out.println("[3] :: Usar sensores");
+            System.out.println("[4] :: Mudar direção");
+            maximoAcoes = 4;
         }
         if (robo instanceof RoboTerrestre) {
-            System.out.println("[4] :: Aumentar velocidade");
-            System.out.println("[5] :: Diminuir velocidade");
-            maximoAcoes = 5;
+            System.out.println("[5] :: Aumentar velocidade");
+            System.out.println("[6] :: Diminuir velocidade");
+            maximoAcoes = 6;
         }
         if (robo instanceof RoboXadrez) {
-            System.out.println("[6] :: Mudar peça");
-            maximoAcoes = 6;
+            System.out.println("[7] :: Mudar peça");
+            maximoAcoes = 7;
         }
         if (robo instanceof RoboPreguica) {
-            System.out.println("[6] :: Descançar");
-            maximoAcoes = 6;
+            System.out.println("[7] :: Descançar");
+            maximoAcoes = 7;
         }
         if (robo instanceof RoboAereo) {
-            System.out.println("[4] :: Subir");
-            System.out.println("[5] :: Descer");
-            maximoAcoes = 5;
-        }
-        if (robo instanceof RoboPlanador) {
-            System.out.println("[6] :: Mudar tamanho da asa");
+            System.out.println("[5] :: Subir");
+            System.out.println("[6] :: Descer");
             maximoAcoes = 6;
         }
+        if (robo instanceof RoboPlanador) {
+            System.out.println("[7] :: Mudar tamanho da asa");
+            maximoAcoes = 7;
+        }
         if (robo instanceof RoboSatelite) {
-            System.out.println("[6] :: Carregar");
-            System.out.println("[7] :: Descarregar");
-            System.out.println("[8] :: Lançar");
-            maximoAcoes = 8;
+            System.out.println("[7] :: Carregar");
+            System.out.println("[8] :: Descarregar");
+            System.out.println("[9] :: Lançar");
+            maximoAcoes = 9;
         }
 
         System.out.println("\n[-1] :: Voltar");
@@ -265,9 +266,18 @@ public class Menu {
                         System.out.println("");
                         System.out.print(robo.getDescricao());
                         break;
+                    
+                    //Mesmo em todos os robos
+                    case 1:
+                        System.out.println("");
+                        if (!robo.estaLigado())
+                            robo.ligar();
+                        else
+                            robo.desligar();
+                        break;
 
                     // Mesmo em todos os robos
-                    case 1:
+                    case 2:
                         System.out.println("\n[int] Para qual coordenada horizontal quer ir (eixo x)?");
                         System.out.print("> ");
                         int x = scan.nextInt();
@@ -279,18 +289,18 @@ public class Menu {
                         break;
                     
                     // Mesmo em todos os robos
-                    case 2:
+                    case 3:
                         iniciarMenuSensores(robo);
                         break;
                     
                     // Mesmo em todos os robos  
-                    case 3:
+                    case 4:
                         iniciarMenuDirecao(robo);
                         break;
                     
                     // Aumenta velocidade para robos terrestres
                     // Sobe para robos aereos
-                    case 4:
+                    case 5:
                         if (robo instanceof RoboTerrestre) {
                             System.out.println("\n[int] Em quanto quer aumentar a velocidade?");
                             System.out.print("> ");
@@ -308,7 +318,7 @@ public class Menu {
                     
                     // Diminui velocidade para robos terrestres
                     // Desce para robos aereos
-                    case 5:
+                    case 6:
                         if (robo instanceof RoboTerrestre) {
                             System.out.println("\n[int] Em quanto quer diminuir a velocidade?");
                             System.out.print("> ");
@@ -329,7 +339,7 @@ public class Menu {
                     // Descança energias para robo preguiça
                     // Muda o tamanho da asa para robos planadores
                     // Carrega o tanque para robos satelites
-                    case 6:
+                    case 7:
                         if (robo instanceof RoboXadrez) {
                             System.out.println("");
                             ((RoboXadrez) robo).alternaTipoMovimento();
@@ -359,7 +369,7 @@ public class Menu {
                         break;
 
                     // Descarrega o tanque para robos satelites
-                    case 7:
+                    case 8:
                         System.out.println("\n[int] Em quanto quer descarregar?");
                         System.out.print("> ");
                         int cargaRemovida = scan.nextInt();
@@ -368,7 +378,7 @@ public class Menu {
                         break;
 
                     // Executa o lancamento para robos satelites
-                    case 8:
+                    case 9:
                         System.out.println("");
                         ((RoboSatelite) robo).lancamento();
                         break;
