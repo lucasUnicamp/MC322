@@ -61,6 +61,10 @@ public class Main {
         roboSatelite.adicionarSensor(new SensorTemperatura(50, salaTeste));
         roboSatelite.getDescricao();
 
+        roboSatelite.enviarMensagem(roboXadrez, "E aí, bonitão");
+        roboXadrez.enviarMensagem(roboSatelite, "Já fez o lab?");
+        salaTeste.getCentral().exibirMensagens();
+
         /**
          * TESTES INTERATIVOS
          * 

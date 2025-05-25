@@ -7,6 +7,10 @@ import java.time.format.DateTimeFormatter;
 public class CentralComunicacao {
     public ArrayList<String> mensagens;
 
+    public CentralComunicacao(){
+        mensagens = new ArrayList<String>();
+    }
+    
     public void registrarMensagem(String remetente, String msg) {
         LocalDateTime time = LocalDateTime.now();
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");

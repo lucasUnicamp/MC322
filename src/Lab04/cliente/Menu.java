@@ -12,6 +12,7 @@ import simulador.RoboSatelite;
 import simulador.RoboTerrestre;
 import simulador.RoboXadrez;
 import simulador.Comunicavel;
+import simulador.EstadoRobo;
 
 public class Menu {
     private final Ambiente salaTeste;
@@ -107,7 +108,12 @@ public class Menu {
             System.out.printf("\n*******************************************MENU*INTERATIVO*******************************************\n");
             for (int i = 0; i < ambiente.robosAtivos.size(); i++) {
                 Robo robo = ambiente.robosAtivos.get(i);
-                System.out.printf("[%d] :: %s '%s'\n", i, robo.getClass().getSimpleName(), robo.getNome());
+                System.out.printf("[%d] :: %s '%s'", i, robo.getClass().getSimpleName(), robo.getNome());
+                if(robo.getEstado() == EstadoRobo.LIGADO) {
+                    System.out.println("         (LIGADO)");
+                } else {
+                    System.out.println("         (DESLIGADO)");
+                }
             }
             System.out.printf("\n[-2] :: ambiente\n");
             System.out.println("[-1] :: encerrar o programa.");
@@ -162,7 +168,7 @@ public class Menu {
             case 1:
                 ambiente.listarRobos();
             case 2:
-                ambiente.central.exibirMensagens();
+                ambiente.getCentral().exibirMensagens();
         }
     }
     
