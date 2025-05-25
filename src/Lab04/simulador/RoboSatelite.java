@@ -26,7 +26,7 @@ public class RoboSatelite extends RoboAereo implements Comunicavel {
     }
 
     @Override 
-    public void subir(int metros) {
+    public void subir(int metros) throws RoboDesligadoException{
         // Robo so sobe se esta em orbita, pois caso nao esteja sua altitude eh sempre 0
         if (emOrbita) {
             super.subir(metros);
@@ -36,7 +36,7 @@ public class RoboSatelite extends RoboAereo implements Comunicavel {
     }
 
     @Override 
-    public void descer(int metros) {
+    public void descer(int metros) throws RoboDesligadoException{
         int altitudeNova = getAltitude() - metros;
         // Robo so desce se esta em orbita, pois caso nao esteja sua altitude eh sempre 0
         if (emOrbita) {
@@ -53,17 +53,27 @@ public class RoboSatelite extends RoboAereo implements Comunicavel {
             System.out.printf("O Robo '%s' nao esta em orbita para pode descer.\n", getNome());
         }
     }
-
-    @Override
-    public void enviarMensagem(Comunicavel destinatario, String mensagem) {
-        destinatario.receberMensagem(mensagem);
-        System.out.println("A mensagem foi enviada com sucesso.");
+    
+    public void enviarMensagem(Comunicavel destinatario, String mensagem) throws RoboDesligadoException{
+        if (estaLigado()) {
+            try {
+            destinatario.receberMensagem(mensagem);
+            System.out.println("A mensagem foi enviada com sucesso.");
+            } catch (RoboDesligadoException erro) {
+                System.out.println("A mensagem não foi enviada. Robô destinatário desligado");
+            }
+        } else {
+            throw new RoboDesligadoException(getID());
+        }
     }
 
-    @Override
-    public void receberMensagem(String mensagem) {
-        getAmbiente().getCentral().registrarMensagem(getID(), mensagem);
-        System.out.println("A mensagem foi recebida e registrada com sucesso.");
+    public void receberMensagem(String mensagem) throws RoboDesligadoException{
+        if (estaLigado()){
+            getAmbiente().getCentral().registrarMensagem(getID(), mensagem);
+            System.out.println("A mensagem foi recebida e registrada com sucesso.");
+        } else {
+            throw new RoboDesligadoException(getID());
+        }
     }
 
     public void checarQueda() {
@@ -75,16 +85,24 @@ public class RoboSatelite extends RoboAereo implements Comunicavel {
         }
     }
 
-    public void carregar(int carga) {
-        System.out.println("Robo carregado.");
-        cargaLancamento += carga;
-        exibirCarga();
+    public void carregar(int carga) throws RoboDesligadoException{
+        if (estaLigado()){
+            System.out.println("Robo carregado.");
+            cargaLancamento += carga;
+            exibirCarga();
+        } else {
+            throw new RoboDesligadoException(getID());
+        }
     }
 
-    public void descarregar(int carga) {
-        System.out.println("Robo descarregado.");
-        cargaLancamento -= carga;
-        exibirCarga();
+    public void descarregar(int carga) throws RoboDesligadoException{
+        if (estaLigado()){
+            System.out.println("Robo descarregado.");
+            cargaLancamento -= carga;
+            exibirCarga();
+        } else {
+            throw new RoboDesligadoException(getID());
+        }
     }
 
     /**
@@ -93,27 +111,31 @@ public class RoboSatelite extends RoboAereo implements Comunicavel {
      * se nao for o suficiente, o robo nao alcanca a altura minima de orbita e cai;
      * e se for o bastante, o robo entra em orbita e 'flutua' no espaco, podendo agora subir e descer livremente.
      */
-    public void lancamento() {
-        // Funcao de forca definida arbitrariamente
-        float forcaLancamento = getAltitudeMax() / 10;
-        int novaAltitude = Math.round(cargaLancamento * forcaLancamento);
+    public void lancamento() throws RoboDesligadoException{
+        if (estaLigado()){
+            // Funcao de forca definida arbitrariamente
+            float forcaLancamento = getAltitudeMax() / 10;
+            int novaAltitude = Math.round(cargaLancamento * forcaLancamento);
 
-        if (novaAltitude > getAltitudeMax()) {
-            System.out.printf("O Robo '%s' foi lancado alto demais, atingiu o limite e caiu de volta para o chao.\n", getNome());
-            setAltitude(0);
+            if (novaAltitude > getAltitudeMax()) {
+                System.out.printf("O Robo '%s' foi lancado alto demais, atingiu o limite e caiu de volta para o chao.\n", getNome());
+                setAltitude(0);
+            }
+            else if (novaAltitude < getAltitudeMin()) {
+                System.out.printf("O Robo '%s' nao alcancou sua altura de orbita no lancamento e caiu de volta para o chao.\n", getNome());
+                setAltitude(0);
+            }
+            else {
+                System.out.printf("O Robo '%s' alcancou uma altura de orbita com sucesso em seu lancamento.\n", getNome());
+                emOrbita = true;
+                setAltitude(novaAltitude);
+            }
+            setCargaLancamento(0);
+            exibirAltitude();
+            descarregar(cargaLancamento);
+        } else {
+            throw new RoboDesligadoException(getID());
         }
-        else if (novaAltitude < getAltitudeMin()) {
-            System.out.printf("O Robo '%s' nao alcancou sua altura de orbita no lancamento e caiu de volta para o chao.\n", getNome());
-            setAltitude(0);
-        }
-        else {
-            System.out.printf("O Robo '%s' alcancou uma altura de orbita com sucesso em seu lancamento.\n", getNome());
-            emOrbita = true;
-            setAltitude(novaAltitude);
-        }
-        setCargaLancamento(0);
-        exibirAltitude();
-        descarregar(cargaLancamento);
     }
 
     public void exibirCarga() {

@@ -83,7 +83,7 @@ public abstract class Robo implements Entidade {
      * @param y posicao no eixo y final a qual se quer chegar
      */
     public void moverPara(int x, int y) throws RoboDesligadoException{
-        if (getEstado() == EstadoRobo.LIGADO){
+        if (estaLigado()){
             int deltaX = x - getX();
             int deltaY = y - getY();
             int indice = temSensorTipo("SensorObstaculo");
@@ -97,7 +97,7 @@ public abstract class Robo implements Entidade {
             atualizaSensores();
             System.out.printf("O Robo '%s' terminou o movimento na posicao (%d, %d).\n", nome, getX(), getY());
         } else {
-            throw new RoboDesligadoException();
+            throw new RoboDesligadoException(getID());
         }
     }
 
@@ -188,7 +188,7 @@ public abstract class Robo implements Entidade {
      * @param indice posicao do SensorObstaculo na ArrayList de sensores do robo 
      */
     protected void moverComSensor(int deltaX, int deltaY, int indice) throws RoboDesligadoException{
-        if(getEstado() == EstadoRobo.LIGADO) {
+        if(estaLigado()) {
             int novoX = posicaoX + deltaX;
             int novoY = posicaoY + deltaY;
             // Downcasting porque sei que esse elemento da ArrayList deve ser do tipo SensorObstaculo. Necessario pois preciso acessar o metodo
@@ -214,7 +214,7 @@ public abstract class Robo implements Entidade {
             else 
                 System.out.printf("O sensor checou que essa posicao sairia dos limites do ambiente, e '%s' não tem permissão para fazer isso.\n", getNome());
         } else {
-            throw new RoboDesligadoException();
+            throw new RoboDesligadoException(getID());
         }
    }
 
@@ -260,18 +260,22 @@ public abstract class Robo implements Entidade {
      * Aciona o metodo 'monitorar' do sensor especificado caso o robo o tenha
      * @param tipoSensor tipo de sensor que se quer usar, sendo 1 = obstaculo e 2 = temperatura
      */
-    public void usarSensor(int indiceSensor, int posX, int posY) {
-        // Switch case com o valor retornado pelo 'monitorar' do sensor
-        switch(sensores.get(indiceSensor).monitorar(posX, posY)) {
-            case 1:
-                System.out.println("Monitoramento ocorreu com sucesso.");
-                break;
-            case 2:
-                System.out.println("Nao se pode monitorar posicoes fora do ambiente.");
-                break;
-            case 3:
-                System.out.println("Nao se pode monitorar posicoes fora do alcance do sensor.");
-                break;
+    public void usarSensor(int indiceSensor, int posX, int posY) throws RoboDesligadoException{
+        if(estaLigado()){
+            // Switch case com o valor retornado pelo 'monitorar' do sensor
+            switch(sensores.get(indiceSensor).monitorar(posX, posY)) {
+                case 1:
+                    System.out.println("Monitoramento ocorreu com sucesso.");
+                    break;
+                case 2:
+                    System.out.println("Nao se pode monitorar posicoes fora do ambiente.");
+                    break;
+                case 3:
+                    System.out.println("Nao se pode monitorar posicoes fora do alcance do sensor.");
+                    break;
+            }
+        } else {
+            throw new RoboDesligadoException(getID());
         }
     }
 
@@ -297,6 +301,10 @@ public abstract class Robo implements Entidade {
                 sensor.exibirRaio();
             }
         }
+    }
+
+    public boolean estaLigado() {
+        return getEstado() == EstadoRobo.LIGADO;
     }
 
     public void exibirPosicao() {

@@ -42,49 +42,57 @@ public class RoboAereo extends Robo {
         atualizaSensores();
     }
 
-    public void subir(int metros) {
-        // Compara altitude do Robo com a maxima dada
-        if (getAltitude() + metros <= altitudeMaxima) {
-            System.out.println("O Robo subiu com sucesso.");
-            setAltitude(getAltitude() + metros);;
-        }
-        // Nao atualiza a altitude caso tenha ultrapassado a maxima dada
-        else
-            System.out.printf("'%s' ultrapassaria a altitude maxima permitida.\n", getNome());
+    public void subir(int metros) throws RoboDesligadoException{
+        if(estaLigado()) {
+            // Compara altitude do Robo com a maxima dada
+            if (getAltitude() + metros <= altitudeMaxima) {
+                System.out.println("O Robo subiu com sucesso.");
+                setAltitude(getAltitude() + metros);;
+            }
+            // Nao atualiza a altitude caso tenha ultrapassado a maxima dada
+            else
+                System.out.printf("'%s' ultrapassaria a altitude maxima permitida.\n", getNome());
 
-        exibirAltitude();
+            exibirAltitude();
+        } else {
+            throw new RoboDesligadoException(getID());
+        }
     }
 
-    public void descer(int metros) {
-        int indice = temSensorTipo("SensorObstaculo");
-        SensorObstaculo sensorObs;
+    public void descer(int metros) throws RoboDesligadoException{
+        if (estaLigado()){
+            int indice = temSensorTipo("SensorObstaculo");
+            SensorObstaculo sensorObs;
 
-        if (getAltitude() != 0) {
-            if(indice == -1) {
-                System.out.println("Impossivel descer com segurança, nao ha sensor de obstaculo.");
-                return;
-            } 
+            if (getAltitude() != 0) {
+                if(indice == -1) {
+                    System.out.println("Impossivel descer com segurança, nao ha sensor de obstaculo.");
+                    return;
+                } 
+                else
+                    sensorObs = (SensorObstaculo) sensores.get(indice);
+
+                // Compara a altitude do Robo com a disância ao chao (0)
+                if (getAltitude() - metros >= 0 && !sensorObs.checarObstaculoPosicao(getX(), getY(), getAltitude() - metros)) {
+                    System.out.println("O Robo desceu com sucesso.");
+                    setAltitude(getAltitude() - metros);
+                }
+                // Atualiza a altitude para 0 caso tenha descido demais e nao ha obtaculo abaixo
+                else if (!sensorObs.checarObstaculoPosicao(getX(), getY(), 0)){
+                    System.out.printf("'%s' espatifou-se no chao.\n", getNome());
+                    setAltitude(0);
+                }
+                // Não Atualiza a altitude caso tenha obstaculos abaixo
+                else {
+                    System.out.printf("Ha obstaculos abaixo de '%s', nao tem como descer.\n", getNome());
+                }
+            }
             else
-                sensorObs = (SensorObstaculo) sensores.get(indice);
-
-            // Compara a altitude do Robo com a disância ao chao (0)
-            if (getAltitude() - metros >= 0 && !sensorObs.checarObstaculoPosicao(getX(), getY(), getAltitude() - metros)) {
-                System.out.println("O Robo desceu com sucesso.");
-                setAltitude(getAltitude() - metros);
-            }
-            // Atualiza a altitude para 0 caso tenha descido demais e nao ha obtaculo abaixo
-            else if (!sensorObs.checarObstaculoPosicao(getX(), getY(), 0)){
-                System.out.printf("'%s' espatifou-se no chao.\n", getNome());
-                setAltitude(0);
-            }
-            // Não Atualiza a altitude caso tenha obstaculos abaixo
-            else {
-                System.out.printf("Ha obstaculos abaixo de '%s', nao tem como descer.\n", getNome());
-            }
+                System.out.println("O Robo ja esta no chao, nao tem como descer mais.");
+            exibirAltitude();
+        } else {
+            throw new RoboDesligadoException(getID());
         }
-        else
-            System.out.println("O Robo ja esta no chao, nao tem como descer mais.");
-        exibirAltitude();
     }
 
     @Override

@@ -6,6 +6,7 @@ import simulador.Ambiente;
 import simulador.CentralComunicacao;
 import simulador.Obstaculo;
 import simulador.RoboAereo;
+import simulador.RoboDesligadoException;
 import simulador.RoboPlanador;
 import simulador.RoboPreguica;
 import simulador.RoboSatelite;
@@ -61,9 +62,13 @@ public class Main {
         roboSatelite.adicionarSensor(new SensorTemperatura(50, salaTeste));
         roboSatelite.getDescricao();
 
-        roboSatelite.enviarMensagem(roboXadrez, "E aí, bonitão");
-        roboXadrez.enviarMensagem(roboSatelite, "Já fez o lab?");
-        salaTeste.getCentral().exibirMensagens();
+        try {
+            roboSatelite.enviarMensagem(roboXadrez, "E aí, bonitão");
+            roboXadrez.enviarMensagem(roboSatelite, "Já fez o lab?");
+            salaTeste.getCentral().exibirMensagens();
+        } catch (RoboDesligadoException erro) {
+            System.out.println(erro.getMessage());
+        }
 
         /**
          * TESTES INTERATIVOS
