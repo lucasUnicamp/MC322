@@ -37,12 +37,12 @@ public class CentralComunicacao {
         comunicaveis.add(com);
     }
 
-    public boolean checarDestinatario(Robo destinatario) throws NaoComunicavelException {
+    public boolean checarDestinatario(Robo destinatario) throws ErroComunicacaoException {
         for (Comunicavel com: comunicaveis) {
             if (com == destinatario)
                 return true;
         }
-        throw new NaoComunicavelException(destinatario.getID());
+        throw new ErroComunicacaoException(destinatario.getID());
     }
 
     public Comunicavel getComunicavel(Robo robo) {
