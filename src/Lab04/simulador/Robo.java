@@ -354,21 +354,21 @@ public abstract class Robo implements Entidade {
     }
 
     protected void setX(int posX) {
+        ambiente.moverEntidadeMapa(this, posX, getY(), getZ());
         posicaoX = posX;
-        ambiente.moverEntidadeMapa(this, getX(), getY(), getZ());
         atualizaSensores();
     }
 
     protected void setY(int posY) {
+        ambiente.moverEntidadeMapa(this, getX(), posY, getZ());
         posicaoY = posY;
-        ambiente.moverEntidadeMapa(this, getX(), getY(), getZ());
         atualizaSensores();
     }
 
     protected void setZ(int posZ) {
+        ambiente.moverEntidadeMapa(this, getX(), getY(), posZ);
         posicaoZ = posZ;
         posicaoZ = posZ >= 0 ? posZ : 0;        // Corrige altura contra valores negativos
-        ambiente.moverEntidadeMapa(this, getX(), getY(), getZ());
         atualizaSensores();
     }
 

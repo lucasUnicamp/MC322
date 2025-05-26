@@ -80,6 +80,16 @@ public class RoboSatelite extends RoboAereo implements Comunicavel {
         }
     }
 
+    // destroi o obstáciulo apenas se o satélite estiver no ar
+    public void destruirObstaculo(int x, int y) {
+        if(getAltura() > 0){
+            for(Entidade e : getAmbiente().obstaculos)
+                if((x >= e.getX() && x < e.getX() + e.getLargura()) &&
+                    (y >= e.getY() && y < e.getY() + e.getProfundidade()))
+                    getAmbiente().removerEntidade(e);
+        }
+    }
+
     public void checarQueda() {
         // Serve para zerar a altitude inicial caso ela nao seja suficiente para botar o robo em orbita
         if (getZ() < getAltitudeMin()) {

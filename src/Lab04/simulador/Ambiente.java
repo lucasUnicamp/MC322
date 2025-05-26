@@ -126,6 +126,7 @@ public class Ambiente {
     }
 
     public void moverEntidade(Entidade e, int novoX, int novoY, int novoZ) {
+        moverEntidadeMapa(e, novoX, novoY, novoZ);
         if(e.getTipo() == TipoEntidade.ROBO){
             ((Robo) e).setX(novoX);
             ((Robo) e).setY(novoY);
@@ -142,7 +143,7 @@ public class Ambiente {
     }
 
     //move a entidade na matriz, mas não tem o poder de mudar a condição absoluta da entidade
-    public void moverEntidadeMapa(Entidade e, int novoX, int novoY, int novoZ){
+    public void moverEntidadeMapa(Entidade e,  int novoX, int novoY, int novoZ){
         if(e.getTipo() == TipoEntidade.ROBO){ //remove o robo da matriz
             if(dentroDosLimites(e.getX(), e.getY(), e.getZ()))
                 mapa[e.getX()][e.getY()][e.getZ()] = TipoEntidade.VAZIO;
