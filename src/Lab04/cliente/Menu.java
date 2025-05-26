@@ -4,6 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import simulador.Ambiente;
+import simulador.ColisaoException;
 import simulador.Robo;
 import simulador.RoboAereo;
 import simulador.RoboPlanador;

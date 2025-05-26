@@ -82,7 +82,7 @@ public abstract class Robo implements Entidade {
      * @param x posicao no eixo x final a qual se quer chegar
      * @param y posicao no eixo y final a qual se quer chegar
      */
-    public void moverPara(int x, int y) throws RoboDesligadoException{
+    public void moverPara(int x, int y) throws RoboDesligadoException {
         if (estaLigado()){
             int deltaX = x - getX();
             int deltaY = y - getY();
@@ -109,74 +109,75 @@ public abstract class Robo implements Entidade {
      */
     private void moverSemSensor(int deltaX, int deltaY) {
         int i = 0, j = 0;
-        // Primeiro move o robo totalmente na horizontal
-        // Caso deltaX positivo, anda na direcao Leste
-        if (deltaX >= 0) {
-            for ( ; i <= deltaX; i++) {
-                // Checa se a posicao em que vai andar eh um obstaculo
-                if (getAmbiente().estaOcupado(posicaoX + i, posicaoY, posicaoZ)) {
-                    System.out.printf("Ha um obstaculo em (%d, %d) impedindo o movimento horizontal de '%s'.\n", getX() + i, getY(), getNome());
-                    break;
+
+        try {
+            // Primeiro move o robo totalmente na horizontal
+            // Caso deltaX positivo, anda na direcao Leste
+            if (deltaX > 0) {
+                for ( ; i <= deltaX; i++) {
+                    // Checa se a posicao em que vai andar eh um obstaculo
+                    if (getAmbiente().estaOcupado(posicaoX + i, posicaoY, posicaoZ)) {
+                        setX(getX() + i - 1);
+                        throw new ColisaoException(getID(), getX() + 1, getY(), getZ());
+                    }
+                    // Checa se a posicao em que vai andar esta fora dos limites do ambiente
+                    else if (!getAmbiente().dentroDosLimites(posicaoX + i, posicaoY)) {
+                        System.out.println("O robo nao tem autorizacao para sair do ambiente.");
+                        break;
+                    }
                 }
-                // Checa se a posicao em que vai andar esta fora dos limites do ambiente
-                else if (!getAmbiente().dentroDosLimites(posicaoX + i, posicaoY)) {
-                    System.out.println("O robo nao tem autorizacao para sair do ambiente.");
-                    break;
-                }
+                // Atualiza posicao X do robo baseado em quanto conseguiu andar
+                setX(getX() + i - 1);
             }
-            // Atualiza posicao X do robo baseado em quanto conseguiu andar
-            i -= 1;
-            setX(getX() + i);
-        }
-        // Caso deltaX negativo, anda na direcao Oeste.
-        else if (deltaX < 0) {
-            for ( ; i <= -deltaX; i++) {
-                if (getAmbiente().estaOcupado(posicaoX - i, posicaoY, posicaoZ)) {
-                    System.out.printf("Ha um obstaculo em (%d, %d) impedindo o movimento horizontal de '%s'.\n", getX() - i, getY(), getNome());
-                    break;
+            // Caso deltaX negativo, anda na direcao Oeste.
+            else if (deltaX < 0) {
+                for ( ; i <= -deltaX; i++) {
+                    if (getAmbiente().estaOcupado(posicaoX - i, posicaoY, posicaoZ)) {
+                        setX(getX() - i + 1);
+                        throw new ColisaoException(getID(), getX() - 1, getY(), getZ());
+                    }
+                    else if (!getAmbiente().dentroDosLimites(posicaoX - i, posicaoY)) {
+                        System.out.println("O robo nao tem autorizacao para sair do ambiente.");
+                        break;
+                    }
                 }
-                else if (!getAmbiente().dentroDosLimites(posicaoX - i, posicaoY)) {
-                    System.out.println("O robo nao tem autorizacao para sair do ambiente.");
-                    break;
-                }
+                setX(getX() - i + 1);
             }
-            i -= 1;
-            setX(getX() - i);
-        }
-        // Depois move o robo totalmente na vertical
-        // Caso deltaY positivo, anda na direcao Norte. Aqui checa o valor de i antes pois i so eh diferente de deltaX 
-        // se o robo ja bateu em algum obstaculo, assim nao tem porque continuar checando na vertical
-        if (deltaY >= 0 && i == Math.abs(deltaX)) {
-            for ( ; j <= deltaY; j++) {
-                // Checa se a posicao em que vai andar eh um obstaculo
-                if (getAmbiente().estaOcupado(posicaoX, posicaoY + j, posicaoZ)) {
-                    System.out.printf("Ha um obstaculo em (%d, %d) impedindo o movimento vertical de '%s'.\n", getX(), getY() + j, getNome());
-                    break;
+            // Depois move o robo totalmente na vertical
+            // Caso deltaY positivo, anda na direcao Norte. Aqui checa o valor de i antes pois i so eh diferente de deltaX 
+            // se o robo ja bateu em algum obstaculo, assim nao tem porque continuar checando na vertical
+            if (deltaY > 0 && (i - 1) == Math.abs(deltaX)) {
+                for ( ; j <= deltaY; j++) {
+                    // Checa se a posicao em que vai andar eh um obstaculo
+                    if (getAmbiente().estaOcupado(posicaoX, posicaoY + j, posicaoZ)) {
+                        setY(getY() + j - 1);
+                        throw new ColisaoException(getID(), getX(), getY() + 1, getZ());
+                    }
+                    // Checa se a posicao em que vai andar esta fora dos limites do ambiente
+                    else if (!getAmbiente().dentroDosLimites(posicaoX, posicaoY + j)) {
+                        System.out.println("O robo nao tem autorizacao para sair do ambienten");
+                        break;
+                    }
                 }
-                // Checa se a posicao em que vai andar esta fora dos limites do ambiente
-                else if (!getAmbiente().dentroDosLimites(posicaoX, posicaoY + j)) {
-                    System.out.println("O robo nao tem autorizacao para sair do ambienten");
-                    break;
-                }
+                // Atualiza posicao Y do robo baseado em quanto conseguiu andar
+                setY(getY() + j - 1);
             }
-            // Atualiza posicao X do robo baseado em quanto conseguiu andar
-            j -= 1;
-            posicaoY += j;
-        }
-        // Caso deltaY negativo, anda na direcao Sul
-        else if (deltaY < 0 && i == Math.abs(deltaX)) {
-            for ( ; j <= -deltaY; j++) {
-                if (getAmbiente().estaOcupado(posicaoX, posicaoY - j, posicaoZ)) {
-                    System.out.printf("Ha um obstaculo em (%d, %d) impedindo o movimento vertical de '%s'.\n", getX(), getY() - j, getNome());
-                    break;
+            // Caso deltaY negativo, anda na direcao Sul
+            else if (deltaY < 0 && (i - 1) == Math.abs(deltaX)) {
+                for ( ; j <= -deltaY; j++) {
+                    if (getAmbiente().estaOcupado(posicaoX, posicaoY - j, posicaoZ)) {
+                        setY(getY() - j + 1);
+                        throw new ColisaoException(getID(), getX(), getY() - 1, getZ());
+                    }
+                    else if (!getAmbiente().dentroDosLimites(posicaoX, posicaoY - j)) {
+                        System.out.println("O robo nao tem autorizacao para sair do ambiente.");
+                        break;
+                    }
                 }
-                else if (!getAmbiente().dentroDosLimites(posicaoX, posicaoY - j)) {
-                    System.out.println("O robo nao tem autorizacao para sair do ambiente.");
-                    break;
-                }
+                setY(getY() - j + 1);
             }
-            j -= 1;
-            posicaoY -= j;
+        } catch (ColisaoException erro) {
+            System.out.println(erro.getMessage());
         }
     }
 

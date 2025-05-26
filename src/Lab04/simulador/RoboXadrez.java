@@ -25,7 +25,7 @@ public class RoboXadrez extends RoboTerrestre implements Comunicavel {
     }
 
     @Override
-    public void moverPara(int x, int y) throws RoboDesligadoException{
+    public void moverPara(int x, int y) throws RoboDesligadoException {
         if (estaLigado()){
             int deltaX = x - getX();
             int deltaY = y - getY();
