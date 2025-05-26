@@ -80,7 +80,7 @@ public class RoboSatelite extends RoboAereo implements Comunicavel {
         }
     }
 
-    // destroi o obstáciulo apenas se o satélite estiver no ar
+    // Destroi o obstaculo apenas se o satelite estiver no ar
     public void destruirObstaculo(int x, int y) {
         if(getAltura() > 0){
             for(Entidade e : getAmbiente().obstaculos)

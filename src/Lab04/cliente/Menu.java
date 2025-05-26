@@ -4,7 +4,6 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import simulador.Ambiente;
-import simulador.ColisaoException;
 import simulador.Robo;
 import simulador.RoboAereo;
 import simulador.RoboPlanador;
@@ -14,6 +13,7 @@ import simulador.RoboTerrestre;
 import simulador.RoboXadrez;
 import simulador.Sensoreavel;
 import simulador.Comunicavel;
+import simulador.Destrutivel;
 import simulador.DesceuDemaisException;
 import simulador.RoboDesligadoException;
 import simulador.ErroComunicacaoException;
@@ -660,6 +660,6 @@ public class Menu {
 
     // !!!!!!!!!!!!!!!!!!!!!! ADICIONAR 'OU' OUTRAS INTERFACES AQUI !!!!!!!!!!!!!!!!!!!!!!!1
     public boolean temInterfaceExtra(Robo robo) {
-        return (robo instanceof Comunicavel || robo instanceof Sensoreavel);
+        return (robo instanceof Comunicavel || robo instanceof Sensoreavel || robo instanceof Destrutivel);
     }
 }

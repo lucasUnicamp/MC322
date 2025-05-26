@@ -1,5 +1,5 @@
 package simulador;
 
-public interface Destrutivo {
+public interface Destrutivel {
     void destruirObstaculo(int x, int y);
 }

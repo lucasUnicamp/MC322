@@ -33,10 +33,12 @@ public class CentralComunicacao {
         }
     }
 
+    // Adiciona um (robo) comunicavel numa lista 
     public void adicionarComunicavel(Comunicavel com) {
         comunicaveis.add(com);
     }
 
+    // Checa se o robo destinatario da mensagem tem a interface comunicavel, se nao tiver, joga um erro
     public boolean checarDestinatario(Robo destinatario) throws ErroComunicacaoException {
         for (Comunicavel com: comunicaveis) {
             if (com == destinatario)
