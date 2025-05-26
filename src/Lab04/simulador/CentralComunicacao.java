@@ -6,11 +6,11 @@ import java.time.format.DateTimeFormatter;
 
 public class CentralComunicacao {
     public ArrayList<String> mensagens;
-    public ArrayList<Robo> comunicaveis;
+    public ArrayList<Comunicavel> comunicaveis;
 
     public CentralComunicacao(){
         mensagens = new ArrayList<String>();
-        comunicaveis = new ArrayList<Robo>();
+        comunicaveis = new ArrayList<Comunicavel>();
     }
     
     public void registrarMensagem(String remetente, String msg) {
@@ -27,22 +27,29 @@ public class CentralComunicacao {
         }
         else {
             System.out.println("Mensagens armazenadas na central:");
-            for(String msg: mensagens){
+            for (String msg: mensagens){
                 System.out.println(msg);
             }
         }
     }
 
-    public void adicionarComunicavel(Robo r) {
-        comunicaveis.add(r);
+    public void adicionarComunicavel(Comunicavel com) {
+        comunicaveis.add(com);
     }
 
-    public boolean checarDestinatario(String destinatario) {
-        boolean ehComunicavel = false;
-        for (Robo robo:comunicaveis) {
-            if (destinatario == robo.getNome() || destinatario == robo.getID() || destinatario == robo.getClass().getSimpleName())
-                ehComunicavel = true;
+    public boolean checarDestinatario(Robo destinatario) throws NaoComunicavelException {
+        for (Comunicavel com: comunicaveis) {
+            if (com == destinatario)
+                return true;
         }
-        return ehComunicavel;
+        throw new NaoComunicavelException(destinatario.getID());
+    }
+
+    public Comunicavel getComunicavel(Robo robo) {
+        for (Comunicavel com: comunicaveis) {
+            if (com == robo)
+                return com;
+        }
+        return null;
     }
 }

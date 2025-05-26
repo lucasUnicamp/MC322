@@ -56,7 +56,7 @@ public class RoboSatelite extends RoboAereo implements Comunicavel {
         }
     }
     
-    public void enviarMensagem(Comunicavel destinatario, String mensagem) throws RoboDesligadoException{
+    public void enviarMensagem(Comunicavel destinatario, String mensagem) throws RoboDesligadoException {
         if (estaLigado()) {
             try {
             destinatario.receberMensagem(mensagem);
@@ -69,7 +69,7 @@ public class RoboSatelite extends RoboAereo implements Comunicavel {
         }
     }
 
-    public void receberMensagem(String mensagem) throws RoboDesligadoException{
+    public void receberMensagem(String mensagem) throws RoboDesligadoException {
         if (estaLigado()){
             getAmbiente().getCentral().registrarMensagem(getID(), mensagem);
             System.out.println("A mensagem foi recebida e registrada com sucesso.");

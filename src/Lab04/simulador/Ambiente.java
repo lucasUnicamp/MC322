@@ -103,6 +103,14 @@ public class Ambiente {
         }
     }
 
+    public Robo conferirNome(String nome) {
+        for(Robo robo:robosAtivos) {
+            if (nome.equals(robo.getNome()) || nome.equals(robo.getID()) || nome.equals(robo.getClass().getSimpleName()))
+                return robo;
+        }
+        return null;
+    }
+
     /**
      * Checa se as coordenadas de um ponto estão contidas na região definida do ambiente
      * @param x valor da coordenada horizontal

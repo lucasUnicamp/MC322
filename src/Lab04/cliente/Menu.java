@@ -6,13 +6,14 @@ import java.util.Scanner;
 import simulador.Ambiente;
 import simulador.Robo;
 import simulador.RoboAereo;
-import simulador.RoboDesligadoException;
 import simulador.RoboPlanador;
 import simulador.RoboPreguica;
 import simulador.RoboSatelite;
 import simulador.RoboTerrestre;
 import simulador.RoboXadrez;
 import simulador.Comunicavel;
+import simulador.RoboDesligadoException;
+import simulador.NaoComunicavelException;
 
 public class Menu {
     private final Ambiente ambiente;
@@ -417,6 +418,7 @@ public class Menu {
                     return;
                 default:
                     realizarAcoesMenuExtras(robo, listaInterfaces, entradaExtras);
+                    break;
             }
         }
     }
@@ -473,19 +475,42 @@ public class Menu {
 
     public void realizarAcoesMenuExtras(Robo robo, int[] listaInterfaces, int entradaAcoes) {
         while (true) {
-            switch (listaInterfaces[entradaAcoes]) {
-                case 0:
-                    System.out.println("[String] Para qual robo a mensagem deve ser enviada?");
-                    System.out.print("> ");
-                    String destinatario = scan.nextLine();
-                    if (!ambiente.getCentral().checarDestinatario(destinatario)) {
-                        break;
-                    }
-                    System.out.println("[String] Qual a mensagem?");
-                    System.out.print("> ");
-                    String mensagem = scan.nextLine();
-                    break;
+            try {
+                switch (listaInterfaces[entradaAcoes + 1]) {
+                    case 0:
+                        System.out.println("[String] Para qual robo a mensagem deve ser enviada?");
+                        System.out.print("> ");
+                        String nome = scan.next();
+                        Robo destinatarioRobo = ambiente.conferirNome(nome);
+
+                        // Confere se o nome eh o de algum robo no ambiente 
+                        if (destinatarioRobo != null) {
+                            // Confere se o robo eh comunicavel, se nao, lança um erro
+                            if (ambiente.getCentral().checarDestinatario(destinatarioRobo)) {
+                                Comunicavel remetenteCom = ambiente.getCentral().getComunicavel(robo);
+                                Comunicavel destinatarioCom = ambiente.getCentral().getComunicavel(destinatarioRobo);
+
+                                System.out.println("[String] Qual a mensagem?");
+                                System.out.print("> ");
+                                String mensagem = scan.next();
+
+                                // ESTA SENDO REGISTRADA 3 VEZES
+                                remetenteCom.enviarMensagem(destinatarioCom, mensagem);
+                                destinatarioCom.receberMensagem(mensagem);
+                                // MUDAR ISSO DAQUI
+                                ambiente.getCentral().registrarMensagem(destinatarioRobo.getNome(), mensagem);
+                            }
+                        } else {
+                            System.out.println("!!! Esse nao eh um robo valido !!!");
+                            break;
+                        }
+                }
+            } catch (NaoComunicavelException erro) {
+                System.out.println(erro.getMessage());
+            } catch (RoboDesligadoException erro) {
+                System.out.println(erro.getMessage());
             }
+            break;
         }
     }
 
