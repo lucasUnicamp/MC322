@@ -114,14 +114,16 @@ public class RoboAereo extends Robo implements Sensoreavel{
 
                 for (int j = getX() - 1; j <= getX() + 1; j++) {
                     for (int k = getY() - 1; k <= getY() + 1; k++) {
+                        System.out.print("     " );
                         if (sensores.get(i) instanceof SensorTemperatura)
                             ((SensorTemperatura) sensores.get(i)).exibirTempPonto(j, k);
-                        else
+                        else 
                             usarSensor(i, j, k);
                     }
                 }
             }
         } else {
+            System.out.println("");
             throw new RoboDesligadoException(getID());
         }
     }

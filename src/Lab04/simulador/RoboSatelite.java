@@ -59,10 +59,10 @@ public class RoboSatelite extends RoboAereo implements Comunicavel {
     public void enviarMensagem(Comunicavel destinatario, String mensagem) throws RoboDesligadoException {
         if (estaLigado()) {
             try {
-            destinatario.receberMensagem(mensagem);
-            System.out.println("A mensagem foi enviada com sucesso.");
+                destinatario.receberMensagem(mensagem);
+                System.out.println("A mensagem foi enviada com sucesso.");
             } catch (RoboDesligadoException erro) {
-                System.out.println("A mensagem não foi enviada. Robô destinatário desligado");
+                System.out.println("A mensagem nao foi enviada, robo destinatario desligado.");
             }
         } else {
             throw new RoboDesligadoException(getID());
@@ -70,7 +70,7 @@ public class RoboSatelite extends RoboAereo implements Comunicavel {
     }
 
     public void receberMensagem(String mensagem) throws RoboDesligadoException {
-        if (estaLigado()){
+        if (estaLigado()) {
             getAmbiente().getCentral().registrarMensagem(getID(), mensagem);
         } else {
             throw new RoboDesligadoException(getID());

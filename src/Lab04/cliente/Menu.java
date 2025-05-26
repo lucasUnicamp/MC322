@@ -466,7 +466,6 @@ public class Menu {
             try {
                 System.out.print("> ");
                 int entradaExtra = scan.nextInt();
-                System.out.println("");
 
                 if (entradaExtra >= -1 && entradaExtra <= acoesMaximo){
                     return entradaExtra;
@@ -476,7 +475,7 @@ public class Menu {
                     continue;
                 }
             } catch (InputMismatchException erro) {
-                System.out.print("!!! Use apenas numeros !!!");
+                System.out.println("!!! Use apenas numeros !!!");
                 scan.next();
             }
         }
@@ -489,7 +488,7 @@ public class Menu {
                     case 0:
                         System.out.println("[String] Para qual robo a mensagem deve ser enviada?");
                         System.out.print("> ");
-                        String nome = scan.next();
+                        String nome = scan.nextLine();
                         Robo destinatarioRobo = ambiente.conferirNome(nome);
 
                         // Confere se o nome eh o de algum robo no ambiente 
@@ -498,7 +497,8 @@ public class Menu {
                             if (ambiente.getCentral().checarDestinatario(destinatarioRobo)) {
                                 System.out.println("[String] Qual a mensagem?");
                                 System.out.print("> ");
-                                String mensagem = scan.next();
+                                String mensagem = scan.nextLine();
+                                System.out.println("");
                                 ((Comunicavel) robo).enviarMensagem(((Comunicavel) destinatarioRobo), mensagem);
                             }
                             break;

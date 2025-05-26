@@ -26,7 +26,7 @@ public class CentralComunicacao {
             System.out.println("\nNao ha mensagens na central. Volte mais tarde.");
         }
         else {
-            System.out.println("Mensagens armazenadas na central:");
+            System.out.println("\nMensagens armazenadas na central:");
             for (String msg: mensagens){
                 System.out.println(msg);
             }
