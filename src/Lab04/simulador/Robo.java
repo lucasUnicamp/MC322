@@ -188,7 +188,7 @@ public abstract class Robo implements Entidade {
      * @param indice posicao do SensorObstaculo na ArrayList de sensores do robo 
      */
     protected void moverComSensor(int deltaX, int deltaY, int indice) throws RoboDesligadoException{
-        if(estaLigado()) {
+        if (estaLigado()) {
             int novoX = posicaoX + deltaX;
             int novoY = posicaoY + deltaY;
             // Downcasting porque sei que esse elemento da ArrayList deve ser do tipo SensorObstaculo. Necessario pois preciso acessar o metodo

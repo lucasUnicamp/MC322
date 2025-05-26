@@ -466,6 +466,7 @@ public class Menu {
             try {
                 System.out.print("> ");
                 int entradaExtra = scan.nextInt();
+                System.out.println("");
 
                 if (entradaExtra >= -1 && entradaExtra <= acoesMaximo){
                     return entradaExtra;
@@ -475,7 +476,7 @@ public class Menu {
                     continue;
                 }
             } catch (InputMismatchException erro) {
-                System.out.println("!!! Use apenas numeros !!!");
+                System.out.print("!!! Use apenas numeros !!!");
                 scan.next();
             }
         }
