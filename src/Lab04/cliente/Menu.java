@@ -162,7 +162,7 @@ public class Menu {
                     return;
                 case -2:
                     if (temInterfaceExtra(roboUsado)) {
-                        iniciarMenuExtras();
+                        iniciarMenuExtras(roboUsado);
                     }
                 default:
                     realizarAcoesMenuRobo(roboUsado, entradaRobo);
@@ -407,13 +407,91 @@ public class Menu {
         }
     }
 
-    public void iniciarMenuExtras() {
+    public void iniciarMenuExtras(Robo robo) {
+        while (true) {
+            int[] listaInterfaces = exibirEscolhaMenuExtras(robo);
+            int entradaExtras = lerEscolhaMenuExtras(listaInterfaces[0]);
+
+            switch (entradaExtras) {
+                case -1:
+                    return;
+                default:
+                    realizarAcoesMenuExtras(robo, listaInterfaces, entradaExtras);
+            }
+        }
+    }
+
+    public int[] exibirEscolhaMenuExtras(Robo robo) {
+        int[] listaInterfaces = new int[2];
+        int indice = 0;
+        listaInterfaces[0] = 0;
+        System.out.println("\n-- EXTRAS ---------");
         
+        if (robo instanceof Comunicavel) {
+            System.out.printf("[%d] :: Comunicar-se\n", indice);
+            indice++;
+            // Significa que a opçao indice do menu (listaInterfaces[indice], que nesse primeiro caso vai ser sempre 1) 
+            // eh o Comunicavel (dado por 0)
+            listaInterfaces[indice] = 0;        
+        }
+        /*
+        if (robo instanceof Destrutivel) {
+            System.out.printf("[%d] :: Destruir\n", indice);
+            indice++;
+            // Significa que a opçao indice do menu (listaInterfaces[indice]) eh o Destrutivel (dado por 1)
+            listaInterfaces[indice] = 1;
+        }
+         */
+
+        listaInterfaces[0] = indice;
+        System.out.println("\n[-1] :: Voltar");
+
+        return listaInterfaces;
+    }
+
+    public int lerEscolhaMenuExtras(int acoesMaximo) {
+        System.out.println("\nQual acao quer realizar?");
+        // Loop para que o submenu nao seja printado novamente caso a entrada seja invalida
+        while (true) {
+            try {
+                System.out.print("> ");
+                int entradaExtra = scan.nextInt();
+
+                if (entradaExtra >= -1 && entradaExtra <= acoesMaximo){
+                    return entradaExtra;
+                }
+                else {
+                    System.out.printf("!!! %d Nao eh uma opcao valida !!!\n", entradaExtra);
+                    continue;
+                }
+            } catch (InputMismatchException erro) {
+                System.out.println("!!! Use apenas numeros !!!");
+                scan.next();
+            }
+        }
+    }
+
+    public void realizarAcoesMenuExtras(Robo robo, int[] listaInterfaces, int entradaAcoes) {
+        while (true) {
+            switch (listaInterfaces[entradaAcoes]) {
+                case 0:
+                    System.out.println("[String] Para qual robo a mensagem deve ser enviada?");
+                    System.out.print("> ");
+                    String destinatario = scan.nextLine();
+                    if (!ambiente.getCentral().checarDestinatario(destinatario)) {
+                        break;
+                    }
+                    System.out.println("[String] Qual a mensagem?");
+                    System.out.print("> ");
+                    String mensagem = scan.nextLine();
+                    break;
+            }
+        }
     }
 
     // Metodo que coordena os loops do submenu das direcoes
     public void iniciarMenuDirecao(Robo robo) {
-        while(true) {
+        while (true) {
             exibirEscolhaMenuDirecao();
             int entradaDirecao = lerEscolhaMenuDirecao();
 
@@ -444,7 +522,7 @@ public class Menu {
      */
     public int lerEscolhaMenuDirecao() {
         System.out.println("\nPara qual direção deseja mudar?");
-    // Loop para que o submenu nao seja printado novamente caso a entrada seja invalida
+        // Loop para que o submenu nao seja printado novamente caso a entrada seja invalida
         while (true) {
             try {
                 System.out.print("> ");

@@ -6,9 +6,11 @@ import java.time.format.DateTimeFormatter;
 
 public class CentralComunicacao {
     public ArrayList<String> mensagens;
+    public ArrayList<Robo> comunicaveis;
 
     public CentralComunicacao(){
         mensagens = new ArrayList<String>();
+        comunicaveis = new ArrayList<Robo>();
     }
     
     public void registrarMensagem(String remetente, String msg) {
@@ -29,5 +31,18 @@ public class CentralComunicacao {
                 System.out.println(msg);
             }
         }
+    }
+
+    public void adicionarComunicavel(Robo r) {
+        comunicaveis.add(r);
+    }
+
+    public boolean checarDestinatario(String destinatario) {
+        boolean ehComunicavel = false;
+        for (Robo robo:comunicaveis) {
+            if (destinatario == robo.getNome() || destinatario == robo.getID() || destinatario == robo.getClass().getSimpleName())
+                ehComunicavel = true;
+        }
+        return ehComunicavel;
     }
 }

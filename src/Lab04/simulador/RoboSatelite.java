@@ -12,6 +12,8 @@ public class RoboSatelite extends RoboAereo implements Comunicavel {
         this.cargaLancamento = cargaLancamento;
         emOrbita = false;
         checarQueda();
+
+        ambiente.getCentral().adicionarComunicavel(this);
     }
 
     @Override
