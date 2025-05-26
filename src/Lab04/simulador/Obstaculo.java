@@ -2,7 +2,6 @@ package simulador;
 
 public class Obstaculo implements Entidade {
     private final TipoObstaculo tipoObs;
-    private final TipoEntidade tipoEnt;
     private int posicaoX1;
     private int posicaoY1;
     private int posicaoX2;
@@ -10,7 +9,6 @@ public class Obstaculo implements Entidade {
 
     public Obstaculo(int posicaoX1, int posicaoY1, int posicaoX2, int posicaoY2, TipoObstaculo tipo) {
         tipoObs = tipo;
-        tipoEnt = TipoEntidade.OBSTACULO;
         this.posicaoX1 = posicaoX1;
         this.posicaoY1 = posicaoY1;
         this.posicaoX2 = posicaoX2;
@@ -49,9 +47,7 @@ public class Obstaculo implements Entidade {
         return tipoObs;
     }
 
-    public TipoEntidade getTipoEntidade() {
-        return tipoEnt;
-    }
+
     
     public int getPosicaoX1() {
         return posicaoX1;
@@ -88,6 +84,16 @@ public class Obstaculo implements Entidade {
     public int getZ() {
         return 0;
     }
+
+    public int getLargura() {
+        return getPosicaoX2() - getPosicaoX1();
+    };
+    public int getProfundidade(){
+        return getPosicaoY2() - getPosicaoY1();
+    };
+    public int getAltura(){
+        return getTipoObstaculo().getAltura();
+    };
 
     public TipoEntidade getTipo() {
         return TipoEntidade.OBSTACULO;
