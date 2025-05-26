@@ -11,6 +11,7 @@ import simulador.RoboPreguica;
 import simulador.RoboSatelite;
 import simulador.RoboTerrestre;
 import simulador.RoboXadrez;
+import simulador.Sensoreavel;
 import simulador.Comunicavel;
 import simulador.RoboDesligadoException;
 import simulador.NaoComunicavelException;
@@ -424,7 +425,7 @@ public class Menu {
     }
 
     public int[] exibirEscolhaMenuExtras(Robo robo) {
-        int[] listaInterfaces = new int[2];
+        int[] listaInterfaces = new int[3];
         int indice = 0;
         listaInterfaces[0] = 0;
         System.out.println("\n-- EXTRAS ---------");
@@ -436,12 +437,19 @@ public class Menu {
             // eh o Comunicavel (dado por 0)
             listaInterfaces[indice] = 0;        
         }
+        if (robo instanceof Sensoreavel) {
+            System.out.printf("[%d] :: Aciconar todos os sensores\n", indice);
+            indice++;
+            // Significa que a opçao indice do menu (listaInterfaces[indice], que nesse primeiro caso vai ser sempre 1) 
+            // eh o Comunicavel (dado por 0)
+            listaInterfaces[indice] = 1;        
+        }
         /*
         if (robo instanceof Destrutivel) {
             System.out.printf("[%d] :: Destruir\n", indice);
             indice++;
             // Significa que a opçao indice do menu (listaInterfaces[indice]) eh o Destrutivel (dado por 1)
-            listaInterfaces[indice] = 1;
+            listaInterfaces[indice] = 2;
         }
          */
 
@@ -501,6 +509,9 @@ public class Menu {
                             System.out.println("!!! Esse nao eh um robo valido !!!");
                             break;
                         }
+                    case 1:
+                        ((Sensoreavel) robo).acionarSensores();
+                        
                 }
             } catch (NaoComunicavelException erro) {
                 System.out.println(erro.getMessage());
