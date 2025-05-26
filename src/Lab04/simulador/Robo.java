@@ -126,7 +126,7 @@ public abstract class Robo implements Entidade {
             }
             // Atualiza posicao X do robo baseado em quanto conseguiu andar
             i -= 1;
-            posicaoX += i;
+            setX(getX() + i);
         }
         // Caso deltaX negativo, anda na direcao Oeste.
         else if (deltaX < 0) {
@@ -141,7 +141,7 @@ public abstract class Robo implements Entidade {
                 }
             }
             i -= 1;
-            posicaoX -= i;
+            setX(getX() - i);
         }
         // Depois move o robo totalmente na vertical
         // Caso deltaY positivo, anda na direcao Norte. Aqui checa o valor de i antes pois i so eh diferente de deltaX 
@@ -200,8 +200,8 @@ public abstract class Robo implements Entidade {
                 int haObstaculosCaminho = sensorObs.checarObstaculoCaminho(getX(), getY(), deltaX, deltaY);
                 // Checa se nao ha obstaculos nos 2 caminhos até o ponto final
                 if (haObstaculosCaminho == 1) {
-                    posicaoX = novoX;
-                    posicaoY = novoY;
+                    setX(novoX);
+                    setY(novoY);
                     System.out.println("Movimentado com sucesso.");
                     exibirPosicao();
                 }
@@ -354,20 +354,20 @@ public abstract class Robo implements Entidade {
 
     protected void setX(int posX) {
         posicaoX = posX;
-        ambiente.moverEntidade(this, getX(), getY(), getZ());
+        ambiente.moverEntidadeMapa(this, getX(), getY(), getZ());
         atualizaSensores();
     }
 
     protected void setY(int posY) {
         posicaoY = posY;
-        ambiente.moverEntidade(this, getX(), getY(), getZ());
+        ambiente.moverEntidadeMapa(this, getX(), getY(), getZ());
         atualizaSensores();
     }
 
     protected void setZ(int posZ) {
         posicaoZ = posZ;
         posicaoZ = posZ >= 0 ? posZ : 0;        // Corrige altura contra valores negativos
-        ambiente.moverEntidade(this, getX(), getY(), getZ());
+        ambiente.moverEntidadeMapa(this, getX(), getY(), getZ());
         atualizaSensores();
     }
 
