@@ -26,51 +26,54 @@ public class RoboXadrez extends RoboTerrestre implements Comunicavel {
 
     @Override
     public void moverPara(int x, int y) throws RoboDesligadoException {
-        if (estaLigado()){
-            int deltaX = x - getX();
-            int deltaY = y - getY();
-            if (getTipoMovimento() == 1) {
-                // Cheques de validade do movimento de tipo Cavalo
-                if ((Math.abs(deltaX) == 2 && Math.abs(deltaY) == 1) || (Math.abs(deltaX) == 1 && Math.abs(deltaY) == 2)) {
-                    super.moverPara(x, y);
-                    return;
+        try {
+            if (estaLigado()){
+                int deltaX = x - getX();
+                int deltaY = y - getY();
+                if (getTipoMovimento() == 1) {
+                    // Cheques de validade do movimento de tipo Cavalo
+                    if ((Math.abs(deltaX) == 2 && Math.abs(deltaY) == 1) || (Math.abs(deltaX) == 1 && Math.abs(deltaY) == 2)) {
+                        super.moverPara(x, y);
+                        return;
+                    }
+                } 
+                else {
+                    // Cheques de validade do movimento de tipo Peao
+                    switch (getDirecao()) {
+                        case "Norte":
+                            if (deltaX == 0 && (deltaY == 2 || deltaY == 1)){
+                                super.moverPara(deltaX, deltaY);
+                                return;
+                            }
+                            break;
+                        case "Sul":
+                            if (deltaX == 0 && (deltaY == -2 || deltaY == -1)) {
+                                super.moverPara(deltaX, deltaY);
+                                return;
+                            }
+                            break;
+                        case "Leste":
+                            if ((deltaX == 2 || deltaX == 1) && deltaY == 0) {
+                                super.moverPara(deltaX, deltaY);
+                                return;
+                            }
+                            break;
+                        case "Oeste":
+                            if ((deltaX == -2 || deltaX == -1) && deltaY == 0) {
+                                super.moverPara(deltaX, deltaY);
+                                return;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
                 }
-            } 
-            else {
-                // Cheques de validade do movimento de tipo Peao
-                switch (getDirecao()) {
-                    case "Norte":
-                        if (deltaX == 0 && (deltaY == 2 || deltaY == 1)){
-                            super.moverPara(deltaX, deltaY);
-                            return;
-                        }
-                        break;
-                    case "Sul":
-                        if (deltaX == 0 && (deltaY == -2 || deltaY == -1)) {
-                            super.moverPara(deltaX, deltaY);
-                            return;
-                        }
-                        break;
-                    case "Leste":
-                        if ((deltaX == 2 || deltaX == 1) && deltaY == 0) {
-                            super.moverPara(deltaX, deltaY);
-                            return;
-                        }
-                        break;
-                    case "Oeste":
-                        if ((deltaX == -2 || deltaX == -1) && deltaY == 0) {
-                            super.moverPara(deltaX, deltaY);
-                            return;
-                        }
-                        break;
-                    default:
-                        break;
-                }
+                throw new MovimentoXadrezInvalidoException(getID());
+            } else {
+                throw new RoboDesligadoException(getID());
             }
-
-            System.out.printf("Movimento invalidado pelas regras do xadrez.\n");
-        } else {
-            throw new RoboDesligadoException(getID());
+        } catch (MovimentoXadrezInvalidoException erro) {
+            System.out.println(erro.getMessage());
         }
     }
     
