@@ -29,23 +29,26 @@ public class Obstaculo implements Entidade {
     }
     
     public void setPosicaoX1(int pos) {
+        ambiente.moverEntidadeMapa(this, pos, getPosicaoY1(), 0);
         posicaoX1 = pos;
-        ambiente.moverEntidadeMapa(this, getPosicaoX1(), getPosicaoY1(), 0);
     }
     
     public void setPosicaoX2(int pos) {
+        ambiente.removerEntidade(this);
         posicaoX2 = pos;
-        ambiente.moverEntidadeMapa(this, getPosicaoX1(), getPosicaoY1(), 0);
+        ambiente.adicionarEntidade(this);
+        
     }
     
     public void setPosicaoY1(int pos) {
+        ambiente.moverEntidadeMapa(this, getPosicaoX1(), pos, 0);
         posicaoY1 = pos;
-        ambiente.moverEntidadeMapa(this, getPosicaoX1(), getPosicaoY1(), 0);
     }
     
     public void setPosicaoY2(int pos) {
+        ambiente.removerEntidade(this);
         posicaoY2 = pos;
-        ambiente.moverEntidadeMapa(this, getPosicaoX1(), getPosicaoY1(), 0);
+        ambiente.adicionarEntidade(this);
     }
     
     public TipoObstaculo getTipoObstaculo() {
