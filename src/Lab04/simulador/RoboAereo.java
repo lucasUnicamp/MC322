@@ -77,9 +77,8 @@ public class RoboAereo extends Robo implements Sensoreavel{
                     System.out.println("O Robo desceu com sucesso.");
                     setZ(getZ() - metros);
                 }
-                // Atualiza a altitude para 0 caso tenha descido demais e nao ha obtaculo abaixo
+                // Joga um erro caso tenha descido demais e nao ha obtaculo abaixo
                 else if (!sensorObs.checarObstaculoPosicao(getX(), getY(), 0)){
-                    setZ(0);
                     throw new DesceuDemaisException(getID());
                 }
                 // Não Atualiza a altitude caso tenha obstaculos abaixo
