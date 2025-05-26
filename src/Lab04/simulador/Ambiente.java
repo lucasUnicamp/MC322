@@ -124,10 +124,39 @@ public class Ambiente {
         }
     }
 
+    public void moverEntidade(Entidade e, int novoX, int novoY, int novoZ) {
+        if(e.getTipo() == TipoEntidade.ROBO){
+            ((Robo) e).setX(novoX);
+            ((Robo) e).setY(novoY);
+            ((Robo) e).setZ(novoZ);
+        } else if (e.getTipo() == TipoEntidade.OBSTACULO) {
+
+        }
+    }
+
     //move a entidade na matriz, mas não tem o poder de mudar a condição absoluta da entidade
-    public void moverEntidade(Entidade e, int NovoX, int NovoY, int NovoZ) {
-        removerEntidade(e);
-        adicionarEntidade(e);
+    public void moverEntidadeMapa(Entidade e, int novoX, int novoY, int novoZ){
+        if(e.getTipo() == TipoEntidade.ROBO){ //remove o robo da matriz
+            removerRobo((Robo) e);
+            mapa[e.getX()][e.getY()][e.getZ()] = TipoEntidade.VAZIO;
+        } else if(e.getTipo() == TipoEntidade.OBSTACULO){ //remove o obstaculo da matriz
+            removerObstaculo((Obstaculo) e);
+            for(int i = e.getX(); i < e.getX() + e.getLargura(); i++)
+                for(int j = e.getY(); j < e.getY() + e.getProfundidade(); j++)
+                    for(int w = e.getZ(); w < e.getZ() + e.getAltura(); w++)
+                        mapa[i][j][w] = TipoEntidade.VAZIO;
+        }
+
+        if(e.getTipo() == TipoEntidade.ROBO){ //readiciona o robo a matriz
+            adicionarRobo((Robo) e);
+            mapa[novoX][novoY][novoZ] = TipoEntidade.ROBO;
+        } else if(e.getTipo() == TipoEntidade.OBSTACULO){ //readiciona o obstaculo a matriz
+            adicionarObstaculos((Obstaculo) e);
+            for(int i = novoX; i < novoX + e.getLargura(); i++)
+                for(int j = novoY; j < novoY + e.getProfundidade(); j++)
+                    for(int w = 0; w < e.getAltura(); w++)
+                        mapa[i][j][w] = TipoEntidade.OBSTACULO;
+        }
     }
 
     public void listarRobos() {

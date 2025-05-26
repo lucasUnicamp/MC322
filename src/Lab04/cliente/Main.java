@@ -22,9 +22,9 @@ public class Main {
         Scanner scan = new Scanner(System.in);
         CentralComunicacao central = new CentralComunicacao();
         Ambiente salaTeste = new Ambiente(50, 50, 50, 3, central);        // Cria o ambiente para testes
-        salaTeste.adicionarEntidade(new Obstaculo(10, 20, 20, 30, TipoObstaculo.ESTATUA_DE_ELEFANTE));
-        salaTeste.adicionarEntidade(new Obstaculo(35, 30, 45, 50, TipoObstaculo.TORRE_DE_BABEL));
-        salaTeste.adicionarEntidade(new Obstaculo(30, 5, 40, 10, TipoObstaculo.THE_BEAN));
+        salaTeste.adicionarEntidade(new Obstaculo(10, 20, 20, 30, TipoObstaculo.ESTATUA_DE_ELEFANTE, salaTeste));
+        salaTeste.adicionarEntidade(new Obstaculo(35, 30, 45, 50, TipoObstaculo.TORRE_DE_BABEL, salaTeste));
+        salaTeste.adicionarEntidade(new Obstaculo(30, 5, 40, 10, TipoObstaculo.THE_BEAN, salaTeste));
 
         /**
          * TESTES MANUAIS

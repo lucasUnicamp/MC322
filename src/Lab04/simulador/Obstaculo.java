@@ -6,8 +6,9 @@ public class Obstaculo implements Entidade {
     private int posicaoY1;
     private int posicaoX2;
     private int posicaoY2;
+    private Ambiente ambiente;
 
-    public Obstaculo(int posicaoX1, int posicaoY1, int posicaoX2, int posicaoY2, TipoObstaculo tipo) {
+    public Obstaculo(int posicaoX1, int posicaoY1, int posicaoX2, int posicaoY2, TipoObstaculo tipo, Ambiente ambiente) {
         tipoObs = tipo;
         this.posicaoX1 = posicaoX1;
         this.posicaoY1 = posicaoY1;
@@ -29,18 +30,22 @@ public class Obstaculo implements Entidade {
     
     public void setPosicaoX1(int pos) {
         posicaoX1 = pos;
+        ambiente.moverEntidadeMapa(this, getPosicaoX1(), getPosicaoY1(), 0);
     }
     
     public void setPosicaoX2(int pos) {
         posicaoX2 = pos;
+        ambiente.moverEntidadeMapa(this, getPosicaoX1(), getPosicaoY1(), 0);
     }
     
     public void setPosicaoY1(int pos) {
         posicaoY1 = pos;
+        ambiente.moverEntidadeMapa(this, getPosicaoX1(), getPosicaoY1(), 0);
     }
     
     public void setPosicaoY2(int pos) {
         posicaoY2 = pos;
+        ambiente.moverEntidadeMapa(this, getPosicaoX1(), getPosicaoY1(), 0);
     }
     
     public TipoObstaculo getTipoObstaculo() {
