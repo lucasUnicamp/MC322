@@ -14,7 +14,7 @@ import simulador.RoboXadrez;
 import simulador.Sensoreavel;
 import simulador.Comunicavel;
 import simulador.RoboDesligadoException;
-import simulador.NaoComunicavelException;
+import simulador.ErroComunicacaoException;
 
 public class Menu {
     private final Ambiente ambiente;
@@ -509,7 +509,7 @@ public class Menu {
                         ((Sensoreavel) robo).acionarSensores();
                         
                 }
-            } catch (NaoComunicavelException erro) {
+            } catch (ErroComunicacaoException erro) {
                 System.out.println(erro.getMessage());
             } catch (RoboDesligadoException erro) {
                 System.out.println(erro.getMessage());
