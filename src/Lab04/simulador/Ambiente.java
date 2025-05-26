@@ -22,7 +22,17 @@ public class Ambiente {
         robosAtivos = new ArrayList<Robo>();
         obstaculos = new ArrayList<Obstaculo>();
         entidades = new ArrayList<Entidade>();
+        inicializarMapa();
         gradienteTemperatura();
+    }
+
+    private void inicializarMapa() {
+        mapa = new TipoEntidade[getLargura() + 1][getProfundidade() + 1][getAltura() + 1];
+        for(int i = 0; i <= getLargura(); i++)
+            for(int j = 0; j <= getProfundidade(); j++)
+                for(int w = 0; w <= getAltura(); w++)
+                    mapa[i][j][w] = TipoEntidade.VAZIO;
+
     }
 
     /**
@@ -59,24 +69,24 @@ public class Ambiente {
         (Math.pow(Math.abs(y - centroY), 2))/(2 * Math.pow(vertical, 2)))));
     }
 
-    public void adicionarRobo(Robo r) {
+    private void adicionarRobo(Robo r) {
         robosAtivos.add(r);
         adicionarEntidade(r);
     }
 
-    public void removerRobo(Robo r) {
+    private void removerRobo(Robo r) {
         for (int i = 0; i < robosAtivos.size(); i++) {
             if (robosAtivos.get(i) == r)
                 robosAtivos.remove(i);
         }
     }
 
-    public void adicionarObstaculos(Obstaculo o) {
+    private void adicionarObstaculos(Obstaculo o) {
         obstaculos.add(o);
         adicionarEntidade(o);
     }
 
-    public void removerObstaculo(Obstaculo o) {
+    private void removerObstaculo(Obstaculo o) {
         for (int i = 0; i < obstaculos.size(); i++) {
             if (obstaculos.get(i) == o)
                 obstaculos.remove(i);
@@ -85,6 +95,16 @@ public class Ambiente {
 
     public void adicionarEntidade(Entidade e) {
         entidades.add(e);
+        if(e.getTipo() == TipoEntidade.ROBO){
+            adicionarRobo((Robo) e);
+            mapa[e.getX()][e.getY()][e.getZ()] = TipoEntidade.ROBO;
+        } else if(e.getTipo() == TipoEntidade.OBSTACULO){
+            adicionarObstaculos((Obstaculo) e);
+            for(int i = e.getX(); i < e.getX() + e.getLargura(); i++)
+                for(int j = e.getY(); j < e.getY() + e.getProfundidade(); j++)
+                    for(int w = e.getZ(); w < e.getZ() + e.getAltura(); w++)
+                        mapa[i][j][w] = TipoEntidade.OBSTACULO;
+        }
     }
 
     public void removerEntidade(Entidade e) {
@@ -92,6 +112,22 @@ public class Ambiente {
             if (entidades.get(i) == e)
                 entidades.remove(i);
         }
+        if(e.getTipo() == TipoEntidade.ROBO){
+            removerRobo((Robo) e);
+            mapa[e.getX()][e.getY()][e.getZ()] = TipoEntidade.VAZIO;
+        } else if(e.getTipo() == TipoEntidade.OBSTACULO){
+            removerObstaculo((Obstaculo) e);;
+            for(int i = e.getX(); i < e.getX() + e.getLargura(); i++)
+                for(int j = e.getY(); j < e.getY() + e.getProfundidade(); j++)
+                    for(int w = e.getZ(); w < e.getZ() + e.getAltura(); w++)
+                        mapa[i][j][w] = TipoEntidade.VAZIO;
+        }
+    }
+
+    //move a entidade na matriz, mas não tem o poder de mudar a condição absoluta da entidade
+    public void moverEntidade(Entidade e, int NovoX, int NovoY, int NovoZ) {
+        removerEntidade(e);
+        adicionarEntidade(e);
     }
 
     public void listarRobos() {

@@ -25,7 +25,7 @@ public abstract class Robo implements Entidade {
         setZ(0);
         setAmbiente(ambiente);
 
-        ambiente.adicionarRobo(this);       // Adiciona o robo no ambiente logo que é criado
+        ambiente.adicionarEntidade(this);       // Adiciona o robo no ambiente logo que é criado
         sensores = new ArrayList<Sensor>();       // Inicializa array para os sensores
         System.out.printf("\nRobo '%s' criado.\n", nome);
 
@@ -351,17 +351,20 @@ public abstract class Robo implements Entidade {
 
     protected void setX(int posX) {
         posicaoX = posX;
+        ambiente.moverEntidade(this, getX(), getY(), getZ());
         atualizaSensores();
     }
 
     protected void setY(int posY) {
         posicaoY = posY;
+        ambiente.moverEntidade(this, getX(), getY(), getZ());
         atualizaSensores();
     }
 
     protected void setZ(int posZ) {
         posicaoZ = posZ;
         posicaoZ = posZ >= 0 ? posZ : 0;        // Corrige altura contra valores negativos
+        ambiente.moverEntidade(this, getX(), getY(), getZ());
         atualizaSensores();
     }
 
@@ -408,6 +411,16 @@ public abstract class Robo implements Entidade {
     public int getZ() {
         return posicaoZ;
     }
+
+    public int getLargura() {
+        return 0;
+    };
+    public int getProfundidade(){
+        return 0;
+    };
+    public int getAltura(){
+        return 0;
+    };
 
     public TipoEntidade getTipo() {
         return TipoEntidade.ROBO;
