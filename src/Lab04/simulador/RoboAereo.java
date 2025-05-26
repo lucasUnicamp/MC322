@@ -26,7 +26,7 @@ public class RoboAereo extends Robo implements Sensoreavel{
      * o override, ele tentaria usar o 'moverSemSensor'
      */
     @Override
-    public void moverPara(int x, int y) throws RoboDesligadoException{
+    public void moverPara(int x, int y) throws RoboDesligadoException {
         int deltaX = x - getX();
         int deltaY = y - getY();
         int indice = temSensorTipo("SensorObstaculo");
@@ -59,8 +59,8 @@ public class RoboAereo extends Robo implements Sensoreavel{
         }
     }
 
-    public void descer(int metros) throws RoboDesligadoException{
-        if (estaLigado()){
+    public void descer(int metros) throws RoboDesligadoException, DesceuDemaisException {
+        if (estaLigado()) {
             int indice = temSensorTipo("SensorObstaculo");
             SensorObstaculo sensorObs;
 
@@ -79,8 +79,8 @@ public class RoboAereo extends Robo implements Sensoreavel{
                 }
                 // Atualiza a altitude para 0 caso tenha descido demais e nao ha obtaculo abaixo
                 else if (!sensorObs.checarObstaculoPosicao(getX(), getY(), 0)){
-                    System.out.printf("'%s' espatifou-se no chao.\n", getNome());
                     setZ(0);
+                    throw new DesceuDemaisException(getID());
                 }
                 // Não Atualiza a altitude caso tenha obstaculos abaixo
                 else {

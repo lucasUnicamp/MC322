@@ -28,7 +28,7 @@ public class RoboPlanador extends RoboAereo {
      * nao faria sentido pois ele exibiria que ja tinha descido antes de tentar se mover 
      */
     @Override
-    public void moverPara(int x, int y) throws RoboDesligadoException{
+    public void moverPara(int x, int y) throws RoboDesligadoException {
         int deltaX = x - getX();
         int deltaY = y - getY();
         int deslocamento = Math.abs(deltaX) + Math.abs(deltaY);
@@ -56,7 +56,7 @@ public class RoboPlanador extends RoboAereo {
  
     // Override feito para mudar o que eh printado para o usuario e ficar mais condizente com o tipo do Robo
     @Override 
-    public void descer(int metros) throws RoboDesligadoException{
+    public void descer(int metros) throws RoboDesligadoException {
         if (estaLigado()){
             int indice = temSensorTipo("SensorObstaculo");
             SensorObstaculo sensorObs;
@@ -93,7 +93,7 @@ public class RoboPlanador extends RoboAereo {
     }
 
     // Metodo 'intermediario' para impedir que o Robo use o 'descer' apos se mover no chao (altitude 0)
-    public void descerPlanando(int metros) throws RoboDesligadoException{
+    public void descerPlanando(int metros) throws RoboDesligadoException {
         if (getZ() != 0) {
             descer(metros);
         }

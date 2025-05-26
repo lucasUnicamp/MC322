@@ -37,8 +37,10 @@ public class RoboSatelite extends RoboAereo implements Comunicavel {
             System.out.printf("O Robo '%s' nao esta em orbita para poder subir.\n", getNome());
     }
 
+    // Tecnicamente nao precisaria do DesceuDemaisException pois ou ele desce exatamente a altura que esta
+    // e cai para 0, ou desce uma quantidade menor que ainda o deixa em orbita
     @Override 
-    public void descer(int metros) throws RoboDesligadoException{
+    public void descer(int metros) throws RoboDesligadoException, DesceuDemaisException {
         int altitudeNova = getZ() - metros;
         // Robo so desce se esta em orbita, pois caso nao esteja sua altitude eh sempre 0
         if (emOrbita) {
@@ -46,6 +48,7 @@ public class RoboSatelite extends RoboAereo implements Comunicavel {
             if (altitudeNova < getAltitudeMin()) {
                 System.out.printf("O Robo '%s' esta descendo abaixo da altitude de orbita para tentar pousar.\n", getNome());
                 emOrbita = false;
+                // Desce exatamente a altitude que esta no momento
                 super.descer(getZ());
             }
             else
