@@ -1,5 +1,5 @@
 package simulador;
 
 public interface Sensoreavel {
-    void acionarSensores();
+    void acionarSensores() throws RoboDesligadoException;
 }

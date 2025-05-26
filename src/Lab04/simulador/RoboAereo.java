@@ -1,6 +1,6 @@
 package simulador;
 
-public class RoboAereo extends Robo {
+public class RoboAereo extends Robo implements Sensoreavel{
     private int altitude;
     private int altitudeMaxima;
     
@@ -104,6 +104,19 @@ public class RoboAereo extends Robo {
                 sensor.setAltitude(getZ());
             }
         }      
+    }
+
+    // aciona todos os sensores ao mesmo tempo nas imediações adjacentes ao robô
+    public void acionarSensores() throws RoboDesligadoException{
+        exibirSensores();
+        for(int w = 0; w < sensores.size(); w++) {
+            for(int i = getX() - 1; i <= getX() + 1; i++) {
+                for(int j = getY() - 1; j <= getY() + 1; j++) {
+                    usarSensor(w, getX(), getY());
+                }
+            }
+        }
+        
     }
 
     @Override
