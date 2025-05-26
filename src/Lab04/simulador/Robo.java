@@ -188,7 +188,7 @@ public abstract class Robo implements Entidade {
      * @param indice posicao do SensorObstaculo na ArrayList de sensores do robo 
      */
     protected void moverComSensor(int deltaX, int deltaY, int indice) throws RoboDesligadoException{
-        if(estaLigado()) {
+        if (estaLigado()) {
             int novoX = posicaoX + deltaX;
             int novoY = posicaoY + deltaY;
             // Downcasting porque sei que esse elemento da ArrayList deve ser do tipo SensorObstaculo. Necessario pois preciso acessar o metodo
@@ -258,10 +258,13 @@ public abstract class Robo implements Entidade {
 
     /**
      * Aciona o metodo 'monitorar' do sensor especificado caso o robo o tenha
-     * @param tipoSensor tipo de sensor que se quer usar, sendo 1 = obstaculo e 2 = temperatura
+     * @param indiceSensor tipo de sensor que se quer usar, sendo 1 = obstaculo e 2 = temperatura
+     * @param posX coordenada x em que se vai usar o sensor
+     * @param posY coordenada y em que se vai usar o sensor
+     * @throws RoboDesligadoException nao funciona caso o robo esteja desligado
      */
     public void usarSensor(int indiceSensor, int posX, int posY) throws RoboDesligadoException{
-        if(estaLigado()){
+        if (estaLigado()) {
             // Switch case com o valor retornado pelo 'monitorar' do sensor
             switch(sensores.get(indiceSensor).monitorar(posX, posY)) {
                 case 1:

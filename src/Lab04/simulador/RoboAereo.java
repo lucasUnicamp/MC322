@@ -106,17 +106,24 @@ public class RoboAereo extends Robo implements Sensoreavel{
         }      
     }
 
-    // aciona todos os sensores ao mesmo tempo nas imediações adjacentes ao robô
-    public void acionarSensores() throws RoboDesligadoException{
-        exibirSensores();
-        for(int w = 0; w < sensores.size(); w++) {
-            for(int i = getX() - 1; i <= getX() + 1; i++) {
-                for(int j = getY() - 1; j <= getY() + 1; j++) {
-                    usarSensor(w, i, j);
+    // Aciona todos os sensores ao mesmo tempo nas imediaçoes adjacentes ao robo
+    public void acionarSensores() throws RoboDesligadoException {
+        if (estaLigado()) {
+            for (int i = 0; i < sensores.size(); i++) {
+                System.out.printf("\n%s:\n", sensores.get(i).getClass().getSimpleName().toUpperCase());
+
+                for (int j = getX() - 1; j <= getX() + 1; j++) {
+                    for (int k = getY() - 1; k <= getY() + 1; k++) {
+                        if (sensores.get(i) instanceof SensorTemperatura)
+                            ((SensorTemperatura) sensores.get(i)).exibirTempPonto(j, k);
+                        else
+                            usarSensor(i, j, k);
+                    }
                 }
             }
+        } else {
+            throw new RoboDesligadoException(getID());
         }
-        
     }
 
     @Override

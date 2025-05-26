@@ -44,12 +44,4 @@ public class CentralComunicacao {
         }
         throw new ErroComunicacaoException(destinatario.getID());
     }
-
-    public Comunicavel getComunicavel(Robo robo) {
-        for (Comunicavel com: comunicaveis) {
-            if (com == robo)
-                return com;
-        }
-        return null;
-    }
 }

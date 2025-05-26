@@ -441,7 +441,7 @@ public class Menu {
             System.out.printf("[%d] :: Aciconar todos os sensores\n", indice);
             indice++;
             // Significa que a opçao indice do menu (listaInterfaces[indice], que nesse primeiro caso vai ser sempre 1) 
-            // eh o Comunicavel (dado por 0)
+            // eh o Sensoreaevel (dado por 1)
             listaInterfaces[indice] = 1;        
         }
         /*
@@ -466,6 +466,7 @@ public class Menu {
             try {
                 System.out.print("> ");
                 int entradaExtra = scan.nextInt();
+                System.out.println("");
 
                 if (entradaExtra >= -1 && entradaExtra <= acoesMaximo){
                     return entradaExtra;
@@ -475,7 +476,7 @@ public class Menu {
                     continue;
                 }
             } catch (InputMismatchException erro) {
-                System.out.println("!!! Use apenas numeros !!!");
+                System.out.print("!!! Use apenas numeros !!!");
                 scan.next();
             }
         }
@@ -495,16 +496,12 @@ public class Menu {
                         if (destinatarioRobo != null) {
                             // Confere se o robo eh comunicavel, se nao, lança um erro
                             if (ambiente.getCentral().checarDestinatario(destinatarioRobo)) {
-                                Comunicavel remetenteCom = ambiente.getCentral().getComunicavel(robo);
-                                Comunicavel destinatarioCom = ambiente.getCentral().getComunicavel(destinatarioRobo);
-
                                 System.out.println("[String] Qual a mensagem?");
                                 System.out.print("> ");
                                 String mensagem = scan.next();
-
-                                // ESTA SENDO REGISTRADA 3 VEZES
-                                remetenteCom.enviarMensagem(destinatarioCom, mensagem);
+                                ((Comunicavel) robo).enviarMensagem(((Comunicavel) destinatarioRobo), mensagem);
                             }
+                            break;
                         } else {
                             System.out.println("!!! Esse nao eh um robo valido !!!");
                             break;
@@ -658,6 +655,6 @@ public class Menu {
 
     // !!!!!!!!!!!!!!!!!!!!!! ADICIONAR 'OU' OUTRAS INTERFACES AQUI !!!!!!!!!!!!!!!!!!!!!!!1
     public boolean temInterfaceExtra(Robo robo) {
-        return (robo instanceof Comunicavel);
+        return (robo instanceof Comunicavel || robo instanceof Sensoreavel);
     }
 }
