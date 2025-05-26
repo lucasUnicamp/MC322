@@ -466,6 +466,7 @@ public class Menu {
             try {
                 System.out.print("> ");
                 int entradaExtra = scan.nextInt();
+                scan.nextLine();
 
                 if (entradaExtra >= -1 && entradaExtra <= acoesMaximo){
                     return entradaExtra;
