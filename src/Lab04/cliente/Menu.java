@@ -13,6 +13,7 @@ import simulador.RoboTerrestre;
 import simulador.RoboXadrez;
 import simulador.Sensoreavel;
 import simulador.Comunicavel;
+import simulador.DesceuDemaisException;
 import simulador.RoboDesligadoException;
 import simulador.ErroComunicacaoException;
 
@@ -403,6 +404,8 @@ public class Menu {
                 scan.next();
                 continue;
             } catch (RoboDesligadoException erro) {
+                System.out.println(erro.getMessage());
+            } catch (DesceuDemaisException erro) {
                 System.out.println(erro.getMessage());
             }
             break;
