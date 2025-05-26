@@ -496,9 +496,6 @@ public class Menu {
 
                                 // ESTA SENDO REGISTRADA 3 VEZES
                                 remetenteCom.enviarMensagem(destinatarioCom, mensagem);
-                                destinatarioCom.receberMensagem(mensagem);
-                                // MUDAR ISSO DAQUI
-                                ambiente.getCentral().registrarMensagem(destinatarioRobo.getNome(), mensagem);
                             }
                         } else {
                             System.out.println("!!! Esse nao eh um robo valido !!!");

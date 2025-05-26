@@ -9,6 +9,8 @@ public class RoboXadrez extends RoboTerrestre implements Comunicavel {
         super(nome, id, posicaoX, posicaoY, ambiente, velocidadeMaxima);
         tipoMovimento = 1;      // Padrao (Cavalo)
         setTipoMovimento(tipoMovimento);
+
+        ambiente.getCentral().adicionarComunicavel(this);
     }
 
     @Override
