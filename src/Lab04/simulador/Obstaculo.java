@@ -55,8 +55,6 @@ public class Obstaculo implements Entidade {
         return tipoObs;
     }
 
-
-    
     public int getPosicaoX1() {
         return posicaoX1;
     }

@@ -23,7 +23,7 @@ public class RoboTerrestre extends Robo {
 
 
     @Override
-    public void moverPara(int x, int y) throws RoboDesligadoException{
+    public void moverPara(int x, int y) throws RoboDesligadoException {
         // Compara velocidade do robo com a maxima dada
         if (velocidade <= velocidadeMaxima) 
             super.moverPara(x, y);

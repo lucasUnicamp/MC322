@@ -669,6 +669,6 @@ public class Menu {
 
     // !!!!!!!!!!!!!!!!!!!!!! ADICIONAR 'OU' OUTRAS INTERFACES AQUI !!!!!!!!!!!!!!!!!!!!!!!1
     public boolean temInterfaceExtra(Robo robo) {
-        return (robo instanceof Comunicavel || robo instanceof Sensoreavel);
+        return (robo instanceof Comunicavel || robo instanceof Sensoreavel || robo instanceof Destrutivel);
     }
 }
