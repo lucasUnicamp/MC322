@@ -20,10 +20,10 @@ public abstract class Robo implements Entidade {
         setDirecao(0);
         setEstado(EstadoRobo.DESLIGADO);
         this.tipoEnt = TipoEntidade.ROBO;
+        setAmbiente(ambiente);
         setX(posicaoX);
         setY(posicaoY);
         setZ(0);
-        setAmbiente(ambiente);
 
         ambiente.adicionarEntidade(this);       // Adiciona o robo no ambiente logo que é criado
         sensores = new ArrayList<Sensor>();       // Inicializa array para os sensores

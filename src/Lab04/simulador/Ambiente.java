@@ -71,7 +71,6 @@ public class Ambiente {
 
     private void adicionarRobo(Robo r) {
         robosAtivos.add(r);
-        adicionarEntidade(r);
     }
 
     private void removerRobo(Robo r) {
@@ -83,7 +82,6 @@ public class Ambiente {
 
     private void adicionarObstaculos(Obstaculo o) {
         obstaculos.add(o);
-        adicionarEntidade(o);
     }
 
     private void removerObstaculo(Obstaculo o) {
@@ -97,13 +95,15 @@ public class Ambiente {
         entidades.add(e);
         if(e.getTipo() == TipoEntidade.ROBO){
             adicionarRobo((Robo) e);
-            mapa[e.getX()][e.getY()][e.getZ()] = TipoEntidade.ROBO;
+            if(dentroDosLimites(e.getX(), e.getY(), e.getZ()))
+                mapa[e.getX()][e.getY()][e.getZ()] = TipoEntidade.ROBO;
         } else if(e.getTipo() == TipoEntidade.OBSTACULO){
             adicionarObstaculos((Obstaculo) e);
             for(int i = e.getX(); i < e.getX() + e.getLargura(); i++)
                 for(int j = e.getY(); j < e.getY() + e.getProfundidade(); j++)
                     for(int w = e.getZ(); w < e.getZ() + e.getAltura(); w++)
-                        mapa[i][j][w] = TipoEntidade.OBSTACULO;
+                        if(dentroDosLimites(i, j, w))
+                            mapa[i][j][w] = TipoEntidade.OBSTACULO;
         }
     }
 
@@ -120,7 +120,8 @@ public class Ambiente {
             for(int i = e.getX(); i < e.getX() + e.getLargura(); i++)
                 for(int j = e.getY(); j < e.getY() + e.getProfundidade(); j++)
                     for(int w = e.getZ(); w < e.getZ() + e.getAltura(); w++)
-                        mapa[i][j][w] = TipoEntidade.VAZIO;
+                        if(dentroDosLimites(i, j, w))
+                            mapa[i][j][w] = TipoEntidade.VAZIO;
         }
     }
 
@@ -130,32 +131,38 @@ public class Ambiente {
             ((Robo) e).setY(novoY);
             ((Robo) e).setZ(novoZ);
         } else if (e.getTipo() == TipoEntidade.OBSTACULO) {
+            int largura = ((Obstaculo) e).getLargura();
+            int profundidade = ((Obstaculo) e).getProfundidade();
+            ((Obstaculo) e).setPosicaoX1(novoX);
+            ((Obstaculo) e).setPosicaoY1(novoY);
 
+            ((Obstaculo) e).setPosicaoX2(novoX + largura);
+            ((Obstaculo) e).setPosicaoY2(novoY + profundidade);
         }
     }
 
     //move a entidade na matriz, mas não tem o poder de mudar a condição absoluta da entidade
     public void moverEntidadeMapa(Entidade e, int novoX, int novoY, int novoZ){
         if(e.getTipo() == TipoEntidade.ROBO){ //remove o robo da matriz
-            removerRobo((Robo) e);
-            mapa[e.getX()][e.getY()][e.getZ()] = TipoEntidade.VAZIO;
+            if(dentroDosLimites(e.getX(), e.getY(), e.getZ()))
+                mapa[e.getX()][e.getY()][e.getZ()] = TipoEntidade.VAZIO;
         } else if(e.getTipo() == TipoEntidade.OBSTACULO){ //remove o obstaculo da matriz
-            removerObstaculo((Obstaculo) e);
             for(int i = e.getX(); i < e.getX() + e.getLargura(); i++)
                 for(int j = e.getY(); j < e.getY() + e.getProfundidade(); j++)
                     for(int w = e.getZ(); w < e.getZ() + e.getAltura(); w++)
-                        mapa[i][j][w] = TipoEntidade.VAZIO;
+                        if(dentroDosLimites(i, j, w))
+                            mapa[i][j][w] = TipoEntidade.VAZIO;
         }
 
         if(e.getTipo() == TipoEntidade.ROBO){ //readiciona o robo a matriz
-            adicionarRobo((Robo) e);
-            mapa[novoX][novoY][novoZ] = TipoEntidade.ROBO;
+            if(dentroDosLimites(novoX, novoY, novoZ))
+                mapa[novoX][novoY][novoZ] = TipoEntidade.ROBO;
         } else if(e.getTipo() == TipoEntidade.OBSTACULO){ //readiciona o obstaculo a matriz
-            adicionarObstaculos((Obstaculo) e);
             for(int i = novoX; i < novoX + e.getLargura(); i++)
                 for(int j = novoY; j < novoY + e.getProfundidade(); j++)
                     for(int w = 0; w < e.getAltura(); w++)
-                        mapa[i][j][w] = TipoEntidade.OBSTACULO;
+                        if(dentroDosLimites(i, j, w))
+                            mapa[i][j][w] = TipoEntidade.OBSTACULO;
         }
     }
 
@@ -187,6 +194,17 @@ public class Ambiente {
     }
 
     /**
+     * Checa se as coordenadas de um ponto estão contidas na região definida do ambiente
+     * @param x valor da coordenada x
+     * @param y valor da coordenada y
+     * @param z valor da coordenada z
+     * @return true ou false dependendo se esta ou nao dentro do ambiente
+     */
+    public boolean dentroDosLimites(int x, int y, int z) {
+        return (x >= 0 && x <= profundidade) && (y >= 0 && y <= largura) && (z >= 0 && z <= getAltura());
+    }
+
+    /**
      * Checa se as coordenadas de um robo aereo estão contidas na região definida do ambiente, considerando tambem a altitude
      * @param robo objeto da classe robo que esta dentro do ambiente executando movimentos
      * @return true ou false dependendo se esta ou nao dentro do ambiente
@@ -196,7 +214,8 @@ public class Ambiente {
         int y = robo.getY();
         int z = robo.getZ();
         int altMax = robo.getAltitudeMax();
-        return (x >= 0 && x <= profundidade) && (y >= 0 && y <= largura) && (z >= 0 && z <= altMax);
+        return ((x >= 0 && x <= profundidade) && (y >= 0 && y <= largura) && (z >= 0 && z <= altMax)) &&
+                dentroDosLimites(x, y, z);
     }
 
     /**
