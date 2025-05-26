@@ -11,8 +11,10 @@ import simulador.RoboPreguica;
 import simulador.RoboSatelite;
 import simulador.RoboTerrestre;
 import simulador.RoboXadrez;
+import simulador.SemObstaculoDestrutivel;
 import simulador.Sensoreavel;
 import simulador.Comunicavel;
+import simulador.Destrutivo;
 import simulador.DesceuDemaisException;
 import simulador.RoboDesligadoException;
 import simulador.ErroComunicacaoException;
@@ -428,7 +430,7 @@ public class Menu {
     }
 
     public int[] exibirEscolhaMenuExtras(Robo robo) {
-        int[] listaInterfaces = new int[3];
+        int[] listaInterfaces = new int[4];
         int indice = 0;
         listaInterfaces[0] = 0;
         System.out.println("\n-- EXTRAS ---------");
@@ -447,14 +449,12 @@ public class Menu {
             // eh o Sensoreaevel (dado por 1)
             listaInterfaces[indice] = 1;        
         }
-        /*
-        if (robo instanceof Destrutivel) {
+        if (robo instanceof Destrutivo) {
             System.out.printf("[%d] :: Destruir\n", indice);
             indice++;
             // Significa que a opçao indice do menu (listaInterfaces[indice]) eh o Destrutivel (dado por 1)
             listaInterfaces[indice] = 2;
         }
-         */
 
         listaInterfaces[0] = indice;
         System.out.println("\n[-1] :: Voltar");
@@ -512,12 +512,22 @@ public class Menu {
                         }
                     case 1:
                         ((Sensoreavel) robo).acionarSensores();
+                    case 2:
+                        System.out.println("[int] Qual coordenada x deseja destruir?");
+                        System.out.print("> ");
+                        int xDestruicao = scan.nextInt();
+                        System.out.println("[int] Qual coordenada y deseja destruir?");
+                        System.out.print("> ");
+                        int yDestruicao = scan.nextInt();
+                        ((Destrutivo) robo).destruirObstaculo(xDestruicao, yDestruicao);
                         
                 }
             } catch (ErroComunicacaoException erro) {
-                System.out.println(erro.getMessage());
+                System.err.println(erro.getMessage());
             } catch (RoboDesligadoException erro) {
-                System.out.println(erro.getMessage());
+                System.err.println(erro.getMessage());
+            } catch (SemObstaculoDestrutivel erro) {
+                System.err.println(erro.getMessage());
             }
             break;
         }

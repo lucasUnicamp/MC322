@@ -1,6 +1,6 @@
 package simulador;
 
-public class RoboSatelite extends RoboAereo implements Comunicavel {
+public class RoboSatelite extends RoboAereo implements Comunicavel, Destrutivo {
     private int altitudeMinima;
     private int cargaLancamento;
     // Flag para validar os movimentos de sobe e desce, que so podem funcionar caso o robo esteja no ar
@@ -81,13 +81,18 @@ public class RoboSatelite extends RoboAereo implements Comunicavel {
     }
 
     // destroi o obstáciulo apenas se o satélite estiver no ar
-    public void destruirObstaculo(int x, int y) {
+    public void destruirObstaculo(int x, int y) throws SemObstaculoDestrutivel{
         if(getAltura() > 0){
             for(Entidade e : getAmbiente().obstaculos)
                 if((x >= e.getX() && x < e.getX() + e.getLargura()) &&
-                    (y >= e.getY() && y < e.getY() + e.getProfundidade()))
-                    getAmbiente().removerEntidade(e);
+                    (y >= e.getY() && y < e.getY() + e.getProfundidade())){
+                        getAmbiente().removerEntidade(e);
+                        System.out.println("Obstáculo destruído");
+                        return;
+                }
+            throw new SemObstaculoDestrutivel(x, y);
         }
+        System.out.println("Precisa estar no ar!");
     }
 
     public void checarQueda() {
