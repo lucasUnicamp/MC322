@@ -72,7 +72,6 @@ public class RoboSatelite extends RoboAereo implements Comunicavel {
     public void receberMensagem(String mensagem) throws RoboDesligadoException {
         if (estaLigado()){
             getAmbiente().getCentral().registrarMensagem(getID(), mensagem);
-            System.out.println("A mensagem foi recebida e registrada com sucesso.");
         } else {
             throw new RoboDesligadoException(getID());
         }
