@@ -11,13 +11,13 @@ import simulador.RoboPreguica;
 import simulador.RoboSatelite;
 import simulador.RoboTerrestre;
 import simulador.RoboXadrez;
-import simulador.SemObstaculoDestrutivelException;
-import simulador.Sensoreavel;
-import simulador.Comunicavel;
-import simulador.Destrutivo;
-import simulador.DesceuDemaisException;
-import simulador.RoboDesligadoException;
-import simulador.ErroComunicacaoException;
+import simulador.excecoes.DesceuDemaisException;
+import simulador.excecoes.ErroComunicacaoException;
+import simulador.excecoes.RoboDesligadoException;
+import simulador.excecoes.SemObstaculoDestrutivelException;
+import simulador.interfaces.Comunicavel;
+import simulador.interfaces.Destrutivo;
+import simulador.interfaces.Sensoreavel;
 
 public class Menu {
     private final Ambiente ambiente;
@@ -110,7 +110,8 @@ public class Menu {
         System.out.println("\n~~ AMBIENTE ~~~~~~~~~~~~~~~~~~");
         System.out.println("[0] :: Visualizar ambiente");
         System.out.println("[1] :: Listar robôs");
-        System.out.println("[2] :: Listar mensagens na central");
+        System.out.println("[2] :: Ligar todos os robôs");
+        System.out.println("[3] :: Listar mensagens na central");
 
         System.out.println("\n[-1] :: Voltar");
     }
@@ -127,7 +128,7 @@ public class Menu {
                 System.out.print("> ");
                 int entradaAcao = scan.nextInt();
 
-                if (entradaAcao <= 2 && entradaAcao >= -1) 
+                if (entradaAcao <= 3 && entradaAcao >= -1) 
                     return entradaAcao;
                 else {
                     System.out.printf("!!! %d Não é uma opção válida !!!\n", entradaAcao);
@@ -150,6 +151,9 @@ public class Menu {
                 ambiente.listarRobos();
                 break;
             case 2:
+                ambiente.ligarRobos();
+                break;
+            case 3:
                 ambiente.getCentral().exibirMensagens();
                 break;
         }
@@ -530,10 +534,13 @@ public class Menu {
                 scan.next();
             } catch (ErroComunicacaoException erro) {
                 System.err.println(erro.getMessage());
+                break;
             } catch (RoboDesligadoException erro) {
                 System.err.println(erro.getMessage());
+                break;
             } catch (SemObstaculoDestrutivelException erro) {
                 System.err.println(erro.getMessage());
+                break;
             }
         }
     }

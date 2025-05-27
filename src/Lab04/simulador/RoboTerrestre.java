@@ -1,5 +1,7 @@
 package simulador;
 
+import simulador.excecoes.RoboDesligadoException;
+
 public class RoboTerrestre extends Robo {
     private int velocidade;
     private int velocidadeMaxima;
@@ -29,6 +31,21 @@ public class RoboTerrestre extends Robo {
         // Não atualiza posicao caso tenha ultrapassado a velocidade
         else 
             System.out.printf("'%s' está acima da velocidade máxima de %d.\n", getNome(), velocidadeMaxima);
+    }
+
+    @Override
+    public void executarTarefa() {
+
+        switch (getDirecao()) {
+            case "Norte":
+                break;
+            case "Sul":
+                break;
+            case "Leste":
+                break;
+            case "Oeste":
+                break;
+        }
     }
 
     public void atualizaSensores() {

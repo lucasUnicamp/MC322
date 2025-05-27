@@ -1,4 +1,4 @@
-package simulador;
+package simulador.excecoes;
 
 public class SemObstaculoDestrutivelException extends Exception{
     public SemObstaculoDestrutivelException(int x, int y){

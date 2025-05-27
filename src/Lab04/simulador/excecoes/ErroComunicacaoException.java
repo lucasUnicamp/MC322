@@ -1,4 +1,4 @@
-package simulador;
+package simulador.excecoes;
 
 public class ErroComunicacaoException extends Exception {
     public ErroComunicacaoException (String id) {

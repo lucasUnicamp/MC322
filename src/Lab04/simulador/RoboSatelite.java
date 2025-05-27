@@ -1,5 +1,12 @@
 package simulador;
 
+import simulador.excecoes.DesceuDemaisException;
+import simulador.excecoes.RoboDesligadoException;
+import simulador.excecoes.SemObstaculoDestrutivelException;
+import simulador.interfaces.Comunicavel;
+import simulador.interfaces.Destrutivo;
+import simulador.interfaces.Entidade;
+
 public class RoboSatelite extends RoboAereo implements Comunicavel, Destrutivo {
     private int altitudeMinima;
     private int cargaLancamento;
@@ -61,12 +68,8 @@ public class RoboSatelite extends RoboAereo implements Comunicavel, Destrutivo {
     
     public void enviarMensagem(Comunicavel destinatario, String mensagem) throws RoboDesligadoException {
         if (estaLigado()) {
-            try {
-                destinatario.receberMensagem(mensagem);
-                System.out.println("A mensagem foi enviada com sucesso.");
-            } catch (RoboDesligadoException erro) {
-                System.out.println("A mensagem não foi enviada, robô destinatário desligado.");
-            }
+            destinatario.receberMensagem(mensagem);
+            System.out.println("A mensagem foi enviada com sucesso.");
         } else {
             throw new RoboDesligadoException(getID());
         }
@@ -81,18 +84,20 @@ public class RoboSatelite extends RoboAereo implements Comunicavel, Destrutivo {
     }
 
     // Destroi o obstáciulo apenas se o satélite estiver no ar
-    public void destruirObstaculo(int x, int y) throws SemObstaculoDestrutivelException{
-        if(getZ() > 0){
-            for(Entidade e : getAmbiente().obstaculos)
-                if((x >= e.getX() && x < e.getX() + e.getLargura()) &&
-                    (y >= e.getY() && y < e.getY() + e.getProfundidade())){
-                        getAmbiente().removerEntidade(e);
-                        System.out.printf("O obstáculo em (%d, %d) foi destruído.\n", x, y);
-                        return;
-                }
-            throw new SemObstaculoDestrutivelException(x, y);
+    public void destruirObstaculo(int x, int y) throws SemObstaculoDestrutivelException, RoboDesligadoException{
+        if(estaLigado()) {
+            if(getZ() > 0){
+                for(Entidade e : getAmbiente().obstaculos)
+                    if((x >= e.getX() && x < e.getX() + e.getLargura()) &&
+                        (y >= e.getY() && y < e.getY() + e.getProfundidade())){
+                            getAmbiente().removerEntidade(e);
+                            System.out.printf("O obstáculo em (%d, %d) foi destruído.\n", x, y);
+                            return;
+                    }
+                throw new SemObstaculoDestrutivelException(x, y);
+            }
+            System.out.println("Precisa estar no ar!");
         }
-        System.out.println("Precisa estar no ar!");
     }
 
     public void checarQueda() {

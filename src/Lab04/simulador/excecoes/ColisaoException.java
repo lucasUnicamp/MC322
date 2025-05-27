@@ -1,4 +1,4 @@
-package simulador;
+package simulador.excecoes;
 
 public class ColisaoException extends Exception {
     public ColisaoException (String id, int x, int y, int z) {

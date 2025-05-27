@@ -2,6 +2,8 @@ package simulador;
 
 import java.lang.Math;
 
+import simulador.excecoes.RoboDesligadoException;
+
 public class RoboPlanador extends RoboAereo {
     private int tamanhoAsa;     // Quanto maior a asa, por mais tempo consegue planar e também consegue subir mais
 

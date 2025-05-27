@@ -2,6 +2,10 @@ package simulador;
 
 import java.lang.Math;
 
+import simulador.excecoes.MovimentoXadrezInvalidoException;
+import simulador.excecoes.RoboDesligadoException;
+import simulador.interfaces.Comunicavel;
+
 public class RoboXadrez extends RoboTerrestre implements Comunicavel {
     private int tipoMovimento;      // Tipo 1 move-se como a peça de xadrez Cavalo e tipo 2 como o Peão 
 
@@ -80,12 +84,8 @@ public class RoboXadrez extends RoboTerrestre implements Comunicavel {
     @Override
     public void enviarMensagem(Comunicavel destinatario, String mensagem) throws RoboDesligadoException{
         if (estaLigado()) {
-            try {
-                destinatario.receberMensagem(mensagem);
-                System.out.println("A mensagem foi enviada com sucesso.");
-            } catch (RoboDesligadoException erro) {
-                System.out.println("A mensagem não foi enviada, robô destinatário desligado.");
-            }
+            destinatario.receberMensagem(mensagem);
+            System.out.println("A mensagem foi enviada com sucesso.");
         } else {
             throw new RoboDesligadoException(getID());
         }

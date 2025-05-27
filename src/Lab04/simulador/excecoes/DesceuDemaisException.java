@@ -1,4 +1,4 @@
-package simulador;
+package simulador.excecoes;
 
 public class DesceuDemaisException extends Exception {
     public DesceuDemaisException(String id) {

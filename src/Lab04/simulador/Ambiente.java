@@ -1,6 +1,9 @@
 package simulador;
 
 import java.util.ArrayList;
+
+import simulador.interfaces.Entidade;
+
 import java.lang.Math;
 
 public class Ambiente {
@@ -142,7 +145,7 @@ public class Ambiente {
     }
 
     // Move a entidade na matriz, mas não tem o poder de mudar a condição absoluta da entidade
-    public void moverEntidadeMapa(Entidade e,  int novoX, int novoY, int novoZ){
+    public void moverEntidadeMapa(Entidade e,  int novoX, int novoY, int novoZ) {
         if (e.getTipo() == TipoEntidade.ROBO){ // Remove o robo da matriz
             if (dentroDosLimites(e.getX(), e.getY(), e.getZ()))
                 mapa[e.getX()][e.getY()][e.getZ()] = TipoEntidade.VAZIO;
@@ -172,6 +175,15 @@ public class Ambiente {
         for (Robo robo:robosAtivos) {
             System.out.printf("%s  %c  aka%15s %-7s em  (%02d, %02d, %02d)  está  %s\n", robo.getID(), robo.getRepresentacao(), 
             robo.getClass().getSimpleName(), robo.getNome(), robo.getX(), robo.getY(), robo.getZ(), robo.getEstado());
+        }
+    }
+
+    // Liga todos os robôs desligados do Ambiente
+    public void ligarRobos() {
+        System.out.println("");
+        for (Robo robo:robosAtivos) {
+            if (!robo.estaLigado())
+                robo.ligar();
         }
     }
 
@@ -266,8 +278,8 @@ public class Ambiente {
             System.out.print("\n");
         }
 
-        System.out.println("Legenda: . = vazio    # = obstáculo    T = robô terrestre    X = robô xadrez    G = robô preguica");
-        System.out.println("                A = robô aéreo    P = robô planador    S = robô satélite");
+        System.out.println(". = vazio    # = torre de babel    @ = ciclo básico    ! = eucalipto    $ = pedra    + = estátua de elefante    § = the bean");
+        System.out.println("   T = robô terrestre    X = robô xadrez    G = robô preguica    A = robô aéreo    P = robô planador    S = robô satélite");
     }
 
     public CentralComunicacao getCentral() {

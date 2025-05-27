@@ -1,6 +1,10 @@
 package simulador;
 
 import java.util.ArrayList;
+
+import simulador.excecoes.ErroComunicacaoException;
+import simulador.interfaces.Comunicavel;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

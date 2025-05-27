@@ -1,4 +1,6 @@
-package simulador;
+package simulador.interfaces;
+
+import simulador.TipoEntidade;
 
 public interface Entidade {
     int getX();

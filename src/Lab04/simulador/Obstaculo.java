@@ -1,5 +1,7 @@
 package simulador;
 
+import simulador.interfaces.Entidade;
+
 public class Obstaculo implements Entidade {
     private final TipoObstaculo tipoObs;
     private int posicaoX1;
@@ -14,6 +16,7 @@ public class Obstaculo implements Entidade {
         this.posicaoY1 = posicaoY1;
         this.posicaoX2 = posicaoX2;
         this.posicaoY2 = posicaoY2;
+        this.ambiente = ambiente;
         ordenaObstaculo(posicaoX1, posicaoY1, posicaoX2, posicaoY2);
     }
 
@@ -110,6 +113,23 @@ public class Obstaculo implements Entidade {
     }
 
     public char getRepresentacao() {
-        return '#';
+        TipoObstaculo obs = this.tipoObs;
+
+        switch (obs) {
+            case TipoObstaculo.TORRE_DE_BABEL:
+                return '#';
+            case TipoObstaculo.CICLO_BASICO:
+                return '@';
+            case TipoObstaculo.EUCALIPTO:
+                return '!';
+            case TipoObstaculo.PEDRA:
+                return '$';
+            case TipoObstaculo.ESTATUA_DE_ELEFANTE:
+                return '+';
+            case TipoObstaculo.THE_BEAN:
+                return '§';
+            default:
+                return '-';
+        }
     }
 }

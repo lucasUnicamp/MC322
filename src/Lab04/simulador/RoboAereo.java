@@ -1,5 +1,9 @@
 package simulador;
 
+import simulador.excecoes.DesceuDemaisException;
+import simulador.excecoes.RoboDesligadoException;
+import simulador.interfaces.Sensoreavel;
+
 public class RoboAereo extends Robo implements Sensoreavel{
     private int altitude;
     private int altitudeMaxima;
@@ -103,6 +107,21 @@ public class RoboAereo extends Robo implements Sensoreavel{
                 sensor.setAltitude(getZ());
             }
         }      
+    }
+
+    @Override
+    public void executarTarefa() {
+
+        switch (getDirecao()) {
+            case "Norte":
+                break;
+            case "Sul":
+                break;
+            case "Leste":
+                break;
+            case "Oeste":
+                break;
+        }
     }
 
     // Aciona todos os sensores ao mesmo tempo nas imediações adjacentes ao robô

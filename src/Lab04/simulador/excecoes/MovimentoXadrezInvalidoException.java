@@ -1,4 +1,4 @@
-package simulador;
+package simulador.excecoes;
 
 public class MovimentoXadrezInvalidoException extends Exception {
     public MovimentoXadrezInvalidoException (String id) {

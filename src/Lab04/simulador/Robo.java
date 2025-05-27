@@ -2,6 +2,10 @@ package simulador;
 
 import java.util.ArrayList;
 
+import simulador.excecoes.ColisaoException;
+import simulador.excecoes.RoboDesligadoException;
+import simulador.interfaces.Entidade;
+
 public abstract class Robo implements Entidade {
     private String nome;
     private String id;
@@ -282,6 +286,8 @@ public abstract class Robo implements Entidade {
             throw new RoboDesligadoException(getID());
         }
     }
+
+    public abstract void executarTarefa();
 
     public void ligar() {
         setEstado(EstadoRobo.LIGADO);
