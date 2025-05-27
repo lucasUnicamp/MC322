@@ -23,7 +23,7 @@ public class CentralComunicacao {
 
     public void exibirMensagens() {
         if (mensagens == null || mensagens.size() == 0) {
-            System.out.println("\nNao ha mensagens na central. Volte mais tarde.");
+            System.out.println("\nNão há mensagens na central. Volte mais tarde.");
         }
         else {
             System.out.println("\nMensagens armazenadas na central:");
@@ -38,7 +38,7 @@ public class CentralComunicacao {
         comunicaveis.add(com);
     }
 
-    // Checa se o robo destinatario da mensagem tem a interface comunicavel, se nao tiver, joga um erro
+    // Checa se o robo destinatário da mensagem tem a interface comunicavel, se não tiver, joga um erro
     public boolean checarDestinatario(Robo destinatario) throws ErroComunicacaoException {
         for (Comunicavel com: comunicaveis) {
             if (com == destinatario)

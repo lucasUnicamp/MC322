@@ -75,18 +75,18 @@ public class Obstaculo implements Entidade {
      ******** INTERFACE ********
      ***************************/
 
-    // Definiu-se o ponto 'pivot' X do obstaculo como o de menor coordenada;
-    // como as coordenadas foram ordenadas antes, esse ponto eh o X1
+    // Definiu-se o ponto 'pivot' X do obstáculo como o de menor coordenada;
+    // como as coordenadas foram ordenadas antes, esse ponto é o X1
     public int getX() {
         return posicaoX1;
     }
 
-    // Analogamente, a menor coordenada Y eh a Y1
+    // Analogamente, a menor coordenada Y é a Y1
     public int getY() {
         return posicaoY1;
     }
 
-    // Nao ha obstaculos flutuantes, entao o 'pivot' vai estar sempre no chao (0)
+    // Não há obstáculos flutuantes, então o 'pivot' vai estar sempre no chão (0)
     public int getZ() {
         return 0;
     }
@@ -106,7 +106,7 @@ public class Obstaculo implements Entidade {
     }
 
     public String getDescricao() {
-        return String.format("Obstaculo do tipo: %s\n", tipoObs.toString());
+        return String.format("Obstáculo do tipo: %s\n", tipoObs.toString());
     }
 
     public char getRepresentacao() {

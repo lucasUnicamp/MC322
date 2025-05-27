@@ -6,7 +6,6 @@ import simulador.Ambiente;
 import simulador.CentralComunicacao;
 import simulador.Obstaculo;
 import simulador.RoboAereo;
-import simulador.RoboDesligadoException;
 import simulador.RoboPlanador;
 import simulador.RoboPreguica;
 import simulador.RoboSatelite;
