@@ -3,11 +3,11 @@ package simulador;
 import java.lang.Math;
 
 public class RoboXadrez extends RoboTerrestre implements Comunicavel {
-    private int tipoMovimento;      // Tipo 1 move-se como a peça de xadrez Cavalo e tipo 2 como o Peao 
+    private int tipoMovimento;      // Tipo 1 move-se como a peça de xadrez Cavalo e tipo 2 como o Peão 
 
     public RoboXadrez(String nome, String id, int posicaoX, int posicaoY, Ambiente ambiente, int velocidadeMaxima, int tipoMovimento) {
         super(nome, id, posicaoX, posicaoY, ambiente, velocidadeMaxima);
-        tipoMovimento = 1;      // Padrao (Cavalo)
+        tipoMovimento = 1;      // Padrão (Cavalo)
         setTipoMovimento(tipoMovimento);
 
         ambiente.getCentral().adicionarComunicavel(this);
@@ -15,7 +15,7 @@ public class RoboXadrez extends RoboTerrestre implements Comunicavel {
 
     @Override
     public String getDescricao() {
-        return String.format("Robo Xadrez '%s' esta %s e na posicao (%d, %d) apontado na direcao %s com velocidade %d, velocidade maxima permitida de %d e com o tipo %d selecionado.\n",
+        return String.format("Robô Xadrez '%s' está %s e na posição (%d, %d) apontado na direção %s com velocidade %d, velocidade máxima permitida de %d e com o tipo %d selecionado.\n",
         getNome(), getEstado().toString().toLowerCase(), getX(), getY(), getDirecao(), getVelocidade(), getVelocidadeMax(), tipoMovimento);
     }
 
@@ -38,7 +38,7 @@ public class RoboXadrez extends RoboTerrestre implements Comunicavel {
                     }
                 } 
                 else {
-                    // Cheques de validade do movimento de tipo Peao
+                    // Cheques de validade do movimento de tipo Peão
                     switch (getDirecao()) {
                         case "Norte":
                             if (deltaX == 0 && (deltaY == 2 || deltaY == 1)){
@@ -84,7 +84,7 @@ public class RoboXadrez extends RoboTerrestre implements Comunicavel {
                 destinatario.receberMensagem(mensagem);
                 System.out.println("A mensagem foi enviada com sucesso.");
             } catch (RoboDesligadoException erro) {
-                System.out.println("A mensagem nao foi enviada, robo destinatario desligado.");
+                System.out.println("A mensagem não foi enviada, robô destinatário desligado.");
             }
         } else {
             throw new RoboDesligadoException(getID());

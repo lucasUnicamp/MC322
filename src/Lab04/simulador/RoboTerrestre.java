@@ -12,7 +12,7 @@ public class RoboTerrestre extends Robo {
 
     @Override
     public String getDescricao() {
-        return String.format("Robo Terrestre '%s' esta %s e na posicao (%d, %d) apontado na direcao %s com velocidade %d e velocidade maxima permitida de %d.\n",
+        return String.format("Robô Terrestre '%s' está %s e na posição (%d, %d) apontado na direção %s com velocidade %d e velocidade máxima permitida de %d.\n",
         getNome(), getEstado().toString().toLowerCase(), getX(), getY(), getDirecao(), velocidade, velocidadeMaxima);
     }
 
@@ -21,7 +21,6 @@ public class RoboTerrestre extends Robo {
         return 'T';
     }
 
-
     @Override
     public void moverPara(int x, int y) throws RoboDesligadoException {
         // Compara velocidade do robo com a maxima dada
@@ -29,7 +28,7 @@ public class RoboTerrestre extends Robo {
             super.moverPara(x, y);
         // Não atualiza posicao caso tenha ultrapassado a velocidade
         else 
-            System.out.printf("'%s' esta acima da velocidade maxima de %d.\n", getNome(), velocidadeMaxima);
+            System.out.printf("'%s' está acima da velocidade máxima de %d.\n", getNome(), velocidadeMaxima);
     }
 
     public void atualizaSensores() {

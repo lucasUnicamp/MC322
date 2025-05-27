@@ -18,7 +18,7 @@ public class RoboSatelite extends RoboAereo implements Comunicavel, Destrutivo {
 
     @Override
     public String getDescricao() {
-        return String.format("Robo Satelite '%s' esta %s e na posicao (%d, %d, %d) apontado na direcao %s com %d de carga para o lancamento, altitude maxima permitida de %d e minima para orbita de %d.\n",
+        return String.format("Robô Satélite '%s' está %s e na posição (%d, %d, %d) apontado na direção %s com %d de carga para o lançamento, altitude máxima permitida de %d e mínima para órbita de %d.\n",
         getNome(), getEstado().toString().toLowerCase(), getX(), getY(), getZ(), getDirecao(), getCargaLancamento(), getAltitudeMax(), getAltitudeMin());
     }
     
@@ -29,33 +29,33 @@ public class RoboSatelite extends RoboAereo implements Comunicavel, Destrutivo {
 
     @Override 
     public void subir(int metros) throws RoboDesligadoException{
-        // Robo so sobe se esta em orbita, pois caso nao esteja sua altitude eh sempre 0
+        // Robô so sobe se está em órbita, pois caso não esteja sua altitude é sempre 0
         if (emOrbita) {
             super.subir(metros);
         }
         else
-            System.out.printf("O Robo '%s' nao esta em orbita para poder subir.\n", getNome());
+            System.out.printf("O Robô '%s' não está em órbita para poder subir.\n", getNome());
     }
 
-    // Tecnicamente nao precisaria do DesceuDemaisException pois ou ele desce exatamente a altura que esta
-    // e cai para 0, ou desce uma quantidade menor que ainda o deixa em orbita
+    // Tecnicamente não precisaria do DesceuDemaisException pois ou ele desce exatamente a altura que está
+    // e cai para 0, ou desce uma quantidade menor que ainda o deixa em órbita
     @Override 
     public void descer(int metros) throws RoboDesligadoException, DesceuDemaisException {
         int altitudeNova = getZ() - metros;
-        // Robo so desce se esta em orbita, pois caso nao esteja sua altitude eh sempre 0
+        // Robo so desce se esta em órbita, pois caso não esteja sua altitude é sempre 0
         if (emOrbita) {
-            // Se puder descer mas descer abaixo do limite de orbita, o robo cai
+            // Se puder descer mas descer abaixo do limite de órbita, o robô cai
             if (altitudeNova < getAltitudeMin()) {
-                System.out.printf("O Robo '%s' esta descendo abaixo da altitude de orbita para tentar pousar.\n", getNome());
+                System.out.printf("O Robô '%s' está descendo abaixo da altitude de órbita para tentar pousar.\n", getNome());
                 emOrbita = false;
-                // Desce exatamente a altitude que esta no momento
+                // Desce exatamente a altitude que está no momento
                 super.descer(getZ());
             }
             else
                 super.descer(metros);
         }
         else {
-            System.out.printf("O Robo '%s' nao esta em orbita para pode descer.\n", getNome());
+            System.out.printf("O Robô '%s' não está em órbita para pode descer.\n", getNome());
         }
     }
     
@@ -65,7 +65,7 @@ public class RoboSatelite extends RoboAereo implements Comunicavel, Destrutivo {
                 destinatario.receberMensagem(mensagem);
                 System.out.println("A mensagem foi enviada com sucesso.");
             } catch (RoboDesligadoException erro) {
-                System.out.println("A mensagem nao foi enviada, robo destinatario desligado.");
+                System.out.println("A mensagem não foi enviada, robô destinatário desligado.");
             }
         } else {
             throw new RoboDesligadoException(getID());
@@ -80,14 +80,14 @@ public class RoboSatelite extends RoboAereo implements Comunicavel, Destrutivo {
         }
     }
 
-    // destroi o obstáciulo apenas se o satélite estiver no ar
+    // Destroi o obstáciulo apenas se o satélite estiver no ar
     public void destruirObstaculo(int x, int y) throws SemObstaculoDestrutivelException{
         if(getZ() > 0){
             for(Entidade e : getAmbiente().obstaculos)
                 if((x >= e.getX() && x < e.getX() + e.getLargura()) &&
                     (y >= e.getY() && y < e.getY() + e.getProfundidade())){
                         getAmbiente().removerEntidade(e);
-                        System.out.println("Obstáculo destruído");
+                        System.out.printf("O obstáculo em (%d, %d) foi destruído.\n", x, y);
                         return;
                 }
             throw new SemObstaculoDestrutivelException(x, y);
@@ -96,9 +96,9 @@ public class RoboSatelite extends RoboAereo implements Comunicavel, Destrutivo {
     }
 
     public void checarQueda() {
-        // Serve para zerar a altitude inicial caso ela nao seja suficiente para botar o robo em orbita
+        // Serve para zerar a altitude inicial caso ela não seja suficiente para botar o robô em órbita
         if (getZ() < getAltitudeMin()) {
-            System.out.printf("!!! AVISO: Robo '%s' nao foi inicializado com altitude minima para orbita e despencou. !!!\n", getNome());
+            System.out.printf("!!! AVISO: Robô '%s' não foi inicializado com altitude mínima para órbita e despencou. !!!\n", getNome());
             setZ(0);
             exibirAltitude();
         }
@@ -106,7 +106,7 @@ public class RoboSatelite extends RoboAereo implements Comunicavel, Destrutivo {
 
     public void carregar(int carga) throws RoboDesligadoException{
         if (estaLigado()){
-            System.out.println("Robo carregado.");
+            System.out.println("Robô carregado.");
             cargaLancamento += carga;
             exibirCarga();
         } else {
@@ -116,7 +116,7 @@ public class RoboSatelite extends RoboAereo implements Comunicavel, Destrutivo {
 
     public void descarregar(int carga) throws RoboDesligadoException{
         if (estaLigado()){
-            System.out.println("Robo descarregado.");
+            System.out.println("Robô descarregado.");
             cargaLancamento -= carga;
             exibirCarga();
         } else {
@@ -125,27 +125,27 @@ public class RoboSatelite extends RoboAereo implements Comunicavel, Destrutivo {
     }
 
     /**
-     * Funcao encarregada de lancar o robo verticalmente baseado em uma forca carregada previamente.
-     * Se o carregamento for exagerado, o robo 'bate no teto' do ambiente e cai;
-     * se nao for o suficiente, o robo nao alcanca a altura minima de orbita e cai;
-     * e se for o bastante, o robo entra em orbita e 'flutua' no espaco, podendo agora subir e descer livremente.
+     * Função encarregada de lancar o robô verticalmente baseado em uma forca carregada previamente.
+     * Se o carregamento for exagerado, o robô 'bate no teto' do ambiente e cai;
+     * se não for o suficiente, o robô não alcanca a altura mínima de órbita e cai;
+     * e se for o bastante, o robô entra em órbita e 'flutua' no espaço, podendo agora subir e descer livremente.
      */
     public void lancamento() throws RoboDesligadoException{
         if (estaLigado()){
-            // Funcao de forca definida arbitrariamente
+            // Funçãoo de força definida arbitrariamente
             float forcaLancamento = getAltitudeMax() / 10;
             int novaAltitude = Math.round(cargaLancamento * forcaLancamento);
 
             if (novaAltitude > getAltitudeMax()) {
-                System.out.printf("O Robo '%s' foi lancado alto demais, atingiu o limite e caiu de volta para o chao.\n", getNome());
+                System.out.printf("O Robô '%s' foi lançado alto demais, atingiu o limite e caiu de volta para o chão.\n", getNome());
                 setZ(0);
             }
             else if (novaAltitude < getAltitudeMin()) {
-                System.out.printf("O Robo '%s' nao alcancou sua altura de orbita no lancamento e caiu de volta para o chao.\n", getNome());
+                System.out.printf("O Robô '%s' não alcancou sua altura de órbita no lançamento e caiu de volta para o chão.\n", getNome());
                 setZ(0);
             }
             else {
-                System.out.printf("O Robo '%s' alcancou uma altura de orbita com sucesso em seu lancamento.\n", getNome());
+                System.out.printf("O Robô '%s' alcançou uma altura de órbita com sucesso em seu lançamento.\n", getNome());
                 emOrbita = true;
                 setZ(novaAltitude);
             }

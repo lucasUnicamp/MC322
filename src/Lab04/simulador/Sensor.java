@@ -12,13 +12,13 @@ abstract class Sensor {
     public Sensor(double raio, Ambiente ambiente) {
         setRaio(raio);
         setAmbiente(ambiente);
-        altitude = 0; //padrão para caso robôs terrestres estejam usando o sensor
+        altitude = 0;   // Padrão para caso robôs terrestres estejam usando o sensor
     }  
 
     public abstract int monitorar(int posX, int posY);
 
     public boolean dentroDoRaio(int posX, int posY) {
-        // Deltas sao a distancia do sensor (ou seja, do robo ao qual o sensor esta atribuido) ate a posicao passada
+        // Deltas sao a distância do sensor (ou seja, do robô ao qual o sensor está atribuido) até a posição passada
         int deltaX = posX - posicaoX;
         int deltaY = posY - posicaoY;
 

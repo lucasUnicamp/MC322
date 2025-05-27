@@ -11,7 +11,7 @@ public class RoboPreguica extends RoboTerrestre {
 
     @Override
     public String getDescricao() {
-        return String.format("Robo Preguica '%s' esta %s e na posicao (%d, %d) apontado na direcao %s com velocidade %d, velocidade maxima permitida de %d e tem %d de energia de um maximo de %d.\n",
+        return String.format("Robô Preguica '%s' está %s e na posição (%d, %d) apontado na direção %s com velocidade %d, velocidade maxima permitida de %d e tem %d de energia de um maximo de %d.\n",
         getNome(), getEstado().toString().toLowerCase(), getX(), getY(), getDirecao(), getVelocidade(), getVelocidadeMax(), energia, energiaMaxima);
     }
 
@@ -22,19 +22,19 @@ public class RoboPreguica extends RoboTerrestre {
 
     @Override
     public void moverPara(int x, int y) throws RoboDesligadoException {
-        // Checa se o Robo tem energia para mover
+        // Checa se o Robô tem energia para mover
         if (energia > 0) {
             super.moverPara(x, y);
             energia -= 1;
             exibirEnergia();  
         }
         else
-            System.out.printf("'%s' nao tem energia o suficiente, precisa descansar.\n", getNome());
+            System.out.printf("'%s' não tem energia o suficiente, precisa descansar.\n", getNome());
     }
 
     public void descansar() {
         if (energia == energiaMaxima)
-            System.out.printf("'%s' ja esta completamente descansado.\n", getNome());
+            System.out.printf("'%s' já está completamente descansado.\n", getNome());
         else {
             energia += 1;
             System.out.printf("'%s' descansou um pouco.\n", getNome());

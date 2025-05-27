@@ -12,7 +12,7 @@ public class RoboAereo extends Robo implements Sensoreavel{
 
     @Override
     public String getDescricao() {     
-        return String.format("Robo Aereo '%s' esta %s e na posicao (%d, %d, %d) apontado na direcao %s com altitude maxima permitida de %d.\n", 
+        return String.format("Robô Aéreo '%s' está %s e na posição (%d, %d, %d) apontado na direção %s com altitude máxima permitida de %d.\n", 
         getNome(), getEstado().toString().toLowerCase(), getX(), getY(), getZ(), getDirecao(), altitudeMaxima);
     }
 
@@ -22,7 +22,7 @@ public class RoboAereo extends Robo implements Sensoreavel{
     }
 
     /**
-     * Override necessario pois o Robo Aereo nao deve se mover se nao tiver um sensor. Caso nao fizessemos 
+     * Override necessário pois o Robô Aéreo nao deve se mover se nao tiver um sensor. Caso não fizessemos 
      * o override, ele tentaria usar o 'moverSemSensor'
      */
     @Override
@@ -30,28 +30,28 @@ public class RoboAereo extends Robo implements Sensoreavel{
         int deltaX = x - getX();
         int deltaY = y - getY();
         int indice = temSensorTipo("SensorObstaculo");
-        System.out.printf("Tentando mover o Robo '%s' para a posiçao (%d, %d).\n", getNome(), x, y);
+        System.out.printf("Tentando mover o Robô '%s' para a posição (%d, %d).\n", getNome(), x, y);
         
         if (indice != -1) {
             super.moverComSensor(deltaX, deltaY, indice);
-            System.out.printf("O Robo '%s' terminou o movimento na posicao (%d, %d, %d).\n", getNome(), getX(), getY(), getZ());
+            System.out.printf("O Robô '%s' terminou o movimento na posição (%d, %d, %d).\n", getNome(), getX(), getY(), getZ());
         }
         else
-            System.out.println("Nao pode voar sem sensor de obtaculo, eh muito perigoso.");
+            System.out.println("Não pode voar sem sensor de obstáculo, é muito perigoso.");
         
         atualizaSensores();
     }
 
     public void subir(int metros) throws RoboDesligadoException{
         if (estaLigado()) {
-            // Compara altitude do Robo com a maxima dada
+            // Compara altitude do Robô com a máxima dada
             if (getZ() + metros <= altitudeMaxima) {
                 System.out.println("O Robo subiu com sucesso.");
                 setZ(getZ() + metros);;
             }
-            // Nao atualiza a altitude caso tenha ultrapassado a maxima dada
+            // Não atualiza a altitude caso tenha ultrapassado a máxima dada
             else
-                System.out.printf("'%s' ultrapassaria a altitude maxima permitida.\n", getNome());
+                System.out.printf("'%s' ultrapassaria a altitude máxima permitida.\n", getNome());
 
             exibirAltitude();
         } else {
@@ -66,28 +66,28 @@ public class RoboAereo extends Robo implements Sensoreavel{
 
             if (getZ() != 0) {
                 if(indice == -1) {
-                    System.out.println("Impossivel descer com segurança, nao ha sensor de obstaculo.");
+                    System.out.println("Impossível descer com segurança, não há sensor de obstáculo.");
                     return;
                 } 
                 else
                     sensorObs = (SensorObstaculo) sensores.get(indice);
 
-                // Compara a altitude do Robo com a disância ao chao (0)
+                // Compara a altitude do Robô com a disância ao chão (0)
                 if (getZ() - metros >= 0 && !sensorObs.checarObstaculoPosicao(getX(), getY(), getZ() - metros)) {
-                    System.out.println("O Robo desceu com sucesso.");
+                    System.out.println("O Robô desceu com sucesso.");
                     setZ(getZ() - metros);
                 }
-                // Joga um erro caso tenha descido demais e nao ha obtaculo abaixo
+                // Joga um erro caso tenha descido demais e não há obtaculo abaixo
                 else if (!sensorObs.checarObstaculoPosicao(getX(), getY(), 0)){
                     throw new DesceuDemaisException(getID());
                 }
-                // Não Atualiza a altitude caso tenha obstaculos abaixo
+                // Não atualiza a altitude caso tenha obstáculos abaixo
                 else {
-                    System.out.printf("Ha obstaculos abaixo de '%s', nao tem como descer.\n", getNome());
+                    System.out.printf("Há obstáculos abaixo de '%s', não tem como descer.\n", getNome());
                 }
             }
             else
-                System.out.println("O Robo ja esta no chao, nao tem como descer mais.");
+                System.out.println("O Robô já está no chão, não tem como descer mais.");
             exibirAltitude();
         } else {
             throw new RoboDesligadoException(getID());
@@ -105,7 +105,7 @@ public class RoboAereo extends Robo implements Sensoreavel{
         }      
     }
 
-    // Aciona todos os sensores ao mesmo tempo nas imediaçoes adjacentes ao robo
+    // Aciona todos os sensores ao mesmo tempo nas imediações adjacentes ao robô
     public void acionarSensores() throws RoboDesligadoException {
         if (estaLigado()) {
             for (int i = 0; i < sensores.size(); i++) {
@@ -129,7 +129,7 @@ public class RoboAereo extends Robo implements Sensoreavel{
 
     @Override
     public void exibirPosicao() {
-        System.out.printf("O Robo '%s' está agora em (%d, %d) na direcao %s e %d acima do solo.\n", getNome(), getX(), getY(), getDirecao(), altitude);
+        System.out.printf("O Robô '%s' está agora em (%d, %d) na direção %s e %d acima do solo.\n", getNome(), getX(), getY(), getDirecao(), altitude);
     }
 
     public void exibirAltitude() {

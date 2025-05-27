@@ -302,7 +302,7 @@ public abstract class Robo implements Entidade {
     }
 
     /**
-     * Exibe os sensores presentes no robo, na ordem em que foram adicionados
+     * Exibe os sensores presentes no robô, na ordem em que foram adicionados
      */
     public void exibirSensores() {
         Sensor sensor;
@@ -324,7 +324,7 @@ public abstract class Robo implements Entidade {
     }
 
     public void setDirecao(int drc) {
-        // Para que nada seja impresso na inicializacao
+        // Para que nada seja impresso na inicialização
         if (direcao == null) {
             direcao = "Norte";
             return;

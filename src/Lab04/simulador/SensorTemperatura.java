@@ -7,7 +7,7 @@ public class SensorTemperatura extends Sensor {
     }
     /**
      * Nesse sensor, o monitorar checa e exibe a temperatura do ponto especificado 
-     * e tambem a maior temperatura dentro de seu raio de alcance
+     * e também a maior temperatura dentro de seu raio de alcance
      */
     public int monitorar(int posX, int posY) {        
         if (!getAmbiente().dentroDosLimites(posX, posY))
@@ -22,12 +22,12 @@ public class SensorTemperatura extends Sensor {
     }
 
     public void exibirTempPonto(int posX, int posY) {
-        System.out.printf("A temperatura no ponto (%d, %d) eh %.1f°C.\n", posX, posY, getAmbiente().temperaturas[posX][posY]);
+        System.out.printf("A temperatura no ponto (%d, %d) é %.1f°C.\n", posX, posY, getAmbiente().temperaturas[posX][posY]);
     }
 
     /**
-     * Exibe a temperatura maxima dentro do circulo de raio definido e sua posicao. No momento ela vai desconsiderar
-     * temperaturas maximas iguais, exibindo a primeira instancia dessa temperatura como maxima absoluta
+     * Exibe a temperatura máxima dentro do círculo de raio definido e sua posição. No momento ela vai desconsiderar
+     * temperaturas máxima iguais, exibindo a primeira instância dessa temperatura como máxima absoluta
      */
     public void temperaturaMax() {
         int limiteNorte = (int)(getY() + getRaio());
@@ -38,7 +38,7 @@ public class SensorTemperatura extends Sensor {
         int posY = 0;
         double tempMax = -100.0;
 
-        // Checa as coordenadas dentro do quadrado circunscrito no circulo de raio definido
+        // Checa as coordenadas dentro do quadrado circunscrito no círculo de raio definido
         for (int i = limiteOeste; i <= limiteLeste; i++) {
             for (int j = limiteSul; j <= limiteNorte; j++) {
                 // Checa se a coordenada esta dentro do sensor
@@ -51,7 +51,7 @@ public class SensorTemperatura extends Sensor {
                 }
             }
         }
-        System.out.printf("A temperatura maxima encontrada num raio de %.2f eh de %.1f°C e esta na posicao (%d, %d).\n", getRaio(), tempMax, posX, posY);
+        System.out.printf("A temperatura máxima encontrada num raio de %.2f é de %.1f°C e está na posicao (%d, %d).\n", getRaio(), tempMax, posX, posY);
     }
 
     public String nomeDoSensor() {

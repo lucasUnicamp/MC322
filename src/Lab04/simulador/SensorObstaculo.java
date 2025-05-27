@@ -7,7 +7,7 @@ public class SensorObstaculo extends Sensor {
     }
 
     /**
-     * Nesse sensor, o monitorar checa se ha um obstaculo no ponto especificado
+     * Nesse sensor, o monitorar checa se há um obstáculo no ponto especificado
      */
     public int monitorar(int posX, int posY) {
         if (!getAmbiente().dentroDosLimites(posX, posY))
@@ -17,29 +17,29 @@ public class SensorObstaculo extends Sensor {
         else {
             if (checarObstaculoPosicao(posX, posY)) {
                 exibirObsPonto(posX, posY);
-                return 1;       // Obstaculo detectado
+                return 1;       // Obstáculo detectado
             }
             exibirNenhumObs(posX, posY);
-            return 0;       // Obstaculo não detectado
+            return 0;       // Obstáculo não detectado
         }
     }
 
     public void exibirObsPonto(int posX, int posY) {
-        System.out.printf("O sensor detectou um obstaculo no ponto (%d, %d).\n", posX, posY);
+        System.out.printf("O sensor detectou um obstáculo no ponto (%d, %d).\n", posX, posY);
     }
 
     public void exibirNenhumObs(int posX, int posY) {
-        System.out.printf("O sensor nao detectou nenhum obstaculo no ponto (%d, %d).\n", posX, posY);
+        System.out.printf("O sensor nao detectou nenhum obstáculo no ponto (%d, %d).\n", posX, posY);
     }
 
     /**
-     * Checa se na posicao especificada ha um obstaculo, independente do raio do sensor
-     * @param x coordenada x da posicao especificada
-     * @param y coordenada y da posicao especificada
-     * @return true ou false dependendo se ha ou nao um obstaculo
+     * Checa se na posiçãoo especificada há um obstáculo, independente do raio do sensor
+     * @param x coordenada x da posição especificada
+     * @param y coordenada y da posição especificada
+     * @return true ou false dependendo se há ou não um obstáculo
      */
     public boolean checarObstaculoPosicao(int x, int y) {
-        // Percorre a ArrayList de obstaculos e checa se ha um obstaculo na posicao dada
+        // Percorre a ArrayList de obstáculos e checa se há um obstáculo na posição dada
         for (Obstaculo obstaculo:getAmbiente().obstaculos) {
             if (obstaculo.getTipoObstaculo().getAltura() > getAltitude() &&
                 obstaculo.getPosicaoX1() <= x &&
@@ -53,13 +53,13 @@ public class SensorObstaculo extends Sensor {
     }
 
     /**
-     * Overload da funcao anterior, diferenca eh que essa eh usada para Robos Aereos e
-     * recebe uma altitude para comparar com a do obstaculo; que nao necessariamente eh a 
-     * propria altitude do robo (ja que isso ja eh checado no 'if'), mas uma altura apos 
+     * Overload da função anterior, diferenca é que essa é usada para Robos Aéreos e
+     * recebe uma altitude para comparar com a do obstáculo; que não necessariamente é a 
+     * própria altitude do robô (já que isso já é checado no 'if'), mas uma altura após 
      * certo movimento de descer, por exemplo
      */
     public boolean checarObstaculoPosicao(int x, int y, int altititude) {
-        // Percorre a ArrayList de obstaculos e checa se ha um obstaculo na posicao dada
+        // Percorre a ArrayList de obstáculos e checa se há um obstáculo na posição dada
         for (Obstaculo obstaculo:getAmbiente().obstaculos) {
             if (obstaculo.getTipoObstaculo().getAltura() >= altititude &&
                 obstaculo.getPosicaoX1() <= x &&
@@ -73,16 +73,16 @@ public class SensorObstaculo extends Sensor {
     }
 
     /**
-     * Checa se ha algum obstaculo em ambos os caminhos possiveis a serem percorridos ate o ponto dado.
-     * Esses caminhos estao explicados no README, mas basicamente sao: mover totalmente em uma das
-     * duas direcoes e depois na outra.
+     * Checa se há algum obstáculo em ambos os caminhos possíveis a serem percorridos até o ponto dado.
+     * Esses caminhos estão explicados no README, mas basicamente são: mover totalmente em uma das
+     * duas direções e depois na outra.
      * e depois na outra.
-     * @param posX posicao horizontal do Robo no momento
-     * @param posY posicao vertical do Robo no momento
+     * @param posX posição horizontal do Robô no momento
+     * @param posY posição vertical do Robô no momento
      * @param deltaX o quanto se quer mover na horizontal
      * @param deltaY o quanto se quer mover na vertical
      * @return 0 caso caso o ponto em que se quer chegar esteja fora do raio do sensor, -1 caso haja
-     * obstaculos em ambos os caminhos ou 1 caso qualquer um dos dois caminhos estiver livre 
+     * obstáculos em ambos os caminhos ou 1 caso qualquer um dos dois caminhos estiver livre 
      */
     public int checarObstaculoCaminho(int posX, int posY, int deltaX, int deltaY) {
         boolean caminhoCima = true, caminhoBaixo = true;
@@ -95,7 +95,7 @@ public class SensorObstaculo extends Sensor {
 
         // Checa se a linha reta da componente horizontal do movimento, partindo da posição atual do robô 
         // ou partindo da posição do robô após andar toda sua componente vertical, contém algum obstáculo;
-        // O loop eh interrompido se ambos os caminhos tiverem um obstáculo;
+        // O loop é interrompido se ambos os caminhos tiverem um obstáculo;
         if (deltaX > 0) {
             for (int a = 0; (caminhoBaixo || caminhoCima) && a <= deltaX; a++) {
                 if (checarObstaculoPosicao(posX + a, posY)) 
@@ -115,7 +115,7 @@ public class SensorObstaculo extends Sensor {
 
         // Checa se a linha reta da componente vertical do movimento, partindo da posição atual do robô 
         // ou partindo da posição do robô após andar toda sua componente horizontal, contém algum obstáculo;
-        // O loop eh interrompido se ambos os caminhos tiverem um obstáculo;
+        // O loop é interrompido se ambos os caminhos tiverem um obstáculo;
         if (deltaY > 0) {
             for (int c = 0; (caminhoBaixo || caminhoCima) && c <= deltaY; c++) {
                 if (checarObstaculoPosicao(posX, posY + c)) 
