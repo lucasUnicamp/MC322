@@ -11,7 +11,7 @@ import simulador.RoboPreguica;
 import simulador.RoboSatelite;
 import simulador.RoboTerrestre;
 import simulador.RoboXadrez;
-import simulador.SemObstaculoDestrutivel;
+import simulador.SemObstaculoDestrutivelException;
 import simulador.Sensoreavel;
 import simulador.Comunicavel;
 import simulador.Destrutivo;
@@ -108,7 +108,7 @@ public class Menu {
     // Printa as opcoes do submenu do ambiente
     public void exibirEscolhaMenuAmbiente() {
         System.out.println("\n~~ AMBIENTE ~~~~~~~~~~~~~~~~~~");
-        System.out.println("[0] :: Imprimir ambiente");
+        System.out.println("[0] :: Visualizar ambiente");
         System.out.println("[1] :: Listar robos");
         System.out.println("[2] :: Listar mensagens na central");
 
@@ -445,8 +445,7 @@ public class Menu {
         if (robo instanceof Sensoreavel) {
             System.out.printf("[%d] :: Aciconar todos os sensores\n", indice);
             indice++;
-            // Significa que a opçao indice do menu (listaInterfaces[indice], que nesse primeiro caso vai ser sempre 1) 
-            // eh o Sensoreaevel (dado por 1)
+            // Significa que a opçao indice do menu (listaInterfaces[indice]) eh o Sensoreaevel (dado por 1)
             listaInterfaces[indice] = 1;        
         }
         if (robo instanceof Destrutivo) {
@@ -510,8 +509,10 @@ public class Menu {
                             System.out.println("!!! Esse nao eh um robo valido !!!");
                             break;
                         }
+
                     case 1:
                         ((Sensoreavel) robo).acionarSensores();
+
                     case 2:
                         System.out.println("[int] Qual coordenada x deseja destruir?");
                         System.out.print("> ");
@@ -520,13 +521,12 @@ public class Menu {
                         System.out.print("> ");
                         int yDestruicao = scan.nextInt();
                         ((Destrutivo) robo).destruirObstaculo(xDestruicao, yDestruicao);
-                        
                 }
             } catch (ErroComunicacaoException erro) {
                 System.err.println(erro.getMessage());
             } catch (RoboDesligadoException erro) {
                 System.err.println(erro.getMessage());
-            } catch (SemObstaculoDestrutivel erro) {
+            } catch (SemObstaculoDestrutivelException erro) {
                 System.err.println(erro.getMessage());
             }
             break;

@@ -32,7 +32,6 @@ public class Ambiente {
             for(int j = 0; j <= getProfundidade(); j++)
                 for(int w = 0; w <= getAltura(); w++)
                     mapa[i][j][w] = TipoEntidade.VAZIO;
-
     }
 
     /**
@@ -93,16 +92,16 @@ public class Ambiente {
 
     public void adicionarEntidade(Entidade e) {
         entidades.add(e);
-        if(e.getTipo() == TipoEntidade.ROBO){
+        if (e.getTipo() == TipoEntidade.ROBO){
             adicionarRobo((Robo) e);
-            if(dentroDosLimites(e.getX(), e.getY(), e.getZ()))
+            if (dentroDosLimites(e.getX(), e.getY(), e.getZ()))
                 mapa[e.getX()][e.getY()][e.getZ()] = TipoEntidade.ROBO;
-        } else if(e.getTipo() == TipoEntidade.OBSTACULO){
+        } else if (e.getTipo() == TipoEntidade.OBSTACULO){
             adicionarObstaculos((Obstaculo) e);
-            for(int i = e.getX(); i < e.getX() + e.getLargura(); i++)
-                for(int j = e.getY(); j < e.getY() + e.getProfundidade(); j++)
-                    for(int w = e.getZ(); w < e.getZ() + e.getAltura(); w++)
-                        if(dentroDosLimites(i, j, w))
+            for (int i = e.getX(); i < e.getX() + e.getLargura(); i++)
+                for (int j = e.getY(); j < e.getY() + e.getProfundidade(); j++)
+                    for (int w = e.getZ(); w < e.getZ() + e.getAltura(); w++)
+                        if (dentroDosLimites(i, j, w))
                             mapa[i][j][w] = TipoEntidade.OBSTACULO;
         }
     }
@@ -112,15 +111,15 @@ public class Ambiente {
             if (entidades.get(i) == e)
                 entidades.remove(i);
         }
-        if(e.getTipo() == TipoEntidade.ROBO){
+        if (e.getTipo() == TipoEntidade.ROBO){
             removerRobo((Robo) e);
             mapa[e.getX()][e.getY()][e.getZ()] = TipoEntidade.VAZIO;
-        } else if(e.getTipo() == TipoEntidade.OBSTACULO){
+        } else if (e.getTipo() == TipoEntidade.OBSTACULO){
             removerObstaculo((Obstaculo) e);;
-            for(int i = e.getX(); i < e.getX() + e.getLargura(); i++)
-                for(int j = e.getY(); j < e.getY() + e.getProfundidade(); j++)
-                    for(int w = e.getZ(); w < e.getZ() + e.getAltura(); w++)
-                        if(dentroDosLimites(i, j, w))
+            for (int i = e.getX(); i < e.getX() + e.getLargura(); i++)
+                for (int j = e.getY(); j < e.getY() + e.getProfundidade(); j++)
+                    for (int w = e.getZ(); w < e.getZ() + e.getAltura(); w++)
+                        if (dentroDosLimites(i, j, w))
                             mapa[i][j][w] = TipoEntidade.VAZIO;
         }
     }
@@ -142,27 +141,27 @@ public class Ambiente {
         }
     }
 
-    //move a entidade na matriz, mas não tem o poder de mudar a condição absoluta da entidade
+    // Move a entidade na matriz, mas nao tem o poder de mudar a condição absoluta da entidade
     public void moverEntidadeMapa(Entidade e,  int novoX, int novoY, int novoZ){
-        if(e.getTipo() == TipoEntidade.ROBO){ //remove o robo da matriz
-            if(dentroDosLimites(e.getX(), e.getY(), e.getZ()))
+        if (e.getTipo() == TipoEntidade.ROBO){ // Remove o robo da matriz
+            if (dentroDosLimites(e.getX(), e.getY(), e.getZ()))
                 mapa[e.getX()][e.getY()][e.getZ()] = TipoEntidade.VAZIO;
-        } else if(e.getTipo() == TipoEntidade.OBSTACULO){ //remove o obstaculo da matriz
-            for(int i = e.getX(); i < e.getX() + e.getLargura(); i++)
-                for(int j = e.getY(); j < e.getY() + e.getProfundidade(); j++)
-                    for(int w = e.getZ(); w < e.getZ() + e.getAltura(); w++)
-                        if(dentroDosLimites(i, j, w))
+        } else if (e.getTipo() == TipoEntidade.OBSTACULO) { // Remove o obstaculo da matriz
+            for (int i = e.getX(); i < e.getX() + e.getLargura(); i++)
+                for (int j = e.getY(); j < e.getY() + e.getProfundidade(); j++)
+                    for (int w = e.getZ(); w < e.getZ() + e.getAltura(); w++)
+                        if (dentroDosLimites(i, j, w))
                             mapa[i][j][w] = TipoEntidade.VAZIO;
         }
 
-        if(e.getTipo() == TipoEntidade.ROBO){ //readiciona o robo a matriz
-            if(dentroDosLimites(novoX, novoY, novoZ))
+        if (e.getTipo() == TipoEntidade.ROBO){  // Readiciona o robo a matriz
+            if (dentroDosLimites(novoX, novoY, novoZ))
                 mapa[novoX][novoY][novoZ] = TipoEntidade.ROBO;
-        } else if(e.getTipo() == TipoEntidade.OBSTACULO){ //readiciona o obstaculo a matriz
-            for(int i = novoX; i < novoX + e.getLargura(); i++)
-                for(int j = novoY; j < novoY + e.getProfundidade(); j++)
-                    for(int w = 0; w < e.getAltura(); w++)
-                        if(dentroDosLimites(i, j, w))
+        } else if (e.getTipo() == TipoEntidade.OBSTACULO){  // Readiciona o obstaculo a matriz
+            for (int i = novoX; i < novoX + e.getLargura(); i++)
+                for (int j = novoY; j < novoY + e.getProfundidade(); j++)
+                    for (int w = 0; w < e.getAltura(); w++)
+                        if (dentroDosLimites(i, j, w))
                             mapa[i][j][w] = TipoEntidade.OBSTACULO;
         }
     }

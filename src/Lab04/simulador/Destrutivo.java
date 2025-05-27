@@ -1,5 +1,5 @@
 package simulador;
 
 public interface Destrutivo {
-    void destruirObstaculo(int x, int y) throws SemObstaculoDestrutivel;
+    void destruirObstaculo(int x, int y) throws SemObstaculoDestrutivelException;
 }
