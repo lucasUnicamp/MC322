@@ -141,6 +141,6 @@ public class SensorObstaculo extends Sensor {
     }
 
     public String nomeDoSensor() {
-        return "Sensor de Obstaculo";
+        return "Sensor de Obstáculo";
     }
 }

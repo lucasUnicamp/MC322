@@ -378,7 +378,7 @@ public class Menu {
                             ((RoboPlanador) robo).setTamanhoAsa(novoTamanhoAsa);
                         }
                         else if (robo instanceof RoboSatelite) {
-                            System.out.println("[int] Em quanto quer carregar?");
+                            System.out.println("\n[int] Em quanto quer carregar?");
                             System.out.print("> ");
                             int cargaAdicionada = scan.nextInt();
                             System.out.println("");
@@ -514,14 +514,20 @@ public class Menu {
                         ((Sensoreavel) robo).acionarSensores();
 
                     case 2:
-                        System.out.println("[int] Qual coordenada x deseja destruir?");
+                        System.out.println("\n[int] Qual coordenada x deseja destruir?");
                         System.out.print("> ");
                         int xDestruicao = scan.nextInt();
                         System.out.println("[int] Qual coordenada y deseja destruir?");
                         System.out.print("> ");
                         int yDestruicao = scan.nextInt();
+                        System.out.println("");
                         ((Destrutivo) robo).destruirObstaculo(xDestruicao, yDestruicao);
+                        break;
                 }
+                break;
+            } catch (InputMismatchException erro) {
+                System.out.println("!!! Use apenas números !!!");
+                scan.next();
             } catch (ErroComunicacaoException erro) {
                 System.err.println(erro.getMessage());
             } catch (RoboDesligadoException erro) {
@@ -529,7 +535,6 @@ public class Menu {
             } catch (SemObstaculoDestrutivelException erro) {
                 System.err.println(erro.getMessage());
             }
-            break;
         }
     }
 
