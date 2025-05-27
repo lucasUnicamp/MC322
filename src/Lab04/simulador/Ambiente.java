@@ -35,13 +35,13 @@ public class Ambiente {
     }
 
     /**
-     * Cria um 'gradiente' de temperatura para o Ambiente, atribuindo a um ponto aleatorio um valor de temperatura maxima que
-     * vai se reduzindo conforme se afasta desse ponto, seguindo uma funcao Gaussiana
+     * Cria um 'gradiente' de temperatura para o Ambiente, atribuindo a um ponto aleatório um valor de temperatura máxima que
+     * vai se reduzindo conforme se afasta desse ponto, seguindo uma função Gaussiana
      */
     public void gradienteTemperatura() {
         temperaturas = new double[getLargura() + 1][getProfundidade() + 1];
-        double tempMax = (Math.random() * 100);        // Gera uma temperatura aleatoria para ser o maximo do ambiente
-        int posX = (int)(Math.random() * getLargura());     // Gera coordenadas aleatorias para terem essa temperatura maxima
+        double tempMax = (Math.random() * 100);        // Gera uma temperatura alatória para ser o máximo do ambiente
+        int posX = (int)(Math.random() * getLargura());     // Gera coordenadas aleatórias para terem essa temperatura máxima
         int posY = (int)(Math.random() * getProfundidade());
 
         for (int i = 0; i <= getLargura(); i++) {
@@ -52,16 +52,16 @@ public class Ambiente {
     }
 
     /**
-     * Usa a funcao gaussiana de duas dimensoes para gerar uma especie de gradiente dado um ponto central e uma amplitude para a variacao,
+     * Usa a função gaussiana de duas dimensões para gerar um gradiente dado um ponto central e uma amplitude para a variação,
      * formando uma elipse que vai diminuindo de valor a partir do centro
-     * @param amplitude valor maximo que a funcao pode ter
+     * @param amplitude valor máximo que a função pode ter
      * @param centroX coordenada x do centro 
      * @param centroY coordenada y do centro
-     * @param x posicao x qualquer
-     * @param y posicao y qualquer  
-     * @param horizontal o quao 'rapido' ela vai diminuir na horizontal
-     * @param vertical o quao 'rapido' ela vai diminuir na vertical
-     * @return resultado da formula, que deve ser um numero menor que a amplitude
+     * @param x posição x qualquer
+     * @param y posição y qualquer  
+     * @param horizontal o quão 'rápido' ela vai diminuir na horizontal
+     * @param vertical o quão 'rápido' ela vai diminuir na vertical
+     * @return resultado da fórmula, que deve ser um número menor que a amplitude
      */
     public double gradienteGaussiano(double amplitude, int centroX, int centroY, int x, int y, int horizontal, int vertical) {
         return amplitude * (Math.pow(Math.E, -((Math.pow(Math.abs(x - centroX), 2))/(2 * Math.pow(horizontal, 2)) + 
@@ -141,12 +141,12 @@ public class Ambiente {
         }
     }
 
-    // Move a entidade na matriz, mas nao tem o poder de mudar a condição absoluta da entidade
+    // Move a entidade na matriz, mas não tem o poder de mudar a condição absoluta da entidade
     public void moverEntidadeMapa(Entidade e,  int novoX, int novoY, int novoZ){
         if (e.getTipo() == TipoEntidade.ROBO){ // Remove o robo da matriz
             if (dentroDosLimites(e.getX(), e.getY(), e.getZ()))
                 mapa[e.getX()][e.getY()][e.getZ()] = TipoEntidade.VAZIO;
-        } else if (e.getTipo() == TipoEntidade.OBSTACULO) { // Remove o obstaculo da matriz
+        } else if (e.getTipo() == TipoEntidade.OBSTACULO) { // Remove o obstáculo da matriz
             for (int i = e.getX(); i < e.getX() + e.getLargura(); i++)
                 for (int j = e.getY(); j < e.getY() + e.getProfundidade(); j++)
                     for (int w = e.getZ(); w < e.getZ() + e.getAltura(); w++)
@@ -157,7 +157,7 @@ public class Ambiente {
         if (e.getTipo() == TipoEntidade.ROBO){  // Readiciona o robo a matriz
             if (dentroDosLimites(novoX, novoY, novoZ))
                 mapa[novoX][novoY][novoZ] = TipoEntidade.ROBO;
-        } else if (e.getTipo() == TipoEntidade.OBSTACULO){  // Readiciona o obstaculo a matriz
+        } else if (e.getTipo() == TipoEntidade.OBSTACULO){  // Readiciona o obstáculo a matriz
             for (int i = novoX; i < novoX + e.getLargura(); i++)
                 for (int j = novoY; j < novoY + e.getProfundidade(); j++)
                     for (int w = 0; w < e.getAltura(); w++)
@@ -168,9 +168,9 @@ public class Ambiente {
 
     public void listarRobos() {
         System.out.println("");
-        System.out.println(" ID ICONE            TIPO     NOME        POSICAO            STATUS");
+        System.out.println(" ID ÍCONE            TIPO     NOME        POSIÇÃO            STATUS");
         for (Robo robo:robosAtivos) {
-            System.out.printf("%s  %c  aka%15s %-7s em  (%02d, %02d, %02d)  esta  %s\n", robo.getID(), robo.getRepresentacao(), 
+            System.out.printf("%s  %c  aka%15s %-7s em  (%02d, %02d, %02d)  está  %s\n", robo.getID(), robo.getRepresentacao(), 
             robo.getClass().getSimpleName(), robo.getNome(), robo.getX(), robo.getY(), robo.getZ(), robo.getEstado());
         }
     }
@@ -187,7 +187,7 @@ public class Ambiente {
      * Checa se as coordenadas de um ponto estão contidas na região definida do ambiente
      * @param x valor da coordenada horizontal
      * @param y valor da coordenada vertical
-     * @return true ou false dependendo se esta ou nao dentro do ambiente
+     * @return true ou false dependendo se está ou não dentro do ambiente
      */
     public boolean dentroDosLimites(int x, int y) {
         return (x >= 0 && x <= profundidade) && (y >= 0 && y <= largura);
@@ -198,16 +198,16 @@ public class Ambiente {
      * @param x valor da coordenada x
      * @param y valor da coordenada y
      * @param z valor da coordenada z
-     * @return true ou false dependendo se esta ou nao dentro do ambiente
+     * @return true ou false dependendo se está ou não dentro do ambiente
      */
     public boolean dentroDosLimites(int x, int y, int z) {
         return (x >= 0 && x <= profundidade) && (y >= 0 && y <= largura) && (z >= 0 && z <= getAltura());
     }
 
     /**
-     * Checa se as coordenadas de um robo aereo estão contidas na região definida do ambiente, considerando tambem a altitude
-     * @param robo objeto da classe robo que esta dentro do ambiente executando movimentos
-     * @return true ou false dependendo se esta ou nao dentro do ambiente
+     * Checa se as coordenadas de um robô aéreo estão contidas na região definida do ambiente, considerando também a altitude
+     * @param robo objeto da classe robô que esta dentro do ambiente executando movimentos
+     * @return true ou false dependendo se está ou não dentro do ambiente
      */
     public boolean dentroDosLimites(RoboAereo robo) {
         int x = robo.getX();
@@ -219,12 +219,12 @@ public class Ambiente {
     }
 
     /**
-     * Previamente 'ehObstaculo'. Checa se as coordenadas do ponto dado ja estao ocupadas
-     * por alguma entidade valida (Robo ou Obstaculo)
-     * @param x coordenada x da posicao procurada
-     * @param y coordenada y da posicao procurada
-     * @param z coordenada z da posicao procurada
-     * @return true ou false dependendo se a posicao esta ou nao ocupada
+     * Previamente 'ehObstaculo'. Checa se as coordenadas do ponto dado já estão ocupadas
+     * por alguma entidade válida (Robo ou Obstaculo)
+     * @param x coordenada x da posição procurada
+     * @param y coordenada y da posição procurada
+     * @param z coordenada z da posição procurada
+     * @return true ou false dependendo se a posição está ou não ocupada
      */
     public boolean estaOcupado(int x, int y, int z) {
         for (int i = 0; i < obstaculos.size(); i++) {
@@ -238,22 +238,22 @@ public class Ambiente {
         return false;
     }
 
-    // Exibe o ambiente, considerando '.' como espacos vazios, '#' como obstaculos e letras como os robos
+    // Exibe o ambiente, considerando '.' como espaço vazios, '#' como obstáculos e letras como os robôs
     public void visualizarAmbiente() {
         char [][] matrizAmbiente = new char[getProfundidade() + 1][getLargura() + 1];
 
-        // Loop para preencher a matrizAmbiente representativa do ambiente com espacos vazio '.' 
+        // Loop para preencher a matrizAmbiente representativa do ambiente com espaço vazio '.' 
         for (int a = 0; a <= getProfundidade(); a++) 
             for (int b = 0; b <= getLargura(); b++)
                 matrizAmbiente[a][b] = '.';
 
-        // Loop para mudar as posicoes com obstaculos para '#'
+        // Loop para mudar as posições com obstáculos para '#'
         for (Obstaculo obs:obstaculos)
             for (int c = obs.getPosicaoX1(); c <= obs.getPosicaoX2(); c++)
                 for (int d = obs.getPosicaoY1(); d <= obs.getPosicaoY2(); d++)
                     matrizAmbiente[c][d] = obs.getRepresentacao();
 
-        // Loop para mudar as posicoes com robos para suas respectivas letras
+        // Loop para mudar as posições com robos para suas respectivas letras
         for (Robo robo:robosAtivos) {
             matrizAmbiente[robo.getX()][robo.getY()] = robo.getRepresentacao();
         }
@@ -266,8 +266,8 @@ public class Ambiente {
             System.out.print("\n");
         }
 
-        System.out.println("Legenda: . = vazio    # = obstaculo    T = robo terrestre    X = robo xadrez    G = robo preguica");
-        System.out.println("                A = robo aereo    P = robo planador    S = robo satelite");
+        System.out.println("Legenda: . = vazio    # = obstáculo    T = robô terrestre    X = robô xadrez    G = robô preguica");
+        System.out.println("                A = robô aéreo    P = robô planador    S = robô satélite");
     }
 
     public CentralComunicacao getCentral() {
