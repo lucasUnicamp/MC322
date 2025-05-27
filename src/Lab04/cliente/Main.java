@@ -30,7 +30,7 @@ public class Main {
          * TESTES MANUAIS
          * 
          */
-        System.out.print("\n## CRIACAO ROBOS ################################");
+        System.out.print("\n## CRIACAO ROBÔS ################################");
         // Instanciamento em massa de robôs e adição de sensores por composição (sensor eh instanciado dentro do robô, logo não existe fora dele)
         RoboTerrestre roboTerrestre = new RoboTerrestre("Beta", "RT01", 25, 25, salaTeste, 60);     // Cria o robô terrestre genérico
         roboTerrestre.adicionarSensor(new SensorObstaculo(10, salaTeste));
