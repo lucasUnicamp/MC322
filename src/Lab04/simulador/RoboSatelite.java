@@ -140,10 +140,14 @@ public class RoboSatelite extends RoboAereo implements Comunicavel, Destrutivo {
     }
 
     public void descarregar(int carga) throws RoboDesligadoException {
-        if (estaLigado()){
-            System.out.println("Robô descarregado.");
-            cargaLancamento -= carga;
-            exibirCarga();
+        if (estaLigado()) {
+            if (getCargaLancamento() == 0) {
+                System.out.println("Robô já está totalmente descarregado.");
+            } 
+            else {
+                cargaLancamento -= cargaLancamento - carga < 0 ? cargaLancamento : carga;
+                exibirCarga();
+            }
         } else {
             throw new RoboDesligadoException(getID());
         }
@@ -172,7 +176,6 @@ public class RoboSatelite extends RoboAereo implements Comunicavel, Destrutivo {
                 emOrbita = true;
                 setZ(novaAltitude);
             }
-            setCargaLancamento(0);
             exibirAltitude();
             descarregar(cargaLancamento);
         } else {
