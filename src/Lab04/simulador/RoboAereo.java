@@ -4,8 +4,7 @@ import simulador.excecoes.DesceuDemaisException;
 import simulador.excecoes.RoboDesligadoException;
 import simulador.interfaces.Sensoreavel;
 
-public class RoboAereo extends Robo implements Sensoreavel{
-    private int altitude;
+public class RoboAereo extends Robo implements Sensoreavel {
     private int altitudeMaxima;
     
     public RoboAereo(String nome, String id, int posicaoX, int posicaoY, Ambiente ambiente, int altitude, int altitudeMaxima) {
@@ -46,7 +45,7 @@ public class RoboAereo extends Robo implements Sensoreavel{
         atualizaSensores();
     }
 
-    public void subir(int metros) throws RoboDesligadoException{
+    public void subir(int metros) throws RoboDesligadoException {
         if (estaLigado()) {
             if (metros < 0) {
                 System.out.println("Para 'subir negativamente', por favor use a função 'descer'.");

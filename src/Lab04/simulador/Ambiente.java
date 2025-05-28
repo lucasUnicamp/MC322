@@ -252,7 +252,7 @@ public class Ambiente {
 
     // Exibe o ambiente, considerando '.' como espaço vazios, '#' como obstáculos e letras como os robôs
     public void visualizarAmbiente() {
-        char [][] matrizAmbiente = new char[getProfundidade() + 1][getLargura() + 1];
+        char[][] matrizAmbiente = new char[getProfundidade() + 1][getLargura() + 1];
 
         // Loop para preencher a matrizAmbiente representativa do ambiente com espaço vazio '.' 
         for (int a = 0; a <= getProfundidade(); a++) 

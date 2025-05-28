@@ -163,16 +163,16 @@ public class Menu {
     public void iniciarMenuRobo(Robo roboUsado) {
         while (true) {
             // Exibe as opções do submenu e armazena a qntd de opções em 'maximoAcoes'
-            int[] acoesMaximoMinimo = exibirEscolhaMenuRobo(roboUsado);
-            int entradaRobo = lerEscolhaMenuRobo(roboUsado, acoesMaximoMinimo);
+            int acoesMaximo = exibirEscolhaMenuRobo(roboUsado);
+            int entradaRobo = lerEscolhaMenuRobo(roboUsado, acoesMaximo);
 
             switch (entradaRobo) {
                 case -1:
                     return;
+
                 case -2:
-                    if (temInterfaceExtra(roboUsado)) {
-                        iniciarMenuExtras(roboUsado);
-                    }
+                    iniciarMenuExtras(roboUsado);
+            
                 default:
                     realizarAcoesMenuRobo(roboUsado, entradaRobo);
                     break;
@@ -190,8 +190,8 @@ public class Menu {
      * pode escolher e a segunda, qual o inteiro mínimo. Necessário pois as opções variam dependendo do tipo de robô
      * e se esse tem alguma interface extra
      */
-    public int[] exibirEscolhaMenuRobo(Robo robo) {
-        int[] acoesMaximoMinimo = new int[2];
+    public int exibirEscolhaMenuRobo(Robo robo) {
+        int acoesMaximo = 0;
         
         System.out.printf("\n~~ %s ~~~~~~~~~~~~~~~~~~\n", robo.getClass().getSimpleName().toUpperCase());
         if (robo instanceof Robo) {
@@ -200,55 +200,49 @@ public class Menu {
             System.out.println("[2] :: Mover robô");
             System.out.println("[3] :: Usar sensores");
             System.out.println("[4] :: Mudar direção");
-            acoesMaximoMinimo[0] = 4;
+            acoesMaximo = 4;
         }
         if (robo instanceof RoboTerrestre) {
             System.out.println("[5] :: Aumentar velocidade");
             System.out.println("[6] :: Diminuir velocidade");
-            acoesMaximoMinimo[0] = 6;
+            acoesMaximo = 6;
         }
         if (robo instanceof RoboXadrez) {
             System.out.println("[7] :: Mudar peça");
-            acoesMaximoMinimo[0] = 7;
+            acoesMaximo = 7;
         }
         if (robo instanceof RoboPreguica) {
             System.out.println("[7] :: Descançar");
-            acoesMaximoMinimo[0] = 7;
+            acoesMaximo = 7;
         }
         if (robo instanceof RoboAereo) {
             System.out.println("[5] :: Subir");
             System.out.println("[6] :: Descer");
-            acoesMaximoMinimo[0] = 6;
+            acoesMaximo = 6;
         }
         if (robo instanceof RoboPlanador) {
             System.out.println("[7] :: Mudar tamanho da asa");
-            acoesMaximoMinimo[0] = 7;
+            acoesMaximo = 7;
         }
         if (robo instanceof RoboSatelite) {
             System.out.println("[7] :: Carregar");
             System.out.println("[8] :: Descarregar");
             System.out.println("[9] :: Lançar");
-            acoesMaximoMinimo[0] = 9;
+            acoesMaximo = 9;
         }
 
-        if (temInterfaceExtra(robo)) {
-            System.out.print("\n[-2] :: Extras");
-            acoesMaximoMinimo[1] = -2;
-        } else
-            acoesMaximoMinimo[1] = -1;
-
+        System.out.print("\n[-2] :: Extras");
         System.out.println("\n[-1] :: Voltar");
-        return acoesMaximoMinimo;
+        return acoesMaximo;
     }
 
     /**
      * Lê a entrada do usuário de qual ação específica ele quer que o robô escolhido realize
      * @param robo robô que foi escolhido na entrada principal
-     * @param acoesMaximoMinimo vetor de duas posições cuja primeira casa será usada para limitar qual o inteiro máximo que o usuário
-     * pode escolher e a segunda, qual o inteiro mínimo
+     * @param acoesMaximo limita qual o inteiro máximo que o usuário pode escolher baseado no tipo de robô controlado
      * @return inteiro representativo da ação escolhida pelo usuário para o robô fazer
      */
-    public int lerEscolhaMenuRobo(Robo robo, int[] acoesMaximoMinimo) {
+    public int lerEscolhaMenuRobo(Robo robo, int acoesMaximo) {
         System.out.println("\nDigite o número da ação escolhida:");
         // Loop para que o submenu não seja printado novamente caso a entrada seja inválida
         while (true) {
@@ -256,7 +250,7 @@ public class Menu {
                 System.out.print("> ");
                 int entradaAcao = scan.nextInt();
 
-                if (entradaAcao <= acoesMaximoMinimo[0] && entradaAcao >= acoesMaximoMinimo[1]) 
+                if (entradaAcao <= acoesMaximo && entradaAcao >= -2) 
                     return entradaAcao;
                 else {
                     System.out.printf("!!! %d Não é uma opção válida !!!\n", entradaAcao);
@@ -681,10 +675,5 @@ public class Menu {
             }
             break;
         }
-    }
-
-    // !!!!!!!!!!!!!!!!!!!!!! ADICIONAR 'OU' OUTRAS INTERFACES AQUI !!!!!!!!!!!!!!!!!!!!!!!1
-    public boolean temInterfaceExtra(Robo robo) {
-        return (robo instanceof Comunicavel || robo instanceof Sensoreavel || robo instanceof Destrutivo);
     }
 }

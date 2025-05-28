@@ -91,7 +91,7 @@ public abstract class Robo implements Entidade {
             int deltaX = x - getX();
             int deltaY = y - getY();
             int indice = temSensorTipo("SensorObstaculo");
-            System.out.printf("Tentando mover o Robô '%s' para a posição (%d, %d).\n", nome, x, y);
+            System.out.printf("Tentando mover o Robô '%s' para a posição (%d, %d).\n", getNome(), x, y);
             
             if (indice != -1)
                 moverComSensor(deltaX, deltaY, indice);
@@ -99,7 +99,7 @@ public abstract class Robo implements Entidade {
                 moverSemSensor(deltaX, deltaY);
             
             atualizaSensores();
-            System.out.printf("O Robô '%s' terminou o movimento na posição (%d, %d).\n", nome, getX(), getY());
+            System.out.printf("O Robô '%s' terminou o movimento na posição (%d, %d).\n", getNome(), getX(), getY());
         } else {
             throw new RoboDesligadoException(getID());
         }
@@ -111,7 +111,7 @@ public abstract class Robo implements Entidade {
      * @param deltaX inteiro do quanto deve se mover na horizontal
      * @param deltaY inteiro do quanto deve se mover na vertical
      */
-    private void moverSemSensor(int deltaX, int deltaY) {
+    public void moverSemSensor(int deltaX, int deltaY) {
         int i = 0, j = 0;
 
         try {
@@ -148,9 +148,7 @@ public abstract class Robo implements Entidade {
                 setX(getX() - i + 1);
             }
             // Depois move o robô totalmente na vertical
-            // Caso deltaY positivo, anda na direção Norte. Aqui checa o valor de i antes pois i so é diferente de deltaX 
-            // se o robo já bateu em algum obstáculo, assim não tem porque continuar checando na vertical
-            if (deltaY > 0 && (i - 1) == Math.abs(deltaX)) {
+            if (deltaY > 0) {
                 for ( ; j <= deltaY; j++) {
                     // Checa se a posição em que vai andar é um obstáculo
                     if (getAmbiente().estaOcupado(posicaoX, posicaoY + j, posicaoZ)) {
@@ -159,7 +157,7 @@ public abstract class Robo implements Entidade {
                     }
                     // Checa se a posição em que vai andar está fora dos limites do ambiente
                     else if (!getAmbiente().dentroDosLimites(posicaoX, posicaoY + j)) {
-                        System.out.println("O robô não tem autorização para sair do ambienten");
+                        System.out.println("O robô não tem autorização para sair do ambiente.");
                         break;
                     }
                 }
@@ -167,7 +165,7 @@ public abstract class Robo implements Entidade {
                 setY(getY() + j - 1);
             }
             // Caso deltaY negativo, anda na direção Sul
-            else if (deltaY < 0 && (i - 1) == Math.abs(deltaX)) {
+            else if (deltaY < 0) {
                 for ( ; j <= -deltaY; j++) {
                     if (getAmbiente().estaOcupado(posicaoX, posicaoY - j, posicaoZ)) {
                         setY(getY() - j + 1);

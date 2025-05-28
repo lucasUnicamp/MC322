@@ -35,12 +35,41 @@ public class RoboTerrestre extends Robo {
 
     @Override
     public void executarTarefa() {
-        return;
+        int deltaX = 0;
+        int deltaY = 0;
+        System.out.println("");
+        try {    
+            if (estaLigado()) {
+                switch (getDirecao()) {
+                    case "Norte":
+                        deltaY = getAmbiente().getProfundidade() - getY();
+                        break;
+                    case "Sul":
+                        deltaY = 0 - getY();
+                        break;
+                    case "Leste":
+                        deltaX = getAmbiente().getLargura() - getX();
+                        break;
+                    case "Oeste":
+                        deltaX = 0 - getX();
+                        break;
+                }
+                System.out.printf("O Robô vai andar em linha reta na direção %s.\n", getDirecao());
+                moverSemSensor(deltaX, deltaY);
+
+                atualizaSensores();
+                    System.out.printf("O Robô '%s' terminou o movimento na posição (%d, %d).\n", getNome(), getX(), getY());
+            } else {
+                throw new RoboDesligadoException(getID());
+            }
+        } catch (RoboDesligadoException erro) {
+            System.out.println(erro.getMessage());
+        }
     }
 
     @Override
     public String getNomeTarefa() {
-        return null;
+        return "'marchar em frente'";
     }
 
     public void atualizaSensores() {
