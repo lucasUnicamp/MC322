@@ -46,7 +46,7 @@ public class RoboPreguica extends RoboTerrestre implements Destrutivo {
 
     @Override
     public String getNomeTarefa() {
-        return "Supercarregamento";
+        return "supercarregamento";
     }
 
     public void descansar() {

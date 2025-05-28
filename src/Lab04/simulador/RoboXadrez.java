@@ -34,45 +34,20 @@ public class RoboXadrez extends RoboTerrestre implements Comunicavel {
             if (estaLigado()){
                 int deltaX = x - getX();
                 int deltaY = y - getY();
-                if (getTipoMovimento() == 1) {
-                    // Cheques de validade do movimento de tipo Cavalo
-                    if ((Math.abs(deltaX) == 2 && Math.abs(deltaY) == 1) || (Math.abs(deltaX) == 1 && Math.abs(deltaY) == 2)) {
-                        super.moverPara(x, y);
-                        return;
-                    }
-                } 
-                else {
-                    // Cheques de validade do movimento de tipo Peão
-                    switch (getDirecao()) {
-                        case "Norte":
-                            if (deltaX == 0 && (deltaY == 2 || deltaY == 1)){
-                                super.moverPara(deltaX, deltaY);
-                                return;
-                            }
-                            break;
-                        case "Sul":
-                            if (deltaX == 0 && (deltaY == -2 || deltaY == -1)) {
-                                super.moverPara(deltaX, deltaY);
-                                return;
-                            }
-                            break;
-                        case "Leste":
-                            if ((deltaX == 2 || deltaX == 1) && deltaY == 0) {
-                                super.moverPara(deltaX, deltaY);
-                                return;
-                            }
-                            break;
-                        case "Oeste":
-                            if ((deltaX == -2 || deltaX == -1) && deltaY == 0) {
-                                super.moverPara(deltaX, deltaY);
-                                return;
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                throw new MovimentoXadrezInvalidoException(getID());
+                
+                switch (getTipoMovimento()) {
+                    case 1:
+                        moverPeao(x, y, deltaX, deltaY);
+                        break;
+
+                    case 2:
+                        moverCavalo(x, y, deltaX, deltaY);
+                        break;
+                    
+                    case 3:
+                        moverRainha(x, y, deltaX, deltaY);
+                        break;
+                }             
             } else {
                 throw new RoboDesligadoException(getID());
             }
@@ -100,13 +75,80 @@ public class RoboXadrez extends RoboTerrestre implements Comunicavel {
         }
     }
 
+    @Override
+    public void executarTarefa() {
+        setTipoMovimento(3);
+        System.out.printf("\nO próximo movimento do Robô '%s' poderá ser feito como o de uma Rainha.\n", getNome());
+    }
+
+    @Override
+    public String getNomeTarefa() {
+        return "mover como Rainha";
+    }
+
+    public void moverPeao(int x, int y, int deltaX, int deltaY) throws RoboDesligadoException, MovimentoXadrezInvalidoException {
+        if ((Math.abs(deltaX) == 2 && Math.abs(deltaY) == 1) || (Math.abs(deltaX) == 1 && Math.abs(deltaY) == 2)) {
+            super.moverPara(x, y);
+            return;
+        } else {
+            throw new MovimentoXadrezInvalidoException(getID());
+        }
+    }
+
+    public void moverCavalo(int x, int y, int deltaX, int deltaY) throws RoboDesligadoException, MovimentoXadrezInvalidoException {
+        switch (getDirecao()) {
+            case "Norte":
+                if (deltaX == 0 && (deltaY == 2 || deltaY == 1)){
+                    super.moverPara(x, y);
+                    return;
+                } else {
+                    throw new MovimentoXadrezInvalidoException(getID());
+                }
+            case "Sul":
+                if (deltaX == 0 && (deltaY == -2 || deltaY == -1)) {
+                    super.moverPara(x, y);
+                    return;
+                } else {
+                    throw new MovimentoXadrezInvalidoException(getID());
+                }
+            case "Leste":
+                if ((deltaX == 2 || deltaX == 1) && deltaY == 0) {
+                    super.moverPara(x, y);
+                    return;
+                } else {
+                    throw new MovimentoXadrezInvalidoException(getID());
+                }
+            case "Oeste":
+                if ((deltaX == -2 || deltaX == -1) && deltaY == 0) {
+                    super.moverPara(x, y);
+                    return;
+                } else {
+                    throw new MovimentoXadrezInvalidoException(getID());
+                }
+            default:
+                break;
+        }
+    }
+
+    public void moverRainha(int x, int y, int deltaX, int deltaY) throws RoboDesligadoException, MovimentoXadrezInvalidoException {
+        if ((Math.abs(deltaX) == Math.abs(deltaY))
+            || (Math.abs(deltaX) != 0 && deltaY == 0)
+            || (Math.abs(deltaY) != 0 && deltaX == 0)) {
+                super.moverPara(x, y);
+                setTipoMovimento(1);
+                System.out.println("O Robô voltou a mover-se como um Cavalo.");
+            } else {
+                throw new MovimentoXadrezInvalidoException(getID());
+            }
+    }
+
     public void setTipoMovimento(int tipoMovimento) {
-        if (tipoMovimento == 1 || tipoMovimento == 2)
+        if (tipoMovimento == 1 || tipoMovimento == 2 || tipoMovimento == 3)
             this.tipoMovimento = tipoMovimento;
     }
 
     public void alternaTipoMovimento() {
-        if(getTipoMovimento() == 1) {
+        if (getTipoMovimento() == 1) {
             setTipoMovimento(2);
         } else {
             setTipoMovimento(1);
