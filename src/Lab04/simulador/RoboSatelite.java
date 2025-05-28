@@ -1,5 +1,7 @@
 package simulador;
 
+import java.lang.Math;
+
 import simulador.excecoes.DesceuDemaisException;
 import simulador.excecoes.RoboDesligadoException;
 import simulador.excecoes.SemObstaculoDestrutivelException;
@@ -10,6 +12,7 @@ import simulador.interfaces.Entidade;
 public class RoboSatelite extends RoboAereo implements Comunicavel, Destrutivo {
     private int altitudeMinima;
     private int cargaLancamento;
+    private double forcaLancamento;
     // Flag para validar os movimentos de sobe e desce, que so podem funcionar caso o robo esteja no ar
     private boolean emOrbita;
 
@@ -17,6 +20,8 @@ public class RoboSatelite extends RoboAereo implements Comunicavel, Destrutivo {
         super(nome, id, posicaoX, posicaoY, ambiente, altitude, altitudeMaxima);
         this.altitudeMinima = altitudeMinima;
         this.cargaLancamento = cargaLancamento;
+        // Força definida aleatoriamente
+        forcaLancamento = getAltitudeMax() / ((Math.random() + 1) * 5);
         emOrbita = false;
         checarQueda();
 
@@ -66,6 +71,7 @@ public class RoboSatelite extends RoboAereo implements Comunicavel, Destrutivo {
         }
     }
     
+    @Override
     public void enviarMensagem(Comunicavel destinatario, String mensagem) throws RoboDesligadoException {
         if (estaLigado()) {
             destinatario.receberMensagem(mensagem);
@@ -74,7 +80,8 @@ public class RoboSatelite extends RoboAereo implements Comunicavel, Destrutivo {
             throw new RoboDesligadoException(getID());
         }
     }
-
+    
+    @Override
     public void receberMensagem(String mensagem) throws RoboDesligadoException {
         if (estaLigado()) {
             getAmbiente().getCentral().registrarMensagem(getID(), mensagem);
@@ -83,6 +90,18 @@ public class RoboSatelite extends RoboAereo implements Comunicavel, Destrutivo {
         }
     }
 
+    @Override
+    public void executarTarefa() {
+        int cargaMinima = Math.round(getAltitudeMin() / (int) getForcaLancamento());
+        int cargaMaxima = Math.round(getAltitudeMax() / (int) getForcaLancamento());
+        System.out.printf("\nA carga de '%s' deve estar entre %d e %d para chegar em órbita.\n", getNome(), cargaMinima, cargaMaxima);
+    }
+
+    @Override
+    public String getNomeTarefa() {
+        return "achar carga para órbita";
+    }
+    
     // Destroi o obstáciulo apenas se o satélite estiver no ar
     public void destruirObstaculo(int x, int y) throws SemObstaculoDestrutivelException, RoboDesligadoException {
         if (estaLigado()) {
@@ -110,7 +129,7 @@ public class RoboSatelite extends RoboAereo implements Comunicavel, Destrutivo {
         }
     }
 
-    public void carregar(int carga) throws RoboDesligadoException{
+    public void carregar(int carga) throws RoboDesligadoException {
         if (estaLigado()){
             System.out.println("Robô carregado.");
             cargaLancamento += carga;
@@ -120,7 +139,7 @@ public class RoboSatelite extends RoboAereo implements Comunicavel, Destrutivo {
         }
     }
 
-    public void descarregar(int carga) throws RoboDesligadoException{
+    public void descarregar(int carga) throws RoboDesligadoException {
         if (estaLigado()){
             System.out.println("Robô descarregado.");
             cargaLancamento -= carga;
@@ -136,11 +155,9 @@ public class RoboSatelite extends RoboAereo implements Comunicavel, Destrutivo {
      * se não for o suficiente, o robô não alcanca a altura mínima de órbita e cai;
      * e se for o bastante, o robô entra em órbita e 'flutua' no espaço, podendo agora subir e descer livremente.
      */
-    public void lancamento() throws RoboDesligadoException{
+    public void lancamento() throws RoboDesligadoException {
         if (estaLigado()){
-            // Funçãoo de força definida arbitrariamente
-            float forcaLancamento = getAltitudeMax() / 10;
-            int novaAltitude = Math.round(cargaLancamento * forcaLancamento);
+            int novaAltitude = Math.round(cargaLancamento * (int) getForcaLancamento());
 
             if (novaAltitude > getAltitudeMax()) {
                 System.out.printf("O Robô '%s' foi lançado alto demais, atingiu o limite e caiu de volta para o chão.\n", getNome());
@@ -181,5 +198,9 @@ public class RoboSatelite extends RoboAereo implements Comunicavel, Destrutivo {
 
     public int getCargaLancamento() {
         return cargaLancamento;
+    }
+
+    public double getForcaLancamento() {
+        return forcaLancamento;
     }
 }
