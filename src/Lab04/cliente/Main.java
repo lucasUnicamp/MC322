@@ -40,7 +40,7 @@ public class Main {
         RoboXadrez roboXadrez = new RoboXadrez("Theta", "RT02", 40, 20, salaTeste, 6, 1);       // Cria o robô terrestre do tipo xadrez
         roboXadrez.adicionarSensor(new SensorObstaculo(5, salaTeste));
         roboXadrez.getDescricao();
-        RoboPreguica roboPreguica = new RoboPreguica("Delta", "RT03", 30, 42, salaTeste, 25, 1);        // Cria o robô terrestre do tipo preguiça
+        RoboPreguica roboPreguica = new RoboPreguica("Delta", "RT03", 30, 42, salaTeste, 25, 10);        // Cria o robô terrestre do tipo preguiça
         roboPreguica.adicionarSensor(new SensorTemperatura(20, salaTeste));
         roboPreguica.getDescricao();
         RoboAereo roboAereo = new RoboAereo("Gama", "RA01", 5, 5, salaTeste, 40, 80);      // Cria o robô aéreo genérico

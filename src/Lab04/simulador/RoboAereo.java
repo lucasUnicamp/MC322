@@ -111,17 +111,12 @@ public class RoboAereo extends Robo implements Sensoreavel{
 
     @Override
     public void executarTarefa() {
+        return;
+    }
 
-        switch (getDirecao()) {
-            case "Norte":
-                break;
-            case "Sul":
-                break;
-            case "Leste":
-                break;
-            case "Oeste":
-                break;
-        }
+    @Override
+    public String getNomeTarefa() {
+        return null;
     }
 
     // Aciona todos os sensores ao mesmo tempo nas imediações adjacentes ao robô

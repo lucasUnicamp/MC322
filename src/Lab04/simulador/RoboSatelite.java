@@ -84,12 +84,12 @@ public class RoboSatelite extends RoboAereo implements Comunicavel, Destrutivo {
     }
 
     // Destroi o obstáciulo apenas se o satélite estiver no ar
-    public void destruirObstaculo(int x, int y) throws SemObstaculoDestrutivelException, RoboDesligadoException{
-        if(estaLigado()) {
-            if(getZ() > 0){
-                for(Entidade e : getAmbiente().obstaculos)
-                    if((x >= e.getX() && x < e.getX() + e.getLargura()) &&
-                        (y >= e.getY() && y < e.getY() + e.getProfundidade())){
+    public void destruirObstaculo(int x, int y) throws SemObstaculoDestrutivelException, RoboDesligadoException {
+        if (estaLigado()) {
+            if (getZ() > 0){
+                for (Entidade e : getAmbiente().obstaculos)
+                    if ((x >= e.getX() && x < e.getX() + e.getLargura()) &&
+                        (y >= e.getY() && y < e.getY() + e.getProfundidade())) {
                             getAmbiente().removerEntidade(e);
                             System.out.printf("O obstáculo em (%d, %d) foi destruído.\n", x, y);
                             return;
@@ -98,6 +98,7 @@ public class RoboSatelite extends RoboAereo implements Comunicavel, Destrutivo {
             }
             System.out.println("Precisa estar no ar!");
         }
+        throw new RoboDesligadoException(getID());
     }
 
     public void checarQueda() {

@@ -426,6 +426,9 @@ public class Menu {
             switch (entradaExtras) {
                 case -1:
                     return;
+                case 0:
+                    robo.executarTarefa();
+                    break;
                 default:
                     realizarAcoesMenuExtras(robo, listaInterfaces, entradaExtras);
                     break;
@@ -438,22 +441,23 @@ public class Menu {
         int indice = 0;
         listaInterfaces[0] = 0;
         System.out.println("\n-- EXTRAS ---------");
+        System.out.printf("[0] :: Tarefa %s\n", robo.getNomeTarefa());
         
         if (robo instanceof Comunicavel) {
-            System.out.printf("[%d] :: Comunicar-se\n", indice);
+            System.out.printf("[%d] :: Comunicar-se\n", indice + 1);
             indice++;
             // Significa que a opção índice do menu (listaInterfaces[indice], que nesse primeiro caso vai ser sempre 1) 
             // é o Comunicavel (dado por 0)
             listaInterfaces[indice] = 0;        
         }
         if (robo instanceof Sensoreavel) {
-            System.out.printf("[%d] :: Aciconar todos os sensores\n", indice);
+            System.out.printf("[%d] :: Aciconar todos os sensores\n", indice + 1);
             indice++;
             // Significa que a opção índice do menu (listaInterfaces[indice]) é o Sensoreaevel (dado por 1)
             listaInterfaces[indice] = 1;        
         }
         if (robo instanceof Destrutivo) {
-            System.out.printf("[%d] :: Destruir\n", indice);
+            System.out.printf("[%d] :: Destruir\n", indice + 1);
             indice++;
             // Significa que a opção índice do menu (listaInterfaces[indice]) é o Destrutivel (dado por 1)
             listaInterfaces[indice] = 2;
@@ -491,9 +495,9 @@ public class Menu {
     public void realizarAcoesMenuExtras(Robo robo, int[] listaInterfaces, int entradaAcoes) {
         while (true) {
             try {
-                switch (listaInterfaces[entradaAcoes + 1]) {
+                switch (listaInterfaces[entradaAcoes]) {
                     case 0:
-                        System.out.println("[String] Para qual robô a mensagem deve ser enviada?");
+                        System.out.println("\n[String] Para qual robô a mensagem deve ser enviada?");
                         System.out.print("> ");
                         String nome = scan.nextLine();
                         Robo destinatarioRobo = ambiente.conferirNome(nome);

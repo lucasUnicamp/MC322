@@ -35,17 +35,12 @@ public class RoboTerrestre extends Robo {
 
     @Override
     public void executarTarefa() {
+        return;
+    }
 
-        switch (getDirecao()) {
-            case "Norte":
-                break;
-            case "Sul":
-                break;
-            case "Leste":
-                break;
-            case "Oeste":
-                break;
-        }
+    @Override
+    public String getNomeTarefa() {
+        return null;
     }
 
     public void atualizaSensores() {
