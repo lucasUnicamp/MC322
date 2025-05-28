@@ -119,12 +119,24 @@ public class RoboAereo extends Robo implements Sensoreavel {
 
     @Override
     public void executarTarefa() {
-        return;
+        int posX = (int)(Math.random() * getAmbiente().getLargura());
+        int posY = (int)(Math.random() * getAmbiente().getProfundidade());
+        int posZ = (int)(Math.random() * getAmbiente().getAltura());
+
+        // Se a posicao gerada tambem nao for valida, tenta novamente
+        if (getAmbiente().estaOcupado(posX, posY, posZ) || !getAmbiente().dentroDosLimites(posX, posY, posZ))
+            executarTarefa();
+        else {
+            setX(posX);
+            setY(posY);
+            setZ(posZ);
+            System.out.printf("\nRobô '%s' voou tão rápido que teleportou para a posição (%d, %d, %d).\n", getNome(), getX(), getY(), getZ());
+        }
     }
 
     @Override
     public String getNomeTarefa() {
-        return null;
+        return "'teleportar'";
     }
 
     // Aciona todos os sensores ao mesmo tempo nas imediações adjacentes ao robô

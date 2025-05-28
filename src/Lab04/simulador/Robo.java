@@ -43,18 +43,18 @@ public abstract class Robo implements Entidade {
      * @param posY coordenada y da posicao inicial do robô
      */
     public void checarPosicaoInicial(int posX, int posY, int posZ) {
-        boolean éValido = true;
+        boolean ehValido = true;
 
         if (ambiente.estaOcupado(posX, posY, posZ)) {
             System.out.printf("!!! AVISO: Robô '%s' foi inicializado em uma posição inválida. Não faça isso. !!!\n", getNome());
-            éValido = false;
+            ehValido = false;
         }
         if (!ambiente.dentroDosLimites(posX, posY)) {
             System.out.printf("!!! AVISO: Robô '%s' foi inicializado fora dos limites do ambiente. Não faça isso. !!!\n", getNome());
-            éValido = false;
+            ehValido = false;
         }
 
-        if (!éValido)
+        if (!ehValido)
             moverParaValida();
     }
 
@@ -67,7 +67,7 @@ public abstract class Robo implements Entidade {
         int posY = (int)(Math.random() * ambiente.getProfundidade());
 
         // Se a posicao gerada tambem nao for valida, tenta novamente
-        if (ambiente.estaOcupado(posX, posY, 0) || !ambiente.dentroDosLimites(posX, posY))
+        if (ambiente.estaOcupado(posX, posY, getZ()) || !ambiente.dentroDosLimites(posX, posY))
             moverParaValida();
         else {
             setX(posX);

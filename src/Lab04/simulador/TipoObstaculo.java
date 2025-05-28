@@ -1,7 +1,7 @@
 package simulador;
 
 public enum TipoObstaculo {
-    TORRE_DE_BABEL(70) ,
+    TORRE_DE_BABEL(50) ,
     CICLO_BASICO(10) ,
     EUCALIPTO(3) ,
     PEDRA(1) ,
