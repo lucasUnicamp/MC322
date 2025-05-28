@@ -48,6 +48,10 @@ public class RoboAereo extends Robo implements Sensoreavel{
 
     public void subir(int metros) throws RoboDesligadoException{
         if (estaLigado()) {
+            if (metros < 0) {
+                System.out.println("Para 'subir negativamente', por favor use a função 'descer'.");
+                return;
+            }
             // Compara altitude do Robô com a máxima dada
             if (getZ() + metros <= altitudeMaxima) {
                 System.out.println("O Robo subiu com sucesso.");
@@ -67,6 +71,11 @@ public class RoboAereo extends Robo implements Sensoreavel{
         if (estaLigado()) {
             int indice = temSensorTipo("SensorObstaculo");
             SensorObstaculo sensorObs;
+
+            if (metros < 0) {
+                System.out.println("Para 'descer negativamente', por favor use a função 'subir'.");
+                return;
+            }
 
             if (getZ() != 0) {
                 if(indice == -1) {

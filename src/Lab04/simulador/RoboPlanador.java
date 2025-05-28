@@ -23,7 +23,6 @@ public class RoboPlanador extends RoboAereo {
         return 'P';
     }
 
-
     /**
      * Override necessário para exibir que o Robô Planador 'planou' de uma altitude para outra entre tentar se mover e realmente se mover.
      * Caso apenas descêssemos o Robô após movimentação, a altitude exibida pelo 'moverComSensor' não estaria correta. Caso descẽssemos antes,
@@ -50,6 +49,10 @@ public class RoboPlanador extends RoboAereo {
 
     @Override
     public void subir(int metros) throws RoboDesligadoException{
+        if (metros < 0) {
+            System.out.println("Para 'subir negativamente', por favor use a função 'subir'.");
+            return;
+        }
         if (metros <= tamanhoAsa)     // Quanto maior a asa mais pode subir
             super.subir(metros);
         else
@@ -59,11 +62,21 @@ public class RoboPlanador extends RoboAereo {
     // Override feito para mudar o que é printado para o usuário e ficar mais condizente com o tipo do Robô
     @Override 
     public void descer(int metros) throws RoboDesligadoException {
-        if (estaLigado()){
+        if (estaLigado()) {
             int indice = temSensorTipo("SensorObstaculo");
             SensorObstaculo sensorObs;
 
+            if (metros < 0) {
+                System.out.println("Para 'descer negativamente', por favor use a função 'subir'.");
+                return;
+            }
+
             if (getZ() != 0) {
+                if (metros < 0) {
+                    System.out.println("Para descer negativamente, por favor use a função 'subir'.");
+                    return;
+                }
+
                 if (indice == -1) {
                     System.out.println("Impossível descer com segurança, não há sensor de obstáculo.\n");
                     return;
@@ -94,6 +107,20 @@ public class RoboPlanador extends RoboAereo {
         }
     }
 
+    @Override
+    public void executarTarefa() {
+        tamanhoAsa = -getTamanhoAsa();
+        if (getTamanhoAsa() < 0)
+            System.out.printf("O Robô '%s' agora irá subir enquanto se move.\n", getNome());
+        else    
+            System.out.printf("O Robô '%s' agora irá descer enquanto se move.\n", getNome());
+    }
+
+    @Override
+    public String getNomeTarefa() {
+        return "'trocar sentido do planador'";
+    }
+
     // Método 'intermediário' para impedir que o Robô use o 'descer' após se mover no chão (altitude 0)
     public void descerPlanando(int metros) throws RoboDesligadoException {
         if (getZ() != 0) {
@@ -109,5 +136,9 @@ public class RoboPlanador extends RoboAereo {
             this.tamanhoAsa = 100;
             System.out.print("Tamanho da asa alterado para 100 (máximo).\n");
         }
+    }
+
+    public int getTamanhoAsa() {
+        return tamanhoAsa;
     }
 }

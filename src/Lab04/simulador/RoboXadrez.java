@@ -83,7 +83,7 @@ public class RoboXadrez extends RoboTerrestre implements Comunicavel {
 
     @Override
     public String getNomeTarefa() {
-        return "mover como Rainha";
+        return "'mover como Rainha'";
     }
 
     public void moverPeao(int x, int y, int deltaX, int deltaY) throws RoboDesligadoException, MovimentoXadrezInvalidoException {
