@@ -6,10 +6,12 @@ import simulador.excecoes.RoboDesligadoException;
 
 public class RoboPlanador extends RoboAereo {
     private int tamanhoAsa;     // Quanto maior a asa, por mais tempo consegue planar e também consegue subir mais
+    private int modoPlanar;     // Para identificar se está descendo (1) ou subindo (2) enquanto se move
 
     public RoboPlanador(String nome, String id, int posicaoX, int posicaoY, Ambiente ambiente, int altitude, int altitudeMaxima, int tamanhoAsa){
         super(nome, id, posicaoX, posicaoY, ambiente, altitude, altitudeMaxima);
         setTamanhoAsa(tamanhoAsa);
+        modoPlanar = 1;
     }
 
     @Override
@@ -37,7 +39,7 @@ public class RoboPlanador extends RoboAereo {
         System.out.printf("Tentando mover o Robô '%s' para a posição (%d, %d).\n", getNome(), x, y);
         
         if (indice != -1) {
-            descerPlanando(((120 - tamanhoAsa)*deslocamento)/100);      // Cai lentamente quando deslocado
+            moverPlanando(((120 - tamanhoAsa)*deslocamento)/100);      // Cai lentamente quando deslocado
             moverComSensor(deltaX, deltaY, indice);
             System.out.printf("O Robô '%s' terminou o movimento na posição (%d, %d, %d).\n", getNome(), getX(), getY(), getZ());
         }
@@ -50,7 +52,7 @@ public class RoboPlanador extends RoboAereo {
     @Override
     public void subir(int metros) throws RoboDesligadoException{
         if (metros < 0) {
-            System.out.println("Para 'subir negativamente', por favor use a função 'subir'.");
+            System.out.println("Para 'subir negativamente', por favor use a função 'descer'.");
             return;
         }
         if (metros <= tamanhoAsa)     // Quanto maior a asa mais pode subir
@@ -72,11 +74,6 @@ public class RoboPlanador extends RoboAereo {
             }
 
             if (getZ() != 0) {
-                if (metros < 0) {
-                    System.out.println("Para descer negativamente, por favor use a função 'subir'.");
-                    return;
-                }
-
                 if (indice == -1) {
                     System.out.println("Impossível descer com segurança, não há sensor de obstáculo.\n");
                     return;
@@ -86,7 +83,10 @@ public class RoboPlanador extends RoboAereo {
 
                 // Compara a altitude do Robo com a distância ao chão (0)
                 if (getZ() - metros >= 0 && !sensorObs.checarObstaculoPosicao(getX(), getY(), getZ() - metros)) {
-                    System.out.println("O Robô planou e desceu suavemente no processo.");
+                    if (getModoPlanar() == 1)
+                        System.out.println("O Robô planou e desceu suavemente no processo.");
+                    else if (getModoPlanar() == 2)
+                        System.out.println("O Robô planou e subiu suavemente no processo.");
                     setZ(getZ() - metros);
                 }
                 // Atualiza a altitude para 0 caso tenha descido demais e não há obtáculo abaixo
@@ -109,11 +109,11 @@ public class RoboPlanador extends RoboAereo {
 
     @Override
     public void executarTarefa() {
-        tamanhoAsa = -getTamanhoAsa();
+        setModoPlanar(getModoPlanar() == 1 ? 2 : 1);
         if (getTamanhoAsa() < 0)
-            System.out.printf("O Robô '%s' agora irá subir enquanto se move.\n", getNome());
+            System.out.printf("\nO Robô '%s' agora irá subir enquanto se move.\n", getNome());
         else    
-            System.out.printf("O Robô '%s' agora irá descer enquanto se move.\n", getNome());
+            System.out.printf("\nO Robô '%s' agora irá descer enquanto se move.\n", getNome());
     }
 
     @Override
@@ -122,9 +122,12 @@ public class RoboPlanador extends RoboAereo {
     }
 
     // Método 'intermediário' para impedir que o Robô use o 'descer' após se mover no chão (altitude 0)
-    public void descerPlanando(int metros) throws RoboDesligadoException {
+    public void moverPlanando(int metros) throws RoboDesligadoException {
         if (getZ() != 0) {
-            descer(metros);
+            if (getModoPlanar() == 1)
+                descer(metros);
+            else if (getModoPlanar() == 2)
+                subir(metros);
         }
     }
 
@@ -138,7 +141,18 @@ public class RoboPlanador extends RoboAereo {
         }
     }
 
+    public void setModoPlanar(int modo) {
+        if (modo == 1 || modo == 2)
+            modoPlanar = modo;
+        else
+            modoPlanar = 1;
+    }
+
     public int getTamanhoAsa() {
         return tamanhoAsa;
+    }
+
+    public int getModoPlanar() {
+        return modoPlanar;
     }
 }

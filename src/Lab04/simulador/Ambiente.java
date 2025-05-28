@@ -129,7 +129,7 @@ public class Ambiente {
 
     public void moverEntidade(Entidade e, int novoX, int novoY, int novoZ) {
         moverEntidadeMapa(e, novoX, novoY, novoZ);
-        if(e.getTipo() == TipoEntidade.ROBO){
+        if (e.getTipo() == TipoEntidade.ROBO){
             ((Robo) e).setX(novoX);
             ((Robo) e).setY(novoY);
             ((Robo) e).setZ(novoZ);

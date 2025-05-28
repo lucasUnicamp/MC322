@@ -192,7 +192,7 @@ public abstract class Robo implements Entidade {
      * @param deltaY inteiro do quanto deve se mover na vertical
      * @param indice posicao do SensorObstaculo na ArrayList de sensores do robô 
      */
-    protected void moverComSensor(int deltaX, int deltaY, int indice) throws RoboDesligadoException{
+    protected void moverComSensor(int deltaX, int deltaY, int indice) throws RoboDesligadoException {
         if (estaLigado()) {
             int novoX = posicaoX + deltaX;
             int novoY = posicaoY + deltaY;

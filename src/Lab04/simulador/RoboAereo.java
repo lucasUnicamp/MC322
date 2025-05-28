@@ -152,7 +152,7 @@ public class RoboAereo extends Robo implements Sensoreavel{
 
     @Override
     public void exibirPosicao() {
-        System.out.printf("O Robô '%s' está agora em (%d, %d) na direção %s e %d acima do solo.\n", getNome(), getX(), getY(), getDirecao(), altitude);
+        System.out.printf("O Robô '%s' está agora em (%d, %d) na direção %s e %d acima do solo.\n", getNome(), getX(), getY(), getDirecao(), getZ());
     }
 
     public void exibirAltitude() {
