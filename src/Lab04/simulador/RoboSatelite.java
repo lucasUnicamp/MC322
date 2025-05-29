@@ -80,25 +80,10 @@ public class RoboSatelite extends RoboAereo implements Comunicavel, Destrutivo {
         }
     }
     
-    @Override
-    public void enviarMensagem(Comunicavel destinatario, String mensagem) throws RoboDesligadoException {
-        if (estaLigado()) {
-            destinatario.receberMensagem(mensagem);
-            System.out.println("A mensagem foi enviada com sucesso.");
-        } else {
-            throw new RoboDesligadoException(getID());
-        }
-    }
-    
-    @Override
-    public void receberMensagem(String mensagem) throws RoboDesligadoException {
-        if (estaLigado()) {
-            getAmbiente().getCentral().registrarMensagem(getID(), mensagem);
-        } else {
-            throw new RoboDesligadoException(getID());
-        }
-    }
-
+    /**
+     * Encontra o interalo de quantidade de carga para que, após um lançamento, o robô fique em órbita
+     * e não caia (por ter menos ou mais carga do que necessário) 
+     */
     @Override
     public void executarTarefa() {
         int cargaMinima = Math.round(getAltitudeMin() / (int) getForcaLancamento());
@@ -110,7 +95,24 @@ public class RoboSatelite extends RoboAereo implements Comunicavel, Destrutivo {
     public String getNomeTarefa() {
         return "'carga ideal para órbita'";
     }
+
+    public void enviarMensagem(Comunicavel destinatario, String mensagem) throws RoboDesligadoException {
+        if (estaLigado()) {
+            destinatario.receberMensagem(getID(), mensagem);
+            System.out.println("A mensagem foi enviada com sucesso.");
+        } else {
+            throw new RoboDesligadoException(getID());
+        }
+    }
     
+    public void receberMensagem(String remetente, String mensagem) throws RoboDesligadoException {
+        if (estaLigado()) {
+            getAmbiente().getCentral().registrarMensagem(remetente, getID(), mensagem);
+        } else {
+            throw new RoboDesligadoException(getID());
+        }
+    }
+
     // Destroi o obstáciulo apenas se o satélite estiver no ar
     public void destruirObstaculo(int x, int y) throws SemObstaculoDestrutivelException, RoboDesligadoException {
         if (estaLigado()) {

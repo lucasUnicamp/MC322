@@ -56,34 +56,36 @@ public class RoboXadrez extends RoboTerrestre implements Comunicavel {
         }
     }
     
-    @Override
-    public void enviarMensagem(Comunicavel destinatario, String mensagem) throws RoboDesligadoException{
-        if (estaLigado()) {
-            destinatario.receberMensagem(mensagem);
-            System.out.println("A mensagem foi enviada com sucesso.");
-        } else {
-            throw new RoboDesligadoException(getID());
-        }
-    }
-
-    @Override
-    public void receberMensagem(String mensagem) throws RoboDesligadoException{
-        if (estaLigado()) {
-            getAmbiente().getCentral().registrarMensagem(getID(), mensagem);
-        } else {
-            throw new RoboDesligadoException(getID());
-        }
-    }
-
+    /**
+     * Muda o tipo de movimento do robô para a próxima movimentação, permitindo-o que mova-se como uma Rainha
+     * (horizontal, vertical e diagonalmente apenas)
+     */
     @Override
     public void executarTarefa() {
         setTipoMovimento(3);
         System.out.printf("\nO próximo movimento do Robô '%s' poderá ser feito como o de uma Rainha.\n", getNome());
     }
-
+    
     @Override
     public String getNomeTarefa() {
         return "'mover como Rainha'";
+    }
+    
+    public void enviarMensagem(Comunicavel destinatario, String mensagem) throws RoboDesligadoException {
+        if (estaLigado()) {
+            destinatario.receberMensagem(getID(), mensagem);
+            System.out.println("A mensagem foi enviada com sucesso.");
+        } else {
+            throw new RoboDesligadoException(getID());
+        }
+    }
+    
+    public void receberMensagem(String remetente, String mensagem) throws RoboDesligadoException {
+        if (estaLigado()) {
+            getAmbiente().getCentral().registrarMensagem(remetente, getID(), mensagem);
+        } else {
+            throw new RoboDesligadoException(getID());
+        }
     }
 
     public void moverPeao(int x, int y, int deltaX, int deltaY) throws RoboDesligadoException, MovimentoXadrezInvalidoException {
