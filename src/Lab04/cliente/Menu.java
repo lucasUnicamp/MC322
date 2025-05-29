@@ -445,7 +445,7 @@ public class Menu {
             listaInterfaces[indice] = 0;        
         }
         if (robo instanceof Sensoreavel) {
-            System.out.printf("[%d] :: Aciconar todos os sensores\n", indice + 1);
+            System.out.printf("[%d] :: Acionar todos os sensores\n", indice + 1);
             indice++;
             // Significa que a opção índice do menu (listaInterfaces[indice]) é o Sensoreaevel (dado por 1)
             listaInterfaces[indice] = 1;        
@@ -514,6 +514,7 @@ public class Menu {
 
                     case 1:
                         ((Sensoreavel) robo).acionarSensores();
+                        break;
 
                     case 2:
                         System.out.println("\n[int] Qual coordenada x deseja destruir?");

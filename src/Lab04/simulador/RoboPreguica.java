@@ -41,12 +41,12 @@ public class RoboPreguica extends RoboTerrestre implements Destrutivo {
     @Override
     public void executarTarefa() {
         setEnergia(getEnergiaMax());
-        System.out.printf("\n'%s' fez um supercarregamento e agora está com a energia máxima de %d.\n", getNome(), getEnergiaMax());
+        System.out.printf("\n'%s' descansou bastante e agora está com a energia máxima de %d.\n", getNome(), getEnergiaMax());
     }
 
     @Override
     public String getNomeTarefa() {
-        return "'supercarregamento'";
+        return "'superdescansamento'";
     }
 
     public void descansar() {
