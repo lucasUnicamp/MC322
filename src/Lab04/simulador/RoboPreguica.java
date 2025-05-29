@@ -60,14 +60,15 @@ public class RoboPreguica extends RoboTerrestre implements Destrutivo {
     }
 
     public void destruirObstaculo(int x, int y) throws RoboDesligadoException, SemObstaculoDestrutivelException {
-        if (estaLigado()){
+        if (estaLigado()) {
             if (Math.hypot(x - getX(), y - getY()) <= 2) {
-                for (Entidade e : getAmbiente().obstaculos)
-                if ((x >= e.getX() && x < e.getX() + e.getLargura()) &&
-                    (y >= e.getY() && y < e.getY() + e.getProfundidade())){
-                        getAmbiente().removerEntidade(e);
-                        System.out.printf("O obstáculo em (%d, %d) foi removido da existência.\n", x, y);
-                        return;
+                for (Entidade e: getAmbiente().obstaculos) {
+                    if ((x >= e.getX() && x < e.getX() + e.getLargura()) && 
+                        (y >= e.getY() && y < e.getY() + e.getProfundidade())) {
+                            getAmbiente().removerEntidade(e);
+                            System.out.printf("O obstáculo em (%d, %d) foi removido da existência.\n", x, y);
+                            return;
+                    }
                 }
                 throw new SemObstaculoDestrutivelException(x, y);
             } else {

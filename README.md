@@ -58,7 +58,7 @@ O Ambiente agora conta com uma matriz 3D de Entidades, que permite armazenar as 
 
 **----- Personalizadas**
 * *Destrutivo*:
-    - Permite que obstáculos sejam destrúidos caso use a ação `Destruir`, presente no submenu **Extras**, enquanto diretamente em frente e 'olhando' para um obstáculo (para Robôs Terrestres) ou enquanto diretamente acima de um obstáculo (para Robôs Aéreos);
+    - Permite que obstáculos sejam destrúidos caso use a ação `Destruir`, presente no submenu **Extras**, em uma posição (que seja um obstáculo) adjacente ao robô. Para robôs Aéreos com essa interface, basta que esteja voando, não necessariamente adjacente ao obstáculo, para destruí-lo;
     - Implementado por `RoboPreguica` e `RoboSatelite`.
 
 #### --- EXCEÇÕES<br/>
@@ -75,7 +75,7 @@ O Ambiente agora conta com uma matriz 3D de Entidades, que permite armazenar as 
 
 **----- Personalizadas**
 * *SemObstaculoDestrutivel*:
-    - Quando um robô tenta usar a ação `Destruir` sem ter um obstáculo diretamente a sua frente;
+    - Quando um robô tenta usar a ação `Destruir` em uma posição que não é um obstáculo ;
     - Implementado por `RoboAereo` e `RoboSatelite`, lançado em `destruirObstaculo`.
 * *DesceuDemais*:
     - Quando um robô Aéreo desce uma quantidade maior do que a altidude em que está, gera um erro para não chegar a altidudes negativas;
