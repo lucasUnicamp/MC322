@@ -20,6 +20,14 @@ public class Obstaculo implements Entidade {
         ordenaObstaculo(posicaoX1, posicaoY1, posicaoX2, posicaoY2);
     }
 
+    /**
+     * Ordena as coordenadas do obstáculo de modo que os menores valores fiquem sempre como X1 e Y1, e as de maior valor,
+     * como X2 e Y2. Facilita o manuseio dessas em outros métodos
+     * @param posX1 primeira coordenada X definida para o obstáculo
+     * @param posY1 primeira coordenada Y definida para o obstáculo
+     * @param posX2 segunda coordenada X definida para o obstáculo
+     * @param posY2 segunda coordenada Y definida para o obstáculo
+     */
     public void ordenaObstaculo(int posX1, int posY1, int posX2, int posY2) {
         if (posX1 > posX2) {
             setPosicaoX2(posX1);
@@ -39,8 +47,7 @@ public class Obstaculo implements Entidade {
     public void setPosicaoX2(int pos) {
         ambiente.removerEntidade(this);
         posicaoX2 = pos;
-        ambiente.adicionarEntidade(this);
-        
+        ambiente.adicionarEntidade(this);  
     }
     
     public void setPosicaoY1(int pos) {
@@ -53,7 +60,7 @@ public class Obstaculo implements Entidade {
         posicaoY2 = pos;
         ambiente.adicionarEntidade(this);
     }
-    
+
     public TipoObstaculo getTipoObstaculo() {
         return tipoObs;
     }
@@ -129,7 +136,7 @@ public class Obstaculo implements Entidade {
             case TipoObstaculo.THE_BEAN:
                 return '§';
             default:
-                return '-';
+                return ',';
         }
     }
 }

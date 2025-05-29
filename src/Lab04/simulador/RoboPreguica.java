@@ -38,6 +38,9 @@ public class RoboPreguica extends RoboTerrestre implements Destrutivo {
             System.out.printf("'%s' não tem energia o suficiente, precisa descansar.\n", getNome());
     }
 
+    /**
+     * Descança o robô para que tenha energia máxima 
+     */
     @Override
     public void executarTarefa() {
         setEnergia(getEnergiaMax());

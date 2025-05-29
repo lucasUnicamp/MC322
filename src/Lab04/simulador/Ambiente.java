@@ -95,17 +95,21 @@ public class Ambiente {
 
     public void adicionarEntidade(Entidade e) {
         entidades.add(e);
-        if (e.getTipo() == TipoEntidade.ROBO){
+        if (e.getTipo() == TipoEntidade.ROBO) {
             adicionarRobo((Robo) e);
             if (dentroDosLimites(e.getX(), e.getY(), e.getZ()))
                 mapa[e.getX()][e.getY()][e.getZ()] = TipoEntidade.ROBO;
-        } else if (e.getTipo() == TipoEntidade.OBSTACULO){
+        } 
+        else if (e.getTipo() == TipoEntidade.OBSTACULO) {
             adicionarObstaculos((Obstaculo) e);
-            for (int i = e.getX(); i < e.getX() + e.getLargura(); i++)
-                for (int j = e.getY(); j < e.getY() + e.getProfundidade(); j++)
-                    for (int w = e.getZ(); w < e.getZ() + e.getAltura(); w++)
+            for (int i = e.getX(); i < e.getX() + e.getLargura(); i++) {
+                for (int j = e.getY(); j < e.getY() + e.getProfundidade(); j++) {
+                    for (int w = e.getZ(); w < e.getZ() + e.getAltura(); w++) {
                         if (dentroDosLimites(i, j, w))
                             mapa[i][j][w] = TipoEntidade.OBSTACULO;
+                    }
+                }
+            }
         }
     }
 
@@ -114,26 +118,31 @@ public class Ambiente {
             if (entidades.get(i) == e)
                 entidades.remove(i);
         }
-        if (e.getTipo() == TipoEntidade.ROBO){
+        if (e.getTipo() == TipoEntidade.ROBO) {
             removerRobo((Robo) e);
             mapa[e.getX()][e.getY()][e.getZ()] = TipoEntidade.VAZIO;
-        } else if (e.getTipo() == TipoEntidade.OBSTACULO){
-            removerObstaculo((Obstaculo) e);;
-            for (int i = e.getX(); i < e.getX() + e.getLargura(); i++)
-                for (int j = e.getY(); j < e.getY() + e.getProfundidade(); j++)
-                    for (int w = e.getZ(); w < e.getZ() + e.getAltura(); w++)
+        } 
+        else if (e.getTipo() == TipoEntidade.OBSTACULO) {
+            removerObstaculo((Obstaculo) e);
+            for (int i = e.getX(); i < e.getX() + e.getLargura(); i++) {
+                for (int j = e.getY(); j < e.getY() + e.getProfundidade(); j++) {
+                    for (int w = e.getZ(); w < e.getZ() + e.getAltura(); w++) {
                         if (dentroDosLimites(i, j, w))
                             mapa[i][j][w] = TipoEntidade.VAZIO;
+                    }
+                }
+            }
         }
     }
 
     public void moverEntidade(Entidade e, int novoX, int novoY, int novoZ) {
         moverEntidadeMapa(e, novoX, novoY, novoZ);
-        if (e.getTipo() == TipoEntidade.ROBO){
+        if (e.getTipo() == TipoEntidade.ROBO) {
             ((Robo) e).setX(novoX);
             ((Robo) e).setY(novoY);
             ((Robo) e).setZ(novoZ);
-        } else if (e.getTipo() == TipoEntidade.OBSTACULO) {
+        } 
+        else if (e.getTipo() == TipoEntidade.OBSTACULO) {
             int largura = ((Obstaculo) e).getLargura();
             int profundidade = ((Obstaculo) e).getProfundidade();
             ((Obstaculo) e).setPosicaoX1(novoX);
@@ -149,26 +158,35 @@ public class Ambiente {
         if (e.getTipo() == TipoEntidade.ROBO){ // Remove o robo da matriz
             if (dentroDosLimites(e.getX(), e.getY(), e.getZ()))
                 mapa[e.getX()][e.getY()][e.getZ()] = TipoEntidade.VAZIO;
-        } else if (e.getTipo() == TipoEntidade.OBSTACULO) { // Remove o obstáculo da matriz
-            for (int i = e.getX(); i < e.getX() + e.getLargura(); i++)
-                for (int j = e.getY(); j < e.getY() + e.getProfundidade(); j++)
-                    for (int w = e.getZ(); w < e.getZ() + e.getAltura(); w++)
+        } 
+        else if (e.getTipo() == TipoEntidade.OBSTACULO) { // Remove o obstáculo da matriz
+            for (int i = e.getX(); i < e.getX() + e.getLargura(); i++) {
+                for (int j = e.getY(); j < e.getY() + e.getProfundidade(); j++) {
+                    for (int w = e.getZ(); w < e.getZ() + e.getAltura(); w++) {
                         if (dentroDosLimites(i, j, w))
                             mapa[i][j][w] = TipoEntidade.VAZIO;
+                    }
+                }
+            }
         }
 
-        if (e.getTipo() == TipoEntidade.ROBO){  // Readiciona o robo a matriz
+        if (e.getTipo() == TipoEntidade.ROBO) {  // Readiciona o robo a matriz
             if (dentroDosLimites(novoX, novoY, novoZ))
                 mapa[novoX][novoY][novoZ] = TipoEntidade.ROBO;
-        } else if (e.getTipo() == TipoEntidade.OBSTACULO){  // Readiciona o obstáculo a matriz
-            for (int i = novoX; i < novoX + e.getLargura(); i++)
-                for (int j = novoY; j < novoY + e.getProfundidade(); j++)
-                    for (int w = 0; w < e.getAltura(); w++)
+        } 
+        else if (e.getTipo() == TipoEntidade.OBSTACULO) {  // Readiciona o obstáculo a matriz
+            for (int i = novoX; i < novoX + e.getLargura(); i++) {
+                for (int j = novoY; j < novoY + e.getProfundidade(); j++) {
+                    for (int w = 0; w < e.getAltura(); w++) {
                         if (dentroDosLimites(i, j, w))
                             mapa[i][j][w] = TipoEntidade.OBSTACULO;
+                    }
+                }
+            }
         }
     }
 
+    // Printa informações úteis sobre todos os robôs presentes no ambiente
     public void listarRobos() {
         System.out.println("");
         System.out.println(" ID ÍCONE            TIPO     NOME        POSIÇÃO            STATUS");
@@ -187,6 +205,12 @@ public class Ambiente {
         }
     }
 
+    /**
+     * Confere se o nome dado pertence a algum dos robôs no ambiente. Nome do robô, seu ID ou nome da sua classe 
+     * são entradas válidas 
+     * @param nome nome que se quer conferir
+     * @return o robô que tem aquele nome caso exista, null caso nenhum robô tenha aquele nome
+     */
     public Robo conferirNome(String nome) {
         for(Robo robo:robosAtivos) {
             if (nome.equals(robo.getNome()) || nome.equals(robo.getID()) || nome.equals(robo.getClass().getSimpleName()))
@@ -250,7 +274,7 @@ public class Ambiente {
         return false;
     }
 
-    // Exibe o ambiente, considerando '.' como espaço vazios, '#' como obstáculos e letras como os robôs
+    // Exibe uma visão 'top-down' do ambiente, imprimindo obstáculos, robôs e vazios com símbolos diferentes
     public void visualizarAmbiente() {
         char[][] matrizAmbiente = new char[getProfundidade() + 1][getLargura() + 1];
 

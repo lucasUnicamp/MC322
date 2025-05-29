@@ -285,8 +285,15 @@ public abstract class Robo implements Entidade {
         }
     }
 
+    /**
+     * Realiza uma ação específica temática
+     */
     public abstract void executarTarefa();
 
+    /**
+     * Cada tarefa específica tem um nome
+     * @return o nome da tarefa
+     */
     public abstract String getNomeTarefa();
 
     public void ligar() {

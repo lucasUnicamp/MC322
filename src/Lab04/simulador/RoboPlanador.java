@@ -107,6 +107,10 @@ public class RoboPlanador extends RoboAereo {
         }
     }
 
+    /**
+     * Muda o modo como o robô plana de perder altitude durante a movimentação para ganhar altitude durante a movimentação,
+     * ou vice-versa
+     */
     @Override
     public void executarTarefa() {
         setModoPlanar(getModoPlanar() == 1 ? 2 : 1);
