@@ -533,8 +533,10 @@ public class Menu {
                         System.out.println("");
                         ((Destrutivo) robo).destruirObstaculo(xDestruicao, yDestruicao);
                         break;
+
                     case 3:
                         ((Endotermico) robo).moverParaQuente();
+                        break;
                 }
                 break;
             } catch (InputMismatchException erro) {

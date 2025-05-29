@@ -34,29 +34,35 @@ public class RoboTerrestre extends Robo implements Endotermico{
             System.out.printf("'%s' está acima da velocidade máxima de %d.\n", getNome(), velocidadeMaxima);
     }
 
-    public void moverParaQuente() throws RoboDesligadoException{
+    public void moverParaQuente() throws RoboDesligadoException {
         int indiceSensor = temSensorTipo("SensorTemperatura");
-        if(indiceSensor != -1) {
+
+        if (indiceSensor != -1) {
             SensorTemperatura sensorTemperatura = ((SensorTemperatura) sensores.get(indiceSensor));
             int[] coordenadaQuente = new int[2];
             double tempMax  = 0;
             int posXInicial, posYInicial;
-            for(int i = 0; i < 10; i++) { // 10 tentativas de chegar no ponto mais quente
+
+            // 10 tentativas de chegar no ponto mais quente
+            for (int i = 0; i < 10; i++) { 
                 posXInicial = getX();
                 posYInicial = getY();
                 tempMax = sensorTemperatura.retornaTemperaturaMax(coordenadaQuente);
                 moverPara(coordenadaQuente[0], coordenadaQuente[1]);
-                if(coordenadaQuente[0] == posXInicial && coordenadaQuente[1] == posYInicial){ // robô está em cima do ponto mais quente
-                    System.out.printf("Você chegou ao ponto (%d, %d),  o mais quente desse raio! (Temperatura: %f)\n", getX(), getY(), tempMax);
+                // Robô está em cima do ponto mais quente
+                if(coordenadaQuente[0] == posXInicial && coordenadaQuente[1] == posYInicial){
+                    System.out.printf("\nVocê chegou ao ponto (%d, %d), o mais quente desse raio, com temperatura %.1f°C,\n", getX(), getY(), tempMax);
                     return;
-                } else if (posXInicial == getX() && posYInicial == getY()) { // robô não conseguiu se mover
-                    System.out.println("Ponto quente inalcançável");
+                }
+                // Robô não conseguiu se mover 
+                else if (posXInicial == getX() && posYInicial == getY()) { 
+                    System.out.println("\nPonto quente inalcançável.");
                     return;
                 }
             }
-            System.out.printf("Robô andou 10 vezes e consegui chegar no ponto (%d, %d) com temperatura %f\n", getX(), getY(), tempMax);
+            System.out.printf("\nRobô andou 10 vezes e consegui chegar no ponto (%d, %d) com temperatura %.1f°C.\n", getX(), getY(), tempMax);
         } else {
-            System.out.println("Sem sensor de temperatura no robô");
+            System.out.println("\nSem sensor de temperatura no Robô.");
         }
         
     }

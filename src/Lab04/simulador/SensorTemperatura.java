@@ -37,7 +37,7 @@ public class SensorTemperatura extends Sensor {
 
     /**
      * Retorna a temperatura máxima dentro do círculo de raio definido e sua posição. No momento ela vai desconsiderar
-     * temperaturas máxima iguais, exibindo a primeira instância dessa temperatura como máxima absoluta. retorno é da forma
+     * temperaturas máxima iguais, exibindo a primeira instância dessa temperatura como máxima absoluta. Retorno é da forma
      * [posição X, posição Y].
      */
     
