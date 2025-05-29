@@ -117,6 +117,10 @@ public class RoboAereo extends Robo implements Sensoreavel {
         }      
     }
 
+    /**
+     * Posicioa o robô em alguma coordenada aleatória do ambiente. Caso a escolhida esteja dentro de um obśtaculo, 
+     * chama o método novamente para tentar outro set de coordenadas
+     */
     @Override
     public void executarTarefa() {
         int posX = (int)(Math.random() * getAmbiente().getLargura());

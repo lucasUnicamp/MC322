@@ -33,6 +33,10 @@ public class RoboTerrestre extends Robo {
             System.out.printf("'%s' está acima da velocidade máxima de %d.\n", getNome(), velocidadeMaxima);
     }
 
+    /**
+     * Move o robô em uma linha reta na direção que está "olhando", parando apenas caso encontre um obstáculo
+     * ou saia do ambiente
+     */
     @Override
     public void executarTarefa() {
         int deltaX = 0;
