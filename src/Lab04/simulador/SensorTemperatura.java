@@ -30,6 +30,18 @@ public class SensorTemperatura extends Sensor {
      * temperaturas máxima iguais, exibindo a primeira instância dessa temperatura como máxima absoluta
      */
     public void temperaturaMax() {
+        int[] info = new int[2];
+        double tempMax = RetornaTemperaturaMax(info);
+        System.out.printf("A temperatura máxima encontrada num raio de %.2f é de %.1f°C e está na posicao (%d, %d).\n", getRaio(), tempMax, info[0], info[1]);
+    }
+
+    /**
+     * Retorna a temperatura máxima dentro do círculo de raio definido e sua posição. No momento ela vai desconsiderar
+     * temperaturas máxima iguais, exibindo a primeira instância dessa temperatura como máxima absoluta. retorno é da forma
+     * [posição X, posição Y].
+     */
+    
+    public double RetornaTemperaturaMax(int[] retornoCoordenadas) {
         int limiteNorte = (int)(getY() + getRaio());
         int limiteSul = (int)(getY() - getRaio());
         int limiteLeste = (int)(getX() + getRaio());
@@ -51,7 +63,9 @@ public class SensorTemperatura extends Sensor {
                 }
             }
         }
-        System.out.printf("A temperatura máxima encontrada num raio de %.2f é de %.1f°C e está na posicao (%d, %d).\n", getRaio(), tempMax, posX, posY);
+        retornoCoordenadas[0] = posX;
+        retornoCoordenadas[1] = posY;
+        return tempMax;
     }
 
     public String nomeDoSensor() {
