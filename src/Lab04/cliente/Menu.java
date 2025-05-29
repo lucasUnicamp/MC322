@@ -17,6 +17,7 @@ import simulador.excecoes.RoboDesligadoException;
 import simulador.excecoes.SemObstaculoDestrutivelException;
 import simulador.interfaces.Comunicavel;
 import simulador.interfaces.Destrutivo;
+import simulador.interfaces.Endotermico;
 import simulador.interfaces.Sensoreavel;
 
 public class Menu {
@@ -431,7 +432,7 @@ public class Menu {
     }
 
     public int[] exibirEscolhaMenuExtras(Robo robo) {
-        int[] listaInterfaces = new int[4];
+        int[] listaInterfaces = new int[5];
         int indice = 0;
         listaInterfaces[0] = 0;
         System.out.println("\n-- EXTRAS ---------");
@@ -455,6 +456,12 @@ public class Menu {
             indice++;
             // Significa que a opção índice do menu (listaInterfaces[indice]) é o Destrutivel (dado por 1)
             listaInterfaces[indice] = 2;
+        }
+        if (robo instanceof Endotermico) {
+            System.out.printf("[%d] :: Mover para ponto mais quente\n", indice + 1);
+            indice++;
+            // Significa que a opção índice do menu (listaInterfaces[indice]) é o Destrutivel (dado por 1)
+            listaInterfaces[indice] = 3;
         }
 
         listaInterfaces[0] = indice;
@@ -526,6 +533,8 @@ public class Menu {
                         System.out.println("");
                         ((Destrutivo) robo).destruirObstaculo(xDestruicao, yDestruicao);
                         break;
+                    case 3:
+                        ((Endotermico) robo).moverParaQuente();
                 }
                 break;
             } catch (InputMismatchException erro) {

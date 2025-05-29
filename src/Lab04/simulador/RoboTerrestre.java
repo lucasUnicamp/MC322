@@ -1,8 +1,9 @@
 package simulador;
 
 import simulador.excecoes.RoboDesligadoException;
+import simulador.interfaces.Endotermico;
 
-public class RoboTerrestre extends Robo {
+public class RoboTerrestre extends Robo implements Endotermico{
     private int velocidade;
     private int velocidadeMaxima;
 
@@ -33,6 +34,33 @@ public class RoboTerrestre extends Robo {
             System.out.printf("'%s' está acima da velocidade máxima de %d.\n", getNome(), velocidadeMaxima);
     }
 
+    public void moverParaQuente() throws RoboDesligadoException{
+        int indiceSensor = temSensorTipo("SensorTemperatura");
+        if(indiceSensor != -1) {
+            SensorTemperatura sensorTemperatura = ((SensorTemperatura) sensores.get(indiceSensor));
+            int[] coordenadaQuente = new int[2];
+            double tempMax  = 0;
+            int posXInicial, posYInicial;
+            for(int i = 0; i < 10; i++) { // 10 tentativas de chegar no ponto mais quente
+                posXInicial = getX();
+                posYInicial = getY();
+                tempMax = sensorTemperatura.retornaTemperaturaMax(coordenadaQuente);
+                moverPara(coordenadaQuente[0], coordenadaQuente[1]);
+                if(coordenadaQuente[0] == posXInicial && coordenadaQuente[1] == posYInicial){ // robô está em cima do ponto mais quente
+                    System.out.printf("Você chegou ao ponto (%d, %d),  o mais quente desse raio! (Temperatura: %f)\n", getX(), getY(), tempMax);
+                    return;
+                } else if (posXInicial == getX() && posYInicial == getY()) { // robô não conseguiu se mover
+                    System.out.println("Ponto quente inalcançável");
+                    return;
+                }
+            }
+            System.out.printf("Robô andou 10 vezes e consegui chegar no ponto (%d, %d) com temperatura %f\n", getX(), getY(), tempMax);
+        } else {
+            System.out.println("Sem sensor de temperatura no robô");
+        }
+        
+    }
+    
     @Override
     public void executarTarefa() {
         int deltaX = 0;
