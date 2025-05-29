@@ -54,7 +54,7 @@ public class SensorTemperatura extends Sensor {
         for (int i = limiteOeste; i <= limiteLeste; i++) {
             for (int j = limiteSul; j <= limiteNorte; j++) {
                 // Checa se a coordenada esta dentro do sensor
-                if (dentroDoRaio(i, j) && getAmbiente().dentroDosLimites(i, j)) {
+                if (dentroDoRaio(i, j) && getAmbiente().dentroDosLimites(i, j) && !getAmbiente().estaOcupado(i, j, getAltitude())) {
                     if (getAmbiente().temperaturas[i][j] > tempMax) {
                         tempMax = getAmbiente().temperaturas[i][j];
                         posX = i;

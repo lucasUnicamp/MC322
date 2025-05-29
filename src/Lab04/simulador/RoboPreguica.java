@@ -97,7 +97,7 @@ public class RoboPreguica extends RoboTerrestre implements Destrutivo {
                 descansar();
                 moverPara(coordenadaQuente[0], coordenadaQuente[1]);
                 if(coordenadaQuente[0] == posXInicial && coordenadaQuente[1] == posYInicial){ // robô está em cima do ponto mais quente
-                    System.out.printf("Você chegou ao ponto (%d, %d),  o mais quente desse raio! (Temperatura: %f)\n", tempMax);
+                    System.out.printf("Você chegou ao ponto (%d, %d),  o mais quente desse raio! (Temperatura: %f)\n", getX(), getY(), tempMax);
                     return;
                 } else if (posXInicial == getX() && posYInicial == getY()) { // robô não conseguiu se mover
                     System.out.println("Ponto quente inalcançável");
