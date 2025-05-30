@@ -83,8 +83,8 @@ public class Menu {
                 else 
                     System.out.printf("!!! %d Não é uma opção válida !!!\n", entradaPrincipal); 
             }
-            catch (InputMismatchException entradaInvalidaMenu) {
-                System.out.println("!!! Use apenas números !!!");
+            catch (InputMismatchException erro) {
+                System.err.println("!!! Use apenas números !!!");
                 scan.next();
             }
         }
@@ -136,8 +136,8 @@ public class Menu {
                     System.out.printf("!!! %d Não é uma opção válida !!!\n", entradaAcao);
                     continue;
                 }
-            } catch (InputMismatchException entradaInvalidaEsclhAcao) {
-                System.out.println("!!! Use apenas números !!!");
+            } catch (InputMismatchException erro) {
+                System.err.println("!!! Use apenas números !!!");
                 scan.next();
             }
         }
@@ -258,8 +258,8 @@ public class Menu {
                     System.out.printf("!!! %d Não é uma opção válida !!!\n", entradaAcao);
                     continue;
                 }
-            } catch (InputMismatchException entradaInvalidaEsclhAcao) {
-                System.out.println("!!! Use apenas números !!!");
+            } catch (InputMismatchException erro) {
+                System.err.println("!!! Use apenas números !!!");
                 scan.next();
             }
         }
@@ -402,13 +402,13 @@ public class Menu {
                         break;
                 }
             } catch (InputMismatchException erro) {
-                System.out.println("!!! Use apenas números !!!");
+                System.err.println("!!! Use apenas números !!!");
                 scan.next();
                 continue;
             } catch (RoboDesligadoException erro) {
-                System.out.println(erro.getMessage());
+                System.err.println(erro.getMessage());
             } catch (DesceuDemaisException erro) {
-                System.out.println(erro.getMessage());
+                System.err.println(erro.getMessage());
             }
             break;
         }
@@ -462,13 +462,13 @@ public class Menu {
             listaInterfaces[indice] = 3;
         }
         if (robo instanceof Geologo) {
-            System.out.printf("[%d] :: Identificar tipo do obstáculo adjacente\n", ++indice);
-            // Significa que a opção índice do menu (listaInterfaces[indice]) é o Endotermico (dado por 3)
+            System.out.printf("[%d] :: Tipo do obstáculo\n", ++indice);
+            // Significa que a opção índice do menu (listaInterfaces[indice]) é o Geologo (dado por 4)
             listaInterfaces[indice] = 4;
         }
         if (robo instanceof Geologo) {
-            System.out.printf("[%d] :: Identificar tamanho do obstáculo adjacente\n", ++indice);
-            // Significa que a opção índice do menu (listaInterfaces[indice]) é o Endotermico (dado por 3)
+            System.out.printf("[%d] :: Tamanho do obstáculo\n", ++indice);
+            // Significa que a opção índice do menu (listaInterfaces[indice]) é o Geologo (dado por 5)
             listaInterfaces[indice] = 5;
         }
 
@@ -495,7 +495,7 @@ public class Menu {
                     continue;
                 }
             } catch (InputMismatchException erro) {
-                System.out.println("!!! Use apenas números !!!");
+                System.err.println("!!! Use apenas números !!!");
                 scan.next();
             }
         }
@@ -545,16 +545,18 @@ public class Menu {
                     case 3:
                         ((Endotermico) robo).moverParaQuente();
                         break;
+
                     case 4:
                         ((Geologo) robo).identificarTipoObstaculo();
                         break;
+
                     case 5:
                         ((Geologo) robo).identificarTamanhoObstaculo();
                         break;
                 }
                 break;
             } catch (InputMismatchException erro) {
-                System.out.println("!!! Use apenas números !!!");
+                System.err.println("!!! Use apenas números !!!");
                 scan.next();
             } catch (RoboDesligadoException erro) {
                 System.err.println(erro.getMessage());
@@ -616,7 +618,7 @@ public class Menu {
                     continue;
                 }
             } catch (InputMismatchException erro) {
-                System.out.println("!!! Use apenas números !!!");
+                System.err.println("!!! Use apenas números !!!");
                 scan.next();
             }
         }
@@ -670,7 +672,7 @@ public class Menu {
                     continue;
                 }
             } catch (InputMismatchException erro) {
-                System.out.println("!!! Use apenas números !!!");
+                System.err.println("!!! Use apenas números !!!");
                 scan.next();
             }
         }
@@ -693,11 +695,11 @@ public class Menu {
                 System.out.println("");
                 robo.usarSensor(entradaAcao, posX, posY);
             } catch (InputMismatchException erro) {
-                System.out.println("!!! Use apenas números !!!");
+                System.err.println("!!! Use apenas números !!!");
                 scan.next();
                 continue;
             } catch (RoboDesligadoException erro) {
-                System.out.println(erro.getMessage());
+                System.err.println(erro.getMessage());
             }
             break;
         }

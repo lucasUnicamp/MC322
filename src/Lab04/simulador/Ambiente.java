@@ -302,7 +302,7 @@ public class Ambiente {
             System.out.print("\n");
         }
 
-        System.out.println(". = vazio    # = torre de babel    @ = ciclo básico    ! = eucalipto    $ = pedra    / = estátua de elefante    § = the bean");
+        System.out.println(". = vazio    # = torre de babel    @ = ciclo básico    & = eucalipto    $ = pedra    £ = estátua de elefante    § = the bean");
         System.out.println("   T = robô terrestre    X = robô xadrez    G = robô preguica    A = robô aéreo    P = robô planador    S = robô satélite");
     }
 

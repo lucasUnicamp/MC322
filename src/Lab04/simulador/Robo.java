@@ -179,7 +179,7 @@ public abstract class Robo implements Entidade {
                 setY(getY() - j + 1);
             }
         } catch (ColisaoException erro) {
-            System.out.println(erro.getMessage());
+            System.err.println(erro.getMessage());
         }
     }
 

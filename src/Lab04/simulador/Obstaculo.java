@@ -128,11 +128,11 @@ public class Obstaculo implements Entidade {
             case TipoObstaculo.CICLO_BASICO:
                 return '@';
             case TipoObstaculo.EUCALIPTO:
-                return '!';
+                return '&';
             case TipoObstaculo.PEDRA:
                 return '$';
             case TipoObstaculo.ESTATUA_DE_ELEFANTE:
-                return '/';
+                return '£';
             case TipoObstaculo.THE_BEAN:
                 return '§';
             default:

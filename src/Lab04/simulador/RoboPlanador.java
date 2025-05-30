@@ -108,35 +108,53 @@ public class RoboPlanador extends RoboAereo implements Geologo{
         }
     }
 
-    public void identificarTamanhoObstaculo() {
-        for(int i = getX() - 1; i <= getX() + 1; i++)
-            for(int j = getY() - 1; j <= getY() + 1; j++) 
-                for(int k = getZ() - 1; k <= getZ() + 1; k++)
-                    if(getAmbiente().estaOcupado(i, j, k)) 
-                        for(Obstaculo obstaculo : getAmbiente().obstaculos) {
-                            if ((obstaculo.getPosicaoX1() <= i && obstaculo.getPosicaoX2() >= i) &&
-                                (obstaculo.getPosicaoY1() <= j && obstaculo.getPosicaoY2() >= j)) {
-                                    System.out.printf("Obstáculo do com largura %d e profundidade %d encontrado nas adjacências\n", obstaculo.getLargura(), obstaculo.getProfundidade());
-                                    return;
+    public void identificarTamanhoObstaculo() throws RoboDesligadoException {
+        if (estaLigado()) {
+            for (int i = getX() - 1; i <= getX() + 1; i++) {
+                for (int j = getY() - 1; j <= getY() + 1; j++) { 
+                    for (int k = getZ() - 1; k <= getZ() + 1; k++) {
+                        if (getAmbiente().estaOcupado(i, j, k)) {
+                            for (Obstaculo obstaculo : getAmbiente().obstaculos) {
+                                if ((obstaculo.getPosicaoX1() <= i && obstaculo.getPosicaoX2() >= i) &&
+                                    (obstaculo.getPosicaoY1() <= j && obstaculo.getPosicaoY2() >= j)) {
+                                        System.out.printf("\nObstáculo com largura %d e profundidade %d encontrado nas adjacências do Robô.\n", obstaculo.getLargura(), obstaculo.getProfundidade());
+                                        return;
+                                    }
                                 }
+                            }
                         }
-        System.out.println("Nenhum obstáculo encontrado nas adjacências");
+                    }
+                }
+            System.out.println("\nNenhum obstáculo encontrado ao redor do robô.");
+        } else {
+            System.out.println("");
+            throw new RoboDesligadoException(getID());
+        }
     }
 
-    public void identificarTipoObstaculo() {
-        for(int i = getX() - 1; i <= getX() + 1; i++)
-            for(int j = getY() - 1; j <= getY() + 1; j++) 
-                for(int k = getZ() - 1; k <= getZ() + 1; k++)
-                    if(getAmbiente().estaOcupado(i, j, k)) 
-                        for(Obstaculo obstaculo : getAmbiente().obstaculos) {
-                            if ((obstaculo.getPosicaoX1() <= i && obstaculo.getPosicaoX2() >= i) &&
-                                (obstaculo.getPosicaoY1() <= j && obstaculo.getPosicaoY2() >= j)) {
-                                    System.out.printf("Obstáculo do tipo %s encontrado nas adjacências\n", obstaculo.getTipoObstaculo().toString());
-                                    return;
-                                }
+    public void identificarTipoObstaculo() throws RoboDesligadoException {
+        if (estaLigado()) {
+            for(int i = getX() - 1; i <= getX() + 1; i++) {
+                for (int j = getY() - 1; j <= getY() + 1; j++) {
+                    for (int k = getZ() - 1; k <= getZ() + 1; k++) {
+                        if (getAmbiente().estaOcupado(i, j, k)) 
+                            for (Obstaculo obstaculo : getAmbiente().obstaculos) {
+                                if ((obstaculo.getPosicaoX1() <= i && obstaculo.getPosicaoX2() >= i) &&
+                                    (obstaculo.getPosicaoY1() <= j && obstaculo.getPosicaoY2() >= j)) {
+                                        System.out.printf("\nObstáculo do tipo '%s' encontrado nas adjacências do Robô.\n", obstaculo.getTipoObstaculo().toString());
+                                        return;
+                                    }
+                            }
                         }
-        System.out.println("Nenhum obstáculo encontrado nas adjacências");
+                    }
+                }
+            System.out.println("\nNenhum obstáculo encontrado ao redor do robô.");
+        } else {
+            System.out.println("");
+            throw new RoboDesligadoException(getID());
+        }
     }
+
     /**
      * Muda o modo como o robô plana de perder altitude durante a movimentação para ganhar altitude durante a movimentação,
      * ou vice-versa

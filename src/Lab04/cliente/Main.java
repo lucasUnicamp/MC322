@@ -21,11 +21,12 @@ public class Main {
         Scanner scan = new Scanner(System.in);
         CentralComunicacao central = new CentralComunicacao();
         Ambiente salaTeste = new Ambiente(50, 50, 50, 5, central);        // Cria o ambiente para testes
-        salaTeste.adicionarEntidade(new Obstaculo(10, 20, 20, 30, TipoObstaculo.ESTATUA_DE_ELEFANTE, salaTeste));
         salaTeste.adicionarEntidade(new Obstaculo(35, 30, 45, 50, TipoObstaculo.TORRE_DE_BABEL, salaTeste));
-        salaTeste.adicionarEntidade(new Obstaculo(30, 5, 40, 10, TipoObstaculo.THE_BEAN, salaTeste));
         salaTeste.adicionarEntidade(new Obstaculo(5, 40, 13, 48, TipoObstaculo.CICLO_BASICO, salaTeste));
-        salaTeste.adicionarEntidade(new Obstaculo(9, 3, 15, 11, TipoObstaculo.PEDRA, salaTeste));
+        salaTeste.adicionarEntidade(new Obstaculo(2, 10, 4, 23, TipoObstaculo.EUCALIPTO, salaTeste));
+        salaTeste.adicionarEntidade(new Obstaculo(9, 3, 15, 10, TipoObstaculo.PEDRA, salaTeste));
+        salaTeste.adicionarEntidade(new Obstaculo(10, 20, 20, 30, TipoObstaculo.ESTATUA_DE_ELEFANTE, salaTeste));
+        salaTeste.adicionarEntidade(new Obstaculo(30, 5, 45, 8, TipoObstaculo.THE_BEAN, salaTeste));
 
         /**
          * TESTES MANUAIS
