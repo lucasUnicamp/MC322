@@ -120,7 +120,7 @@ public class Obstaculo implements Entidade {
     }
 
     public char getRepresentacao() {
-        TipoObstaculo obs = this.tipoObs;
+        TipoObstaculo obs = getTipoObstaculo();
 
         switch (obs) {
             case TipoObstaculo.TORRE_DE_BABEL:

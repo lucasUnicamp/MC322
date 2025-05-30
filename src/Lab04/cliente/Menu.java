@@ -18,6 +18,7 @@ import simulador.excecoes.SemObstaculoDestrutivelException;
 import simulador.interfaces.Comunicavel;
 import simulador.interfaces.Destrutivo;
 import simulador.interfaces.Endotermico;
+import simulador.interfaces.Geologo;
 import simulador.interfaces.Sensoreavel;
 
 public class Menu {
@@ -439,29 +440,36 @@ public class Menu {
         System.out.printf("[0] :: Tarefa %s\n", robo.getNomeTarefa());
         
         if (robo instanceof Comunicavel) {
-            System.out.printf("[%d] :: Comunicar-se\n", indice + 1);
+            System.out.printf("[%d] :: Comunicar-se\n", indice ++);
             indice++;
             // Significa que a opção índice do menu (listaInterfaces[indice], que nesse primeiro caso vai ser sempre 1) 
             // é o Comunicavel (dado por 0)
             listaInterfaces[indice] = 0;        
         }
         if (robo instanceof Sensoreavel) {
-            System.out.printf("[%d] :: Acionar todos os sensores\n", indice + 1);
-            indice++;
+            System.out.printf("[%d] :: Acionar todos os sensores\n", ++indice);
             // Significa que a opção índice do menu (listaInterfaces[indice]) é o Sensoreaevel (dado por 1)
             listaInterfaces[indice] = 1;        
         }
         if (robo instanceof Destrutivo) {
-            System.out.printf("[%d] :: Destruir\n", indice + 1);
-            indice++;
+            System.out.printf("[%d] :: Destruir\n", ++indice);
             // Significa que a opção índice do menu (listaInterfaces[indice]) é o Destrutivel (dado por 2)
             listaInterfaces[indice] = 2;
         }
         if (robo instanceof Endotermico) {
-            System.out.printf("[%d] :: Mover para mais quente\n", indice + 1);
-            indice++;
+            System.out.printf("[%d] :: Mover para mais quente\n", ++indice);
             // Significa que a opção índice do menu (listaInterfaces[indice]) é o Endotermico (dado por 3)
             listaInterfaces[indice] = 3;
+        }
+        if (robo instanceof Geologo) {
+            System.out.printf("[%d] :: Identificar tipo do obstáculo adjacente\n", ++indice);
+            // Significa que a opção índice do menu (listaInterfaces[indice]) é o Endotermico (dado por 3)
+            listaInterfaces[indice] = 4;
+        }
+        if (robo instanceof Geologo) {
+            System.out.printf("[%d] :: Identificar tamanho do obstáculo adjacente\n", ++indice);
+            // Significa que a opção índice do menu (listaInterfaces[indice]) é o Endotermico (dado por 3)
+            listaInterfaces[indice] = 5;
         }
 
         listaInterfaces[0] = indice;
@@ -536,6 +544,12 @@ public class Menu {
 
                     case 3:
                         ((Endotermico) robo).moverParaQuente();
+                        break;
+                    case 4:
+                        ((Geologo) robo).identificarTipoObstaculo();
+                        break;
+                    case 5:
+                        ((Geologo) robo).identificarTamanhoObstaculo();
                         break;
                 }
                 break;

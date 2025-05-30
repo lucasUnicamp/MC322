@@ -108,16 +108,34 @@ public class RoboPlanador extends RoboAereo implements Geologo{
         }
     }
 
-    public void identificarTamanhoObstaculo(int x, int y) {
-        
+    public void identificarTamanhoObstaculo() {
+        for(int i = getX() - 1; i <= getX() + 1; i++)
+            for(int j = getY() - 1; j <= getY() + 1; j++) 
+                for(int k = getZ() - 1; k <= getZ() + 1; k++)
+                    if(getAmbiente().estaOcupado(i, j, k)) 
+                        for(Obstaculo obstaculo : getAmbiente().obstaculos) {
+                            if ((obstaculo.getPosicaoX1() <= i && obstaculo.getPosicaoX2() >= i) &&
+                                (obstaculo.getPosicaoY1() <= j && obstaculo.getPosicaoY2() >= j)) {
+                                    System.out.printf("Obstáculo do com largura %d e profundidade %d encontrado nas adjacências\n", obstaculo.getLargura(), obstaculo.getProfundidade());
+                                    return;
+                                }
+                        }
+        System.out.println("Nenhum obstáculo encontrado nas adjacências");
     }
 
-    public void identificarTipoObstaculo(int x, int y) {
-        for(int i = getX() - 1; i <= getX() + 1; i++) {
-            for(int j = getY() - 1; j <= getY() + 1; j++) {
-                return;
-            }
-        }
+    public void identificarTipoObstaculo() {
+        for(int i = getX() - 1; i <= getX() + 1; i++)
+            for(int j = getY() - 1; j <= getY() + 1; j++) 
+                for(int k = getZ() - 1; k <= getZ() + 1; k++)
+                    if(getAmbiente().estaOcupado(i, j, k)) 
+                        for(Obstaculo obstaculo : getAmbiente().obstaculos) {
+                            if ((obstaculo.getPosicaoX1() <= i && obstaculo.getPosicaoX2() >= i) &&
+                                (obstaculo.getPosicaoY1() <= j && obstaculo.getPosicaoY2() >= j)) {
+                                    System.out.printf("Obstáculo do tipo %s encontrado nas adjacências\n", obstaculo.getTipoObstaculo().toString());
+                                    return;
+                                }
+                        }
+        System.out.println("Nenhum obstáculo encontrado nas adjacências");
     }
     /**
      * Muda o modo como o robô plana de perder altitude durante a movimentação para ganhar altitude durante a movimentação,
