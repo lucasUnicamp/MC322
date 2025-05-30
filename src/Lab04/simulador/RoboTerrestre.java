@@ -52,7 +52,7 @@ public class RoboTerrestre extends Robo implements Endotermico{
 
                     System.out.printf("\nO Robô sentiu %.1f°C na posição (%d, %d) e vai tentar ir para lá.\n", tempMax, coordQuente[0], coordQuente[1]);
                     moverSemSensor(coordQuente[0] - getX(), coordQuente[1] - getY());
-                    // Robô está em cima do ponto mais quente
+                    // Robô está em no ponto mais quente
                     if (coordQuente[0] == posXInicial && coordQuente[1] == posYInicial){
                         System.out.printf("\nVocê chegou ao ponto (%d, %d), o mais quente desse raio, com temperatura %.1f°C,\n", getX(), getY(), tempMax);
                         return;

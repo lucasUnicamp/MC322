@@ -454,13 +454,13 @@ public class Menu {
         if (robo instanceof Destrutivo) {
             System.out.printf("[%d] :: Destruir\n", indice + 1);
             indice++;
-            // Significa que a opção índice do menu (listaInterfaces[indice]) é o Destrutivel (dado por 1)
+            // Significa que a opção índice do menu (listaInterfaces[indice]) é o Destrutivel (dado por 2)
             listaInterfaces[indice] = 2;
         }
         if (robo instanceof Endotermico) {
-            System.out.printf("[%d] :: Mover para ponto mais quente\n", indice + 1);
+            System.out.printf("[%d] :: Mover para mais quente\n", indice + 1);
             indice++;
-            // Significa que a opção índice do menu (listaInterfaces[indice]) é o Destrutivel (dado por 1)
+            // Significa que a opção índice do menu (listaInterfaces[indice]) é o Endotermico (dado por 3)
             listaInterfaces[indice] = 3;
         }
 
