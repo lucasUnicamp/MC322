@@ -37,12 +37,10 @@ Já os robôs continuam com seus próprios submenus que agora também têm um su
 
 #### --- AMBIENTE<br/>
 O Ambiente agora conta com uma matriz 3D de Entidades, que permite armazenar as posições dos robôs e dos obstáculos dinâmicamente. Tem também uma Central de Comunicação, na qual se pode imprimir uma lista com as mensagens trocadas. Isso tudo está em um submenu próprio, que contém as seguintes funções:
-* **Visualizar Ambiente**: permite a visualização *top-down 2D* do Ambiente
+* **Visualizar Ambiente**: permite a visualização *top-down 2D* do Ambiente, com símbolos específicos para cada entidade
 * **Listar Robôs**: printa as informações úteis de todos robôs do ambiente (char de representação, id, tipo, nome, posição e status)
 * **Ligar todos os Robôs**: liga todos os robôs do Ambiente
 * **Exibir Mensagens**: printa as mensagens que foram trocadas entre robôs comunicáveis
-
-<sup>Esse último acontece pois a Central de Comunicação foi posta como propriedade do Ambiente.</sup>
 
 #### --- INTERFACES<br/>
 **----- Pedidas**
@@ -60,12 +58,15 @@ O Ambiente agora conta com uma matriz 3D de Entidades, que permite armazenar as 
 * *Destrutivo*:
     - Permite que obstáculos sejam destrúidos caso use a ação `Destruir`, presente no submenu **Extras**, em uma posição (que seja um obstáculo) adjacente ao robô. Para robôs Aéreos com essa interface, basta que esteja voando, não necessariamente adjacente ao obstáculo, para destruí-lo;
     - Implementado por `RoboPreguica` e `RoboSatelite`.
+* *Endotermico*:
+    - Permite que o robô se mova até a posição do Ambiente com a maior temperatura (gradiente de temp. implementado no Lab03). O robô se move para a posição mais quente registrada em seu Sensor de Temperatura, faz uma nova medição, e repete até chegar na posição mais quente global;
+    - Implementado por `RoboTerrestre`, `RoboXadrez` e `RoboPreguica`.
 
 #### --- EXCEÇÕES<br/>
 **----- Pedidas**
 * *RoboDesligado*:
     - Caso o robô tente fazer ações como movimentação ou usar sensores enquanto desligado;
-    - Implementado por todos os robôs, lançado em quase todas as ações, `moverPara`, `moverComSensor`, `moverPlanando`, `usarSensor`, `acionarSensores`, `subir`, `descer`, `carregar`, `descarregar`, `lancamento`, `executarTarefa`,`enviarMensagem` e `receberMensagem`.
+    - Implementado por todos os robôs, lançado em quase todas as ações, `moverPara`, `moverComSensor`, `moverPlanando`, `moverParaQuente`, `usarSensor`, `acionarSensores`, `subir`, `descer`, `carregar`, `descarregar`, `lancamento`, `executarTarefa`,`enviarMensagem` e `receberMensagem`.
 * *ErroComunicacao*:
     - Quando um robô com a interface Comunicável tenta enviar uma mensagem para outro robô que não tenha a interface;
     - Implementado por `CentralComunicacao`, lançado em `checarDestinatario`.
