@@ -542,10 +542,10 @@ public class Menu {
             } catch (InputMismatchException erro) {
                 System.out.println("!!! Use apenas números !!!");
                 scan.next();
-            } catch (ErroComunicacaoException erro) {
+            } catch (RoboDesligadoException erro) {
                 System.err.println(erro.getMessage());
                 break;
-            } catch (RoboDesligadoException erro) {
+            } catch (ErroComunicacaoException erro) {
                 System.err.println(erro.getMessage());
                 break;
             } catch (SemObstaculoDestrutivelException erro) {

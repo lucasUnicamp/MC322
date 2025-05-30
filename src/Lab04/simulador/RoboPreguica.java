@@ -52,6 +52,22 @@ public class RoboPreguica extends RoboTerrestre implements Destrutivo {
         return "'superdescansamento'";
     }
 
+    @Override
+    public void moverParaQuente() throws RoboDesligadoException {
+        if (estaLigado()) {
+            if (energia > 0) {
+                super.moverParaQuente();
+                energia -= 1;
+                exibirEnergia();
+            }
+            else
+                System.out.printf("\n'%s' não tem energia o suficiente, precisa descansar.\n", getNome());
+        } else {
+            System.out.println("");
+            throw new RoboDesligadoException(getID());
+        }
+    }
+
     public void descansar() {
         if (energia == energiaMaxima)
             System.out.printf("'%s' já está completamente descansado.\n", getNome());
