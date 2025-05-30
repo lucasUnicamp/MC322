@@ -20,7 +20,7 @@ Recomenda-se usar:
 - **Versão do Java:** 21.0.6
 
 ## **- DIAGRAMA DE CLASSES**
-![Diagrama de Classes do Lab04](assets/diagramaLab05.png)
+![Diagrama de Classes do Lab04](assets/diagramaLab04.png)
 
 ## **- EXPLICAÇÕES**
 #### --- ROBÔ<br/>
