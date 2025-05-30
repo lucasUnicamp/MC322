@@ -117,7 +117,8 @@ public class RoboPlanador extends RoboAereo implements Geologo{
                             for (Obstaculo obstaculo : getAmbiente().obstaculos) {
                                 if ((obstaculo.getPosicaoX1() <= i && obstaculo.getPosicaoX2() >= i) &&
                                     (obstaculo.getPosicaoY1() <= j && obstaculo.getPosicaoY2() >= j)) {
-                                        System.out.printf("\nObstáculo com largura %d e profundidade %d encontrado nas adjacências do Robô.\n", obstaculo.getLargura(), obstaculo.getProfundidade());
+                                        System.out.printf("\nObstáculo com largura %d, profundidade %d e altura %d encontrado nas adjacências do Robô.\n", 
+                                        obstaculo.getLargura(), obstaculo.getProfundidade(), obstaculo.getAltura());
                                         return;
                                     }
                                 }
