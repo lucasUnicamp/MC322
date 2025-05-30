@@ -52,6 +52,9 @@ public class RoboPreguica extends RoboTerrestre implements Destrutivo {
         return "'superdescansamento'";
     }
 
+    /**
+     * Override necessário para que o robô preguiça não se mova caso esteja sem energia
+     */
     @Override
     public void moverParaQuente() throws RoboDesligadoException {
         if (estaLigado()) {

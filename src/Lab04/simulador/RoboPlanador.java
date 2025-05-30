@@ -113,10 +113,11 @@ public class RoboPlanador extends RoboAereo implements Geologo{
     }
 
     public void identificarTipoObstaculo(int x, int y) {
-        for(int i = getX() - 1; i <= getX() + 1; i++)
+        for(int i = getX() - 1; i <= getX() + 1; i++) {
             for(int j = getY() - 1; j <= getY() + 1; j++) {
                 return;
             }
+        }
     }
     /**
      * Muda o modo como o robô plana de perder altitude durante a movimentação para ganhar altitude durante a movimentação,
