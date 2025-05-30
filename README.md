@@ -61,12 +61,15 @@ O Ambiente agora conta com uma matriz 3D de Entidades, que permite armazenar as 
 * *Endotermico*:
     - Permite que o robô se mova até a posição do Ambiente com a maior temperatura (gradiente de temp. implementado no Lab03). O robô se move para a posição mais quente registrada em seu Sensor de Temperatura, faz uma nova medição, e repete até chegar na posição mais quente global;
     - Implementado por `RoboTerrestre`, `RoboXadrez` e `RoboPreguica`.
+* *Geologo*:
+    - Pode examinar a área ao seu redor e identificar as dimensões de um obstáculo adjacente. Também consegue identificar qual é o tipo desse obstáculo;
+    - Implementado por `RoboPlanador`.
 
 #### --- EXCEÇÕES<br/>
 **----- Pedidas**
 * *RoboDesligado*:
     - Caso o robô tente fazer ações como movimentação ou usar sensores enquanto desligado;
-    - Implementado por todos os robôs, lançado em quase todas as ações, `moverPara`, `moverComSensor`, `moverPlanando`, `moverParaQuente`, `usarSensor`, `acionarSensores`, `subir`, `descer`, `carregar`, `descarregar`, `lancamento`, `executarTarefa`,`enviarMensagem` e `receberMensagem`.
+    - Implementado por todos os robôs, lançado em quase todas as ações, `moverPara`, `moverComSensor`, `moverPlanando`, `moverParaQuente`, `usarSensor`, `acionarSensores`, `subir`, `descer`, `carregar`, `descarregar`, `lancamento`, `executarTarefa`, `identificarTipoObstaculo`, `identificarTamanhoObstaculo`, `enviarMensagem` e `receberMensagem`.
 * *ErroComunicacao*:
     - Quando um robô com a interface Comunicável tenta enviar uma mensagem para outro robô que não tenha a interface;
     - Implementado por `CentralComunicacao`, lançado em `checarDestinatario`.
