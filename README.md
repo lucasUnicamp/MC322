@@ -10,7 +10,7 @@ Informações sobre os outros laboratórios podem ser encontradas na nossa [Wiki
 
 ## **- EXECUÇÃO**
 Dentro da pasta MC322, usar os comandos para compilação e execução do laboratório mais recente:<br/>
-- `javac -d bin src/Lab04/cliente/*.java src/Lab04/simulador/*.java .\src\Lab04\simulador\excecoes\*.java .\src\Lab04\simulador\interfaces\*.java`
+- `javac -d bin src/Lab04/cliente/*.java src/Lab04/simulador/*.java ./src/Lab04/simulador/excecoes/*.java ./src/Lab04/simulador/interfaces/*.java`
 - `java -cp bin cliente.Main`
 
 <sup>Caso queira rodar laboratórios passados, basta substituir o número que segue `Lab`</sup>
