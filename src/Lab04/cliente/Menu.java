@@ -327,7 +327,8 @@ public class Menu {
                             ((RoboTerrestre) robo).aumentarVelocidade(vlc);
                         }
                         else if (robo instanceof RoboAereo) {
-                            System.out.print("\n[int] Quantos metros quer subir? ");
+                            System.out.println("\n[int] Quantos metros quer subir? ");
+                            System.out.print("> ");
                             int metros = scan.nextInt();
                             System.out.println("");
                             ((RoboAereo) robo).subir(metros);
@@ -362,9 +363,9 @@ public class Menu {
                             System.out.println("");
                             ((RoboXadrez) robo).alternaTipoMovimento();
                             if (((RoboXadrez)robo).getTipoMovimento() == 1)
-                                System.out.println("Tipo de peça mudado para Cavalo\n");
+                                System.out.println("Tipo de peça mudado para Cavalo.");
                             else
-                                System.out.println("Tipo de peça mudado para Peao\n");
+                                System.out.println("Tipo de peça mudado para Peao.");
                         }
                         else if (robo instanceof RoboPreguica) {
                             System.out.println("");
@@ -440,34 +441,39 @@ public class Menu {
         System.out.printf("[0] :: Tarefa %s\n", robo.getNomeTarefa());
         
         if (robo instanceof Comunicavel) {
-            System.out.printf("[%d] :: Comunicar-se\n", indice ++);
+            System.out.printf("[%d] :: Comunicar-se\n", indice + 1);
             indice++;
             // Significa que a opção índice do menu (listaInterfaces[indice], que nesse primeiro caso vai ser sempre 1) 
             // é o Comunicavel (dado por 0)
             listaInterfaces[indice] = 0;        
         }
         if (robo instanceof Sensoreavel) {
-            System.out.printf("[%d] :: Acionar todos os sensores\n", ++indice);
+            System.out.printf("[%d] :: Acionar todos os sensores\n", indice + 1);
+            indice++;
             // Significa que a opção índice do menu (listaInterfaces[indice]) é o Sensoreaevel (dado por 1)
             listaInterfaces[indice] = 1;        
         }
         if (robo instanceof Destrutivo) {
-            System.out.printf("[%d] :: Destruir\n", ++indice);
+            System.out.printf("[%d] :: Destruir\n", indice + 1);
+            indice++;
             // Significa que a opção índice do menu (listaInterfaces[indice]) é o Destrutivel (dado por 2)
             listaInterfaces[indice] = 2;
         }
         if (robo instanceof Endotermico) {
-            System.out.printf("[%d] :: Mover para mais quente\n", ++indice);
+            System.out.printf("[%d] :: Mover para mais quente\n", indice + 1);
+            indice++;
             // Significa que a opção índice do menu (listaInterfaces[indice]) é o Endotermico (dado por 3)
             listaInterfaces[indice] = 3;
         }
         if (robo instanceof Geologo) {
-            System.out.printf("[%d] :: Tipo do obstáculo\n", ++indice);
+            System.out.printf("[%d] :: Tipo do obstáculo\n", indice + 1);
+            indice++;
             // Significa que a opção índice do menu (listaInterfaces[indice]) é o Geologo (dado por 4)
             listaInterfaces[indice] = 4;
         }
         if (robo instanceof Geologo) {
-            System.out.printf("[%d] :: Tamanho do obstáculo\n", ++indice);
+            System.out.printf("[%d] :: Tamanho do obstáculo\n", indice + 1);
+            indice++;
             // Significa que a opção índice do menu (listaInterfaces[indice]) é o Geologo (dado por 5)
             listaInterfaces[indice] = 5;
         }

@@ -31,12 +31,15 @@ public class Main {
         /**
          * TESTES MANUAIS
          * 
+         * Como os métodos foram formatados pensando em seu uso pelo menu ao invés de chamadas individuais, além do fato que alguns jogam exceções que necessitariam 
+         * de 'try's e 'catch's, os testes manuais apenas testam a inicialização dos robôs. Porém, as ações dos robôs podem ser facilmente testadas pelo menu interativo
+         * por comandos simples.
          */
         System.out.print("\n## CRIACAO ROBÔS ################################");
         // Instanciamento em massa de robôs e adição de sensores por composição (sensor eh instanciado dentro do robô, logo não existe fora dele)
         RoboTerrestre roboTerrestre = new RoboTerrestre("Beta", "RT01", 25, 25, salaTeste, 60);     // Cria o robô terrestre genérico
         roboTerrestre.adicionarSensor(new SensorObstaculo(10, salaTeste));
-        roboTerrestre.adicionarSensor(new SensorObstaculo(30, salaTeste));
+        roboTerrestre.adicionarSensor(new SensorObstaculo(30, salaTeste));      // Erro de tentar adicionar dois sensores iguais
         roboTerrestre.getDescricao();
         RoboXadrez roboXadrez = new RoboXadrez("Theta", "RT02", 40, 20, salaTeste, 6, 1);       // Cria o robô terrestre do tipo xadrez
         roboXadrez.adicionarSensor(new SensorObstaculo(15, salaTeste));
@@ -48,18 +51,16 @@ public class Main {
         RoboAereo roboAereo = new RoboAereo("Gama", "RA01", 5, 5, salaTeste, 40, 80);      // Cria o robô aéreo genérico
         roboAereo.adicionarSensor(new SensorObstaculo(40, salaTeste));
         roboAereo.adicionarSensor(new SensorTemperatura(10, salaTeste));
-        RoboPlanador roboPlanador = new RoboPlanador("Phi", "RA02", 5, 40, salaTeste, 0, 80, 50);      // Cria o robô aéreo do tipo planador
+        RoboPlanador roboPlanador = new RoboPlanador("Phi", "RA02", 5, 40, salaTeste, 0, 80, 50);      // Cria o robô aéreo do tipo planador em uma posição inválida. É mudado para uma aleatória
         roboPlanador.adicionarSensor(new SensorObstaculo(20, salaTeste));
         roboPlanador.getDescricao();
-        RoboSatelite roboSatelite = new RoboSatelite("Sigma", "RA03", 30, 40, salaTeste, 10, 50, 30, 0);        // Cria o robô aéreo do tipo satélite
+        RoboSatelite roboSatelite = new RoboSatelite("Sigma", "RA03", 30, 40, salaTeste, 10, 50, 30, 0);        // Cria o robô aéreo do tipo satélite em uma altitude inválida. É posto na altitude 0
         roboSatelite.adicionarSensor(new SensorObstaculo(50, salaTeste));
         roboSatelite.adicionarSensor(new SensorTemperatura(50, salaTeste));
         roboSatelite.getDescricao();
 
         /**
          * TESTES INTERATIVOS
-         * 
-         * Aqui o usuário pode fazer quantos testes quiser rapidamente, uma vez que ações podem ser feitas uma logo após a outra.
          */
         Menu menu = new Menu(salaTeste, scan);
         menu.iniciarMenuPrincipal();

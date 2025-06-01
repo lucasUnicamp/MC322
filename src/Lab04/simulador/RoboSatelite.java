@@ -41,16 +41,20 @@ public class RoboSatelite extends RoboAereo implements Comunicavel, Destrutivo {
 
     @Override 
     public void subir(int metros) throws RoboDesligadoException {
-        if (metros < 0) {
-            System.out.println("Para 'subir negativamente', por favor use a função 'descer'.");
-            return;
+        if (estaLigado()) {
+            if (metros < 0) {
+                System.out.println("Para 'subir negativamente', por favor use a função 'descer'.");
+                return;
+            }
+            // Robô so sobe se está em órbita, pois caso não esteja sua altitude é sempre 0
+            if (emOrbita) {
+                super.subir(metros);
+            }
+            else
+                System.out.printf("O Robô '%s' não está em órbita para poder subir.\n", getNome());
+        } else {
+            throw new RoboDesligadoException(getID());
         }
-        // Robô so sobe se está em órbita, pois caso não esteja sua altitude é sempre 0
-        if (emOrbita) {
-            super.subir(metros);
-        }
-        else
-            System.out.printf("O Robô '%s' não está em órbita para poder subir.\n", getNome());
     }
 
     // Tecnicamente não precisaria do DesceuDemaisException pois ou ele desce exatamente a altura que está
@@ -59,24 +63,28 @@ public class RoboSatelite extends RoboAereo implements Comunicavel, Destrutivo {
     public void descer(int metros) throws RoboDesligadoException, DesceuDemaisException {
         int altitudeNova = getZ() - metros;
 
-        if (metros < 0) {
-            System.out.println("Para 'descer negativamente', por favor use a função 'subir'.");
-            return;
-        }
-        // Robo so desce se esta em órbita, pois caso não esteja sua altitude é sempre 0
-        if (emOrbita) {
-            // Se puder descer mas descer abaixo do limite de órbita, o robô cai
-            if (altitudeNova < getAltitudeMin()) {
-                System.out.printf("O Robô '%s' está descendo abaixo da altitude de órbita para tentar pousar.\n", getNome());
-                emOrbita = false;
-                // Desce exatamente a altitude que está no momento
-                super.descer(getZ());
+        if (estaLigado()) {
+            if (metros < 0) {
+                System.out.println("Para 'descer negativamente', por favor use a função 'subir'.");
+                return;
             }
-            else
-                super.descer(metros);
-        }
-        else {
-            System.out.printf("O Robô '%s' não está em órbita para pode descer.\n", getNome());
+            // Robo so desce se esta em órbita, pois caso não esteja sua altitude é sempre 0
+            if (emOrbita) {
+                // Se puder descer mas descer abaixo do limite de órbita, o robô cai
+                if (altitudeNova < getAltitudeMin()) {
+                    System.out.printf("O Robô '%s' está descendo abaixo da altitude de órbita para tentar pousar.\n", getNome());
+                    emOrbita = false;
+                    // Desce exatamente a altitude que está no momento
+                    super.descer(getZ());
+                }
+                else
+                    super.descer(metros);
+            }
+            else {
+                System.out.printf("O Robô '%s' não está em órbita para pode descer.\n", getNome());
+            }
+        } else {
+            throw new RoboDesligadoException(getID());
         }
     }
     
