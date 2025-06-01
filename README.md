@@ -108,5 +108,3 @@ Cada tipo de robô controlável recebeu uma tarefa específica, que é uma açã
 * *Carga ideal para Órbita*:
     - Calcula o intervalo perfeito de valores de carregamento para colocar o robô em órbita; 
     - Implementado por `RoboSatelite`.
-
-
