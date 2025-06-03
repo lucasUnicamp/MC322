@@ -1,6 +1,8 @@
-package simulador;
+package simulador.teste;
 
 import java.lang.Math;
+
+import simulador.Ambiente;
 
 abstract class Sensor {
     private double raio;

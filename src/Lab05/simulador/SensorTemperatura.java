@@ -1,5 +1,6 @@
 package simulador;
 
+
 public class SensorTemperatura extends Sensor {
 
     public SensorTemperatura(double raio, Ambiente ambiente) {
