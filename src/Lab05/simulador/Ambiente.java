@@ -274,9 +274,30 @@ public class Ambiente {
         return false;
     }
 
+    public char[][] inicializarMatrizAmbiente() {
+        char [][] matrizAmbiente = new char[getProfundidade() + 1][getLargura() + 1];
+
+        // Loop para preencher a matrizAmbiente representativa do ambiente com espaço vazio '.' 
+        for (int a = 0; a <= getProfundidade(); a++) 
+            for (int b = 0; b <= getLargura(); b++)
+                matrizAmbiente[a][b] = '.';
+
+        // Loop para mudar as posições com obstáculos para '#'
+        for (Obstaculo obs:obstaculos)
+            for (int c = obs.getPosicaoX1(); c <= obs.getPosicaoX2(); c++)
+                for (int d = obs.getPosicaoY1(); d <= obs.getPosicaoY2(); d++)
+                    matrizAmbiente[c][d] = obs.getRepresentacao();
+
+        // Loop para mudar as posições com robos para suas respectivas letras
+        for (Robo robo:robosAtivos) {
+            matrizAmbiente[robo.getX()][robo.getY()] = robo.getRepresentacao();
+        }
+
+        return matrizAmbiente;
+    }
     // Exibe uma visão 'top-down' do ambiente, imprimindo obstáculos, robôs e vazios com símbolos diferentes
     public void visualizarAmbiente() {
-        char[][] matrizAmbiente = new char[getProfundidade() + 1][getLargura() + 1];
+        char[][] matrizAmbiente = inicializarMatrizAmbiente();
 
         // Loop para preencher a matrizAmbiente representativa do ambiente com espaço vazio '.' 
         for (int a = 0; a <= getProfundidade(); a++) 

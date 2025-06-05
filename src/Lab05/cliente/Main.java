@@ -1,5 +1,8 @@
 package cliente;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Formatter;
 import java.util.Scanner;
 
 import simulador.Ambiente;
@@ -15,12 +18,18 @@ import simulador.RoboXadrez;
 import simulador.SensorObstaculo;
 import simulador.SensorTemperatura;
 import simulador.TipoObstaculo;
-import simulador.RoboTopeira;
 
 public class Main {
 
     public static void main(String[] args) {
-        
+        try {
+            Formatter arquivoLog  = new Formatter(new FileWriter("logs/log.txt", false));
+            arquivoLog.format("INÍCIO DO LOG:\n");
+            arquivoLog.flush();
+            arquivoLog.close();
+        } catch (IOException erro) {
+            System.err.println(erro.getMessage());
+        }
         Scanner scan = new Scanner(System.in);
         CentralComunicacao central = new CentralComunicacao();
         Ambiente salaTeste = new Ambiente(50, 50, 50, 5, central);        // Cria o ambiente para testes
@@ -62,8 +71,8 @@ public class Main {
         roboSatelite.adicionarSensor(new SensorTemperatura(50, salaTeste));
         roboSatelite.getDescricao();
         RoboTopeira roboTopeira = new RoboTopeira("Teste", "TP01", 25, 25, salaTeste, null);
-        roboTopeira.moverComLog(-10, -20);
-        roboTopeira.moverComLog(10, 20);
+        roboTopeira.moverComLog(10, -40);
+        roboTopeira.moverComLog(-30, 0);
         /**
          * TESTES INTERATIVOS
          */
