@@ -23,7 +23,7 @@ public abstract class AgenteInteligente extends Robo {
     public void moverComLog(int deltaX, int deltaY) {
         int i = 0, j = 0;
         try {
-            Formatter output = new Formatter(new FileWriter("logs/log.txt"));
+            Formatter output = new Formatter(new FileWriter("logs/log.txt", true));
             try {
                 if (deltaX > 0) {
                     for ( ; i <= deltaX; i++) {
@@ -35,8 +35,10 @@ public abstract class AgenteInteligente extends Robo {
                             System.out.println("O robô não tem autorização para sair do ambiente.");
                             break;
                         }
+                        output.format("Robô está em (%d, %d)\n", getX() + i, getY());
                     }
                     setX(getX() + i - 1);
+                    output.format("Robô está em (%d, %d)\n", getX(), getY());
                 }
                 else if (deltaX < 0) {
                     for ( ; i <= -deltaX; i++) {
@@ -48,8 +50,10 @@ public abstract class AgenteInteligente extends Robo {
                             System.out.println("O robô não tem autorização para sair do ambiente.");
                             break;
                         }
+                        output.format("Robô está em (%d, %d)\n", getX() - i, getY());
                     }
                     setX(getX() - i + 1);
+                    output.format("Robô está em (%d, %d)\n", getX(), getY());
                 }
 
                 if (deltaY > 0) {
@@ -62,8 +66,10 @@ public abstract class AgenteInteligente extends Robo {
                             System.out.println("O robô não tem autorização para sair do ambiente.");
                             break;
                         }
+                        output.format("Robô está em (%d, %d)\n", getX(), getY() + i);
                     }
                     setY(getY() + j - 1);
+                    output.format("Robô está em (%d, %d)\n", getX(), getY());
                 }
                 else if (deltaY < 0) {
                     for ( ; j <= -deltaY; j++) {
@@ -75,15 +81,20 @@ public abstract class AgenteInteligente extends Robo {
                             System.out.println("O robô não tem autorização para sair do ambiente.");
                             break;
                         }
+                        output.format("Robô está em (%d, %d)\n", getX(), getY() - i);
                     }
                     setY(getY() - j + 1);
+                    output.format("Robô está em (%d, %d)\n", getX(), getY());
                 }
             } catch (ColisaoException erro) {
-                System.err.println(erro.getMessage());
+                output.format("%s\n", erro.getMessage());
+
             } finally {
+                output.format("\n\n");
                 output.close();
             }
         } catch (IOException erro) {
+            
             System.err.println(erro.getMessage());
         }
     }

@@ -1,10 +1,6 @@
 package cliente;
 
 import java.util.Scanner;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Formatter;
 
 import simulador.Ambiente;
 import simulador.CentralComunicacao;
@@ -14,15 +10,16 @@ import simulador.RoboPlanador;
 import simulador.RoboPreguica;
 import simulador.RoboSatelite;
 import simulador.RoboTerrestre;
+import simulador.RoboTopeira;
 import simulador.RoboXadrez;
 import simulador.SensorObstaculo;
 import simulador.SensorTemperatura;
 import simulador.TipoObstaculo;
+import simulador.RoboTopeira;
 
 public class Main {
 
     public static void main(String[] args) {
-        criarArquivo2();
         
         Scanner scan = new Scanner(System.in);
         CentralComunicacao central = new CentralComunicacao();
@@ -64,7 +61,9 @@ public class Main {
         roboSatelite.adicionarSensor(new SensorObstaculo(50, salaTeste));
         roboSatelite.adicionarSensor(new SensorTemperatura(50, salaTeste));
         roboSatelite.getDescricao();
-
+        RoboTopeira roboTopeira = new RoboTopeira("Teste", "TP01", 25, 25, salaTeste, null);
+        roboTopeira.moverComLog(-10, -20);
+        roboTopeira.moverComLog(10, 20);
         /**
          * TESTES INTERATIVOS
          */
@@ -72,33 +71,5 @@ public class Main {
         menu.iniciarMenuPrincipal();
 
         scan.close();
-    }
-
-    public static void criarArquivo() {
-        try {
-            File logs = new File("logs.txt");
-            
-            if (logs.createNewFile())
-                System.out.println("Arquivo criado: " + logs.getName());
-            else 
-                System.out.println("Arquivo já existe.");
-        } catch (IOException erro) {
-            System.out.println("Um erro inesperado aconteceu.");
-            erro.printStackTrace();
-        }
-    }
-
-    public static void criarArquivo2() {
-        try {
-            FileWriter arquivo = new FileWriter("logsbacanas.txt", false);
-            arquivo.close();
-            Formatter output = new Formatter(new FileWriter("logsbacanas.txt", true));
-            output.format("Oi, asdad bom?");
-            output.flush();
-            output.close();
-        } catch (IOException e) {
-            System.out.println("Um erro inesperado aconteceu.");
-            e.printStackTrace();
-        }
     }
 }
