@@ -4,7 +4,6 @@ import simulador.interfaces.Missao;
 import simulador.excecoes.ColisaoException;
 import java.util.Formatter;
 import java.io.FileWriter;
-import java.io.IOError;
 import java.io.IOException;
 
 public abstract class AgenteInteligente extends Robo {
