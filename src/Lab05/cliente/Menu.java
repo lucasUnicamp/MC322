@@ -3,7 +3,6 @@ package cliente;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import simulador.AgenteInteligente;
 import simulador.Ambiente;
 import simulador.Robo;
 import simulador.RoboAereo;
