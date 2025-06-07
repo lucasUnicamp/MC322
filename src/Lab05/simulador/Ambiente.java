@@ -267,7 +267,8 @@ public class Ambiente {
             Obstaculo obs = obstaculos.get(i);
 
             if (obs.getPosicaoX1() <= x && x <= obs.getPosicaoX2() &&
-                obs.getPosicaoY1() <= y && y <= obs.getPosicaoY2()) {
+                obs.getPosicaoY1() <= y && y <= obs.getPosicaoY2() &&
+                obs.getAltura() >= z) {
                     return true;
                 }
         }

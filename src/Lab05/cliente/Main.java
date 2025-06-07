@@ -30,6 +30,7 @@ public class Main {
         } catch (IOException erro) {
             System.err.println(erro.getMessage());
         }
+        
         Scanner scan = new Scanner(System.in);
         CentralComunicacao central = new CentralComunicacao();
         Ambiente salaTeste = new Ambiente(50, 50, 50, 5, central);        // Cria o ambiente para testes

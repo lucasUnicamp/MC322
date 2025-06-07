@@ -87,7 +87,7 @@ public abstract class Robo implements Entidade {
      * @param y posição no eixo y final a qual se quer chegar
      */
     public void moverPara(int x, int y) throws RoboDesligadoException {
-        if (estaLigado()){
+        if (estaLigado()) {
             int deltaX = x - getX();
             int deltaY = y - getY();
             int indice = temSensorTipo("SensorObstaculo");

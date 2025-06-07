@@ -38,11 +38,11 @@ public abstract class AgenteInteligente extends Robo {
                             break;
                         }
                         output.format("Robô está em (%d, %d)\n", getX() + i, getY());
-                        matrizAmbiente[getX() + i][getY()] = '%';
+                        matrizAmbiente[getX() + i][getY()] = '=';
                     }
                     setX(getX() + i - 1);
                     output.format("Robô está em (%d, %d)\n", getX(), getY());
-                    matrizAmbiente[getX()][getY()] = '%';
+                    matrizAmbiente[getX()][getY()] = '=';
                 }
                 else if (deltaX < 0) {
                     for ( ; i <= -deltaX; i++) {
@@ -55,11 +55,11 @@ public abstract class AgenteInteligente extends Robo {
                             break;
                         }
                         output.format("Robô está em (%d, %d)\n", getX() - i, getY());
-                        matrizAmbiente[getX() - i][getY()] = '%';
+                        matrizAmbiente[getX() - i][getY()] = '=';
                     }
                     setX(getX() - i + 1);
                     output.format("Robô está em (%d, %d)\n", getX(), getY());
-                    matrizAmbiente[getX()][getY()] = '%';
+                    matrizAmbiente[getX()][getY()] = '=';
                 }
 
                 if (deltaY > 0) {
@@ -73,11 +73,11 @@ public abstract class AgenteInteligente extends Robo {
                             break;
                         }
                         output.format("Robô está em (%d, %d)\n", getX(), getY() + j);
-                        matrizAmbiente[getX()][getY() + j] = '%';
+                        matrizAmbiente[getX()][getY() + j] = '=';
                     }
                     setY(getY() + j - 1);
                     output.format("Robô está em (%d, %d)\n", getX(), getY());
-                    matrizAmbiente[getX()][getY()] = '%';
+                    matrizAmbiente[getX()][getY()] = '=';
                 }
                 else if (deltaY < 0) {
                     for ( ; j <= -deltaY; j++) {
@@ -90,11 +90,11 @@ public abstract class AgenteInteligente extends Robo {
                             break;
                         }
                         output.format("Robô está em (%d, %d)\n", getX(), getY() - j);
-                        matrizAmbiente[getX()][getY() - j] = '%';
+                        matrizAmbiente[getX()][getY() - j] = '=';
                     }
                     setY(getY() - j + 1);
                     output.format("Robô está em (%d, %d)\n", getX(), getY());
-                    matrizAmbiente[getX()][getY()] = '%';
+                    matrizAmbiente[getX()][getY()] = '=';
                 }
             } catch (ColisaoException erro) {
                 output.format("%s\n", erro.getMessage());
@@ -108,12 +108,11 @@ public abstract class AgenteInteligente extends Robo {
                         output.format("%c ", matrizAmbiente[f][e]);
                     output.format("\n");
                 }
-                output.format("%% - caminho percorrido pelo robô\n\n\n");
+                output.format("= - caminho percorrido pelo robô\n\n\n");
                 output.flush();
                 output.close();
             }
         } catch (IOException erro) {
-            
             System.err.println(erro.getMessage());
         }
     }
