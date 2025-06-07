@@ -139,5 +139,4 @@ public abstract class AgenteInteligente extends Robo {
             System.err.println(erro.getMessage());
         }
     }
-
 }

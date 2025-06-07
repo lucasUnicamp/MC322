@@ -63,12 +63,11 @@ public class RoboTopeira extends AgenteInteligente{
 
     @Override
     public void executarTarefa() {
-        
-    
+        System.out.println("\nNão há tarefas designadas para esse Robô.");
     }
 
     @Override
     public String getNomeTarefa() {
-        return null;
+        return "inexistente";
     }
 }
