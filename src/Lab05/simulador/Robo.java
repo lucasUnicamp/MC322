@@ -296,6 +296,10 @@ public abstract class Robo implements Entidade {
      */
     public abstract String getNomeTarefa();
 
+    public String getNomeMissao() {
+        return "inexistente";
+    }
+
     public void ligar() {
         setEstado(EstadoRobo.LIGADO);
         System.out.printf("O Robô '%s' foi ligado.\n", getNome());

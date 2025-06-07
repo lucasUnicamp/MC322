@@ -3,6 +3,7 @@ package cliente;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import simulador.AgenteInteligente;
 import simulador.Ambiente;
 import simulador.Robo;
 import simulador.RoboAereo;
@@ -11,6 +12,7 @@ import simulador.RoboPreguica;
 import simulador.RoboSatelite;
 import simulador.RoboTerrestre;
 import simulador.RoboXadrez;
+import simulador.AgenteInteligente;
 import simulador.excecoes.DesceuDemaisException;
 import simulador.excecoes.ErroComunicacaoException;
 import simulador.excecoes.RoboDesligadoException;
@@ -426,6 +428,9 @@ public class Menu {
                 case 0:
                     robo.executarTarefa();
                     break;
+                case 1:
+                    realizarMissoesMenuExtras(robo);
+                    break;
                 default:
                     realizarAcoesMenuExtras(robo, listaInterfaces, entradaExtras);
                     break;
@@ -434,11 +439,12 @@ public class Menu {
     }
 
     public int[] exibirEscolhaMenuExtras(Robo robo) {
-        int[] listaInterfaces = new int[5];
-        int indice = 0;
+        int[] listaInterfaces = new int[6];
+        int indice = 1;
         listaInterfaces[0] = 0;
         System.out.println("\n-- EXTRAS ---------");
         System.out.printf("[0] :: Tarefa %s\n", robo.getNomeTarefa());
+        System.out.printf("[1] :: Missão %s\n", robo.getNomeMissao());
         
         if (robo instanceof Comunicavel) {
             System.out.printf("[%d] :: Comunicar-se\n", indice + 1);
@@ -504,6 +510,15 @@ public class Menu {
                 System.err.println("!!! Use apenas números !!!");
                 scan.next();
             }
+        }
+    }
+
+    public void realizarMissoesMenuExtras(Robo robo) {
+        if (robo instanceof AgenteInteligente) {
+            ((AgenteInteligente) robo).executarMissao(ambiente);
+        }
+        else {
+            System.out.println("\nO robô não é inteligente o bastante para realizar uma missão.");
         }
     }
 

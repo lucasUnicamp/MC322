@@ -3,7 +3,7 @@ package simulador;
 import simulador.excecoes.RoboDesligadoException;
 import simulador.interfaces.Missao;
 
-public class RoboTopeira extends AgenteInteligente{
+public class RoboTopeira extends AgenteInteligente {
     public RoboTopeira(String nome, String id, int posicaoX, int posicaoY, Ambiente ambiente, Missao missao) {
         super(nome, id, posicaoX, posicaoY, ambiente, missao);
     }
@@ -49,6 +49,11 @@ public class RoboTopeira extends AgenteInteligente{
     @Override
     public void executarMissao(Ambiente ambiente) {
 
+    }
+
+    @Override 
+    public String getNomeMissao() {
+        return getMissao().getNome();
     }
 
     public void atualizaSensores() {

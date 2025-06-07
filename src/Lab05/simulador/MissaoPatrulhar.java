@@ -23,4 +23,8 @@ public class MissaoPatrulhar implements Missao {
             System.err.println(erro.getMessage());
         }
     }
+
+    public String getNome() {
+        return "'patrulhar'";
+    }
 }
