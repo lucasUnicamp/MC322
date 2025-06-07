@@ -30,7 +30,7 @@ public class Main {
         } catch (IOException erro) {
             System.err.println(erro.getMessage());
         }
-        
+
         Scanner scan = new Scanner(System.in);
         CentralComunicacao central = new CentralComunicacao();
         Ambiente salaTeste = new Ambiente(50, 50, 50, 5, central);        // Cria o ambiente para testes
@@ -72,8 +72,10 @@ public class Main {
         roboSatelite.adicionarSensor(new SensorTemperatura(50, salaTeste));
         roboSatelite.getDescricao();
         RoboTopeira roboTopeira = new RoboTopeira("Teste", "TP01", 25, 25, salaTeste, null);
-        roboTopeira.moverComLog(10, -40);
-        roboTopeira.moverComLog(-30, 0);
+        roboTopeira.ligar();
+        roboTopeira.moverPara(10, 40);
+        roboTopeira.moverPara(16, 9);
+
         /**
          * TESTES INTERATIVOS
          */

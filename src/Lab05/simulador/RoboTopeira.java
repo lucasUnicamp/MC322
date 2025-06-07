@@ -15,25 +15,29 @@ public class RoboTopeira extends AgenteInteligente{
     }
 
     @Override
-    public void moverPara(int x, int y) throws RoboDesligadoException {
-        if (estaLigado()) {
-            int deltaX = x - getX();
-            int deltaY = y - getY();
-            int z = getZ();
-            System.out.printf("Tentando mover o Robô '%s' para a posição (%d, %d).\n", getNome(), x, y);
-            
-            // Coloca o robô numa posição muito alta acima de tudo no ambiente para que não 
-            // colida com obstáculos e depois recoloca-o na altura original
-            setZ(1000);
-            super.moverComLog(deltaX, deltaY);
-            setZ(z);
-            atualizaSensores();
-            System.out.printf("O Robô '%s' terminou o movimento na posição (%d, %d).\n", getNome(), getX(), getY());
-            
-            if (getAmbiente().estaOcupado(getX(), getY(), getZ()))
-                System.out.println("E ficou dentro de um obstáculo!");
-        } else {
-            throw new RoboDesligadoException(getID());
+    public void moverPara(int x, int y) {
+        try {
+            if (estaLigado()) {
+                int deltaX = x - getX();
+                int deltaY = y - getY();
+                int z = getZ();
+                System.out.printf("Tentando mover o Robô '%s' para a posição (%d, %d).\n", getNome(), x, y);
+                
+                // Coloca o robô numa posição muito alta acima de tudo no ambiente para que não 
+                // colida com obstáculos e depois recoloca-o na altura original
+                setZ(1000);
+                super.moverComLog(deltaX, deltaY);
+                setZ(z);
+                atualizaSensores();
+                System.out.printf("O Robô '%s' terminou o movimento na posição (%d, %d).\n", getNome(), getX(), getY());
+                
+                if (getAmbiente().estaOcupado(getX(), getY(), getZ()))
+                    System.out.println("E ficou dentro de um obstáculo!");
+            } else {
+                throw new RoboDesligadoException(getID());
+            }
+        } catch (RoboDesligadoException erro) {
+            System.err.println(erro.getMessage());
         }
     }
 
