@@ -87,7 +87,7 @@ public abstract class Robo implements Entidade {
      * @param y posição no eixo y final a qual se quer chegar
      */
     public void moverPara(int x, int y) throws RoboDesligadoException {
-        if (estaLigado()){
+        if (estaLigado()) {
             int deltaX = x - getX();
             int deltaY = y - getY();
             int indice = temSensorTipo("SensorObstaculo");
@@ -295,6 +295,10 @@ public abstract class Robo implements Entidade {
      * @return o nome da tarefa
      */
     public abstract String getNomeTarefa();
+
+    public String getNomeMissao() {
+        return "inexistente";
+    }
 
     public void ligar() {
         setEstado(EstadoRobo.LIGADO);

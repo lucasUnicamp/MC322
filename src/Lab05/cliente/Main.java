@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import simulador.Ambiente;
 import simulador.CentralComunicacao;
+import simulador.MissaoPatrulhar;
 import simulador.Obstaculo;
 import simulador.RoboAereo;
 import simulador.RoboPlanador;
@@ -30,6 +31,7 @@ public class Main {
         } catch (IOException erro) {
             System.err.println(erro.getMessage());
         }
+
         Scanner scan = new Scanner(System.in);
         CentralComunicacao central = new CentralComunicacao();
         Ambiente salaTeste = new Ambiente(50, 50, 50, 5, central);        // Cria o ambiente para testes
@@ -40,6 +42,7 @@ public class Main {
         salaTeste.adicionarEntidade(new Obstaculo(10, 20, 20, 30, TipoObstaculo.ESTATUA_DE_ELEFANTE, salaTeste));
         salaTeste.adicionarEntidade(new Obstaculo(30, 5, 45, 8, TipoObstaculo.THE_BEAN, salaTeste));
 
+        MissaoPatrulhar missaoPatrulhar = new MissaoPatrulhar();
         /**
          * TESTES MANUAIS
          * 
@@ -70,9 +73,11 @@ public class Main {
         roboSatelite.adicionarSensor(new SensorObstaculo(50, salaTeste));
         roboSatelite.adicionarSensor(new SensorTemperatura(50, salaTeste));
         roboSatelite.getDescricao();
-        RoboTopeira roboTopeira = new RoboTopeira("Teste", "TP01", 25, 25, salaTeste, null);
-        roboTopeira.moverComLog(10, -40);
-        roboTopeira.moverComLog(-30, 0);
+        RoboTopeira roboTopeira = new RoboTopeira("Teste", "TP01", 25, 25, salaTeste, missaoPatrulhar);
+        roboTopeira.ligar();
+        roboTopeira.moverPara(10, 40);
+        roboTopeira.moverPara(16, 9);
+
         /**
          * TESTES INTERATIVOS
          */

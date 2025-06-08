@@ -37,12 +37,21 @@ public abstract class AgenteInteligente extends Robo {
                             System.out.println("O robô não tem autorização para sair do ambiente.");
                             break;
                         }
-                        output.format("Robô está em (%d, %d)\n", getX() + i, getY());
-                        matrizAmbiente[getX() + i][getY()] = '%';
+                        output.format("Robô está em (%d, %d).\n", getX() + i, getY());
+                        // Para que a posição inicial seja representada diferentemente
+                        if (i == 0)
+                            matrizAmbiente[getX() + i][getY()] = '+';
+                        else
+                            matrizAmbiente[getX() + i][getY()] = '=';
                     }
                     setX(getX() + i - 1);
-                    output.format("Robô está em (%d, %d)\n", getX(), getY());
-                    matrizAmbiente[getX()][getY()] = '%';
+                    output.format("Robô está em (%d, %d).\n", getX(), getY());
+                    // Para que, caso o robô ainda vá se mover na vertical, não imprima o caractere que
+                    // representa o final da movimentação
+                    if (deltaY == 0)
+                        matrizAmbiente[getX()][getY()] = '-';
+                    else 
+                        matrizAmbiente[getX()][getY()] = '=';
                 }
                 else if (deltaX < 0) {
                     for ( ; i <= -deltaX; i++) {
@@ -54,12 +63,18 @@ public abstract class AgenteInteligente extends Robo {
                             System.out.println("O robô não tem autorização para sair do ambiente.");
                             break;
                         }
-                        output.format("Robô está em (%d, %d)\n", getX() - i, getY());
-                        matrizAmbiente[getX() - i][getY()] = '%';
+                        output.format("Robô está em (%d, %d).\n", getX() - i, getY());
+                        if (i == 0)
+                            matrizAmbiente[getX() - i][getY()] = '+';
+                        else
+                            matrizAmbiente[getX() - i][getY()] = '=';
                     }
                     setX(getX() - i + 1);
-                    output.format("Robô está em (%d, %d)\n", getX(), getY());
-                    matrizAmbiente[getX()][getY()] = '%';
+                    output.format("Robô está em (%d, %d).\n", getX(), getY());
+                    if (deltaY == 0)
+                        matrizAmbiente[getX()][getY()] = '-';
+                    else 
+                        matrizAmbiente[getX()][getY()] = '=';
                 }
 
                 if (deltaY > 0) {
@@ -72,12 +87,17 @@ public abstract class AgenteInteligente extends Robo {
                             System.out.println("O robô não tem autorização para sair do ambiente.");
                             break;
                         }
-                        output.format("Robô está em (%d, %d)\n", getX(), getY() + j);
-                        matrizAmbiente[getX()][getY() + j] = '%';
+                        output.format("Robô está em (%d, %d).\n", getX(), getY() + j);
+                        // Para que só imprima o caractere representativo do início da movimentação caso
+                        // não tenha tido movimentação horizontal anterior
+                        if (deltaX == 0 && j == 0)
+                            matrizAmbiente[getX()][getY() + j] = '+';
+                        else
+                           matrizAmbiente[getX()][getY() + j] = '=';
                     }
                     setY(getY() + j - 1);
-                    output.format("Robô está em (%d, %d)\n", getX(), getY());
-                    matrizAmbiente[getX()][getY()] = '%';
+                    output.format("Robô está em (%d, %d).\n", getX(), getY());
+                    matrizAmbiente[getX()][getY()] = '-';
                 }
                 else if (deltaY < 0) {
                     for ( ; j <= -deltaY; j++) {
@@ -89,12 +109,15 @@ public abstract class AgenteInteligente extends Robo {
                             System.out.println("O robô não tem autorização para sair do ambiente.");
                             break;
                         }
-                        output.format("Robô está em (%d, %d)\n", getX(), getY() - j);
-                        matrizAmbiente[getX()][getY() - j] = '%';
+                        output.format("Robô está em (%d, %d).\n", getX(), getY() - j);
+                        if (deltaX == 0 && j == 0)
+                            matrizAmbiente[getX()][getY() - j] = '+';
+                        else
+                           matrizAmbiente[getX()][getY() - j] = '=';
                     }
                     setY(getY() - j + 1);
-                    output.format("Robô está em (%d, %d)\n", getX(), getY());
-                    matrizAmbiente[getX()][getY()] = '%';
+                    output.format("Robô está em (%d, %d).\n", getX(), getY());
+                    matrizAmbiente[getX()][getY()] = '-';
                 }
             } catch (ColisaoException erro) {
                 output.format("%s\n", erro.getMessage());
@@ -108,14 +131,12 @@ public abstract class AgenteInteligente extends Robo {
                         output.format("%c ", matrizAmbiente[f][e]);
                     output.format("\n");
                 }
-                output.format("%% - caminho percorrido pelo robô\n\n\n");
+                output.format("                + : início do caminho  = : caminho do robô  - : fim do caminho\n\n\n");
                 output.flush();
                 output.close();
             }
         } catch (IOException erro) {
-            
             System.err.println(erro.getMessage());
         }
     }
-
 }
