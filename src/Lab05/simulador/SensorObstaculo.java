@@ -1,5 +1,7 @@
 package simulador;
 
+import java.lang.Math;
+
 public class SensorObstaculo extends Sensor {
 
     public SensorObstaculo(double raio, Ambiente ambiente) {
@@ -138,6 +140,22 @@ public class SensorObstaculo extends Sensor {
         } else {
             return -1;
         }
+    }
+
+    // Procura obstáculos no raio de busca e retorna a coordenada do obstáculo caso encontre
+    public int[] procuraObstaculoRaio() {
+        int raioInteiro = (int) (Math.ceil(getRaio()));
+        int[] coordenadaObstaculo = {-1, -1};
+        for(int i = getX() - raioInteiro; i <= getX() + raioInteiro; i++) 
+            for(int j = getY() - raioInteiro; j <= getY() + raioInteiro; j++){
+                if(monitorar(i, j) == 1) {
+                    coordenadaObstaculo[0] = i;
+                    coordenadaObstaculo[1] = j;
+                    return coordenadaObstaculo;
+                }
+                    
+            }
+        return coordenadaObstaculo;
     }
 
     public String nomeDoSensor() {
