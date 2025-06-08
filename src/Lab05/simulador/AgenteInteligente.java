@@ -2,6 +2,8 @@ package simulador;
 
 import simulador.interfaces.Missao;
 import simulador.excecoes.ColisaoException;
+import simulador.excecoes.RoboDesligadoException;
+
 import java.util.Formatter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,12 +16,16 @@ public abstract class AgenteInteligente extends Robo {
         this.missao = missao;
     }
 
-    public abstract void executarMissao(Ambiente ambiente);
+    public abstract void executarMissao(Ambiente ambiente) throws RoboDesligadoException;
 
     public Missao getMissao(){
         return missao;
     }
 
+    public void setMissao(Missao m) {
+        missao = m;
+    }
+    
     public void moverComLog(int deltaX, int deltaY) {
         int i = 0, j = 0;
         char[][] matrizAmbiente = getAmbiente().inicializarMatrizAmbiente();

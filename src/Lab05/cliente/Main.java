@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import simulador.Ambiente;
 import simulador.CentralComunicacao;
+import simulador.MissaoBuscaObstaculo;
 import simulador.MissaoPatrulhar;
 import simulador.Obstaculo;
 import simulador.RoboAereo;
@@ -19,6 +20,7 @@ import simulador.RoboXadrez;
 import simulador.SensorObstaculo;
 import simulador.SensorTemperatura;
 import simulador.TipoObstaculo;
+import simulador.excecoes.RoboDesligadoException;
 
 public class Main {
 
@@ -74,9 +76,17 @@ public class Main {
         roboSatelite.adicionarSensor(new SensorTemperatura(50, salaTeste));
         roboSatelite.getDescricao();
         RoboTopeira roboTopeira = new RoboTopeira("Teste", "TP01", 25, 25, salaTeste, missaoPatrulhar);
+        roboTopeira.adicionarSensor(new SensorObstaculo(5, salaTeste));
         roboTopeira.ligar();
         roboTopeira.moverPara(10, 40);
-        roboTopeira.moverPara(16, 9);
+        roboTopeira.moverPara(40, 19);
+        roboTopeira.setMissao(new MissaoBuscaObstaculo());
+        try{
+            roboTopeira.executarMissao(salaTeste);
+        } catch (RoboDesligadoException erro) {
+
+        }
+
 
         /**
          * TESTES INTERATIVOS

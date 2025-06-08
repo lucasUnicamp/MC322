@@ -47,8 +47,8 @@ public class RoboTopeira extends AgenteInteligente {
     }
 
     @Override
-    public void executarMissao(Ambiente ambiente) {
-
+    public void executarMissao(Ambiente ambiente) throws RoboDesligadoException{
+        getMissao().executar(this, ambiente);
     }
 
     @Override 

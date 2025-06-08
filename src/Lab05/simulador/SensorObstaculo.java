@@ -26,6 +26,19 @@ public class SensorObstaculo extends Sensor {
         }
     }
 
+    public int monitorarSemTexto(int posX, int posY) {
+        if (!getAmbiente().dentroDosLimites(posX, posY))
+            return 2;       // Fora do ambiente
+        else if (!dentroDoRaio(posX, posY))
+            return 3;       // Fora do alcance
+        else {
+            if (checarObstaculoPosicao(posX, posY)) {
+                return 1;       // Obstáculo detectado
+            }
+            return 0;       // Obstáculo não detectado
+        }
+    }
+
     public void exibirObsPonto(int posX, int posY) {
         System.out.printf("O sensor detectou um obstáculo no ponto (%d, %d).\n", posX, posY);
     }
@@ -148,7 +161,7 @@ public class SensorObstaculo extends Sensor {
         int[] coordenadaObstaculo = {-1, -1};
         for(int i = getX() - raioInteiro; i <= getX() + raioInteiro; i++) 
             for(int j = getY() - raioInteiro; j <= getY() + raioInteiro; j++){
-                if(monitorar(i, j) == 1) {
+                if(monitorarSemTexto(i, j) == 1) {
                     coordenadaObstaculo[0] = i;
                     coordenadaObstaculo[1] = j;
                     return coordenadaObstaculo;
