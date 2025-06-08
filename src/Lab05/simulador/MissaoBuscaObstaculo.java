@@ -22,6 +22,8 @@ public class MissaoBuscaObstaculo implements Missao{
             if(indiceSensor != -1) {
                 SensorObstaculo sensor = (SensorObstaculo) robo.sensores.get(indiceSensor);
                 int [] coordenadaObstaculo = sensor.procuraObstaculoRaio();
+                output.format("Usando sensor de obstáculo no raio...\n");
+                output.flush();
 
                 if(coordenadaObstaculo[0] == -1) {
                     executarRecursivo(robo, output, 1, sensor);
@@ -51,6 +53,8 @@ public class MissaoBuscaObstaculo implements Missao{
         int deslocamentoY = (int) ((Math.random() * sensor.getRaio()*2) - sensor.getRaio()); // deslocamento aleatório em y
         robo.moverPara(robo.getX() + deslocamentoX, robo.getY() + deslocamentoY);
         int [] coordenadaObstaculo = sensor.procuraObstaculoRaio();
+        output.format("Usando sensor de obstáculo no raio...\n");
+        output.flush();
 
         if(coordenadaObstaculo[0] == -1) {
             executarRecursivo(robo, output, tentativa + 1, sensor);
