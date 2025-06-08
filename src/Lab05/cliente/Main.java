@@ -13,6 +13,7 @@ import simulador.Obstaculo;
 import simulador.RoboAereo;
 import simulador.RoboPlanador;
 import simulador.RoboPreguica;
+import simulador.RoboRebelde;
 import simulador.RoboSatelite;
 import simulador.RoboTerrestre;
 import simulador.RoboTopeira;
@@ -44,7 +45,6 @@ public class Main {
         salaTeste.adicionarEntidade(new Obstaculo(10, 20, 20, 30, TipoObstaculo.ESTATUA_DE_ELEFANTE, salaTeste));
         salaTeste.adicionarEntidade(new Obstaculo(30, 5, 45, 8, TipoObstaculo.THE_BEAN, salaTeste));
 
-        MissaoPatrulhar missaoPatrulhar = new MissaoPatrulhar();
         /**
          * TESTES MANUAIS
          * 
@@ -75,16 +75,20 @@ public class Main {
         roboSatelite.adicionarSensor(new SensorObstaculo(50, salaTeste));
         roboSatelite.adicionarSensor(new SensorTemperatura(50, salaTeste));
         roboSatelite.getDescricao();
-        RoboTopeira roboTopeira = new RoboTopeira("Teste", "TP01", 25, 25, salaTeste, missaoPatrulhar);
+        RoboTopeira roboTopeira = new RoboTopeira("Teste", "TP01", 25, 25, salaTeste);
         roboTopeira.adicionarSensor(new SensorObstaculo(5, salaTeste));
+        RoboRebelde roboRebelde = new RoboRebelde("Enzo", "RB01", 30, 35, salaTeste);
         roboTopeira.ligar();
-        roboTopeira.moverPara(10, 40);
-        roboTopeira.moverPara(40, 19);
-        roboTopeira.setMissao(new MissaoBuscaObstaculo());
+        roboRebelde.ligar();
         try{
+            roboTopeira.moverPara(10, 40);
+            roboTopeira.moverPara(40, 19);
+            roboTopeira.setMissao(new MissaoBuscaObstaculo());
+            roboRebelde.setMissao(new MissaoPatrulhar());
             roboTopeira.executarMissao(salaTeste);
+            roboRebelde.executarMissao(salaTeste);
         } catch (RoboDesligadoException erro) {
-
+            System.err.println(erro.getMessage());
         }
 
 

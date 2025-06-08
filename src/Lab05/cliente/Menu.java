@@ -418,21 +418,28 @@ public class Menu {
 
     public void iniciarMenuExtras(Robo robo) {
         while (true) {
-            int[] listaInterfaces = exibirEscolhaMenuExtras(robo);
-            int entradaExtras = lerEscolhaMenuExtras(listaInterfaces[0]);
+            try {
+                int[] listaInterfaces = exibirEscolhaMenuExtras(robo);
+                int entradaExtras = lerEscolhaMenuExtras(listaInterfaces[0]);
 
-            switch (entradaExtras) {
-                case -1:
-                    return;
-                case 0:
-                    robo.executarTarefa();
-                    break;
-                case 1:
-                    realizarMissoesMenuExtras(robo);
-                    break;
-                default:
-                    realizarAcoesMenuExtras(robo, listaInterfaces, entradaExtras);
-                    break;
+                switch (entradaExtras) {
+                    case -1:
+                        return;
+                    case 0:
+                        robo.executarTarefa();
+                        break;
+                    case 1:
+                        realizarMissoesMenuExtras(robo);
+                        break;
+                    case 2:
+                        atribuirMissoesMenuExtras(robo);
+                        break;
+                    default:
+                        realizarAcoesMenuExtras(robo, listaInterfaces, entradaExtras);
+                        break;
+                }
+            } catch(RoboDesligadoException erro) {
+                System.err.println(erro.getMessage());
             }
         }
     }
@@ -444,6 +451,8 @@ public class Menu {
         System.out.println("\n-- EXTRAS ---------");
         System.out.printf("[0] :: Tarefa %s\n", robo.getNomeTarefa());
         System.out.printf("[1] :: Missão %s\n", robo.getNomeMissao());
+        System.out.printf("[2] :: Atribuir nova missão\n", robo.getNomeMissao());
+
         
         if (robo instanceof Comunicavel) {
             System.out.printf("[%d] :: Comunicar-se\n", indice + 1);
@@ -512,7 +521,7 @@ public class Menu {
         }
     }
 
-    public void realizarMissoesMenuExtras(Robo robo) {
+    public void realizarMissoesMenuExtras(Robo robo) throws RoboDesligadoException{
         if (robo instanceof AgenteInteligente) {
             ((AgenteInteligente) robo).executarMissao(ambiente);
         }
