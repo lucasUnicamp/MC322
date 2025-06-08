@@ -57,6 +57,7 @@ public class Main {
         RoboTerrestre roboTerrestre = new RoboTerrestre("Beta", "RT01", 25, 25, salaTeste, 60);     // Cria o robô terrestre genérico
         roboTerrestre.adicionarSensor(new SensorObstaculo(10, salaTeste));
         roboTerrestre.adicionarSensor(new SensorObstaculo(30, salaTeste));      // Erro de tentar adicionar dois sensores iguais
+        roboTerrestre.adicionarSensor(new SensorTemperatura(10, salaTeste));
         roboTerrestre.getDescricao();
         RoboXadrez roboXadrez = new RoboXadrez("Theta", "RT02", 40, 20, salaTeste, 6, 1);       // Cria o robô terrestre do tipo xadrez
         roboXadrez.adicionarSensor(new SensorObstaculo(15, salaTeste));
@@ -78,6 +79,7 @@ public class Main {
         RoboTopeira roboTopeira = new RoboTopeira("Teste", "TP01", 25, 25, salaTeste);
         roboTopeira.adicionarSensor(new SensorObstaculo(5, salaTeste));
         RoboRebelde roboRebelde = new RoboRebelde("Enzo", "RB01", 30, 35, salaTeste);
+        roboRebelde.adicionarSensor(new SensorObstaculo(10, salaTeste));
         roboTopeira.ligar();
         roboRebelde.ligar();
         try{

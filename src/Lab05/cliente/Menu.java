@@ -4,6 +4,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import simulador.Ambiente;
+import simulador.MissaoBuscaObstaculo;
+import simulador.MissaoPatrulhar;
 import simulador.Robo;
 import simulador.RoboAereo;
 import simulador.RoboPlanador;
@@ -446,12 +448,16 @@ public class Menu {
 
     public int[] exibirEscolhaMenuExtras(Robo robo) {
         int[] listaInterfaces = new int[6];
-        int indice = 1;
+        int indice = 2;
         listaInterfaces[0] = 0;
         System.out.println("\n-- EXTRAS ---------");
         System.out.printf("[0] :: Tarefa %s\n", robo.getNomeTarefa());
         System.out.printf("[1] :: Missão %s\n", robo.getNomeMissao());
-        System.out.printf("[2] :: Atribuir nova missão\n", robo.getNomeMissao());
+        if(robo instanceof AgenteInteligente){
+            System.out.printf("[2] :: Atribuir nova missão\n", robo.getNomeMissao());
+        } else {
+            System.out.printf("[2] :: Não é possível atribuir missões\n", robo.getNomeMissao());
+        }
 
         
         if (robo instanceof Comunicavel) {
@@ -492,7 +498,7 @@ public class Menu {
             listaInterfaces[indice] = 5;
         }
 
-        listaInterfaces[0] = indice;
+        listaInterfaces[0] += indice ;
         System.out.println("\n[-1] :: Voltar");
 
         return listaInterfaces;
@@ -527,6 +533,39 @@ public class Menu {
         }
         else {
             System.out.println("\nO robô não é inteligente o bastante para realizar uma missão.");
+        }
+    }
+
+    public void atribuirMissoesMenuExtras(Robo robo) {
+        if (robo instanceof AgenteInteligente) {
+            System.out.println ("Qual missão deseja atribuir ao robô?\n\n");
+            System.out.println("[0] Missão de Patrulha");
+            System.out.println("[1] Missão de Achar obstáculos");
+
+            while(true) {
+                try {
+                    int escolha = scan.nextInt();
+                    if(escolha < 0 || escolha > 1) {
+                        System.out.println("Escolha uma opção válida");
+                        continue;
+                    } else {
+                        switch (escolha){
+                            case 0:
+                                ((AgenteInteligente) robo).setMissao(new MissaoPatrulhar());
+                                break;
+                            case 1:
+                                ((AgenteInteligente) robo).setMissao(new MissaoBuscaObstaculo());
+                                break;
+                        }
+                        System.out.println("Missão atribuída com sucesso");
+                        break;
+                    }
+                } catch (InputMismatchException erro) {
+                    System.err.println("!!! Use apenas números !!!");
+                }
+            }
+        } else {
+            System.out.println("\nO robô não é inteligente o bastante para ter uma missão atribuída.");
         }
     }
 
