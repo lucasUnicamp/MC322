@@ -326,7 +326,7 @@ public class Ambiente {
 
         System.out.println(". : vazio  # : torre de babel  @ : ciclo básico  & : eucalipto  $ : pedra  £ : estátua de elefante  § : the bean");
         System.out.println("T : robô terrestre  X : robô xadrez  G : robô preguica  A : robô aéreo  P : robô planador  S : robô satélite");
-        System.out.println("                            H : robô topeira  D : robô rebelde");
+        System.out.println("                            H : robô toupeira  D : robô rebelde");
     }
 
     public CentralComunicacao getCentral() {
