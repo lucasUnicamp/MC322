@@ -453,13 +453,13 @@ public class Menu {
         System.out.println("\n-- EXTRAS ---------");
         System.out.printf("[0] :: Tarefa %s\n", robo.getNomeTarefa());
         System.out.printf("[1] :: Missão %s\n", robo.getNomeMissao());
-        if(robo instanceof AgenteInteligente){
-            System.out.printf("[2] :: Atribuir nova missão\n", robo.getNomeMissao());
+
+        if (robo instanceof AgenteInteligente){
+            System.out.printf("[2] :: Atribuir missão\n", robo.getNomeMissao());
         } else {
-            System.out.printf("[2] :: Não é possível atribuir missões\n", robo.getNomeMissao());
+            System.out.printf("[2] :: Não pode atribuir missão\n", robo.getNomeMissao());
         }
 
-        
         if (robo instanceof Comunicavel) {
             System.out.printf("[%d] :: Comunicar-se\n", indice + 1);
             indice++;
@@ -538,18 +538,23 @@ public class Menu {
 
     public void atribuirMissoesMenuExtras(Robo robo) {
         if (robo instanceof AgenteInteligente) {
-            System.out.println ("Qual missão deseja atribuir ao robô?\n\n");
+            System.out.println("\n:: MISSÕES ::::");
             System.out.println("[0] Missão de Patrulha");
-            System.out.println("[1] Missão de Achar obstáculos");
+            System.out.println("[1] Missão de Achar Obstáculos");
+            System.out.println("\n[-1] :: Voltar");
+            System.out.println("\nQual missão deseja atribuir ao robô?");
 
             while(true) {
                 try {
+                    System.out.print("> ");
                     int escolha = scan.nextInt();
                     if(escolha < 0 || escolha > 1) {
-                        System.out.println("Escolha uma opção válida");
+                        System.out.printf("!!! %d Não é uma opção válida !!!\n", escolha);
                         continue;
                     } else {
                         switch (escolha){
+                            case -1:
+                                break;
                             case 0:
                                 ((AgenteInteligente) robo).setMissao(new MissaoPatrulhar());
                                 break;
@@ -557,11 +562,12 @@ public class Menu {
                                 ((AgenteInteligente) robo).setMissao(new MissaoBuscaObstaculo());
                                 break;
                         }
-                        System.out.println("Missão atribuída com sucesso");
+                        System.out.println("\nMissão atribuída com sucesso.");
                         break;
                     }
                 } catch (InputMismatchException erro) {
                     System.err.println("!!! Use apenas números !!!");
+                    scan.next();
                 }
             }
         } else {

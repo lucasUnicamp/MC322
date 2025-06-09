@@ -9,7 +9,7 @@ import simulador.interfaces.Missao;
 
 import java.lang.Math;
 
-// procura um obstáculo no raio de busca do sensor, caso não exista anda para tentar encontrar o obstáculo
+// Procura um obstáculo no raio de busca do sensor, caso não exista anda para tentar encontrar o obstáculo
 public class MissaoBuscaObstaculo implements Missao{
     public void executar(Robo robo, Ambiente ambiente) throws RoboDesligadoException{
         try {
@@ -42,11 +42,11 @@ public class MissaoBuscaObstaculo implements Missao{
         }
     }
 
-    // anda até encontrar um obstáculo ou até ter tentado mais de 10 vezes;
+    // Anda até encontrar um obstáculo ou até ter tentado mais de 10 vezes;
     private void executarRecursivo(Robo robo, Formatter output, int tentativa, SensorObstaculo sensor) throws RoboDesligadoException{
         if(tentativa >= 10) {
-            output.format("O robô andou muito e não achou nenhum obstáculo\n");
-            System.out.println("O robô andou muito e não achou nenhum obstáculo");
+            output.format("O robô andou muito e não achou nenhum obstáculo.\n");
+            System.out.println("O robô andou muito e não achou nenhum obstáculo.");
             return;
         }
         int deslocamentoX = (int) ((Math.random() * sensor.getRaio()*2) - sensor.getRaio()); // deslocamento aleatório em x
@@ -59,13 +59,13 @@ public class MissaoBuscaObstaculo implements Missao{
         if(coordenadaObstaculo[0] == -1) {
             executarRecursivo(robo, output, tentativa + 1, sensor);
         } else {
-            output.format("Obstáculo encontrado em (%d, %d). Robô está agora em (%d, %d)\n\n", coordenadaObstaculo[0], coordenadaObstaculo[1], robo.getX(), robo.getY());
-            System.out.printf("Obstáculo encontrado em (%d, %d). Robô está agora em (%d, %d)\n", coordenadaObstaculo[0], coordenadaObstaculo[1], robo.getX(), robo.getY());
+            output.format("Obstáculo encontrado em (%d, %d). Robô está agora em (%d, %d).\n\n", coordenadaObstaculo[0], coordenadaObstaculo[1], robo.getX(), robo.getY());
+            System.out.printf("Obstáculo encontrado em (%d, %d). Robô está agora em (%d, %d).\n", coordenadaObstaculo[0], coordenadaObstaculo[1], robo.getX(), robo.getY());
         }
         return;
     }
 
     public String getNome() {
-        return "Missão de buscar obstáculos";
+        return "'buscar obstáculos'";
     }
 }
