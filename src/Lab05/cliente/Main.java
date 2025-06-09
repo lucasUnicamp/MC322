@@ -16,7 +16,7 @@ import simulador.RoboPreguica;
 import simulador.RoboRebelde;
 import simulador.RoboSatelite;
 import simulador.RoboTerrestre;
-import simulador.RoboTopeira;
+import simulador.RoboToupeira;
 import simulador.RoboXadrez;
 import simulador.SensorObstaculo;
 import simulador.SensorTemperatura;
@@ -76,9 +76,9 @@ public class Main {
         roboSatelite.adicionarSensor(new SensorObstaculo(50, salaTeste));
         roboSatelite.adicionarSensor(new SensorTemperatura(50, salaTeste));
         roboSatelite.getDescricao();
-        RoboTopeira roboTopeira = new RoboTopeira("Teste", "TP01", 25, 25, salaTeste);
+        RoboToupeira roboTopeira = new RoboToupeira("Kris", "AI01", 25, 25, salaTeste);
         roboTopeira.adicionarSensor(new SensorObstaculo(5, salaTeste));
-        RoboRebelde roboRebelde = new RoboRebelde("Enzo", "RB01", 30, 35, salaTeste);
+        RoboRebelde roboRebelde = new RoboRebelde("Susie", "AI02", 30, 35, salaTeste);
         roboRebelde.adicionarSensor(new SensorObstaculo(10, salaTeste));
         roboTopeira.ligar();
         roboRebelde.ligar();
@@ -92,7 +92,6 @@ public class Main {
         } catch (RoboDesligadoException erro) {
             System.err.println(erro.getMessage());
         }
-
 
         /**
          * TESTES INTERATIVOS

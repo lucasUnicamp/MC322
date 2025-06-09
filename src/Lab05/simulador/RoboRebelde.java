@@ -3,7 +3,7 @@ package simulador;
 import simulador.excecoes.RoboDesligadoException;
 import java.lang.Math;
 
-public class RoboRebelde extends AgenteInteligente{
+public class RoboRebelde extends AgenteInteligente {
     public RoboRebelde(String nome, String id, int posicaoX, int posicaoY, Ambiente ambiente) {
         super(nome, id, posicaoX, posicaoY, ambiente);
     }
@@ -15,13 +15,19 @@ public class RoboRebelde extends AgenteInteligente{
     }
 
     @Override
-    public void moverPara(int x, int y) throws RoboDesligadoException{
-        int deltaXRebelde = (int) ((Math.random() * 4) - 2);
-        int deltaYRebelde = (int) ((Math.random() * 4) - 2);
-        x += deltaXRebelde;
-        y += deltaYRebelde;
-        System.out.printf("%s Quis se mover %d a mais em x e %d a mais em y\n", getID(), deltaXRebelde, deltaYRebelde);
-        moverComLog(x - getX(), y - getY());
+    public void moverPara(int x, int y) throws RoboDesligadoException {
+        int deltaX = x - getX();
+        int deltaY = y - getY();
+        int deltaXRebelde = (int) ((Math.random() * 10));
+        int deltaYRebelde = (int) ((Math.random() * 10));
+        deltaX += deltaX < 0 ? -deltaXRebelde : deltaXRebelde;
+        deltaY += deltaY < 0 ? -deltaYRebelde : deltaYRebelde;
+
+        System.out.printf("Tentando mover o Robô '%s' para a posição (%d, %d).\n", getNome(), x, y);
+        System.out.printf("'%s' quis se mover %d a mais em x e %d a mais em y.\n", getID(), deltaXRebelde, deltaYRebelde);
+        super.moverComLog(deltaX, deltaY);
+        atualizaSensores();
+        System.out.printf("O Robô '%s' terminou o movimento na posição (%d, %d).\n", getNome(), getX(), getY());
     }
 
     @Override
@@ -32,10 +38,10 @@ public class RoboRebelde extends AgenteInteligente{
     @Override
     public void executarMissao(Ambiente ambiente) throws RoboDesligadoException{
         double boaVontade = Math.random();
-        if(boaVontade > 0.3) {
+        if (boaVontade > 0.3) {
             getMissao().executar(this, ambiente);
         } else {
-            System.out.printf("Robô rebelde %s não quer executar a missão\n", getNome());
+            System.out.printf("Robô rebelde %s não quer executar a missão.\n", getNome());
         }
     }
 

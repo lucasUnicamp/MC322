@@ -19,7 +19,7 @@ public class MissaoBuscaObstaculo implements Missao{
             output.format("INÍCIO MISSÃO BUSCAR OBSTÁCULO:\n");
             output.flush();
 
-            if(indiceSensor != -1) {
+            if (indiceSensor != -1) {
                 SensorObstaculo sensor = (SensorObstaculo) robo.sensores.get(indiceSensor);
                 int [] coordenadaObstaculo = sensor.procuraObstaculoRaio();
                 output.format("Usando sensor de obstáculo no raio...\n");
@@ -31,13 +31,12 @@ public class MissaoBuscaObstaculo implements Missao{
                     output.format("Obstáculo encontrado em (%d, %d)\n\n", coordenadaObstaculo[0], coordenadaObstaculo[1]);
                     System.out.printf("Obstáculo encontrado em (%d, %d)\n", coordenadaObstaculo[0], coordenadaObstaculo[1]);
                 }
-            } else {
+            } else 
                 System.out.printf("Sem sensor de obstáculo no robô %s\n", robo.getID());
-            }
 
             output.flush();
             output.close();
-        } catch(IOException erro) {
+        } catch (IOException erro) {
             System.err.println(erro.getMessage());
         }
     }
