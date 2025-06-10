@@ -91,6 +91,13 @@ public class Main {
         Menu menu = new Menu(salaTeste, scan);
         menu.iniciarMenuPrincipal();
 
-        scan.close();
+        try {
+            Formatter arquivoLog  = new Formatter(new FileWriter("logs/log.txt", true));
+            arquivoLog.format("########################################## FIM DO LOG ########################################\n");
+            arquivoLog.flush();
+            arquivoLog.close();
+        } catch (IOException erro) {
+            System.err.println(erro.getMessage());
+        }
     }
 }
