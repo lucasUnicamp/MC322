@@ -48,7 +48,7 @@ public class RoboToupeira extends AgenteInteligente {
     @Override 
     public String getNomeMissao() {
         if (getMissao() == null)
-            return "indisponível";
+            return "inexistente";
         else
             return getMissao().getNome();
     }
