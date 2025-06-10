@@ -1,5 +1,6 @@
-package simulador;
+package simulador.robos;
 
+import simulador.ambiente.Ambiente;
 import simulador.excecoes.RoboDesligadoException;
 import simulador.excecoes.SemObstaculoDestrutivelException;
 import simulador.interfaces.Destrutivo;

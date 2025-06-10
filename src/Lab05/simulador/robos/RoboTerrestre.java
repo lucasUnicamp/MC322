@@ -1,7 +1,9 @@
-package simulador;
+package simulador.robos;
 
 import simulador.excecoes.RoboDesligadoException;
 import simulador.interfaces.Endotermico;
+import simulador.ambiente.Ambiente;
+import simulador.sensores.*;
 
 public class RoboTerrestre extends Robo implements Endotermico{
     private int velocidade;

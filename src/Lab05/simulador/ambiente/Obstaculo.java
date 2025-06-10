@@ -1,5 +1,7 @@
-package simulador;
+package simulador.ambiente;
 
+import simulador.enums.TipoEntidade;
+import simulador.enums.TipoObstaculo;
 import simulador.interfaces.Entidade;
 
 public class Obstaculo implements Entidade {

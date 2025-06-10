@@ -1,8 +1,10 @@
-package simulador;
+package simulador.ambiente;
 
 import java.util.ArrayList;
 
+import simulador.enums.TipoEntidade;
 import simulador.interfaces.Entidade;
+import simulador.robos.*;
 
 import java.lang.Math;
 

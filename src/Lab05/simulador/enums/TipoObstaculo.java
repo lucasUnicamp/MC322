@@ -1,4 +1,4 @@
-package simulador;
+package simulador.enums;
 
 public enum TipoObstaculo {
     TORRE_DE_BABEL(50) ,

@@ -1,8 +1,12 @@
-package simulador;
+package simulador.robos;
 
+import simulador.ambiente.Ambiente;
 import simulador.excecoes.DesceuDemaisException;
 import simulador.excecoes.RoboDesligadoException;
 import simulador.interfaces.Sensoreavel;
+import simulador.sensores.Sensor;
+import simulador.sensores.SensorObstaculo;
+import simulador.sensores.SensorTemperatura;
 
 public class RoboAereo extends Robo implements Sensoreavel {
     private int altitudeMaxima;

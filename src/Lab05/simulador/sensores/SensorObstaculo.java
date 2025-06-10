@@ -1,6 +1,9 @@
-package simulador;
+package simulador.sensores;
 
 import java.lang.Math;
+
+import simulador.ambiente.Ambiente;
+import simulador.ambiente.Obstaculo;
 
 public class SensorObstaculo extends Sensor {
 

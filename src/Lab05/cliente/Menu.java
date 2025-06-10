@@ -3,17 +3,9 @@ package cliente;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import simulador.Ambiente;
-import simulador.MissaoBuscaObstaculo;
-import simulador.MissaoPatrulhar;
-import simulador.Robo;
-import simulador.RoboAereo;
-import simulador.RoboPlanador;
-import simulador.RoboPreguica;
-import simulador.RoboSatelite;
-import simulador.RoboTerrestre;
-import simulador.RoboXadrez;
-import simulador.AgenteInteligente;
+import simulador.robos.*;
+import simulador.agentesinteligentes.AgenteInteligente;
+import simulador.ambiente.Ambiente;
 import simulador.excecoes.DesceuDemaisException;
 import simulador.excecoes.ErroComunicacaoException;
 import simulador.excecoes.RoboDesligadoException;
@@ -23,6 +15,8 @@ import simulador.interfaces.Destrutivo;
 import simulador.interfaces.Endotermico;
 import simulador.interfaces.Geologo;
 import simulador.interfaces.Sensoreavel;
+import simulador.missoes.MissaoBuscaObstaculo;
+import simulador.missoes.MissaoPatrulhar;
 
 public class Menu {
     private final Ambiente ambiente;

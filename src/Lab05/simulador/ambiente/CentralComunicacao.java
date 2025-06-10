@@ -1,9 +1,10 @@
-package simulador;
+package simulador.ambiente;
 
 import java.util.ArrayList;
 
 import simulador.excecoes.ErroComunicacaoException;
 import simulador.interfaces.Comunicavel;
+import simulador.robos.Robo;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

@@ -5,23 +5,15 @@ import java.io.IOException;
 import java.util.Formatter;
 import java.util.Scanner;
 
-import simulador.Ambiente;
-import simulador.CentralComunicacao;
-import simulador.MissaoBuscaObstaculo;
-import simulador.MissaoPatrulhar;
-import simulador.Obstaculo;
-import simulador.RoboAereo;
-import simulador.RoboPlanador;
-import simulador.RoboPreguica;
-import simulador.RoboRebelde;
-import simulador.RoboSatelite;
-import simulador.RoboTerrestre;
-import simulador.RoboToupeira;
-import simulador.RoboXadrez;
-import simulador.SensorObstaculo;
-import simulador.SensorTemperatura;
-import simulador.TipoObstaculo;
-import simulador.excecoes.RoboDesligadoException;
+import simulador.agentesinteligentes.RoboRebelde;
+import simulador.agentesinteligentes.RoboToupeira;
+import simulador.ambiente.Ambiente;
+import simulador.ambiente.CentralComunicacao;
+import simulador.ambiente.Obstaculo;
+import simulador.enums.TipoObstaculo;
+import simulador.robos.*;
+import simulador.sensores.SensorObstaculo;
+import simulador.sensores.SensorTemperatura;
 
 public class Main {
 

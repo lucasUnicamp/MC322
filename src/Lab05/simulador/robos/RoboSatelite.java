@@ -1,7 +1,8 @@
-package simulador;
+package simulador.robos;
 
 import java.lang.Math;
 
+import simulador.ambiente.Ambiente;
 import simulador.excecoes.DesceuDemaisException;
 import simulador.excecoes.RoboDesligadoException;
 import simulador.excecoes.SemObstaculoDestrutivelException;

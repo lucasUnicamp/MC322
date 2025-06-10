@@ -1,5 +1,6 @@
-package simulador;
+package simulador.sensores;
 
+import simulador.ambiente.Ambiente;
 
 public class SensorTemperatura extends Sensor {
 

@@ -1,8 +1,10 @@
-package simulador;
+package simulador.agentesinteligentes;
 
 import simulador.interfaces.Missao;
+import simulador.ambiente.Ambiente;
 import simulador.excecoes.ColisaoException;
 import simulador.excecoes.RoboDesligadoException;
+import simulador.robos.Robo;
 
 import java.util.Formatter;
 import java.io.FileWriter;

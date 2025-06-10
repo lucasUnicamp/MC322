@@ -1,4 +1,4 @@
-package simulador;
+package simulador.enums;
 
 public enum TipoEntidade {
     VAZIO,

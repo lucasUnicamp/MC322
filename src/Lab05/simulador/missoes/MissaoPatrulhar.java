@@ -1,11 +1,13 @@
-package simulador;
+package simulador.missoes;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Formatter;
 
+import simulador.ambiente.Ambiente;
 import simulador.excecoes.RoboDesligadoException;
 import simulador.interfaces.Missao;
+import simulador.robos.Robo;
 
 public class MissaoPatrulhar implements Missao {
     public void executar(Robo robo, Ambiente ambiente) {

@@ -1,8 +1,10 @@
-package simulador;
+package simulador.sensores;
 
 import java.lang.Math;
 
-abstract class Sensor {
+import simulador.ambiente.Ambiente;
+
+public abstract class Sensor {
     private double raio;
     private int posicaoX;
     private int posicaoY;

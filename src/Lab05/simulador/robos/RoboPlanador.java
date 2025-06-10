@@ -1,9 +1,12 @@
-package simulador;
+package simulador.robos;
 
 import java.lang.Math;
 
+import simulador.ambiente.Ambiente;
+import simulador.ambiente.Obstaculo;
 import simulador.excecoes.RoboDesligadoException;
 import simulador.interfaces.Geologo;
+import simulador.sensores.SensorObstaculo;
 
 public class RoboPlanador extends RoboAereo implements Geologo{
     private int tamanhoAsa;     // Quanto maior a asa, por mais tempo consegue planar e também consegue subir mais

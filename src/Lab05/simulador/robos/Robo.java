@@ -1,10 +1,13 @@
-package simulador;
+package simulador.robos;
 
 import java.util.ArrayList;
 
 import simulador.excecoes.ColisaoException;
 import simulador.excecoes.RoboDesligadoException;
 import simulador.interfaces.Entidade;
+import simulador.enums.*;
+import simulador.ambiente.Ambiente;
+import simulador.sensores.*;
 
 public abstract class Robo implements Entidade {
     private String nome;
@@ -370,26 +373,26 @@ public abstract class Robo implements Entidade {
         estado = est;
     }
 
-    protected void setX(int posX) {
+    public void setX(int posX) {
         ambiente.moverEntidadeMapa(this, posX, getY(), getZ());
         posicaoX = posX;
         atualizaSensores();
     }
 
-    protected void setY(int posY) {
+    public void setY(int posY) {
         ambiente.moverEntidadeMapa(this, getX(), posY, getZ());
         posicaoY = posY;
         atualizaSensores();
     }
 
-    protected void setZ(int posZ) {
+    public void setZ(int posZ) {
         ambiente.moverEntidadeMapa(this, getX(), getY(), posZ);
         posicaoZ = posZ;
         posicaoZ = posZ >= 0 ? posZ : 0;        // Corrige altura contra valores negativos
         atualizaSensores();
     }
 
-    protected void setAmbiente(Ambiente ambiente) {
+    public void setAmbiente(Ambiente ambiente) {
         this.ambiente = ambiente;
     }
 
