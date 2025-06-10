@@ -38,16 +38,22 @@ public class RoboRebelde extends AgenteInteligente {
     @Override
     public void executarMissao(Ambiente ambiente) throws RoboDesligadoException{
         double boaVontade = Math.random();
-        if (boaVontade > 0.3) {
-            getMissao().executar(this, ambiente);
-        } else {
-            System.out.printf("Robô rebelde %s não quer executar a missão.\n", getNome());
+        if (getMissao() == null)
+            System.out.println("\nNão há missões disponível para esse robô.");
+        else {
+            if (boaVontade > 0.3) {
+                getMissao().executar(this, ambiente);
+            } else 
+                System.out.printf("Robô rebelde %s não quer executar a missão.\n", getNome());
         }
     }
 
     @Override 
     public String getNomeMissao() {
-        return getMissao().getNome();
+        if (getMissao() == null)
+            return "indisponível";
+        else
+            return getMissao().getNome();
     }
 
     public void atualizaSensores() {

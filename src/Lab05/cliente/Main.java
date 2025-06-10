@@ -28,7 +28,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             Formatter arquivoLog  = new Formatter(new FileWriter("logs/log.txt", false));
-            arquivoLog.format("INÍCIO DO LOG:\n");
+            arquivoLog.format("################################ LOG DOS AGENTES INTELIGENTES ################################\n");
             arquivoLog.flush();
             arquivoLog.close();
         } catch (IOException erro) {
@@ -80,18 +80,18 @@ public class Main {
         roboTopeira.adicionarSensor(new SensorObstaculo(5, salaTeste));
         RoboRebelde roboRebelde = new RoboRebelde("Susie", "AI02", 30, 35, salaTeste);
         roboRebelde.adicionarSensor(new SensorObstaculo(10, salaTeste));
-        roboTopeira.ligar();
-        roboRebelde.ligar();
-        try{
-            roboTopeira.moverPara(10, 40);
-            roboTopeira.moverPara(40, 19);
-            roboTopeira.setMissao(new MissaoBuscaObstaculo());
-            roboRebelde.setMissao(new MissaoPatrulhar());
-            roboTopeira.executarMissao(salaTeste);
-            roboRebelde.executarMissao(salaTeste);
-        } catch (RoboDesligadoException erro) {
-            System.err.println(erro.getMessage());
-        }
+        // roboTopeira.ligar();
+        // roboRebelde.ligar();
+        // try{
+        //     roboTopeira.moverPara(10, 40);
+        //     roboTopeira.moverPara(40, 19);
+        //     roboTopeira.setMissao(new MissaoBuscaObstaculo());
+        //     roboRebelde.setMissao(new MissaoPatrulhar());
+        //     roboTopeira.executarMissao(salaTeste);
+        //     roboRebelde.executarMissao(salaTeste);
+        // } catch (RoboDesligadoException erro) {
+        //     System.err.println(erro.getMessage());
+        // }
 
         /**
          * TESTES INTERATIVOS

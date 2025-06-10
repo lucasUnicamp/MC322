@@ -38,13 +38,19 @@ public class RoboToupeira extends AgenteInteligente {
     }
 
     @Override
-    public void executarMissao(Ambiente ambiente) throws RoboDesligadoException{
-        getMissao().executar(this, ambiente);
+    public void executarMissao(Ambiente ambiente) throws RoboDesligadoException {
+        if (getMissao() == null) 
+            System.out.println("\nNão há missões disponível para esse robô.");
+        else
+            getMissao().executar(this, ambiente);
     }
 
     @Override 
     public String getNomeMissao() {
-        return getMissao().getNome();
+        if (getMissao() == null)
+            return "indisponível";
+        else
+            return getMissao().getNome();
     }
 
     public void atualizaSensores() {

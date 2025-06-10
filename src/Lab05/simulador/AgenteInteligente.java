@@ -29,13 +29,14 @@ public abstract class AgenteInteligente extends Robo {
     @Override
     public abstract void moverPara(int x, int y) throws RoboDesligadoException;
 
-    public void moverComLog(int deltaX, int deltaY) throws RoboDesligadoException{
+    public void moverComLog(int deltaX, int deltaY) throws RoboDesligadoException {
         if (estaLigado()) {
             int i = 0, j = 0;
             char[][] matrizAmbiente = getAmbiente().inicializarMatrizAmbiente();
 
             try {
                 Formatter output = new Formatter(new FileWriter("logs/log.txt", true));
+                output.format("Início do log de movimentação: %s indo de (%d, %d) para (%d, %d)\n", getID(), getX(), getY(), getX() + deltaX, getY() + deltaY);
                 try {
                     if (deltaX > 0) {
                         for ( ; i <= deltaX; i++) {
@@ -133,14 +134,15 @@ public abstract class AgenteInteligente extends Robo {
                     output.format("%s\n", erro.getMessage());
                     System.err.println(erro.getMessage());
                 } finally {
-                    output.format("\nMapa com o caminho feito pelo robô:\n");
+                    output.format("\nMapa do caminho feito pelo robô:\n");
                     // Loop para efetivamente imprimir a matrizAmbiente
                     for (int e = getAmbiente().getLargura(); e >= 0; e--) {
                         for (int f = 0; f <= getAmbiente().getProfundidade(); f++)
                             output.format("%c ", matrizAmbiente[f][e]);
                         output.format("\n");
                     }
-                    output.format("                + : início do caminho  = : caminho do robô  - : fim do caminho\n\n\n");
+                    output.format("                + : início do caminho  = : caminho do robô  - : fim do caminho\n");
+                    output.format("\nFim da movimentação: %s chegou em (%d, %d)\n\n", getID(), getX(), getY());
                     output.flush();
                     output.close();
                 }
