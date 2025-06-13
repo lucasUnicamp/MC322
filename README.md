@@ -24,42 +24,26 @@ Recomenda-se usar:
 
 ## **- EXPLICAÇÕES**
 #### --- AGENTE INTELIGENTE<br/>
-Novo tipo de Robô que...
-
-#### --- MENU INTERATIVO<br/>
-O Menu Interativo agora está melhor formatado e tem mais informações. 
-
-Já os robôs continuam com seus próprios submenus que agora também têm um subsubmenu chamado **Extras**, em que se pode realizar as tarefas específicas de cada robô e usar métodos das interfaces novas.
+Nova classe abstrata que herda de Robô. Pode ter missões atribuídas para serem executadas pelo menu de **Extras** e registradas em um arquivo de texto. Dois desses foram criados:
+* *Robo Toupeira*:
+    - Não é barrado por obstáculos, mas passa dentro deles;
+* *Robo Rebelde*:
+    - Tem uma chance de andar mais do que lhe foi pedido;
+    - Tem uma chance de não realizar a missão.
 
 #### --- INTERFACES<br/>
-**----- Pedidas**
-* *Entidade*:
-    - Tivemos que convencionar o X, Y e Z do obstáculo como a menor coordenada (ponta inferior do objeto) e usar suas dimensões posteriormente para fazer as operações;
-    - Implementado por `Robo` e `Obstaculo`.
-* *Comunicavel*:
-    - Pode enviar mensagens de texto para outros comunicáveis, que vão para a Central de Comunicação. O horário que a mensagem foi enviada também é registrado!
-    - Implementado por `RoboSatelite` e `RoboXadrez`.
-* *Sensoreavel*:
-    - Permite que acione todos os sensores de uma vez e monitore um quadrado em sua volta;
-    - Implementado por `RoboAereo`.
+* *Missão*
+    - Tem o método executar que é usado para realizar de fato a missão;
+    - E um método getNome() para nomearmos a missão.
 
 #### --- MISSÕES<br/>
-Cada tipo de robô controlável recebeu uma tarefa específica, que é uma ação temática  acessível pelo submenu **Extras**. Essas são:
-* *Marchar em frente*:
-    - O robô anda em linha reta na direção em que está 'olhando', parando apenas caso colida com um obstáculo ou saia do ambiente;
-    - Implementado por `RoboTerrestre`.
-* *Mover como Rainha*:
-    - Permite que a próxima movimentação do robô seja feita como a peça Rainha do xadrez; 
-    - Implementado por `RoboXadrez`.
-* *Superdescansamento*:
-    - O robô descansa e carrega suas energias ao máximo;
-    - Implementado por `RoboPreguica`.
-* *Teleportar*:
-    - O robô viaja super rápido e se teletransporta para uma posição aleatória do ambiente;
-    - Implementado por `RoboAereo`.
-* *Trocar sentido do Planador*:
-    - Passa a subir ao invés de descer enquanto se move. Pode ser usado novamente para reverter o sentido;
-    - Implementado por `RoboPlanador`.
-* *Carga ideal para Órbita*:
-    - Calcula o intervalo perfeito de valores de carregamento para colocar o robô em órbita; 
-    - Implementado por `RoboSatelite`.
+As missões podem ser atribuidas aos Agentes Inteligentes pelo menu de **Extras** desses. Robôs não inteligentes não conseguem ter missões atribuídas. Duas foram criadas:
+* *Missão Patrulhar*:
+    - O robô anda em um quadrado de lado 10, em que a posição inicial corresponde ao vértice inferior esquerdo;
+    - Caso colida com algum obstáculo, avisa tanto para o usuário quanto no log.
+* *Missão Buscar Obstáculo*:
+    - O robô vai se deslocando aleatoriamente pelo ambiente até que encontre um obstáculo;
+    - Registra para o usuário e no log a posição em que o obstáculo foi encontrado.
+
+#### --- MENU INTERATIVO<br/>
+O submenu de **Extras** presente nos robôs agora tem as opções de atribuir uma missão ao robô e executar essa missão. Como dito, apenas agentes inteligentes podem ter missões atribuidas e, portanto, realizá-las.
