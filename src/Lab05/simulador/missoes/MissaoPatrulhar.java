@@ -15,32 +15,36 @@ public class MissaoPatrulhar implements Missao {
         int y = robo.getY();
 
         try {
-            Formatter output = new Formatter(new FileWriter("logs/log.txt", true));
-            
-            output.format("Início da Missão Patrulhar pelo robô '%s':\n", robo.getNome());
-            output.flush();
-
-            System.out.println("\nExecutando missão de patrulha...");
-            System.out.printf("'%s' vai tentar se mover em um quadrado de lado 10.\n", robo.getNome());
-            robo.moverPara(robo.getX() + 10, robo.getY() + 10);
-            robo.moverPara(robo.getX() - 10, robo.getY() - 10);
-
-            if (x == robo.getX() && y == robo.getY()) {
-                output.format("A Missão Patrulhar foi concluída com sucesso.\n");
+            if (robo.estaLigado()) {
+                Formatter output = new Formatter(new FileWriter("logs/log.txt", true));
+                
+                output.format("Início da Missão Patrulhar pelo robô '%s':\n", robo.getNome());
                 output.flush();
-                System.out.println("A patrulha ocorreu com sucesso.");
-            }
-            else {
-                output.format("A Missão Patrulhar não foi concluída com sucesso. '%s' não pode voltar à posição inicial.\n", robo.getNome());
-                output.flush();
-                System.out.println("O robô não consegiu fazer a patrulha completa.");
-            }
+                System.out.println("\nExecutando missão de patrulha...");
 
-            output.flush();
-            output.close();
+                System.out.printf("'%s' vai tentar se mover em um quadrado de lado 10.\n", robo.getNome());
+                robo.moverPara(robo.getX() + 10, robo.getY() + 10);
+                robo.moverPara(robo.getX() - 10, robo.getY() - 10);
+
+                if (x == robo.getX() && y == robo.getY()) {
+                    output.format("A Missão Patrulhar foi concluída com sucesso.\n");
+                    output.flush();
+                    System.out.println("A patrulha ocorreu com sucesso.");
+                }
+                else {
+                    output.format("A Missão Patrulhar não foi concluída com sucesso. '%s' não pode voltar à posição inicial.\n", robo.getNome());
+                    output.flush();
+                    System.out.println("O robô não consegiu fazer a patrulha completa.");
+                }
+
+                output.flush();
+                output.close();
+            } else 
+                throw new RoboDesligadoException(robo.getNome());
         } catch (IOException erro) {
             System.out.println(erro.getMessage());
         } catch (RoboDesligadoException erro) {
+            System.out.println("");
             System.err.println(erro.getMessage());
         }
     }
