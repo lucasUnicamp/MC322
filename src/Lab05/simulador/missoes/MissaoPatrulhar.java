@@ -27,7 +27,7 @@ public class MissaoPatrulhar implements Missao {
                 robo.moverPara(robo.getX() - 10, robo.getY() - 10);
 
                 if (x == robo.getX() && y == robo.getY()) {
-                    output.format("A Missão Patrulhar foi concluída com sucesso.\n");
+                    output.format("A Missão Patrulhar foi concluída com sucesso.\n\n");
                     output.flush();
                     System.out.println("A patrulha ocorreu com sucesso.");
                 }
